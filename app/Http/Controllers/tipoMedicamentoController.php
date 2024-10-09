@@ -21,7 +21,7 @@ class tipoMedicamentoController extends Controller
 
     public function storeapi(Request $request)
     {
-        $tipoMedicamento = new tipoMedicamentoModel();
+        $tipoMedicamento = new TipoMedicamentoModelFarmacia();
 
         //$tipoMedicamento->idTipoMedicamento = $request->id;
         $tipoMedicamento->tipoMedicamento = $request->tipoMed;

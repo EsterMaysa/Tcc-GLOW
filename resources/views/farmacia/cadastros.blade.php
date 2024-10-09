@@ -111,6 +111,30 @@
 <script src="{{ asset('vendor/bootstrap/js/popper.js') }}"></script>
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
+<script>
+    $(document).ready(function() {
+        $('#cepCliente').on('blur', function() {
+            var cep = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
+            if (cep.length === 8) {
+                $.getJSON(`https://viacep.com.br/ws/${cep}/json/?callback=?`, function(dados) {
+                    if (!("erro" in dados)) {
+                        // Preencher os campos do endereço
+                        $('#logradouroCliente').val(dados.logradouro);
+                        $('#bairroCliente').val(dados.bairro);
+                        $('#cidadeCliente').val(dados.localidade);
+                        $('#estadoCliente').val(dados.uf); // Preenche o campo UF
+                        $('#ufCliente').val(dados.uf); // Preenche o campo Estado
+                    } else {
+                        alert("CEP não encontrado.");
+                    }
+                });
+            } else {
+                alert("CEP inválido.");
+            }
+        });
+    });
+</script>
+
 <style>
     /* Estilos CSS adicionais */
     .form-wrapper {
@@ -187,9 +211,12 @@
         color: white; /* Cor da letra do botão */
         width: 250px; /* Largura do botão */
         font-size: 20px; /* Tamanho da fonte do botão */
+        transition: background-color 0.3s; /* Transição suave para mudança de cor */
     }
 
     .submit-btn:hover {
-        background-color: #76C676; /* Sombra mais escura ao passar o mouse */
+        background-color: #57b8ff; /* Cor do botão ao passar o mouse */
     }
 </style>
+
+@include('includes.footer')

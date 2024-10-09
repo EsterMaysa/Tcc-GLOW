@@ -27,7 +27,7 @@
 			<li class="active">
 				<a href="/create">
 					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Criar </span>
+					<span class="text"> Inserir </span>
 				</a>
 			</li>
 			<li>
@@ -104,6 +104,16 @@
 						</td>
 						<td>
 							<a href="/insertCliente">
+								<span class="status busca"> Criar </span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Medicamento</p>
+						</td>
+						<td>
+							<a href="Medicamentos">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>

@@ -55,6 +55,13 @@
                     <label for="emailFabricante">Email:</label>
                     <input type="email" id="emailFabricante" name="emailFabricante" maxlength="100">
                 </div>
+                <div class="form-row">
+                    <div class="form-group column">
+                        <label for="numeroTelefoneFabricante">Número de Telefone:</label>
+                        <input type="text" id="numeroTelefoneFabricante" name="numeroTelefoneFabricante" maxlength="11" required>
+                    </div>
+                </div>
+
                 <div class="form-group column">
                     <label for="logradouroFabricante">Logradouro:</label>
                     <input type="text" id="logradouroFabricante" name="logradouroFabricante" maxlength="50" required>
@@ -103,7 +110,6 @@
                     <label for="complementoFabricante">Complemento:</label>
                     <input type="text" id="complementoFabricante" name="complementoFabricante" maxlength="10">
                 </div>
-                
             </div>
 
             <!-- Botão de Submissão -->
@@ -209,5 +215,30 @@
         background-color: #3CB371;
     }
 </style>
+
+<script src="{{ asset('vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#cepFabricante').on('blur', function() {
+            var cep = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
+            if (cep.length === 8) {
+                $.getJSON(`https://viacep.com.br/ws/${cep}/json/?callback=?`, function(dados) {
+                    if (!("erro" in dados)) {
+                        // Preencher os campos do endereço
+                        $('#logradouroFabricante').val(dados.logradouro);
+                        $('#bairroFabricante').val(dados.bairro);
+                        $('#cidadeFabricante').val(dados.localidade);
+                        $('#estadoFabricante').val(dados.uf); // Preenche o campo Estado
+                        $('#ufFabricante').val(dados.uf); // Preenche o campo UF
+                    } else {
+                        alert("CEP não encontrado.");
+                    }
+                });
+            } else {
+                alert("CEP inválido.");
+            }
+        });
+    });
+</script>
 
 @include('includes.footer')

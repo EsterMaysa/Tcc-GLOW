@@ -42,8 +42,8 @@ class MedicamentoFarmaciaController extends Controller
                 $fabricanteId = $request->idFabricante;
             } elseif ($request->filled('fabricante')) { // Se um novo fabricante foi inserido
                 // Crie um novo fabricante
-                $fabricante = new Fabricante();
-                $fabricante->nomeFabricante = $request->fabricante;
+                $fabricante = new FabricanteController();
+                $fabricante->nomeFabricante = $request->nomeFabricante;
                 // Preencha outros campos necessários...
                 $fabricante->save();
 

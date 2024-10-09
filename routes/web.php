@@ -6,6 +6,7 @@ use App\Http\Controllers\MedicamentoController;
 use App\Http\Controllers\MedicamentoFarmaciaController;
 use App\Http\Controllers\TelefoneClienteController;
 use App\Http\Controllers\tipoMedicamentoController;
+use App\Http\Controllers\TelefoneFabricanteFarmaciaController;
 
 
 /*
@@ -209,3 +210,7 @@ Route::post('/medicamentos','App\Http\Controllers\MedicamentoFarmaciaController@
 // Route::get('/tipoMedicamento', [tipoMedicamentoController::class, 'index'])->name('tipoMedicamento.index');
 
 Route::post('/fabricanteFarma','App\Http\Controllers\FabricanteController@store');
+
+//rota telefone do fabricante
+Route::get('/telefonesFabricante', [TelefoneFabricanteFarmaciaController::class, 'index'])->name('telefones.index');
+Route::post('/telefonesFabricante', [TelefoneFabricanteFarmaciaController::class, 'store'])->name('telefones.store');

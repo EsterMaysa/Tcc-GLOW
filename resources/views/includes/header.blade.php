@@ -49,7 +49,7 @@
 			<li>
 				<a href="/create">
 					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Criar </span>
+					<span class="text"> Inserir </span>
 				</a>
 			</li>
 			<li>
