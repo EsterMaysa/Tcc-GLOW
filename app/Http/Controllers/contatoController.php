@@ -3,47 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\contatoModel;
-use Illuminate\Routing\Controller;
+use App\Models\ContatoModel;
 
-class contatoController extends Controller
+class ContatoController extends Controller
 {
-    public function updateapi(Request $request, $id)
+    public function index()
     {
-        contatoModel::where('idContato', $id)->update([
-            'idFarmacia' => $request->idFarmacia,	
-            'idTelefone' => $request->idTelefone,
-        ]);
-
-        return response()-> json([
-            'mensage' => 'Sucesso',
-            'code' =>200]
-         );
+        $contatos = ContatoModel::all();
+        return response()->json($contatos);
     }
 
     public function store(Request $request)
     {
-        $contato = new contatoModel();
-
-        $contato->idcontato = $request->idContato;
-        $contato->idfarmacia = $request->idFarmacia;
-        $contato->idtelefone = $request->idTelefone;
+        $contato = new ContatoModel();
+        $contato->idUsuario = $request->idUsuario;
+        $contato->idDetentor = $request->idDetentor;
+        $contato->idMedicamento = $request->idMedicamento;
+        $contato->situacaoContato = $request->situacao;
+        $contato->dataCadastroContato = now();
 
         $contato->save();
         return response()->json(['message' => 'Contato criado com sucesso!'], 201);
-
     }
 
-    public function storeapi(Request $request)
+    public function updateapi(Request $request, $id)
     {
-        $contato = new contatoModel();
+        ContatoModel::where('idContato', $id)->update([
+            'idUsuario' => $request->idUsuario,
+            'idDetentor' => $request->idDetentor,
+            'idMedicamento' => $request->idMedicamento,
+            'situacaoContato' => $request->situacao,
+        ]);
 
-        $contato->idcontato = $request->idContato;
-        $contato->idfarmacia = $request->idFarmacia;
-        $contato->idtelefone = $request->idTelefone;
-
-        $contato->save();
-        return response()->json(['message' => 'Contato criado com sucesso!'], 201);
-
+        return response()->json(['message' => 'Sucesso', 'code' => 200]);
     }
 }

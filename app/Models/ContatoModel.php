@@ -5,16 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RegiaoModel extends Model
+class ContatoModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbRegiao';
+    protected $table = 'tbContato';
+    protected $connection = 'mysql';
 
     protected $fillable = [
-        'nomeRegiao',
-        'situaçãoRegiao',
-        'dataCadastroRegiao',
+        'mensagemCcontato',
+        'situaçãoContato',
+        'dataCadastroContato',
+        'idUsuario',
     ];
 
     public $timestamps = false;

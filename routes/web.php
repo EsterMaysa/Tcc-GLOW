@@ -9,6 +9,13 @@ use App\Http\Controllers\tipoMedicamentoController;
 use App\Http\Controllers\TelefoneFabricanteFarmaciaController;
 
 
+
+
+
+//novos controllers
+use App\Http\Controllers\UBSController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +23,62 @@ use App\Http\Controllers\TelefoneFabricanteFarmaciaController;
 |
 | Aqui é onde você pode registrar as rotas da web para o seu aplicativo.
 | Essas rotas são carregadas pelo RouteServiceProvider dentro de um grupo
-| que contém o grupo de middleware "web". Agora crie algo incrível!
+| que contém o grupo de middleware "web". Agora crie algo incrível!     
 |
 */
+
+//NOVAS
+
+// Rota para exibir o formulário de cadastro da UBS
+Route::get('/formUBS', function () {
+    return view('adm.formUBS');
+});
+
+// Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
+Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Páginas  farmacia*/
 Route::get('/loginFarmacia', function () {
@@ -206,6 +266,8 @@ Route::delete('/telefones/{id}', [TelefoneClienteController::class, 'destroy'])-
 //Rotas do Medicamento
 Route::get('/medicamentos', [MedicamentoFarmaciaController::class, 'index'])->name('medicamentos.index');
 Route::post('/medicamentos', [MedicamentoFarmaciaController::class, 'store']);
+
+
 
 Route::get('/atualizarMedicamentoEstoque/{id}', [MedicamentoFarmaciaController::class, 'edit'])->name('medicamento.edit');
 Route::put('/medicamentos', [MedicamentoFarmaciaController::class, 'update'])->name('medicamento.update');

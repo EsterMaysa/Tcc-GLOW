@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoMedicamentoModelFarmacia extends Model
+class TipoMedicamentoModel extends Model
 {
     use HasFactory;
-    
-    protected $connection = 'mysql2'; 
 
-    protected $table = 'tbtipomedicamentofarmacia';
+    protected $table = 'tbTipoMedicamento';
+    protected $connection = 'mysql';
 
     protected $fillable = [
         'tipoMedicamento',
         'situacaoTipoMedicamento',
         'formaMedicamento',
-        'dataCadastroTipoMedicamento'
+        'dataCadastroTipoMedicamento',
     ];
 
     public $timestamps = false;

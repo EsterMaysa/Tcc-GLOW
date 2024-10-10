@@ -110,6 +110,16 @@
 					</tr>
 					<tr>
 						<td>
+							<p>Posto</p>
+						</td>
+						<td>
+							<a href="/insertCliente">
+								<span class="status busca"> Criar </span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<p>Medicamento</p>
 						</td>
 						<td>
