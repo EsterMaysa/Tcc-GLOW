@@ -23,7 +23,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{{ asset('Image/buscaSUSAdm.png')}}" alt="IMG" width="110%">
+					<img src="{{ asset('Image/logoAdm.png')}}" alt="IMG" width="110%">
 				</div>
 
 				<form class="login100-form validate-form" action="/admLogin" method="post">

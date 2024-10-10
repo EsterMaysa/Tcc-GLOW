@@ -2,7 +2,7 @@
 <!--  AQUI VAI O SELECT  -->
 <section id="sidebar">
 		<a href="/" class="brand">
-		<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/busca.png')}}" width="70%"></span>
+		<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/logoAdm.png')}}" width="70%"></span>
 		</a>
 		<ul class="side-menu top">
 			<li>

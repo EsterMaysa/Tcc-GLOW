@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="{{ asset('/css/configuracoes.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-	<title> Dashboard Administrador | BuscaSUS </title>
+	<title> Dashboard Administrador | FarmaSUS </title>
 	<link rel="shortcut icon" href="{{ asset('/Image/favicon (1).ico') }}" type="image/x-icon">
 
 </head>
@@ -24,7 +24,7 @@
 <body>
 	<section id="sidebar">
 		<a href="/" class="brand">
-			<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/busca.png')}}" width="70%"></span>
+			<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/logoAdm.png')}}" width="70%"></span>
 		</a>
 		<ul class="side-menu top">
 			<li class="active">

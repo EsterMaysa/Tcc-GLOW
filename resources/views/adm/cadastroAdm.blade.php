@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 
-    <title>Cadastro | BuscaSUS</title>
+    <title>Cadastro | FarmaSUS</title>
     <link rel="shortcut icon" href="{{ asset('Image/favicon (1).ico') }}" type="image/x-icon">
 </head>
 <body>
@@ -20,7 +20,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="{{ asset('Image/BuscaSUSAdm.png') }}" alt="IMG" width="150%">
+                    <img src="{{ asset('Image/logoAdm.png') }}" alt="IMG" width="150%">
                 </div>
 
                 <form class="login100-form validate-form" action="/adm" method="post">

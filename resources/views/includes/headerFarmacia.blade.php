@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="{{ asset('/css/styleFarm.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-	<title> Dashboard Farmácia | BuscaSUS </title>
+	<title> Dashboard Farmácia | FarmaSUS </title>
 	<link rel="shortcut icon" href="{{ asset('/Image/favicon (1).ico') }}" type="image/x-icon">
 
 </head>
@@ -23,7 +23,7 @@
 <body>
 	<section id="sidebar">
 		<a href="/homeFarmacia" class="brand">
-			<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/BuscaFarm.png')}}" width="70%"></span>
+			<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/logoFarma.png')}}" width="70%"></span>
 		</a>
 		<ul class="side-menu top">
 			<li class="active">

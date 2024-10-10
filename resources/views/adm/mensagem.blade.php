@@ -1,5 +1,5 @@
 @include('includes.header') 
-<section id="sidebar">
+<!-- <section id="sidebar">
 		<a href="/" class="brand">
 			<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/busca.png')}}" width="70%"></span>
 		</a>
@@ -64,7 +64,7 @@
     		</li>
 		</ul>
 
-	</section>
+	</section> -->
 <main>
     <div class="head-title">
 		<div class="left">
