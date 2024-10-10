@@ -14,7 +14,7 @@
 			<li class="active">
 				<a href="/consultar">
 					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text"> Consultar </span>
+					<span class="text"> vini </span>
 				</a>
 			</li>
 			<li>
