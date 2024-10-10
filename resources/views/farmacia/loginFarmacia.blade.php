@@ -21,7 +21,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{{ asset('Image/BuscaSUSFarm.png')}}" alt="IMG" width="100%">
+					<img src="{{ asset('Image/logoFarma.png')}}" alt="IMG" width="100%">
 				</div>
 
 				<form class="login100-form validate-form" action="/farmaciaLogin" method="post">

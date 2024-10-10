@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cadfarmacia.css')}}">
 
-    <title>Cadastro de Farmácia | BuscaSUS</title>
+    <title>Cadastro de Farmácia | FarmaSUS</title>
     <link rel="shortcut icon" href="{{ asset('Image/favicon (1).ico') }}" type="image/x-icon">
 </head>
 <body>
@@ -20,7 +20,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt id="logo">
-                    <img src="{{ asset('Image/BuscaSUSFarm.png') }}" alt="IMG" width="120%">
+                    <img src="{{ asset('Image/logoFarma.png') }}" alt="IMG" width="120%">
                 </div>
 
                 <form class="login100-form validate-form" action="/farmacia" method="POST">
