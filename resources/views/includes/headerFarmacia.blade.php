@@ -44,12 +44,12 @@
 					<span class="text"> Inserir Cliente </span>
 				</a>
 			</li>
-			<li>
+			<!-- <li> FOI PARA O ADM
 				<a href="/medicamentos">
 					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
 					<span class="text"> Inserir Medicamento </span>
 				</a>
-			</li>
+			</li> -->
 			<!-- <li>
 				<a href="">
 					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>

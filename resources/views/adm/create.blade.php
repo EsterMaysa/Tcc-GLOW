@@ -113,7 +113,7 @@
 							<p>Medicamento</p>
 						</td>
 						<td>
-							<a href="Medicamentos">
+							<a href="medicamentos">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
@@ -168,7 +168,7 @@
 							</a>
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>
 							<p>Notificação de Comentarios</p>
 						</td>
@@ -177,8 +177,8 @@
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
-					</tr>
-					<tr>
+					</tr> -->
+					<!-- <tr>
 						<td>
 							<p>Notificação de Estoque</p>
 						</td>
@@ -187,7 +187,7 @@
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 		</div>

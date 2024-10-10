@@ -1,4 +1,4 @@
-@include('includes.headerFarmacia')
+@include('includes.header')
 
 <!-- Main content -->
 <div class="col-md-9 col-lg-10 main-content">
@@ -154,22 +154,21 @@
 <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
 @include('includes.footer')
-
 <!-- Estilos CSS Atualizados -->
 <style>
     .form-row {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 20px; /* Espaço entre as linhas */
+        margin-bottom: 20px;
     }
 
     .form-group {
-        flex: 1; /* Faz os campos ocuparem a mesma largura */
-        margin-right: 10px; /* Espaço entre os campos */
+        flex: 1;
+        margin-right: 10px;
     }
 
     .form-group:last-child {
-        margin-right: 0; /* Remove a margem do último campo */
+        margin-right: 0;
     }
 
     .form-group select,
@@ -177,7 +176,7 @@
     .form-group textarea {
         width: 100%;
         padding: 10px;
-        border-radius: 5px; /* Bordas levemente arredondadas */
+        border-radius: 5px;
         border: 1px solid #ddd;
         font-size: 14px;
     }
@@ -210,58 +209,61 @@
     }
 
     .styled-form {
-        background-color: #265C4B;
+        background-color: #14213D; /* Cor do formulário alterada */
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         width: 100%;
-        max-width: 800px; /* Ajuste para aumentar a largura do formulário */
-        margin: 0 auto; /* Centraliza o formulário horizontalmente */
+        max-width: 800px;
+        margin: 0 auto;
     }
 
     .form-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column; /* Mudado para coluna para melhor centralização */
-        min-height: 80vh; /* Para centralização vertical */
-        margin-left: 160px; /* Move o formulário mais para a esquerda */
+        flex-direction: column;
+        min-height: 80vh;
+        margin-left: 160px;
     }
 
     .form-group label {
         display: block;
         margin-bottom: 5px;
-        color: white; /* Cor da letra do label */
+        color: white; /* Mantém o texto branco para contraste */
     }
 
     .submit-btn {
         padding: 9px 320px;
-        background-color: #90EE90; /* Verde claro */
+        background-color: #57b8ff; /* Tom suave de azul */
         border: none;
-        border-radius: 5px; /* Bordas levemente arredondadas para o botão */
+        border-radius: 5px;
+        color: black;
         cursor: pointer;
-        display: block;
-        margin: 0px auto; /* Centraliza o botão */
-        color: white; /* Cor da letra do botão */
+        transition: background-color 0.3s;
+        margin-left: 250px;
     }
 
     .submit-btn:hover {
-        background-color: #76C676; /* Sombra mais escura ao passar o mouse */
+        background-color: #4b89f5; /* Tom mais escuro ao passar o mouse */
     }
 
-    .btn.btn-secondary {
-        background-color: #90EE90; /* Verde claro */
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px; /* Bordas levemente arredondadas */
-        cursor: pointer;
-        margin-left: 10px; /* Ajusta a margem do botão de novo fabricante */
-        margin: 0px auto; 
+    .button-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .btn.btn-secondary:hover {
-        background-color: #76C676; /* Sombra mais escura ao passar o mouse */
+    .btn-secondary {
+        background-color: #57b8ff; /* Botão suave de azul */
+        padding: 9px 15px;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        margin: 0 auto;
     }
-    
+
+    .btn-secondary:hover {
+        background-color: #4b89f5; /* Tom mais escuro ao passar o mouse */
+    }
 </style>

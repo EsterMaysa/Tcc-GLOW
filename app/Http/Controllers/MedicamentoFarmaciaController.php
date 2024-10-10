@@ -3,56 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\MedicamentoFarmaciaModel;
-
-use App\Models\TipoMedicamentoModelFarmacia; //model tipo medicamento
-
-use App\Models\FabricanteFarmaciaModel; //model fabricante
-
-
+use App\Models\TipoMedicamentoModelFarmacia; // Model tipo medicamento
+use App\Models\FabricanteFarmaciaModel; // Model fabricante
 use Illuminate\Http\Request;
 
 class MedicamentoFarmaciaController extends Controller
 {
-    // Método para listar todos os medicamentos, tipo e fabricante
+    // Método para listar todos os medicamentos, tipos e fabricantes
     public function index()
     {
         $medicamentos = MedicamentoFarmaciaModel::all(); 
 
-        //tipo de medicamento
+        // Tipo de medicamento
         $tipoMedicamento = TipoMedicamentoModelFarmacia::all();
 
-        //fabricante
+        // Fabricantes
         $fabricantes = FabricanteFarmaciaModel::all();
 
-        return view('farmacia.MedicamentoFarmacia', compact('medicamentos','tipoMedicamento','fabricantes')); // Passa os dados para a view
+        return view('farmacia.MedicamentoFarmacia', compact('medicamentos', 'tipoMedicamento', 'fabricantes')); // Passa os dados para a view
     }
 
     // Método para armazenar um novo medicamento
     public function store(Request $request)
     {
-
-            // Validação dos dados fabricante
+       
+        
+            // Verifica os dados recebidos
+            dd($request->all());
+        
+            // Validação dos dados do fabricante
             $request->validate([
                 'idFabricante' => 'nullable|exists:tbFabricanteFarmacia,idFabricante',
-                'fabricante' => 'nullable|string|max:100',
+                'nomeFabricante' => 'nullable|string|max:100', 
             ]);
+        
+            // Resto do código permanece o mesmo
+        
 
-            // Se um fabricante existente foi selecionado
-            if ($request->filled('idFabricante')) {
-                $fabricanteId = $request->idFabricante;
-            } elseif ($request->filled('fabricante')) { // Se um novo fabricante foi inserido
-                // Crie um novo fabricante
-                $fabricante = new FabricanteController();
-                $fabricante->nomeFabricante = $request->nomeFabricante;
-                // Preencha outros campos necessários...
-                $fabricante->save();
-
-                $fabricanteId = $fabricante->idFabricante;
-            }
-
-
+        // Criação de um novo medicamento
         $medicamento = new MedicamentoFarmaciaModel();
-
         $medicamento->nomeMedicamento = $request->nomeMedicamento;
         $medicamento->nomeGenericoMedicamento = $request->nomeGenericoMedicamento;
         $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarrasMedicamento;
@@ -63,17 +52,20 @@ class MedicamentoFarmaciaController extends Controller
         $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceuticaMedicamento; // Ex: 'Comprimido'
         $medicamento->quantMedicamento = $request->quantMedicamento; // Ex: 100
         $medicamento->composicaoMedicamento = $request->composicaoMedicamento;
-        $medicamento->idFabricante = $fabricanteId;
+        $medicamento->idFabricante = $fabricanteId ?? null; // Verifica se o fabricanteId está definido
         $medicamento->idTipoMedicamento = $request->idTipoMedicamento; // Chave estrangeira para o tipo de medicamento
-        $medicamento->situacaoMedicamento =  '0'; // Situação, ex: 'A' para ativo
+        $medicamento->situacaoMedicamento = '0'; // Situação padrão (0 para não ativo)
         $medicamento->dataCadastroMedicamento = now(); // Data atual
         
-        $medicamento->save(); // Salva o registro no banco de dados
+        // Salva o registro no banco de dados
+        $medicamento->save();
         
+        // Mensagem de sucesso
         session()->flash('success_messages', ['Medicamento criado com sucesso!']);
 
-        // Redireciona para a rota de medicamentos
-        return redirect()->route('medicamentos.index');    }
+        // Redireciona para a lista de medicamentos (ajuste a rota conforme necessário)
+        return redirect()->route('medicamentos.index');
+    }
 
     // Adicione métodos adicionais conforme necessário (exibir, editar, atualizar, excluir)
 }
