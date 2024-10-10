@@ -23,12 +23,12 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{{ asset('Image/logoAdm.png')}}" alt="IMG" width="110%">
+					<img src="{{ asset('Image/logoAdm.png')}}" alt="IMG" style=" width: 350% ; margin-top: -30%">
 				</div>
 
-				<form class="login100-form validate-form" action="/admLogin" method="post">
+				<form class="login100-form validate-form" style="font-size: 20px; margin-top: -12% " action="/admLogin" method="post">
 					@csrf
-					<span class="login100-form-title">Administrador | Login</span>
+					<span class="login100-form-title">Administrador | Login </span>
 
 					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email">

@@ -20,13 +20,13 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="{{ asset('Image/logoAdm.png') }}" alt="IMG" width="150%">
+                    <img src="{{ asset('Image/logoAdm.png   ') }}" alt="IMG" style=" width: 350% ; margin-top: -30%">
                 </div>
 
                 <form class="login100-form validate-form" action="/adm" method="post">
                     @csrf
-                    <span class="login100-form-title" style="font-size: 20px;">
-                        Cadastro | Administrador
+                    <span class="login100-form-title" style="font-size: 20px; margin-top: -45% "><br>
+                        Cadastro | Administrador 
                     </span>
                     
                     <div class="wrap-input100 validate-input" data-validate="Nome é obrigatório">

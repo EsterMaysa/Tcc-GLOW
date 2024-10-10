@@ -18,12 +18,12 @@
 <body>
     <div class="limiter">
         <div class="container-login100">
-            <div class="wrap-login100">
+            <div class="wrap-login1000">
                 <div class="login100-pic js-tilt" data-tilt id="logo">
-                    <img src="{{ asset('Image/logoFarma.png') }}" alt="IMG" width="120%">
+                    <img src="{{ asset('Image/logoFarma.png') }}" alt="IMG"  style=" width: 350% ; margin-top: -30%">
                 </div>
 
-                <form class="login100-form validate-form" action="/farmacia" method="POST">
+                <form class="login100-form validate-form " style="font-size: 20px; margin-top: -20% " action="/farmacia" method="POST">
                          @csrf
 
                     <span class="login100-form-title" style="font-size: 20px;">

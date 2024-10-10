@@ -174,7 +174,8 @@
   }
   
   .wrap-login100 {
-    width: 1000px;
+   width: 960px; /*tamanho largura do espaco branco  */
+   height: 520px;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -192,6 +193,24 @@
   /*------------------------------------------------------------------
   [  ]*/
   
+
+  .wrap-login1000 {
+    width: 960px; /*tamanho largura do espaco branco  */
+    height: 620px;
+     background: #fff;
+     border-radius: 10px;
+     overflow: hidden;
+   
+     display: -webkit-box;
+     display: -webkit-flex;
+     display: -moz-box;
+     display: -ms-flexbox;
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: space-between;
+     padding: 177px 130px 33px 95px;
+   }
+
   .login100-pic {
 
     width: 280px;
@@ -215,7 +234,7 @@
   .login100-form {
   
 	margin-left: 10px;
-    width: 470px;
+    width: 350px;
   
   }
   
@@ -402,14 +421,14 @@
   }
   
   .login100-form-btn {
-	margin-left: 12%;
+	margin-left: 13%;
     font-family: Montserrat-Bold;
     font-size: 15px;
     line-height: 1.5;
     color: #fff;
     text-transform: uppercase;
   
-    width: 100%;
+    width: 293px;
     height: 50px;
     border-radius: 25px;
     background: #265C4B;
