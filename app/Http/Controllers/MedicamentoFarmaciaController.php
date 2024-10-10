@@ -26,34 +26,36 @@ class MedicamentoFarmaciaController extends Controller
     // Método para armazenar um novo medicamento
     public function store(Request $request)
     {
-       
-        
-            // Verifica os dados recebidos
-            dd($request->all());
-        
-            // Validação dos dados do fabricante
-            $request->validate([
-                'idFabricante' => 'nullable|exists:tbFabricanteFarmacia,idFabricante',
-                'nomeFabricante' => 'nullable|string|max:100', 
-            ]);
-        
-            // Resto do código permanece o mesmo
-        
+        // Validação dos dados
+        $request->validate([
+            'nomeMedicamento' => 'required|string|max:100',
+            'nomeGenericoMedicamento' => 'required|string|max:100',
+            'codigoDeBarrasMedicamento' => 'required|string|max:15|unique:tbMedicamentoFarmacia',
+            'validadeMedicamento' => 'required|date',
+            'loteMedicamento' => 'required|string|max:10',
+            'fabricacaoMedicamento' => 'required|date',
+            'dosagemMedicamento' => 'required|string|max:50',
+            'formaFarmaceuticaMedicamento' => 'required|string|max:15',
+            'quantMedicamento' => 'required|integer|min:1',
+            'composicaoMedicamento' => 'required|string|max:200',
+            'idFabricante' => 'nullable|exists:tbFabricanteFarmacia,idFabricante',
+            'idTipoMedicamento' => 'required|exists:tbTipoMedicamentoFarmacia,idTipoMedicamento',
+        ]);
 
         // Criação de um novo medicamento
         $medicamento = new MedicamentoFarmaciaModel();
         $medicamento->nomeMedicamento = $request->nomeMedicamento;
         $medicamento->nomeGenericoMedicamento = $request->nomeGenericoMedicamento;
         $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarrasMedicamento;
-        $medicamento->validadeMedicamento = $request->validadeMedicamento; // Ex: '2024-12-31'
+        $medicamento->validadeMedicamento = $request->validadeMedicamento;
         $medicamento->loteMedicamento = $request->loteMedicamento;
-        $medicamento->fabricacaoMedicamento = $request->fabricacaoMedicamento; // Ex: '2023-10-07'
-        $medicamento->dosagemMedicamento = $request->dosagemMedicamento; // Ex: '500mg'
-        $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceuticaMedicamento; // Ex: 'Comprimido'
-        $medicamento->quantMedicamento = $request->quantMedicamento; // Ex: 100
+        $medicamento->fabricacaoMedicamento = $request->fabricacaoMedicamento;
+        $medicamento->dosagemMedicamento = $request->dosagemMedicamento;
+        $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceuticaMedicamento;
+        $medicamento->quantMedicamento = $request->quantMedicamento;
         $medicamento->composicaoMedicamento = $request->composicaoMedicamento;
-        $medicamento->idFabricante = $fabricanteId ?? null; // Verifica se o fabricanteId está definido
-        $medicamento->idTipoMedicamento = $request->idTipoMedicamento; // Chave estrangeira para o tipo de medicamento
+        $medicamento->idFabricante = $request->idFabricante; // ID do fabricante
+        $medicamento->idTipoMedicamento = $request->idTipoMedicamento; // Chave estrangeira
         $medicamento->situacaoMedicamento = '0'; // Situação padrão (0 para não ativo)
         $medicamento->dataCadastroMedicamento = now(); // Data atual
         
@@ -63,9 +65,40 @@ class MedicamentoFarmaciaController extends Controller
         // Mensagem de sucesso
         session()->flash('success_messages', ['Medicamento criado com sucesso!']);
 
-        // Redireciona para a lista de medicamentos (ajuste a rota conforme necessário)
+        // Redireciona para a lista de medicamentos
         return redirect()->route('medicamentos.index');
     }
 
-    // Adicione métodos adicionais conforme necessário (exibir, editar, atualizar, excluir)
+    // Método para editar um medicamento
+    public function edit($id)
+    {
+        $medicamento = MedicamentoFarmaciaModel::findOrFail($id);
+        $tipoMedicamento = TipoMedicamentoModelFarmacia::all();
+        $fabricantes = FabricanteFarmaciaModel::all();
+
+        return view('farmacia.editarMedicamento', compact('medicamento', 'tipoMedicamento', 'fabricantes'));
+    }
+
+    // Método para atualizar a quantidade do medicamento
+    public function update(Request $request)
+    {
+        // Validação dos dados
+        $request->validate([
+            'idMedicamento' => 'required|integer|exists:tbMedicamentoFarmacia,idMedicamento',
+            'quantMedicamento' => 'required|integer|min:1',
+        ]);
+
+        // Atualiza o medicamento
+        $medicamento = MedicamentoFarmaciaModel::findOrFail($request->idMedicamento);
+        $medicamento->quantMedicamento = $request->quantMedicamento;
+        $medicamento->save();
+
+        // Mensagem de sucesso
+        session()->flash('success_messages', ['Quantidade de medicamento atualizada com sucesso!']);
+
+        // Redireciona para a lista de medicamentos
+        return redirect()->route('medicamentos.index');
+    }
+
+    // Adicione métodos adicionais conforme necessário (exibir, excluir, etc.)
 }

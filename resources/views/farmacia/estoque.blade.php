@@ -1,104 +1,113 @@
 @include('includes.headerFarmacia')
 
 <!-- Main content -->
-<div class="col-md-9 col-lg-10 main-content">
-    <!-- Relatórios de Estoque -->
-    <div class="card bg-dark text-light">
-        <div class="card-header custom-title">
-            Precisa Atualizar o Estoque?
-        </div>
-        <div class="card-body">
-            <div class="btn-group-wrapper">
-                <!-- Novo Remédio -->
-                <div class="btn-group">
-                    <span>Novo Remédio</span>
-                    <button class="btn-custom btn-add" onclick="window.location.href='/editarMedicamentoEstoque'">
-                        +
-                    </button>
-                </div>
-
-                <!-- Retirada de Remédio -->
-                <div class="btn-group">
-                    <span>Retirada Remédio</span>
-                    <button class="btn-custom btn-remove">
-                        -
-                    </button>
-                </div>
-
-                <!-- Remédio Não Tem Estoque -->
-                <div class="btn-group">
-                    <span>Remédio Não tem Estoque?</span>
-                    <button class="btn-custom btn-cancel">
-                        ✖
-                    </button>
-                </div>
+<div class="container d-flex justify-content-center">
+    <div class="col-md-9 col-lg-10 main-content">
+        <!-- Relatórios de Estoque -->
+        <div class="card bg-light text-dark custom-card">
+            <div class="card-header custom-title">
+                Precisa Atualizar o Estoque?
             </div>
-        </div>
-    </div>
-
-    <!-- Visão Geral do Estoque -->
-    <h1 class="text-light">Atualizações no Estoque</h1>
-    <div class="card mt-4 bg-dark text-light">
-        <div class="card-header">
-            Visão Geral do Estoque
-        </div>
-
-        <!-- Formulário para Guardar na Tabela -->
-        <div class="card mt-4 bg-dark text-light">
-            <div class="card-header">
-                Guardar Informações na Tabela de Estoque
-            </div>
-
             <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <label for="nome-remedio">Nome do Remédio:</label>
-                        <input type="text" class="form-control" id="nome-remedio" name="nome_remedio" placeholder="Digite o nome do remédio" required>
+                <div class="btn-group-wrapper">
+                    <!-- Novo Remédio -->
+                    <div class="btn-group">
+                        <span>Novo Remédio</span>
+                        <button class="btn-custom btn-add" onclick="window.location.href='/editarMedicamentoEstoque'">
+                            +
+                        </button>
                     </div>
 
-                    <div class="form-group">
-                        <label for="quantidade">Quantidade:</label>
-                        <input type="number" class="form-control" id="quantidade" name="quantidade" placeholder="Digite a quantidade" required>
+                    <!-- Retirada de Remédio -->
+                    <div class="btn-group">
+                        <span>Retirada Remédio</span>
+                        <button class="btn-custom btn-remove" onclick="window.location.href='/atualizarMedicamentoEstoque'">
+                            -
+                        </button>
                     </div>
 
-                    <div class="form-group">
-                        <label for="tipo">Tipo de Operação:</label>
-                        <select class="form-control" id="tipo" name="tipo_operacao" required>
-                            <option value="entrada">Entrada</option>
-                            <option value="saida">Saída</option>
-                        </select>
+                    <!-- Remédio Não Tem Estoque -->
+                    <div class="btn-group">
+                        <span>Remédio Não tem Estoque?</span>
+                        <button class="btn-custom btn-cancel">
+                            ✖
+                        </button>
                     </div>
-
-                    <!-- Novo botão Cancelar -->
-                    <button type="button" class="btn btn-success mt-3" onclick="window.location.href='/estoqueFarmacia'">Salvar</button>
-                </form>
+                </div>
             </div>
         </div>
 
-        <!-- Tabela de Estoque -->
-        <div class="card mt-4 bg-dark text-light">
+        <!-- Visão Geral do Estoque -->
+        <h1 class="text-dark text-center mt-5">Atualizações no Estoque</h1>
+        <div class="card mt-4 bg-light text-dark custom-card">
             <div class="card-header">
-                Tabela de Estoque
+                Visão Geral do Estoque
             </div>
 
-            <div class="card-body">
-                <table class="table table-bordered table-dark">
-                    <thead>
-                        <tr>
-                            <th>Nome do Remédio</th>
-                            <th>Quantidade</th>
-                            <th>Tipo de Operação</th>
-                            <th>Data de Atualização</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <!-- Formulário para Guardar na Tabela -->
+            <div class="card mt-4 bg-light text-dark custom-card">
+                <div class="card-header">
+                    Guardar Informações na Tabela de Estoque
+                </div>
+
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="nome-remedio">Nome do Remédio:</label>
+                            <input type="text" class="form-control rounded-input large-input" id="nome-remedio" name="nome_remedio" placeholder="Digite o nome do remédio" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantidade">Quantidade:</label>
+                            <input type="number" class="form-control rounded-input large-input" id="quantidade" name="quantidade" placeholder="Digite a quantidade" required>
+                        </div>
+
+                        <!-- Botões de Rádio para Tipo de Operação -->
+                        <div class="form-group">
+                            <label>Tipo de Operação:</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipo_operacao" id="entrada" value="entrada" required>
+                                <label cxlass="form-check-label" for="entrada">Entrada</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="tipo_operacao" id="saida" value="saida" required>
+                                <label class="form-check-label" for="saida">Saída</label>
+                            </div>
+                        </div>
+
+                        <!-- Botão Salvar -->
+                        <button type="button" class="btn btn-success mt-4 rounded-button large-button" onclick="window.location.href='/estoqueFarmacia'">Salvar</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tabela de Estoque -->
+            <div class="card mt-4 bg-light text-dark custom-card">
+                <div class="card-header">
+                    Tabela de Estoque
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-bordered table-light text-center custom-table">
+                        <thead>
                             <tr>
-                                <td>nomeMedicamento </td> 
-                               
+                                <th>Nome do Remédio</th>
+                                <th>Quantidade</th>
+                                <th>Tipo de Operação</th>
+                                <th>Data de Atualização</th>
                             </tr>
-                    </tbody>
-                </table>
-</div>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>nomeMedicamento</td>
+                                <td>quantidade</td>
+                                <td>tipoOperacao</td>
+                                <td>dataAtualizacao</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -112,28 +121,28 @@
 <!-- Estilos CSS adicionais -->
 <style>
     body {
-        background-color: #343a40; /* Fundo escuro */
-        color: #f8f9fa; /* Texto claro */
+        background-color: #ffffff; /* Fundo branco */
+        color: #343a40; /* Texto escuro */
     }
 
     .custom-title {
-        font-size: 24px;
+        font-size: 28px; /* Tamanho maior */
         font-weight: bold;
         color: #28a745; /* Verde */
         text-align: center;
-        background-color: #495057; /* Cinza escuro */
-        padding: 15px;
-        border-radius: 8px;
-        border: 2px solid #6c757d; /* Cinza */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        margin-bottom: 20px;
+        background-color: #f8f9fa; /* Fundo claro */
+        padding: 20px;
+        border-radius: 12px; /* Bordas arredondadas maiores */
+        border: 3px solid #28a745; /* Verde suave */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 25px;
     }
 
     .btn-group-wrapper {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        gap: 20px;
+        gap: 25px; /* Espaço maior entre os botões */
     }
 
     .btn-group {
@@ -144,24 +153,25 @@
     }
 
     .btn-group span {
-        margin-bottom: 5px;
+        margin-bottom: 10px; /* Mais espaço entre texto e botão */
         font-weight: bold;
-        color: #f8f9fa; /* Texto claro */
+        color: #343a40; /* Texto escuro */
+        font-size: 18px; /* Aumentado */
     }
 
     .btn-custom {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 10px;
+        padding: 12px;
         border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
+        width: 60px; /* Maior */
+        height: 60px; /* Maior */
+        font-size: 28px; /* Aumentado */
         font-weight: bold;
         color: white;
         cursor: pointer;
-        border: 2px solid #6c757d; /* Cinza */
+        border: 3px solid #6c757d; /* Borda maior */
         background-color: transparent;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
@@ -193,28 +203,50 @@
         color: white;
     }
 
-    table {
-        width: 100%;
-        text-align: center;
+    .custom-card {
+        border-radius: 12px; /* Bordas arredondadas maiores */
+        border: 3px solid #28a745; /* Verde suave maior */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
     }
 
-    table th, table td {
-        padding: 10px;
+    .table th, .table td {
+        padding: 15px; /* Células maiores */
+        font-size: 18px; /* Texto maior */
         font-weight: bold;
-        color: white; /* Texto branco */
+        color: #343a40; /* Texto escuro */
+        border-radius: 10px;
     }
 
-    table thead {
-        background-color: #495057; /* Cinza escuro */
-        color: white; /* Texto branco */
+    .table thead {
+        background-color: #f8f9fa; /* Fundo claro */
     }
 
-    .btn-danger {
-        background-color: #dc3545; /* Vermelho */
-        color: white; /* Texto branco */
+    .custom-table {
+        border-radius: 12px; /* Bordas arredondadas na tabela */
     }
 
-    .btn-danger:hover {
-        background-color: #c82333; /* Vermelho escuro */
+    .rounded-input {
+        border-radius: 10px; /* Inputs com bordas maiores */
+        border: 3px solid #28a745; /* Borda verde suave maior */
+        font-size: 18px; /* Texto maior nos inputs */
+        padding: 12px; /* Aumentando espaço dentro dos inputs */
+    }
+
+    .large-input {
+        width: 100%; /* Inputs ocupando toda a largura */
+    }
+
+    .rounded-button {
+        border-radius: 10px; /* Botão com bordas maiores */
+        padding: 15px 25px; /* Botão maior */
+        font-size: 20px; /* Texto maior */
+    }
+
+    .form-check-input {
+        margin-right: 10px; /* Espaço entre o círculo e o texto */
+    }
+
+    .container {
+        margin-top: 50px;
     }
 </style>

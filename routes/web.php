@@ -183,6 +183,7 @@ Route::get('/notificacaoEstoqueInsert', function () {
 
 
 
+
 //clienteFarmacia
  Route::get('/cadastros', [ClienteFarmaciaController::class, 'create'])->name('cliente.create'); // Rota para exibir o formulário
  Route::post('/cadastros', [ClienteFarmaciaController::class, 'store'])->name('cliente.store'); // Rota para salvar os dados no banco
@@ -203,8 +204,11 @@ Route::delete('/telefones/{id}', [TelefoneClienteController::class, 'destroy'])-
 // 
 
 //Rotas do Medicamento
-Route::get('/medicamentos', [MedicamentoFarmaciaController::class, 'index'])->name('medicamentos.index'); // Rota para listar medicamentos
-Route::post('/medicamentos','App\Http\Controllers\MedicamentoFarmaciaController@store'); // Rota para armazenar um novo medicamento
+Route::get('/medicamentos', [MedicamentoFarmaciaController::class, 'index'])->name('medicamentos.index');
+Route::post('/medicamentos', [MedicamentoFarmaciaController::class, 'store']);
+
+Route::get('/atualizarMedicamentoEstoque/{id}', [MedicamentoFarmaciaController::class, 'edit'])->name('medicamento.edit');
+Route::put('/medicamentos', [MedicamentoFarmaciaController::class, 'update'])->name('medicamento.update');
 
 // tipo med
 // Route::get('/tipoMedicamento', [tipoMedicamentoController::class, 'index'])->name('tipoMedicamento.index');
