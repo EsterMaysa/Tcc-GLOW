@@ -34,17 +34,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							<p>Posto</p>
-						</td>
-						<td>
-							<a href="/">
-								<span class="status busca"> Criar </span>
-							</a>
-						</td>
-					</tr>
-					<tr>
+				<tr>
+					<td>
+						<p>Posto</p>
+					</td>
+					<td>
+					<a href="{{ route('farmaciaUBS.insert') }}">
+						<span class="status busca">Criar</span>
+					</a>
+
+					</td>
+				</tr>
+
 						<td>
 							<p>Medicamento</p>
 						</td>

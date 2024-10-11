@@ -3,34 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FarmaciaUBSModel;
+use App\Models\FarmaciaUBSModel; // Corrija para o nome correto do model
 
 class FarmaciaUBSController extends Controller
 {
-    public function index()
+    // Exibir o formulário de criação
+    public function create()
     {
-        $farmacias = FarmaciaUBSModel::all();
-        return response()->json($farmacias);
+        return view('Adm.Ubs.insertFarmaciaUbs');
+
     }
 
+    // Armazenar os dados da Farmácia UBS
     public function store(Request $request)
     {
-        $farmacia = new FarmaciaUBSModel();
-        $farmacia->nomeFarmacia = $request->nome;
-        $farmacia->idUBS = $request->idUBS;
-        $farmacia->situacaoFarmacia = $request->situacao;
-        $farmacia->dataCadastroFarmacia = now();
+        // Validação dos dados
+        $validatedData = $request->validate([
+            'nomeFamaciaUBS' => 'required|string|max:100',
+            'emailFamaciaUBS' => 'required|email|max:100',
+            'senhaFamaciaUBS' => 'required|string|min:8|max:200',
+            'tipoFamaciaUBS' => 'nullable|string|max:100',
+            'situacaoFamaciaUBS' => 'required|string|in:A,I', // A para Ativa, I para Inativa
+            'dataCadastroFamaciaUBS' => 'required|date',
+        ]);
 
-        $farmacia->save();
-        return response()->json(['message' => 'Farmácia UBS criada com sucesso!'], 201);
+        // Criar uma nova instância de FarmaciaUBSModel
+        $farmaciaUBS = new FarmaciaUBSModel();
+        $farmaciaUBS->nomeFamaciaUBS = $validatedData['nomeFamaciaUBS'];
+        $farmaciaUBS->emailFamaciaUBS = $validatedData['emailFamaciaUBS'];
+        $farmaciaUBS->senhaFamaciaUBS = bcrypt($validatedData['senhaFamaciaUBS']); // Criptografa a senha
+        $farmaciaUBS->tipoFamaciaUBS = $validatedData['tipoFamaciaUBS'];
+        $farmaciaUBS->situacaoFamaciaUBS = $validatedData['situacaoFamaciaUBS'];
+        $farmaciaUBS->dataCadastroFamaciaUBS = $validatedData['dataCadastroFamaciaUBS'];
+
+        // Salvar no banco de dados
+        $farmaciaUBS->save();
+
+        // Redirecionar após o cadastro com mensagem de sucesso
+        return redirect()->route('Adm.Ubs.insertFarmaciaUbs')->with('success', 'Farmácia UBS cadastrada com sucesso!');
     }
 
+    // Atualizar dados via API
     public function updateapi(Request $request, $id)
     {
-        FarmaciaUBSModel::where('idFarmaciaUBS', $id)->update([
-            'nomeFarmacia' => $request->nome,
+        FarmaciaUBSModel::where('idFamaciaUBS', $id)->update([
+            'nomeFamaciaUBS' => $request->nome,
             'idUBS' => $request->idUBS,
-            'situacaoFarmacia' => $request->situacao,
+            'situacaoFamaciaUBS' => $request->situacao,
         ]);
 
         return response()->json(['message' => 'Sucesso', 'code' => 200]);

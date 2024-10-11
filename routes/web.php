@@ -7,6 +7,8 @@ use App\Http\Controllers\MedicamentoFarmaciaController;
 use App\Http\Controllers\TelefoneClienteController;
 use App\Http\Controllers\tipoMedicamentoController;
 use App\Http\Controllers\TelefoneFabricanteFarmaciaController;
+use App\Http\Controllers\FarmaciaUBSController;
+
 
 
 
@@ -38,8 +40,9 @@ Route::get('/formUBS', function () {
 Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 
 
-
-
+//rota para o formulario de inserção da UBS
+Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name('farmaciaUBS.insert');
+Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
 
 
