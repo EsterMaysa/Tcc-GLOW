@@ -16,8 +16,8 @@ class TelefoneUBSController extends Controller
     public function store(Request $request)
     {
         $telefone = new TelefoneUBSModel();
-        $telefone->idUBS = $request->idUBS;
-        $telefone->telefoneUBS = $request->telefone;
+       
+        $telefone->numeroTelefoneUBS = $request->telefone;
         $telefone->situacaoTelefoneUBS = $request->situacao;
         $telefone->dataCadastroTelefoneUBS = now();
 

@@ -103,7 +103,7 @@
 							<p>Clientes</p>
 						</td>
 						<td>
-							<a href="/insertCliente">
+							<a href="/">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
@@ -113,7 +113,27 @@
 							<p>Posto</p>
 						</td>
 						<td>
-							<a href="/insertCliente">
+							<a href="/formUBS">
+								<span class="status busca"> Criar </span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Telefone</p>
+						</td>
+						<td>
+							<a href="/formTelefone">
+								<span class="status busca"> Criar </span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Região</p>
+						</td>
+						<td>
+							<a href="/formUBS">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>

@@ -14,6 +14,7 @@ use App\Http\Controllers\TelefoneFabricanteFarmaciaController;
 
 //novos controllers
 use App\Http\Controllers\UBSController;
+use App\Http\Controllers\TelefoneUBSController;
 
 
 /*
@@ -37,6 +38,13 @@ Route::get('/formUBS', function () {
 // Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
 Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 
+
+Route::get('/formTelefone', function () {
+    return view('adm.formTelefone');
+});
+
+// Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
+Route::post('/insertTelefone', [TelefoneUBSController::class, 'store'])->name('insertTelefone');
 
 
 
