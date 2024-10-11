@@ -18,6 +18,7 @@ use App\Http\Controllers\FarmaciaUBSController;
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
+use App\Http\Controllers\ContatoController;
 
 
 /*
@@ -42,11 +43,9 @@ Route::get('/formUBS', function () {
 Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 
 
-<<<<<<< HEAD
 //rota para o formulario de inserção da UBS
 Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name('farmaciaUBS.insert');
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
-=======
 
 
 Route::get('/formTelefone', function () {
@@ -63,11 +62,11 @@ Route::get('/formRegiao', function () {
 // Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
 Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('insertRegiao');
 
+//rota p criar farmacia
+Route::post('/criarFarmacia', [FarmaciaUBSController::class, 'store']);
 
-
->>>>>>> f6c847e9cc8c4f793ebc6ceeb710e71d1fb97b68
-
-
+//select do contato ubs
+Route::get('/contatos', [ContatoController::class, 'index'])->name('contatos.index');
 
 
 

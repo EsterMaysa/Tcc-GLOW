@@ -53,7 +53,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/mensagem">
+				<a href="/contatos">
 					<i class='bx bxs-message-dots'></i>
 					<span class="text"> Mensagens </span>
 				</a>

@@ -3,7 +3,7 @@
 
 <div class="container">
     <h2>Cadastro de Farmácia UBS</h2>
-    <form action="{{ route('farmaciaUBS.store') }}" method="POST">
+    <form action="/criarFarmacia" method="POST">
         @csrf
         <!-- Nome da Farmácia -->
         <div class="form-group">
@@ -39,10 +39,10 @@
         </div>
         
         <!-- Data de Cadastro -->
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="dataCadastroFamaciaUBS">Data de Cadastro</label>
             <input type="date" class="form-control" id="dataCadastroFamaciaUBS" name="dataCadastroFamaciaUBS" required>
-        </div>
+        </div> -->
         
         <!-- Botão de Enviar -->
         <button type="submit" class="btn btn-primary">Cadastrar</button>
