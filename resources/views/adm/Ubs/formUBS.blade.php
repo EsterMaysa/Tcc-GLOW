@@ -12,7 +12,7 @@
         @csrf <!-- Proteção contra CSRF -->
         
         <label for="nome">Nome da UBS:</label>
-        <input type="text" name="nome" id="nome" required><br><br>
+        <input type="text" name="ubs" id="ubs" required><br><br>
         
         <label for="cnpj">CNPJ da UBS:</label>
         <input type="text" name="cnpj" id="cnpj" required><br><br>
@@ -43,7 +43,8 @@
 
         <!-- Campo para fotoUBS -->
         <label for="foto">Foto da UBS:</label>
-        <input type="file" name="foto" id="foto"><br><br>
+        <input type="file" name="foto" id="foto">
+        <br><br>
         
         <!-- Campo para latitudeUBS -->
         <label for="latitude">Latitude:</label>

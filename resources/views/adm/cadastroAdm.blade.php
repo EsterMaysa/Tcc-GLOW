@@ -15,7 +15,6 @@
     <title>Cadastro | FarmaSUS</title>
     <link rel="shortcut icon" href="{{ asset('Image/favicon (1).ico') }}" type="image/x-icon">
 </head>
-<!-- gaby esteve aqui -->
 <body>
     <div class="limiter">
         <div class="container-login100">

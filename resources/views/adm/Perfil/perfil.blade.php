@@ -1,4 +1,5 @@
-@include('includes.header') <!-- Inclui o header -->
+@include('includes.header')
+ <!-- Inclui o header -->
 <section class="profile-section">
     <main>
         <!-- Conteúdo do Perfil -->

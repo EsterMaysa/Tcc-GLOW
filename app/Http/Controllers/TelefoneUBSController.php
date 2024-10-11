@@ -25,6 +25,11 @@ class TelefoneUBSController extends Controller
         return response()->json(['message' => 'Telefone UBS criado com sucesso!'], 201);
     }
 
+
+
+
+
+    
     public function updateapi(Request $request, $id)
     {
         TelefoneUBSModel::where('idTelefoneUBS', $id)->update([
