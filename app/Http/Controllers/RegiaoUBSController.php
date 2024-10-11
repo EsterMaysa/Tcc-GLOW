@@ -16,7 +16,7 @@ class RegiaoUBSController extends Controller
     public function store(Request $request)
     {
         $regiao = new RegiaoUBSModel();
-        $regiao->nomeRegiaoUBS = $request->nome;
+        $regiao->nomeRegiaoUBS = $request->regiao;
         $regiao->situacaoRegiaoUBS = $request->situacao;
         $regiao->dataCadastroRegiaoUBS = now();
 

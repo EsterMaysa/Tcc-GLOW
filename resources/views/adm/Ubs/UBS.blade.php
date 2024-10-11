@@ -34,6 +34,7 @@
 					</tr>
 				</thead>
 				<tbody>
+<<<<<<< HEAD
 				<tr>
 					<td>
 						<p>Posto</p>
@@ -46,6 +47,19 @@
 					</td>
 				</tr>
 
+=======
+					<tr>
+						<td>
+							<p>Posto</p>
+						</td>
+						<td>
+							<a href="formUBS">
+								<span class="status busca"> Criar </span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+>>>>>>> f6c847e9cc8c4f793ebc6ceeb710e71d1fb97b68
 						<td>
 							<p>Medicamento</p>
 						</td>
@@ -60,7 +74,7 @@
 							<p>Região</p>
 						</td>
 						<td>
-							<a href="regiaoInsert">
+							<a href="formRegiao">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
@@ -101,6 +115,16 @@
 						</td>
 						<td>
 							<a href="farmaciaInsert">
+								<span class="status busca"> Criar </span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Telefone</p>
+						</td>
+						<td>
+							<a href="formTelefone">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>

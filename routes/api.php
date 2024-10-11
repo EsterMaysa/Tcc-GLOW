@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\App;
 
 
 use App\Http\Controllers\UBSController;
-
+use App\Http\Controllers\TelefoneUBSController;
 
 
 
@@ -39,6 +39,8 @@ use App\Http\Controllers\UBSController;
 //INSERT
 
 Route::post('/insertUBS', 'App\Http\Controllers\UBSController@store');
+
+Route::post('/insertTelefone', 'App\Http\Controllers\TelefoneUBSController@store');
 
 
 

@@ -16,6 +16,8 @@ use App\Http\Controllers\FarmaciaUBSController;
 
 //novos controllers
 use App\Http\Controllers\UBSController;
+use App\Http\Controllers\TelefoneUBSController;
+use App\Http\Controllers\RegiaoUBSController;
 
 
 /*
@@ -33,16 +35,37 @@ use App\Http\Controllers\UBSController;
 
 // Rota para exibir o formulário de cadastro da UBS
 Route::get('/formUBS', function () {
-    return view('adm.formUBS');
+    return view('adm.Ubs.formUBS');
 });
 
 // Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
 Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 
 
+<<<<<<< HEAD
 //rota para o formulario de inserção da UBS
 Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name('farmaciaUBS.insert');
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
+=======
+
+
+Route::get('/formTelefone', function () {
+    return view('adm.Ubs.formTelefone');
+});
+
+// Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
+Route::post('/insertTelefone', [TelefoneUBSController::class, 'store'])->name('insertTelefone');
+
+Route::get('/formRegiao', function () {
+    return view('adm.Ubs.formRegiao');
+});
+
+// Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
+Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('insertRegiao');
+
+
+
+>>>>>>> f6c847e9cc8c4f793ebc6ceeb710e71d1fb97b68
 
 
 
