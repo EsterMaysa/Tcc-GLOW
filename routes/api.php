@@ -2,9 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\App;
+
+
+
+use App\Http\Controllers\UBSController;
 
 
 
@@ -29,6 +31,74 @@ use Illuminate\Support\Facades\App;
 
 // Route::put('/cliente/{id}', 'App\Http\Controllers\ClienteController@update');
 // Route::put('/cliente/{id}', [ClienteController::class, 'update']);
+
+
+//NOVAS
+
+
+//INSERT
+
+Route::post('/insertUBS', 'App\Http\Controllers\UBSController@store');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::put('/telefone/{id}', 'App\Http\Controllers\TelefoneController@updateapi');
 Route::put('/tipoFarmacia/{id}', 'App\Http\Controllers\tipoFarmaciaController@updateapi');

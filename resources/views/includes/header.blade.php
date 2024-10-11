@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="{{ asset('/css/configuracoes.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-	<title> Dashboard Administrador | BuscaSUS </title>
+	<title> Dashboard Administrador | FarmaSUS </title>
 	<link rel="shortcut icon" href="{{ asset('/Image/favicon (1).ico') }}" type="image/x-icon">
 
 </head>
@@ -24,7 +24,7 @@
 <body>
 	<section id="sidebar">
 		<a href="/" class="brand">
-			<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/busca.png')}}" width="70%"></span>
+			<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/logoAdm.png')}}" width="70%"></span>
 		</a>
 		<ul class="side-menu top">
 			<li class="active">
@@ -34,34 +34,28 @@
 				</a>
 			</li>
 			<li>
-				<a href="/consultar">
+				<a href="/medicamento">
 					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text"> Consultar </span>
+					<span class="text"> Medicamento </span>
 				</a>
 			</li>
 			<li>
-				<a href="/alterar">
+				<a href="/ubs">
 					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
-					<span class="text"> Alterar </span>
+					<span class="text"> UBS </span>
 				</a>
 			</li>
 			
 			<li>
-				<a href="/create">
+				<a href="/cliente">
 					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Criar </span>
+					<span class="text"> Clientes </span>
 				</a>
 			</li>
 			<li>
 				<a href="/mensagem">
 					<i class='bx bxs-message-dots'></i>
 					<span class="text"> Mensagens </span>
-				</a>
-			</li>
-			<li>
-				<a href="/delete" class="logoutTrash">
-					<i class='bx bxs-trash'></i>
-					<span class="text"> Deletar </span>				
 				</a>
 			</li>
 
@@ -74,7 +68,7 @@
 				</a>
     		</li>
 			<li>
-				<a href="/admPerfil" class="boto2">
+				<a href="/perfil" class="boto2">
 					<i class='bx bxs-user'></i>
 					<span class="text"> Perfil </span>
 				</a>
@@ -83,9 +77,7 @@
 			<form action="/logout" method="POST" style="display: inline;">
 				@csrf 
 				<button type="submit" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i>
-				<span class="text"> Sair </span></button>
-				
-
+				<span class="text"> Sair </span></button
 			</form>
     		</li>
 		</ul>
@@ -104,7 +96,7 @@
 				<i class='bx bxs-bell'></i>
 				<span class="num"> 4 </span>
 			</a>
-			<a href="/admPerfil" class="profile">
+			<a href="/perfil" class="profile">
 				<img src="{{ asset('/Image/perfilAzulAdm.png') }}">
 			</a>
 		</nav>

@@ -2,34 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tipoMedicamento;
-use App\Models\TipoMedicamentoModelFarmacia;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use App\Models\TipoMedicamentoModel;
 
-class tipoMedicamentoController extends Controller
+class TipoMedicamentoController extends Controller
 {
-
-    // public function index()
-    // {
-    //     // Busca todos os tipos de medicamentos do banco de dados
-    //     $tipoMedicamento = TipoMedicamentoModelFarmacia::all();
-        
-    //     // Retorna a view com os dados
-    //     return view('farmacia.MedicamentoFarmacia', compact('tipoMedicamento'));
-    // }
-
-    public function storeapi(Request $request)
+    public function index()
     {
-        $tipoMedicamento = new tipoMedicamentoModel();
+        $tipos = TipoMedicamentoModel::all();
+        return response()->json($tipos);
+    }
 
-        //$tipoMedicamento->idTipoMedicamento = $request->id;
-        $tipoMedicamento->tipoMedicamento = $request->tipoMed;
+    public function store(Request $request)
+    {
+        $tipo = new TipoMedicamentoModel();
+        $tipo->tipoMedicamento = $request->tipo;
+        $tipo->formaMedicamento = $request->forma;
+        $tipo->situacaoTipoMedicamento = $request->situacao;
+        $tipo->dataCadastroTipoMedicamento = now();
 
-       
-        $tipoMedicamento->save();  
-        return response()->json(['message' => 'Tipo Medicamento criado com sucesso!'], 201);
+        $tipo->save();
+        return response()->json(['message' => 'Tipo de Medicamento criado com sucesso!'], 201);
+    }
 
+    public function updateapi(Request $request, $id)
+    {
+        TipoMedicamentoModel::where('idTipoMedicamento', $id)->update([
+            'tipoMedicamento' => $request->tipo,
+            'formaMedicamento' => $request->forma,
+            'situacaoTipoMedicamento' => $request->situacao,
+        ]);
 
+        return response()->json(['message' => 'Sucesso', 'code' => 200]);
     }
 }

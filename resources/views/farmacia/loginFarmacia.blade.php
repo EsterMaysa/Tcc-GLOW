@@ -21,11 +21,11 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{{ asset('Image/BuscaSUSFarm.png')}}" alt="IMG" width="100%">
+					<img src="{{ asset('Image/logoFarma.png')}}" alt="IMG" style=" width: 350% ; margin-top: -38%">
 				</div>
 
 				<form class="login100-form validate-form" action="/farmaciaLogin" method="post">
-					<span class="login100-form-title"> Farmácia | Login </span>
+					<span class="login100-form-title" style="font-size: 20px; margin-top: -25% "> Farmácia | Login </span>
 					@csrf
                     <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input" type="text" name="cnpj" placeholder="CNPJ">
