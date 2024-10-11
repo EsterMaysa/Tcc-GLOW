@@ -129,37 +129,41 @@ Route::get('/cadastroAdm', function () {
 });
 
 Route::get('/perfil', function () {
-    return view('adm.perfil');
-});
+    return view('adm.Perfil.perfil');
+})->name('perfil');
+
 
 Route::get('/editarPerfil', function () {
-    return view('adm.editarPerfil');
-});
-Route::get('/configuracoes', function () {
-    return view('adm.configuracoes');
-});
-Route::get('/configuracoesNotificacoes', function () {
-    return view('adm.configuracoesNotificacoes');
-});
-Route::get('/notificacoes', function () {
-    return view('adm.notificacoes');
-});
-Route::get('/consultar', function () {
-    return view('adm.consultar');
-});
-Route::get('/alterar', function () {
-    return view('adm.editar');
-});
-Route::get('/create', function () {
-    return view('adm.create');
-});
-Route::get('/mensagem', function () {
-    return view('adm.mensagem');
+    return view('adm.Perfil.editarPerfil');
 });
 
-Route::get('/delete', function () {
-    return view('adm.delete');
+// Route::get('/configuracoes', function () {
+//     return view('adm.configuracoes');
+// });
+// Route::get('/configuracoesNotificacoes', function () {
+//     return view('adm.configuracoesNotificacoes');
+// });
+// Route::get('/notificacoes', function () {
+//     return view('adm.Notificacao.notificacoes');
+// });
+
+//PAGINAS MEDICAMENTO_UBS_CLIENTE
+Route::get('/medicamento', function () {
+    return view('adm.Medicamento.medicamento');
 });
+Route::get('/ubs', function () {
+    return view('adm.UBS.UBS');
+});
+Route::get('/cliente', function () {
+    return view('adm.cliente.Cliente');
+});
+
+
+Route::get('/contato', function () {
+    return view('adm.contato');
+});
+
+
 
 
 //SELECT
@@ -173,7 +177,8 @@ Route::post('/logout','App\Http\Controllers\AdministradorController@logout');
 Route::get('/', function () {
     return view('welcome'); // Retorna a view home do Adm
 })->name('homeAdm');
-Route::get('/perfil', 'App\Http\Controllers\AdministradorController@perfil')->name('perfil');
+
+// Route::get('/perfil', 'App\Http\Controllers\AdministradorController@perfil')->name('perfil');
 
 
 // Login Farmacia
@@ -184,7 +189,7 @@ Route::post('/farmaLogout','App\Http\Controllers\FarmaciaController@logout');
 Route::get('/', function () {
     return view('welcome'); // Retorna a view home do Adm
 })->name('homeAdm');
-Route::get('/perfil', 'App\Http\Controllers\AdministradorController@perfil')->name('perfil');
+// Route::get('/perfil', 'App\Http\Controllers\AdministradorController@perfil')->name('perfil');
 
 // Cadastros
 Route::post('/farmacia', 'App\Http\Controllers\FarmaciaController@store');
