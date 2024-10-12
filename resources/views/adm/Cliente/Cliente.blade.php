@@ -34,9 +34,20 @@
 					</tr>
 				</thead>
 				<tbody>
+				<tr>
+						<td>
+							<p>Consultar Cliente</p>
+						</td>
+						<td>
+							<a href="consultarCliente">
+								<span class="status busca"> Consultar </span>
+							</a>
+						</td>
+					</tr>
+				
 					<tr>
 						<td>
-							<p>Cliente</p>
+							<p>Cadastrar Cliente</p>
 						</td>
 						<td>
 							<a href="criarCliente">
