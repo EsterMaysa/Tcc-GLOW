@@ -9,8 +9,8 @@ class FarmaciaUBSModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbFamaciaUBS';
-    protected $connection = 'mysql';
+    protected $table = 'tbfamaciaubs';
+    // protected $connection = 'mysql';
 
     protected $fillable = [
         'nomeFamaciaUBS',

@@ -20,6 +20,7 @@ use App\Http\Controllers\FarmaciaUBSController;
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
+use App\Http\Controllers\ContatoController;
 
 
 /*

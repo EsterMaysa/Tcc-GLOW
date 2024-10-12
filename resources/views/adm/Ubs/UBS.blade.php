@@ -39,7 +39,7 @@
 						<p>Posto</p>
 					</td>
 					<td>
-					<a href="{{ route('farmaciaUBS.insert') }}">
+					<a href="/formUBS">
 						<span class="status busca">Criar</span>
 					</a>
 
@@ -100,7 +100,7 @@
 							<p>Farmacia</p>
 						</td>
 						<td>
-							<a href="farmaciaInsert">
+							<a href="{{ route('farmaciaUBS.insert') }}">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
