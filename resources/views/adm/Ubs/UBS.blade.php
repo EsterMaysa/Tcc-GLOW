@@ -34,17 +34,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>
-							<p>Posto</p>
-						</td>
-						<td>
-							<a href="/">
-								<span class="status busca"> Criar </span>
-							</a>
-						</td>
-					</tr>
-					<tr>
+				<tr>
+					<td>
+						<p>Posto</p>
+					</td>
+					<td>
+					<a href="/formUBS">
+						<span class="status busca">Criar</span>
+					</a>
+
+					</td>
+				</tr>
+
 						<td>
 							<p>Medicamento</p>
 						</td>
@@ -59,7 +60,7 @@
 							<p>Região</p>
 						</td>
 						<td>
-							<a href="regiaoInsert">
+							<a href="formRegiao">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
@@ -99,7 +100,17 @@
 							<p>Farmacia</p>
 						</td>
 						<td>
-							<a href="farmaciaInsert">
+							<a href="{{ route('farmaciaUBS.insert') }}">
+								<span class="status busca"> Criar </span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p>Telefone</p>
+						</td>
+						<td>
+							<a href="formTelefone">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>

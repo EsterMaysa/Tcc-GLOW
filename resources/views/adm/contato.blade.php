@@ -18,23 +18,26 @@
 	</div>
     <div id="mensagens-lista">
         <div class="mensagem">
-            <p><strong>De:</strong> <span class="remetente">Nome do Remetente</span></p>
-            <p><strong>Mensagem:</strong> <span class="texto">Texto da Mensagem</span></p>
-            <p><strong>Data:</strong> <span class="data">Data e Hora</span></p>
+        @foreach($contatos as $contato)
+            <p><strong>De:</strong> <span class="remetente"></span></p>
+            <p><strong>Mensagem:</strong> <span class="texto">{{ $contato->mensagemCcontato }}</span></p>
+            <p><strong>Data:</strong> <span class="data">{{ $contato->dataCadastroContato }}</span></p>
+            @endforeach
             <div class="responder-form">
                 <textarea placeholder="Digite sua resposta aqui..." rows="4" cols="50"></textarea>
                 <button onclick="enviarResposta()">Enviar Resposta</button>
             </div>
         </div>
-		<div class="mensagem">
+		<!-- <div class="mensagem">
             <p><strong>De:</strong> <span class="remetente">Nome do Remetente</span></p>
             <p><strong>Mensagem:</strong> <span class="texto">Texto da Mensagem</span></p>
             <p><strong>Data:</strong> <span class="data">Data e Hora</span></p>
+
             <div class="responder-form">
                 <textarea placeholder="Digite sua resposta aqui..." rows="4" cols="50"></textarea>
                 <button onclick="enviarResposta()">Enviar Resposta</button>
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 @include('includes.footer')

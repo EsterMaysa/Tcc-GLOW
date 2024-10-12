@@ -16,8 +16,8 @@ class TelefoneUBSController extends Controller
     public function store(Request $request)
     {
         $telefone = new TelefoneUBSModel();
-        $telefone->idUBS = $request->idUBS;
-        $telefone->telefoneUBS = $request->telefone;
+       
+        $telefone->numeroTelefoneUBS = $request->telefone;
         $telefone->situacaoTelefoneUBS = $request->situacao;
         $telefone->dataCadastroTelefoneUBS = now();
 
@@ -25,6 +25,11 @@ class TelefoneUBSController extends Controller
         return response()->json(['message' => 'Telefone UBS criado com sucesso!'], 201);
     }
 
+
+
+
+
+    
     public function updateapi(Request $request, $id)
     {
         TelefoneUBSModel::where('idTelefoneUBS', $id)->update([

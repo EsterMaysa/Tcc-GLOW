@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\contatoModel;
 use Illuminate\Routing\Controller;
 
-class contatoController extends Controller
+class contatoControllerA extends Controller
 {
     public function updateapi(Request $request, $id)
     {

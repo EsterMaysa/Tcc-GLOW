@@ -10,7 +10,7 @@ class ContatoController extends Controller
     public function index()
     {
         $contatos = ContatoModel::all();
-        return response()->json($contatos);
+        return view('adm.contato', compact('contatos'));
     }
 
     public function store(Request $request)

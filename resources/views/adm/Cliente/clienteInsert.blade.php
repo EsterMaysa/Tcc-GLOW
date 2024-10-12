@@ -1,27 +1,5 @@
 @include('includes.header')
 
-<!-- Seção Principal -->
-<section id="sidebar">
-    <a href="/" class="brand">
-        <span class="text1" style="margin-left: 50px;">
-            <img src="{{ asset('/Image/busca.png') }}" width="70%">
-        </span>
-    </a>
-    <ul class="side-menu top">
-        <li><a href="/"><i class='bx bxs-dashboard'></i><span class="text">Início</span></a></li>
-        <li><a href="/consultar"><i class='bx bxs-doughnut-chart'></i><span class="text">Consultar</span></a></li>
-        <li><a href="/alterar"><i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e'></i><span class="text">Alterar</span></a></li>
-        <li class="active"><a href="/create"><i class='bx bxs-plus-circle'></i><span class="text">Criar</span></a></li>
-        <li><a href="/mensagem"><i class='bx bxs-message-dots'></i><span class="text">Mensagens</span></a></li>
-        <li><a href="/delete" class="logoutTrash"><i class='bx bxs-trash'></i><span class="text">Deletar</span></a></li>
-    </ul>
-    <ul class="boto">
-        <li><a href="/configuracoes" class="boto2"><i class='bx bxs-cog'></i><span class="text">Configurações</span></a></li>
-        <li><a href="/perfil" class="boto2"><i class='bx bxs-user'></i><span class="text">Perfil</span></a></li>
-        <li><a href="#" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i><span class="text">Sair</span></a></li>
-    </ul>
-</section>
-
 <!-- MAIN -->
 <main>
     <div class="head-title">
@@ -35,29 +13,105 @@
         </div>
     </div>
 
+    <!-- Exibir mensagens de sucesso ou erro -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <!-- Contêiner para centralizar o formulário -->
     <div class="form-wrapper">
         <form action="/criarCliente" method="POST" class="styled-form">
             @csrf <!-- Token de segurança do Laravel -->
 
-            <div class="form-group">
-                <label for="nomeCliente">Nome do Cliente:</label>
-                <input type="text" id="nomeCliente" name="nomeCliente" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nomeCliente">Nome do Cliente:</label>
+                    <input type="text" id="nomeCliente" name="nomeCliente" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cpfCliente">CPF do Cliente:</label>
+                    <input type="text" id="cpfCliente" name="cpfCliente" maxlength="11" required>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="cnsCliente">CNS do Cliente:</label>
-                <input type="text" id="cnsCliente" name="cnsCliente" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cnsCliente">CNS do Cliente:</label>
+                    <input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dataNascCliente">Data de Nascimento:</label>
+                    <input type="date" id="dataNascCliente" name="dataNascCliente" required>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="emailCliente">Email do Cliente:</label>
-                <input type="email" id="emailCliente" name="emailCliente" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="userCliente">Usuário:</label>
+                    <input type="text" id="userCliente" name="userCliente" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefoneCliente">Telefone do Cliente:</label>
+                    <input type="text" id="telefoneCliente" name="telefoneCliente" maxlength="11" required>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="senhaCliente">Senha do Cliente:</label>
-                <input type="password" id="senhaCliente" name="senhaCliente" required>
+            <!-- Diminuir o tamanho das caixas de CEP e Complemento e posicioná-las lado a lado -->
+            <div class="form-row">
+                <div class="form-group cep-field">
+                    <label for="cepCliente">CEP do Cliente:</label>
+                    <input type="text" id="cepCliente" name="cepCliente" maxlength="8" required>
+                </div>
+
+                <div class="form-group complemento-field">
+                    <label for="complementoCliente">Complemento:</label>
+                    <input type="text" id="complementoCliente" name="complementoCliente">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="logradouroCliente">Logradouro:</label>
+                    <input type="text" id="logradouroCliente" name="logradouroCliente" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="bairroCliente">Bairro:</label>
+                    <input type="text" id="bairroCliente" name="bairroCliente" required readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cidadeCliente">Cidade:</label>
+                    <input type="text" id="cidadeCliente" name="cidadeCliente" required readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="ufCliente">UF:</label>
+                    <input type="text" id="ufCliente" name="ufCliente" required readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="estadoCliente">Estado:</label>
+                    <input type="text" id="estadoCliente" name="estadoCliente" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="numeroCliente">Número:</label>
+                    <input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" required>
+                </div>
             </div>
 
             <div class="form-group button-wrapper">
@@ -82,29 +136,66 @@
         text-align: center;
     }
 
+    /* Estilo para alertas */
+    .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
     /* Form-wrapper centraliza o formulário */
     .form-wrapper {
         display: flex;
         justify-content: center;
-        align-items: center;
-        height: 60vh;
+        align-items: flex-start;
+        margin-top: 50px;
+        height: auto;
     }
 
     /* Estilo moderno e delicado para o formulário */
     .styled-form {
-        background-color: #1f2b5b; /* Azul escuro */
+        background-color: #1f2b5b;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         width: 100%;
-        max-width: 400px; /* Ajustado para ser mais largo */
+        max-width: 600px;
+    }
+
+    /* Form-row para alinhar as colunas */
+    .form-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .form-group {
+        flex: 1;
+    }
+
+    /* Estilo específico para o campo CEP e Complemento */
+    .cep-field {
+        flex: 0.5;
+    }
+
+    .complemento-field {
+        flex: 0.5
     }
 
     .form-group label {
         display: block;
         font-weight: 600;
         margin-bottom: 6px;
-        color: #fff; /* Cor branca para melhor contraste com o fundo azul escuro */
+        color: #fff;
     }
 
     .form-group input {
@@ -117,23 +208,58 @@
 
     .form-group input:focus {
         outline: none;
-        border-color: #57b8ff; /* Cor azul claro para foco */
-        box-shadow: 0 0 4px rgba(87, 184, 255, 0.3); /* Sombra azul clara suave */
+        border-color: #57b8ff;
+        box-shadow: 0 0 4px rgba(87, 184, 255, 0.3);
     }
 
     /* Botão de envio */
     .submit-btn {
         padding: 12px 25px;
-        background-color: #57b8ff; /* Azul suave */
+        background-color: #57b8ff;
         color: white;
         font-size: 16px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        margin-left: 14%;
     }
 
     .submit-btn:hover {
-        background-color: #4b89f5; /* Tom um pouco mais escuro para hover */
+        background-color: #4b89f5;
     }
 </style>
+
+<!-- Script para buscar endereço usando a API do ViaCEP -->
+<script>
+    document.getElementById('cepCliente').addEventListener('blur', function() {
+        var cep = this.value.replace(/\D/g, '');
+        if (cep != "") {
+            var validacep = /^[0-9]{8}$/;
+            if(validacep.test(cep)) {
+                document.getElementById('logradouroCliente').value = "...";
+                document.getElementById('bairroCliente').value = "...";
+                document.getElementById('cidadeCliente').value = "...";
+                document.getElementById('ufCliente').value = "...";
+
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!("erro" in data)) {
+                        document.getElementById('logradouroCliente').value = data.logradouro;
+                        document.getElementById('bairroCliente').value = data.bairro;
+                        document.getElementById('cidadeCliente').value = data.localidade;
+                        document.getElementById('ufCliente').value = data.uf;
+                    } else {
+                        alert("CEP não encontrado.");
+                    }
+                })
+                .catch(error => {
+                    alert("Erro ao buscar o CEP.");
+                });
+            } else {
+                alert("Formato de CEP inválido.");
+            }
+        }
+    });
+</script>

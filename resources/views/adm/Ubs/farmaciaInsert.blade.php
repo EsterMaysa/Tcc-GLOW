@@ -1,7 +1,7 @@
 @include('includes.header')
 
 <!-- Seção Principal -->
-<section id="sidebar">
+<!-- <section id="sidebar">
     <a href="/" class="brand">
         <span class="text1" style="margin-left: 50px;">
             <img src="{{ asset('/Image/busca.png') }}" width="70%">
@@ -32,7 +32,7 @@
         <li><a href="/perfil" class="boto2"><i class='bx bxs-user'></i><span class="text">Perfil</span></a></li>
         <li><a href="#" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i><span class="text">Sair</span></a></li>
     </ul>
-</section>
+</section> -->
 
 <!-- MAIN -->
 <main>
