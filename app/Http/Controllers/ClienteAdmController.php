@@ -57,6 +57,7 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
     $cliente = new ClienteAdmModel();
     $cliente->nomeCliente = $request->nomeCliente;
     $cliente->cpfCliente = $request->cpfCliente;
+    $cliente->cnsCliente = $request->cnsCliente;
     $cliente->dataNascCliente = $request->dataNascCliente;
     $cliente->userCliente = $request->userCliente;
     $cliente->cepCliente = $request->cepCliente;

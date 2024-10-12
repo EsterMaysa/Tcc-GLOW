@@ -13,6 +13,17 @@
         </div>
     </div>
 
+    <!-- Exibir mensagens de sucesso ou erro -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <!-- Contêiner para centralizar o formulário -->
     <div class="form-wrapper">
         <form action="/criarCliente" method="POST" class="styled-form">
@@ -26,30 +37,45 @@
 
                 <div class="form-group">
                     <label for="cpfCliente">CPF do Cliente:</label>
-                    <input type="text" id="cpfCliente" name="cpfCliente" required>
+                    <input type="text" id="cpfCliente" name="cpfCliente" maxlength="11" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
+                    <label for="cnsCliente">CNS do Cliente:</label>
+                    <input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" required>
+                </div>
+
+                <div class="form-group">
                     <label for="dataNascCliente">Data de Nascimento:</label>
                     <input type="date" id="dataNascCliente" name="dataNascCliente" required>
                 </div>
+            </div>
 
+            <div class="form-row">
                 <div class="form-group">
                     <label for="userCliente">Usuário:</label>
                     <input type="text" id="userCliente" name="userCliente" required>
                 </div>
-            </div>           
 
-            <div class="form-group">
-                <label for="telefoneCliente">Telefone do Cliente:</label>
-                <input type="text" id="telefoneCliente" name="telefoneCliente" required>
+                <div class="form-group">
+                    <label for="telefoneCliente">Telefone do Cliente:</label>
+                    <input type="text" id="telefoneCliente" name="telefoneCliente" maxlength="11" required>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="cepCliente">CEP do Cliente:</label>
-                <input type="text" id="cepCliente" name="cepCliente" required>
+            <!-- Diminuir o tamanho das caixas de CEP e Complemento e posicioná-las lado a lado -->
+            <div class="form-row">
+                <div class="form-group cep-field">
+                    <label for="cepCliente">CEP do Cliente:</label>
+                    <input type="text" id="cepCliente" name="cepCliente" maxlength="8" required>
+                </div>
+
+                <div class="form-group complemento-field">
+                    <label for="complementoCliente">Complemento:</label>
+                    <input type="text" id="complementoCliente" name="complementoCliente">
+                </div>
             </div>
 
             <div class="form-row">
@@ -84,13 +110,8 @@
 
                 <div class="form-group">
                     <label for="numeroCliente">Número:</label>
-                    <input type="text" id="numeroCliente" name="numeroCliente" required>
+                    <input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" required>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="complementoCliente">Complemento:</label>
-                <input type="text" id="complementoCliente" name="complementoCliente">
             </div>
 
             <div class="form-group button-wrapper">
@@ -113,6 +134,22 @@
     .head-title {
         margin-bottom: 40px;
         text-align: center;
+    }
+
+    /* Estilo para alertas */
+    .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
     }
 
     /* Form-wrapper centraliza o formulário */
@@ -143,6 +180,15 @@
 
     .form-group {
         flex: 1;
+    }
+
+    /* Estilo específico para o campo CEP e Complemento */
+    .cep-field {
+        flex: 0.5;
+    }
+
+    .complemento-field {
+        flex: 0.5
     }
 
     .form-group label {
@@ -176,6 +222,7 @@
         border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        margin-left: 14%;
     }
 
     .submit-btn:hover {
