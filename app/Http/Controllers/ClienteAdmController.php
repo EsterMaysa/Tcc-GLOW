@@ -30,21 +30,21 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
     public function store(Request $request)
 {
     // Validação dos dados do cliente
-    $request->validate([
-        'nomeCliente' => 'required|string|max:255',
-        'cpfCliente' => 'required|string|max:14', // CPF geralmente tem até 14 caracteres com máscara
-        'dataNascCliente' => 'required|date',
-        'userCliente' => 'required|string|max:255',
-        'cepCliente' => 'required|string|max:8', // CEP com 8 dígitos
-        'logradouroCliente' => 'required|string|max:255',
-        'bairroCliente' => 'required|string|max:255',
-        'numeroCliente' => 'required|string|max:10',
-        'ufCliente' => 'required|string|max:2', // UF com 2 caracteres
-        'cidadeCliente' => 'required|string|max:255',
-        'situacaoCliente' => 'nullable|string|max:2',
-        'complementoCliente' => 'nullable|string|max:255',
-        'telefoneCliente' => 'required|string|max:11', // Validação do telefone
-    ]);
+    // $request->validate([
+    //     'nomeCliente' => 'required|string|max:255',
+    //     'cpfCliente' => 'required|string|max:14', // CPF geralmente tem até 14 caracteres com máscara
+    //     'dataNascCliente' => 'required|date',
+    //     'userCliente' => 'required|string|max:255',
+    //     'cepCliente' => 'required|string|max:8', // CEP com 8 dígitos
+    //     'logradouroCliente' => 'required|string|max:255',
+    //     'bairroCliente' => 'required|string|max:255',
+    //     'numeroCliente' => 'required|string|max:10',
+    //     'ufCliente' => 'required|string|max:2', // UF com 2 caracteres
+    //     'cidadeCliente' => 'required|string|max:255',
+    //     'situacaoCliente' => 'nullable|string|max:2',
+    //     'complementoCliente' => 'nullable|string|max:255',
+    //     'telefoneCliente' => 'required|string|max:11', // Validação do telefone
+    // ]);
 
     // Criação do telefone
     $telefone = new TelefoneClienteAdmModel();

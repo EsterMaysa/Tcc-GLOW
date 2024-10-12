@@ -41,6 +41,7 @@
                     <input type="text" id="userCliente" name="userCliente" required>
                 </div>
             </div>           
+
             <div class="form-group">
                 <label for="telefoneCliente">Telefone do Cliente:</label>
                 <input type="text" id="telefoneCliente" name="telefoneCliente" required>
@@ -75,6 +76,18 @@
                 </div>
             </div>
 
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="estadoCliente">Estado:</label>
+                    <input type="text" id="estadoCliente" name="estadoCliente" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="numeroCliente">Número:</label>
+                    <input type="text" id="numeroCliente" name="numeroCliente" required>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label for="complementoCliente">Complemento:</label>
                 <input type="text" id="complementoCliente" name="complementoCliente">
@@ -106,37 +119,37 @@
     .form-wrapper {
         display: flex;
         justify-content: center;
-        align-items: flex-start; /* Ajustado para alinhar ao topo */
-        margin-top: 50px; /* Ajuste o valor conforme necessário */
-        height: auto; /* Remover a limitação de altura */
+        align-items: flex-start;
+        margin-top: 50px;
+        height: auto;
     }
 
     /* Estilo moderno e delicado para o formulário */
     .styled-form {
-        background-color: #1f2b5b; /* Azul escuro */
+        background-color: #1f2b5b;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         width: 100%;
-        max-width: 600px; /* Mais largo para comportar duas colunas */
+        max-width: 600px;
     }
 
     /* Form-row para alinhar as colunas */
     .form-row {
         display: flex;
         justify-content: space-between;
-        gap: 20px; /* Espaçamento entre as colunas */
+        gap: 20px;
     }
 
     .form-group {
-        flex: 1; /* Ocupa o mesmo espaço em cada coluna */
+        flex: 1;
     }
 
     .form-group label {
         display: block;
         font-weight: 600;
         margin-bottom: 6px;
-        color: #fff; /* Cor branca para melhor contraste com o fundo azul escuro */
+        color: #fff;
     }
 
     .form-group input {
@@ -149,14 +162,14 @@
 
     .form-group input:focus {
         outline: none;
-        border-color: #57b8ff; /* Cor azul claro para foco */
-        box-shadow: 0 0 4px rgba(87, 184, 255, 0.3); /* Sombra azul clara suave */
+        border-color: #57b8ff;
+        box-shadow: 0 0 4px rgba(87, 184, 255, 0.3);
     }
 
     /* Botão de envio */
     .submit-btn {
         padding: 12px 25px;
-        background-color: #57b8ff; /* Azul suave */
+        background-color: #57b8ff;
         color: white;
         font-size: 16px;
         border: none;
@@ -166,7 +179,7 @@
     }
 
     .submit-btn:hover {
-        background-color: #4b89f5; /* Tom um pouco mais escuro para hover */
+        background-color: #4b89f5;
     }
 </style>
 
