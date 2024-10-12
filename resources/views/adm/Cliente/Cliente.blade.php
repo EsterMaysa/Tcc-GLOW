@@ -39,7 +39,7 @@
 							<p>Cliente</p>
 						</td>
 						<td>
-							<a href="#">
+							<a href="clienteInsert">
 								<span class="status busca"> cadastro </span>
 							</a>
 						</td>
