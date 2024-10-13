@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ClienteAdmController;
+use App\Http\Controllers\TelefoneClienteAdmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteFarmaciaController; // Certifique-se de importar o ClienteController
 use App\Http\Controllers\MedicamentoController;
@@ -47,27 +49,10 @@ Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name('farmaciaUBS.insert');
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
-
-Route::get('/formTelefone', function () {
-    return view('adm.Ubs.formTelefone');
-});
-
-// Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
-Route::post('/insertTelefone', [TelefoneUBSController::class, 'store'])->name('insertTelefone');
-
-Route::get('/formRegiao', function () {
-    return view('adm.Ubs.formRegiao');
-});
-
-// Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
-Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('insertRegiao');
-
-//rota p criar farmacia
-Route::post('/criarFarmacia', [FarmaciaUBSController::class, 'store']);
-
-//select do contato ubs
-Route::get('/contatos', [ContatoController::class, 'index'])->name('contatos.index');
-
+//rota insert cliente
+Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
+Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
+Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
 
 
 
@@ -224,7 +209,7 @@ Route::post('/adm', 'App\Http\Controllers\AdministradorController@store');
 //INSEERTS ESTER FUNCIONANDO
 
 //ROTA PARA O METODO Insert ADM
-// Route::post('/criarCliente', 'App\Http\Controllers\ClienteController@store');
+
 // Route::post('/criarRegiao', 'App\Http\Controllers\regiaoControllers@store');
 // Route::post('/criarComentario', 'App\Http\Controllers\comentariosController@store');
 // Route::post('/criarContato', 'App\Http\Controllers\contatoController@store');
@@ -279,13 +264,13 @@ Route::get('/notificacaoEstoqueInsert', function () {
  Route::post('/cadastros', [ClienteFarmaciaController::class, 'store'])->name('cliente.store'); // Rota para salvar os dados no banco
  
 
-//telefone
-Route::get('/telefones', [TelefoneClienteController::class, 'index'])->name('telefones.index');
-Route::get('/telefones/create', [TelefoneClienteController::class, 'create'])->name('telefones.create');
-Route::post('/telefones', [TelefoneClienteController::class, 'store'])->name('telefones.store');
-Route::get('/telefones/{id}/edit', [TelefoneClienteController::class, 'edit'])->name('telefones.edit');
-Route::put('/telefones/{id}', [TelefoneClienteController::class, 'update'])->name('telefones.update');
-Route::delete('/telefones/{id}', [TelefoneClienteController::class, 'destroy'])->name('telefones.destroy');
+// //telefone
+// Route::get('/telefones', [TelefoneClienteController::class, 'index'])->name('telefones.index');
+// Route::get('/telefones/create', [TelefoneClienteController::class, 'create'])->name('telefones.create');
+// Route::post('/telefones', [TelefoneClienteController::class, 'store'])->name('telefones.store');
+// Route::get('/telefones/{id}/edit', [TelefoneClienteController::class, 'edit'])->name('telefones.edit');
+// Route::put('/telefones/{id}', [TelefoneClienteController::class, 'update'])->name('telefones.update');
+// Route::delete('/telefones/{id}', [TelefoneClienteController::class, 'destroy'])->name('telefones.destroy');
 
 
 //Medicamento farmacia
