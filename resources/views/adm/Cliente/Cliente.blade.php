@@ -11,11 +11,11 @@
 			<h1>Cliente</h1>
 			<ul class="breadcrumb">
 				<li>
-					<a href="/">Home</a>
+					<a href="/cliente">Home</a>
 				</li>
 				<li><i class='bx bx-chevron-right'></i></li>
 				<li>
-					<a class="active" href="/">Cliente</a>
+					<a class="active" href="/cliente">Cliente</a>
 				</li>
 			</ul>
 		</div>
@@ -39,8 +39,6 @@
 							<p>Consultar Cliente</p>
 						</td>
 						<td>
-<<<<<<< HEAD
-=======
 							<a href="consultarCliente">
 								<span class="status busca"> Consultar </span>
 							</a>
@@ -52,7 +50,6 @@
 							<p>Cadastrar Cliente</p>
 						</td>
 						<td>
->>>>>>> b8614f784cdcdd6f3fa45cb7b375ba4578414d0a
 							<a href="criarCliente">
 								<span class="status busca"> cadastro </span>
 							</a>
