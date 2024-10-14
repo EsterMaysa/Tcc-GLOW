@@ -10,10 +10,10 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
 {
     public function index()
     {
-        $clientes = ClienteAdmModel::all(); // Corrigi o nome do model ClienteAdmModel
-        return response()->json($clientes); // Retorna os clientes em formato JSON
+        $cliente = ClienteAdmModel::where('situacaoCliente', 0)->get(); // Exibe apenas os clientes ativos
+        return view('Adm.Cliente.clienteConsulta', ['clientes' => $cliente]); // Passando os dados de forma explícita
     }
-
+    
     public function indexLogin()
     {
         $clientes = ClienteAdmModel::all(); // Usar o model correto
@@ -80,7 +80,7 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
     // Métodos de API e outros
     public function storeapi(Request $request)
     {
-        $cliente = new ClienteAdmModel(); // Corrigi o nome do model
+       $cliente = new ClienteAdmModel(); // Corrigi o nome do model 
         $cliente->cnsCliente = $request->cns;
         $cliente->emailCliente = $request->email;
         $cliente->senhaCliente = bcrypt($request->senha); // Criptografar a senha
@@ -118,6 +118,19 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
 
     public function destroy($id)
     {
-        // Lógica para remover um cliente específico
+        // Tenta encontrar o cliente pelo ID
+        $cliente = ClienteAdmModel::find($id);
+        
+        // Verifica se o cliente existe
+        if ($cliente) {
+            // Atualiza a situação do cliente para '1' (inativo ou invisível)
+            $cliente->situacaoCliente = 1;
+            $cliente->save(); // Salva a mudança no banco de dados
+    
+            return redirect()->back()->with('success', 'Cliente desativado.');
+        } else {
+            return redirect()->back()->with('error', 'Cliente não encontrado.');
+        }
     }
+    
 }
