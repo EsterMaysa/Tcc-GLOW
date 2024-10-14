@@ -50,6 +50,10 @@ Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
 //rota insert cliente
+Route::get('/consultarCliente', [ClienteAdmController::class, 'index']);
+Route::delete('/deletarCliente/{id}', [ClienteAdmController::class, 'destroy'])->name('deletarCliente');
+
+
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
 Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
@@ -178,6 +182,7 @@ Route::get('/contato', function () {
 
 //SELECT
 Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
+
 
 
 // Login adm
