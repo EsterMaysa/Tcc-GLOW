@@ -4,13 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MedicamentoModel;
+use App\Models\DetentorModel; //model detentor
+use App\Models\TipoMedicamentoModel; //model tipo medicamento
+
 
 class MedicamentoController extends Controller
 {
     public function index()
     {
-        $medicamentos = MedicamentoModel::all();
-        return response()->json($medicamentos);
+        $detentor = DetentorModel::all(); 
+        $tiposMedicamento = TipoMedicamentoModel::all(); 
+    
+        return view('adm.Medicamento.cadastroMed', compact('detentor', 'tiposMedicamento'));
+    }
+
+    public function medicamentos()
+    {
+        $medicamento = MedicamentoModel::with(['detentor','tipoMedicamento'])
+        ->orderBy('dataCadastroMedicamento', 'desc')
+        ->get();
+    
+        return view('adm.Medicamento.Medicamento', compact('medicamento'));
+
     }
 
     public function store(Request $request)
@@ -23,15 +38,30 @@ class MedicamentoController extends Controller
         $medicamento->concentracaoMedicamento = $request->concentracao;
         $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceutica;
         $medicamento->composicaoMedicamento = $request->composicao;
-        $medicamento->fotoMedicamentoOriginal = $request->fotoOriginal;
-        $medicamento->fotoMedicamentoGenero = $request->fotoGenero;
+
+        if ($request->hasFile('fotoOriginal')) {
+            $fileOriginal = $request->file('fotoOriginal');
+            $pathOriginal = $fileOriginal->store('fotos_medicamentos', 'public');
+            $medicamento->fotoMedicamentoOriginal = $pathOriginal;
+        }       
+        
+        if ($request->hasFile('fotoGenero')) {
+            $fileGenero = $request->file('fotoGenero');
+            $pathGenero = $fileGenero->store('fotos_medicamentos', 'public');
+            $medicamento->fotoMedicamentoGenero = $pathGenero;
+        }
+    
+
         $medicamento->idDetentor = $request->idDetentor;
         $medicamento->idTipoMedicamento = $request->idTipo;
-        $medicamento->situacaoMedicamento = $request->situacao;
+
+
+        $medicamento->situacaoMedicamento = "A";
         $medicamento->dataCadastroMedicamento = now();
 
         $medicamento->save();
-        return response()->json(['message' => 'Medicamento criado com sucesso!'], 201);
+
+        return redirect('/medicamento');
     }
 
     public function updateapi(Request $request, $id)

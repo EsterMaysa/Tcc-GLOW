@@ -50,17 +50,19 @@ Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
 //rota insert cliente
-<<<<<<< HEAD
-=======
-Route::get('/consultarCliente', [ClienteAdmController::class, 'index']); // select
-
-
->>>>>>> b8614f784cdcdd6f3fa45cb7b375ba4578414d0a
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
 Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
 
+//Rotas do Medicamento
 
+// Route::get('/medicamento', function () {
+//     return view('adm.Medicamento.cadastroMed');
+// });
+
+Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']);
+Route::get('/medicamentoForm', [MedicamentoController::class, 'index']);
+Route::post('/cadastroMed', [MedicamentoController::class, 'store']);
 
 
 
@@ -123,9 +125,9 @@ Route::get('/estoque', function () {
     return view('farmacia.estoque');
 });
 
-Route::get('/medicamento', function () {
-    return view('farmacia.MedicamentoFarmacia');
-});
+// Route::get('/medicamento', function () {
+//     return view('farmacia.MedicamentoFarmacia');
+// });
 
 Route::get('/fabricante', function () {
     return view('farmacia.fabricanteFarma');
@@ -164,9 +166,7 @@ Route::get('/editarPerfil', function () {
 // });
 
 //PAGINAS MEDICAMENTO_UBS_CLIENTE
-Route::get('/medicamento', function () {
-    return view('adm.Medicamento.medicamento');
-});
+
 Route::get('/ubs', function () {
     return view('adm.UBS.UBS');
 });
@@ -284,14 +284,13 @@ Route::get('/notificacaoEstoqueInsert', function () {
 
 // 
 
-//Rotas do Medicamento
-Route::get('/medicamentos', [MedicamentoFarmaciaController::class, 'index'])->name('medicamentos.index');
-Route::post('/medicamentos', [MedicamentoFarmaciaController::class, 'store']);
 
 
 
-Route::get('/atualizarMedicamentoEstoque/{id}', [MedicamentoFarmaciaController::class, 'edit'])->name('medicamento.edit');
-Route::put('/medicamentos', [MedicamentoFarmaciaController::class, 'update'])->name('medicamento.update');
+
+// Route::get('/atualizarMedicamentoEstoque/{id}', [MedicamentoFarmaciaController::class, 'edit'])->name('medicamento.edit');
+// Route::put('/medicamentos', [MedicamentoFarmaciaController::class, 'update'])->name('medicamento.update');
+
 
 // tipo med
 // Route::get('/tipoMedicamento', [tipoMedicamentoController::class, 'index'])->name('tipoMedicamento.index');

@@ -6,26 +6,10 @@
 
 <!-- MAIN -->
 <main>
-	<div class="head-title">
-		<div class="left">
-			<h1> Medicamentos </h1>
-			<ul class="breadcrumb">
-				<li>
-					<a href="/"> Home </a>
-				</li>
-				<li><i class='bx bx-chevron-right'></i></li>
-				<li>
-					<a class="active" href="/"> Medicamento </a>
-				</li>
-			</ul>
-		</div>
-	</div>
-	
-	
 	<div class="table-data">
 		<div class="order">
 			<div class="head">
-				<h3> Medicamentos</h3>
+				<h3> cadastros</h3>
 				<i class='bx bx-search'></i>
 				<i class='bx bx-filter'></i>
 			</div>
@@ -38,70 +22,20 @@
 				<tbody>
 					<tr>
 						<td>
-							<p> Cadastro</p>
+							<p>  Medicamento</p>
+						</td>
+						<td>
+							<a href="/medicamentoForm">
+								<span class="status busca">Consultar</span>
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p> Detentor</p>
 						</td>
 						<td>
 							<a href="/">
-								<span class="status busca">Consultar</span>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<p>Comentario</p>
-						</td>
-						<td>
-							<a href="/">
-								<span class="status busca">Consultar</span>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<p>Contato</p>
-						</td>
-						<td>
-							<a href="#">
-								<span class="status busca">Consultar</span>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<p>Estoque</p>
-						</td>
-						<td>
-							<a href="#">
-								<span class="status busca">Consultar</span>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<p>Farmacia</p>
-						</td>
-						<td>
-							<a href="#">
-								<span class="status busca">Consultar</span>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<p>Notificação de Comentarios</p>
-						</td>
-						<td>
-							<a href="#">
-								<span class="status busca">Consultar</span>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<p>Notificação de Estoque</p>
-						</td>
-						<td>
-							<a href="#">
 								<span class="status busca">Consultar</span>
 							</a>
 						</td>
@@ -110,6 +44,49 @@
 			</table>
 		</div>
 	</div>
+	<div class="table-data">
+        <div class="order">
+            <div class="head">
+                <h3> Medicamentos</h3>
+                <i class='bx bx-search'></i>
+                <i class='bx bx-filter'></i>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código de Barras</th>
+                        <th>Nome</th>
+                        <th>Nome Genérico</th>
+                        <th>Registro ANVISA</th>
+                        <th>Forma Farmacêutica</th>
+                        <th>Concentração</th>
+						<th>Situação</th>
+						<th>Data de Cadastro</th>
+						<th>Ações</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($medicamento as $med)
+                    <tr>
+                        <td style="padding: 10px;">{{ $med->codigoDeBarrasMedicamento }}</td>
+                        <td>{{ $med->nomeMedicamento }}</td>
+                        <td>{{ $med->nomeGenericoMedicamento }}</td>
+                        <td>{{ $med->registroAnvisaMedicamento }}</td>
+                        <td>{{ $med->formaFarmaceuticaMedicamento }}</td>
+                        <td>{{ $med->concentracaoMedicamento }}</td>
+						<td>{{ $med->detentor->nomeDetentor ?? 'N/A' }}</td>
+						<td>{{ $med->tipoMedicamento->tipoMedicamento ?? 'N/A' }}</td>
+                        <td>{{ $med->situacaoMedicamento }}</td>
+						<td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
+						<td>Editar</td>
+
+					</tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 <!-- MAIN -->
 </main>
 </section>

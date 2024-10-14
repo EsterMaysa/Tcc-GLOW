@@ -53,21 +53,25 @@
             </div>
         </div>
 
-        <!-- <div class="form-group">
+        <div class="form-group">
             <label for="idDetentor">Detentor</label>
             <select class="form-control" id="idDetentor" name="idDetentor" required>
                 <option value="">Selecione o Detentor</option>
-                <option value="1">Detentor 1</option>
+                @foreach($detentor as $d)
+                    <option value="{{ $d->idFDetentor }}">{{ $d->nomeDetentor }}</option>
+                @endforeach           
             </select>
         </div>
 
         <div class="form-group">
             <label for="idTipoMedicamento">Tipo de Medicamento</label>
-            <select class="form-control" id="idTipoMedicamento" name="idTipoMedicamento" required>
+            <select class="form-control" id="idTipoMedicamento" name="idTipo" required>
                 <option value="">Selecione o Tipo de Medicamento</option>
-                <option value="1">Tipo 1</option>
+                @foreach($tiposMedicamento as $t)
+                    <option value="{{ $t->idTipoMedicamento }}">{{ $t->tipoMedicamento }}</option>
+                @endforeach            
             </select>
-        </div> -->
+        </div>
 
         <div class="form-group">
             <label for="formaFarmaceuticaMedicamento">Forma Farmacêutica</label>

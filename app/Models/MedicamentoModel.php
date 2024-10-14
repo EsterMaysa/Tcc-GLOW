@@ -29,4 +29,14 @@ class MedicamentoModel extends Model
     ];
 
     public $timestamps = false;
+    
+    public function detentor()
+    {
+        return $this->belongsTo(DetentorModel::class, 'idFDetentor');
+    }
+
+    public function tipoMedicamento()
+    {
+        return $this->belongsTo(TipoMedicamentoModel::class, 'idTipoMedicamento'); 
+    }
 }

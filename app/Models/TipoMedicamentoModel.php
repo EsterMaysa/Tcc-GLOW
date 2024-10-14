@@ -9,8 +9,9 @@ class TipoMedicamentoModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbTipoMedicamento';
+    protected $table = 'tbtipoMedicamento';
     protected $connection = 'mysql';
+    protected $primaryKey = 'idTipoMedicamento'; // Defina a chave primária correta
 
     protected $fillable = [
         'tipoMedicamento',
@@ -20,4 +21,9 @@ class TipoMedicamentoModel extends Model
     ];
 
     public $timestamps = false;
+   
+    public function medicamentos()
+    {
+        return $this->hasMany(MedicamentoModel::class, 'idTipoMedicamento');
+    }
 }

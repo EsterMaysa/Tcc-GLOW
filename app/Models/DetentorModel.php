@@ -9,7 +9,7 @@ class DetentorModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbDetentor';
+    protected $table = 'tbdetentor';
     protected $connection = 'mysql';
 
     protected $fillable = [
@@ -29,4 +29,9 @@ class DetentorModel extends Model
     ];
 
     public $timestamps = false;
+
+    public function medicamentos()
+    {
+        return $this->hasMany(MedicamentoModel::class, 'idFDetentor');
+    }
 }
