@@ -54,7 +54,7 @@
         <!-- Campo para latitudeUBS -->
         <label for="latitude">Latitude:</label>
         <input type="text" name="latitude" id="latitude"><br><br>
-        
+    <!--vini-->
         <!-- Campo para longitudeUBS -->
         <label for="longitude">Longitude:</label>
         <input type="text" name="longitude" id="longitude"><br><br>

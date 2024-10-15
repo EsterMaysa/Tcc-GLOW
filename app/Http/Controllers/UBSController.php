@@ -69,7 +69,7 @@ public function store(Request $request)
 
     // Obter o ID do telefone recém-cadastrado
     $telefoneId = $telefone->idTelefoneUBS;
-
+//vini
     // Cadastrar a UBS
     $ubs = new UBSModel();
     $ubs->nomeUBS = $request->ubs;

@@ -47,6 +47,7 @@ Route::get('/formUBS', function () {
 Route::get('/formTelefone', function () {
     return view('adm.Ubs.formTelefone');
 });
+//vini
 
 //Rota para o form da região
 Route::get('/formRegiao', function () {
