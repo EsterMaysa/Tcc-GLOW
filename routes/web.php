@@ -38,13 +38,43 @@ Route::get('/formUBS', function () {
     return view('adm.Ubs.formUBS');
 });
 
+
+
+//Rotas para Rota para abir o form do telefone 
+Route::get('/formTelefone', function () {
+    return view('adm.Ubs.formTelefone');
+});
+//vini
+
+//Rota para o form da região
+Route::get('/formRegiao', function () {
+    return view('adm.Ubs.formRegiao');
+});
+
+//Rota do insert do telefone
+Route::post('/insertTelefone', [TelefoneUBSController::class, 'store'])->name('insertTelefone');
+
+//Rota para o select do posto
+Route::get('/selectUBS', [UBSController::class, 'index']);
+
+//Rota do select da regiao
+Route::get('/selectRegiao', [RegiaoUBSController::class, 'index']);
+
+Route::get('/selectRegiaoForm', [UBSController::class, 'apresentarRegiao']);
+
+
+
 // Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
 Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 
+//Rota para o insert da região
+Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('insertRegiao');
+
 
 //rota para o formulario de inserção da UBS
-Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name('farmaciaUBS.insert');
-Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
+// Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create']);
+
+// Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
 //rota insert cliente
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
@@ -156,9 +186,9 @@ Route::get('/editarPerfil', function () {
     return view('adm.Perfil.editarPerfil');
 });
 
-// Route::get('/configuracoes', function () {
-//     return view('adm.configuracoes');
-// });
+ Route::get('/configuracoes', function () {
+    return view('adm.configuracoes');
+});
 // Route::get('/configuracoesNotificacoes', function () {
 //     return view('adm.configuracoesNotificacoes');
 // });
@@ -168,9 +198,11 @@ Route::get('/editarPerfil', function () {
 
 //PAGINAS MEDICAMENTO_UBS_CLIENTE
 
-Route::get('/ubs', function () {
-    return view('adm.UBS.UBS');
-});
+// Route::get('/ubs', function () {
+//     return view('adm.UBS.UBS');
+// });
+
+
 Route::get('/cliente', function () {
     return view('adm.cliente.Cliente');
 });
@@ -178,6 +210,8 @@ Route::get('/cliente', function () {
 Route::get('/contato', function () {
     return view('adm.contato');
 });
+
+
 
 
 //SELECT
@@ -225,30 +259,30 @@ Route::post('/adm', 'App\Http\Controllers\AdministradorController@store');
 
 
 //ROTA PARA A PAGINA DO INSERT ADM
-// Route::get('/insertCliente', function () {
-//     return view('clienteInsert');
-// });
-// Route::get('/regiaoInsert', function () {
-//     return view('regiaoInsert');
-// });
-// Route::get('/comentarioInsert', function () {
-//     return view('comentarioInsert');
-// });
-// Route::get('/contatoInsert', function () {
-//     return view('contatoInsert');
-// });
-// Route::get('/estoqueInsert', function () {
-//     return view('estoqueInsert');
-// });
-// Route::get('/farmaciaInsert', function () {
-//     return view('farmaciaInsert');
-// });
-// Route::get('/notificacaoComentarioInsert', function () {
-//     return view('notificacaoComentarioInsert');
-// });
-// Route::get('/notificacaoEstoqueInsert', function () {
-//     return view('notificacaoEstoqueInsert');
-// });
+Route::get('/insertCliente', function () {
+    return view('clienteInsert');
+});
+Route::get('/regiaoInsert', function () {
+    return view('regiaoInsert');
+});
+Route::get('/comentarioInsert', function () {
+    return view('comentarioInsert');
+});
+Route::get('/contatoInsert', function () {
+    return view('contatoInsert');
+});
+Route::get('/estoqueInsert', function () {
+    return view('estoqueInsert');
+});
+Route::get('/farmaciaInsert', function () {
+    return view('farmaciaInsert');
+});
+Route::get('/notificacaoComentarioInsert', function () {
+    return view('notificacaoComentarioInsert');
+});
+Route::get('/notificacaoEstoqueInsert', function () {
+    return view('notificacaoEstoqueInsert');
+});
 
 //pagina de cadastros da farmacia
 

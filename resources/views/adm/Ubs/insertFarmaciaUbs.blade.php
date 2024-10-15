@@ -1,5 +1,10 @@
 @include('includes.header')
 
+@if (session('success'))
+    <div class="alert alert-success" id="successMessage">
+        {{ session('success') }}
+    </div>
+@endif
 
 <div class="container">
     <h2>Cadastro de Farmácia UBS</h2>
@@ -30,13 +35,13 @@
         </div>
         
         <!-- Situação da Farmácia -->
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="situacaoFamaciaUBS">Situação</label>
             <select class="form-control" id="situacaoFamaciaUBS" name="situacaoFamaciaUBS" required>
                 <option value="A">Ativa</option>
                 <option value="I">Inativa</option>
             </select>
-        </div>
+        </div> -->
         
         <!-- Data de Cadastro -->
         <!-- <div class="form-group">
@@ -48,5 +53,20 @@
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
 </div>
+
+<script>
+    // Após 6 segundos (6000 milissegundos), remove a mensagem de sucesso
+    setTimeout(function() {
+        var successMessage = document.getElementById('successMessage');
+        if (successMessage) {
+            successMessage.style.transition = "opacity 1s ease-out"; // Efeito de transição suave
+            successMessage.style.opacity = '0'; // Desvanece a mensagem
+            setTimeout(function() {
+                successMessage.remove(); // Remove o elemento do DOM
+            }, 1000); // Dá mais um segundo para o fade out antes de remover
+        }
+    }, 6000); // Aguarda 6 segundos
+</script>
+
 
 @include('includes.footer')

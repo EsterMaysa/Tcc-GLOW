@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar UBS</title>
+    <script>
+        function submitForm() {
+            document.getElementById('ubsForm').submit();
+        }
+    </script>
 </head>
 <body>
     <h1>Adicionar uma nova UBS</h1>
     
-    <form action="{{ route('insertUBS') }}" method="POST" enctype="multipart/form-data">
+    <form id="ubsForm" action="{{ route('insertUBS') }}" method="POST" enctype="multipart/form-data">
         @csrf <!-- Proteção contra CSRF -->
         
         <label for="nome">Nome da UBS:</label>
@@ -49,7 +54,7 @@
         <!-- Campo para latitudeUBS -->
         <label for="latitude">Latitude:</label>
         <input type="text" name="latitude" id="latitude"><br><br>
-        
+    <!--vini-->
         <!-- Campo para longitudeUBS -->
         <label for="longitude">Longitude:</label>
         <input type="text" name="longitude" id="longitude"><br><br>
@@ -61,14 +66,18 @@
         <label for="senha">Senha:</label>
         <input type="password" name="senha" id="senha" required><br><br>
 
-        <!-- Campos para idTelefoneUBS e idRegiaoUBS -->
-        <label for="telefone">ID do Telefone:</label>
-        <input type="text" name="idTelefone" id="idTelefone"><br><br>
-        
+        <!-- Campo para ID da Região -->
         <label for="regiao">ID da Região:</label>
         <input type="text" name="idRegiao" id="idRegiao"><br><br>
+
+        <h2>Adicionar um Novo Telefone</h2>
+        <label for="telefone">Número do Telefone:</label>
+        <input type="text" name="telefone" id="telefone" required><br><br>
         
-        <button type="submit">Cadastrar UBS</button>
+        <label for="situacaoTelefone">Situação:</label>
+        <input type="text" name="situacaoTelefone" id="situacaoTelefone"><br><br>
+
+        <button type="button" onclick="submitForm()">Cadastrar UBS e Telefone</button>
     </form>
 </body>
 </html>
