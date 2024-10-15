@@ -41,8 +41,36 @@ Route::get('/formUBS', function () {
     return view('adm.Ubs.formUBS');
 });
 
+
+
+//Rotas para Rota para abir o form do telefone 
+Route::get('/formTelefone', function () {
+    return view('adm.Ubs.formTelefone');
+});
+
+//Rota para o form da região
+Route::get('/formRegiao', function () {
+    return view('adm.Ubs.formRegiao');
+});
+
+//Rota do insert do telefone
+Route::post('/insertTelefone', [TelefoneUBSController::class, 'store'])->name('insertTelefone');
+
+//Rota para o select do posto
+Route::get('/selectUBS', [UBSController::class, 'index']);
+
+//Rota do select da regiao
+Route::get('/selectRegiao', [RegiaoUBSController::class, 'index']);
+
+Route::get('/selectRegiaoForm', [UBSController::class, 'apresentarRegiao']);
+
+
+
 // Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
 Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
+
+//Rota para o insert da região
+Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('insertRegiao');
 
 
 //rota para o formulario de inserção da UBS
@@ -50,13 +78,13 @@ Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
 //rota insert cliente
-<<<<<<< HEAD
-=======
+
+
 Route::get('/consultarCliente', [ClienteAdmController::class, 'index']);
 Route::delete('/deletarCliente/{id}', [ClienteAdmController::class, 'destroy'])->name('deletarCliente');
 
 
->>>>>>> bf82635823c7aa94cc13de5a7a75b93b949e4654
+
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
 Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
@@ -174,9 +202,11 @@ Route::get('/editarPerfil', function () {
 
 //PAGINAS MEDICAMENTO_UBS_CLIENTE
 
-Route::get('/ubs', function () {
-    return view('adm.UBS.UBS');
-});
+// Route::get('/ubs', function () {
+//     return view('adm.UBS.UBS');
+// });
+
+
 Route::get('/cliente', function () {
     return view('adm.cliente.Cliente');
 });
