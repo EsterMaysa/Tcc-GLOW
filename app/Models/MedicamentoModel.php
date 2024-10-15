@@ -29,7 +29,7 @@ class MedicamentoModel extends Model
     ];
 
     public $timestamps = false;
-    
+    protected $primaryKey = 'idMedicamento'; 
     public function detentor()
     {
         return $this->belongsTo(DetentorModel::class, 'idFDetentor');
