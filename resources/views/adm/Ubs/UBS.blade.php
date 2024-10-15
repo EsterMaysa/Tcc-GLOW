@@ -46,7 +46,7 @@
 					</td>
 				</tr>
 
-						<td>
+						<!-- <td>
 							<p>Medicamento</p>
 						</td>
 						<td>
@@ -54,19 +54,19 @@
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>
 							<p>Região</p>
 						</td>
 						<td>
-							<a href="formRegiao">
+							<a href="('formRegiao')">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
 					</tr>
 					<tr>
-						<td>
+						<!-- <td>
 							<p>Comentario</p>
 						</td>
 						<td>
@@ -74,33 +74,33 @@
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
-						<td>
+						<!-- <td>
 							<p>Contato</p>
 						</td>
 						<td>
 							<a href="contatoInsert">
 								<span class="status busca"> Criar </span>
 							</a>
-						</td>
+						</td> -->
 					</tr>
 					<tr>
-						<td>
+						<!-- <td>
 							<p>Estoque</p>
 						</td>
 						<td>
 							<a href="estoqueInsert">
 								<span class="status busca"> Criar </span>
 							</a>
-						</td>
+						</td> -->
 					</tr>
 					<tr>
 						<td>
 							<p>Farmacia</p>
 						</td>
 						<td>
-							<a href="{{ route('farmaciaUBS.insert') }}">
+						<a href="/insertFarmacia"> <!-- Usando a função route -->
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>

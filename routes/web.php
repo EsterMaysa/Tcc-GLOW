@@ -46,17 +46,15 @@ Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 
 
 //rota para o formulario de inserção da UBS
-Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name('farmaciaUBS.insert');
-Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
+// Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create']);
+
+// Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
 //rota insert cliente
-<<<<<<< HEAD
-=======
 Route::get('/consultarCliente', [ClienteAdmController::class, 'index']);
 Route::delete('/deletarCliente/{id}', [ClienteAdmController::class, 'destroy'])->name('deletarCliente');
 
 
->>>>>>> bf82635823c7aa94cc13de5a7a75b93b949e4654
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
 Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
@@ -71,11 +69,14 @@ Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']);
 Route::get('/medicamentoForm', [MedicamentoController::class, 'index']);
 Route::post('/cadastroMed', [MedicamentoController::class, 'store']);
 
+//rotas farmacia
+
+Route::post('/criarFarmacia', [FarmaciaUBSController::class, 'store']);
 
 
+//rota do contato (mensagens)
 
-
-
+Route::get('/contato', [ContatoController::class, 'index']);
 
 
 
@@ -162,9 +163,9 @@ Route::get('/editarPerfil', function () {
     return view('adm.Perfil.editarPerfil');
 });
 
-// Route::get('/configuracoes', function () {
-//     return view('adm.configuracoes');
-// });
+ Route::get('/configuracoes', function () {
+    return view('adm.configuracoes');
+});
 // Route::get('/configuracoesNotificacoes', function () {
 //     return view('adm.configuracoesNotificacoes');
 // });
@@ -182,9 +183,9 @@ Route::get('/cliente', function () {
 });
 
 
-Route::get('/contato', function () {
-    return view('adm.contato');
-});
+// Route::get('/contato', function () {
+//     return view('adm.contato');
+// });
 
 
 
@@ -243,15 +244,18 @@ Route::get('/regiaoInsert', function () {
 Route::get('/comentarioInsert', function () {
     return view('comentarioInsert');
 });
-Route::get('/contatoInsert', function () {
-    return view('contatoInsert');
-});
+// Route::get('/contatos', function () {
+//     return view('adm.contato');
+// });
 Route::get('/estoqueInsert', function () {
     return view('estoqueInsert');
 });
-Route::get('/farmaciaInsert', function () {
-    return view('farmaciaInsert');
+Route::get('/insertFarmacia', function () {
+    return view('adm.Ubs.insertFarmaciaUbs');
 });
+
+
+
 Route::get('/notificacaoComentarioInsert', function () {
     return view('notificacaoComentarioInsert');
 });
