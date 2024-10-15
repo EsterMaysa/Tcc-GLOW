@@ -9,8 +9,9 @@ class RegiaoUBSController extends Controller
 {
     public function index()
     {
-        $regioes = RegiaoUBSModel::all();
-        return response()->json($regioes);
+        
+        $regioes = RegiaoModel::all(); // Busca todas as regiões do banco
+        return view('adm.Ubs.formUBS', compact('regioes')); // Passa as regiões para a view
     }
 
     public function store(Request $request)

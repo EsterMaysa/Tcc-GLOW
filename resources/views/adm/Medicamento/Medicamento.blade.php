@@ -79,8 +79,11 @@
 						<td>{{ $med->tipoMedicamento->tipoMedicamento ?? 'N/A' }}</td>
                         <td>{{ $med->situacaoMedicamento }}</td>
 						<td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
-						<td>Editar</td>
-
+						<td>
+							<a href="{{ route('medicamento.edit', $med->idMedicamento) }}">
+								<p style="color: red;">Editar</p>
+							</a>
+						</td>
 					</tr>
                     @endforeach
                 </tbody>
