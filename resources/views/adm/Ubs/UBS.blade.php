@@ -103,7 +103,7 @@
 							<p>Região</p>
 						</td>
 						<td>
-							<a href="/selectRegiao">
+							<a href="/formRegiao">
 								<span class="status busca"> Criar </span>
 							</a>
 						</td>
