@@ -64,6 +64,67 @@ class MedicamentoController extends Controller
         return redirect('/medicamento');
     }
 
+// Função para exibir o formulário de edição
+public function edit($idMedicamento)
+{
+    // Busca o medicamento pelo ID
+    $medicamento = MedicamentoModel::findOrFail($idMedicamento);
+
+    // Carrega as opções de Detentor e Tipos de Medicamento
+    $detentor = DetentorModel::all();
+    $tiposMedicamento = TipoMedicamentoModel::all();
+
+    // Retorna a view de edição com os dados do medicamento
+    return view('adm.Medicamento.editMedicamento', compact('medicamento','detentor', 'tiposMedicamento'));
+}
+
+public function update(Request $request, $id)
+    {
+        // Validação dos campos
+        // $request->validate([
+        //     'codigoDeBarras' => 'required|string|max:255',
+        //     'nome' => 'required|string|max:255',
+        //     'nomeGenerico' => 'required|string|max:255',
+        //     'idDetentor' => 'required|exists:detentores,idFDetentor',
+        //     'idTipo' => 'required|exists:tipos_medicamentos,idTipoMedicamento',
+        //     'formaFarmaceutica' => 'required|string',
+        //     'concentracao' => 'required|string',
+        //     'composicao' => 'required|string',
+        //     'registroAnvisa' => 'required|string',
+        // ]);
+
+        // Encontra o medicamento que será atualizado
+        $medicamento = MedicamentoModel::findOrFail($id);
+
+        // Atualiza os dados do medicamento
+        $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarras;
+        $medicamento->nomeMedicamento = $request->nome;
+        $medicamento->nomeGenericoMedicamento = $request->nomeGenerico;
+        $medicamento->idDetentor = $request->idDetentor;
+        $medicamento->idTipoMedicamento = $request->idTipo;
+        $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceutica;
+        $medicamento->concentracaoMedicamento = $request->concentracao;
+        $medicamento->composicaoMedicamento = $request->composicao;
+        $medicamento->registroAnvisaMedicamento = $request->registroAnvisa;
+
+        // Upload de fotos (se fornecidas)
+        if ($request->hasFile('fotoOriginal')) {
+            $path = $request->file('fotoOriginal')->store('medicamentos/original', 'public');
+            $medicamento->fotoOriginalMedicamento = $path;
+        }
+
+        if ($request->hasFile('fotoGenero')) {
+            $path = $request->file('fotoGenero')->store('medicamentos/generico', 'public');
+            $medicamento->fotoGenericoMedicamento = $path;
+        }
+
+        // Salva as alterações
+        $medicamento->save();
+        // Redireciona o usuário com uma mensagem de sucesso
+        return redirect('/medicamento')->with('success', 'Medicamento atualizado com sucesso!');
+    }
+
+
     public function updateapi(Request $request, $id)
     {
         MedicamentoModel::where('idMedicamento', $id)->update([

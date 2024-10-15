@@ -50,26 +50,17 @@ Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
 //rota insert cliente
-<<<<<<< HEAD
-=======
-Route::get('/consultarCliente', [ClienteAdmController::class, 'index']);
-Route::delete('/deletarCliente/{id}', [ClienteAdmController::class, 'destroy'])->name('deletarCliente');
-
-
->>>>>>> bf82635823c7aa94cc13de5a7a75b93b949e4654
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
 Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
 
 //Rotas do Medicamento
+Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']); //para aparecer a tabela de med
+Route::get('/medicamentoForm', [MedicamentoController::class, 'index']); //para aparecer o tipo med e o detentor no cadastro
+Route::post('/cadastroMed', [MedicamentoController::class, 'store']); //cadastro do med
 
-// Route::get('/medicamento', function () {
-//     return view('adm.Medicamento.cadastroMed');
-// });
-
-Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']);
-Route::get('/medicamentoForm', [MedicamentoController::class, 'index']);
-Route::post('/cadastroMed', [MedicamentoController::class, 'store']);
+Route::get('/medicamento/edit/{idMedicamento}', [MedicamentoController::class, 'edit'])->name('medicamento.edit');
+Route::put('/medicamento/{idMedicamento}', [MedicamentoController::class, 'update'])->name('medicamento.update');
 
 
 
@@ -181,16 +172,13 @@ Route::get('/cliente', function () {
     return view('adm.cliente.Cliente');
 });
 
-
 Route::get('/contato', function () {
     return view('adm.contato');
 });
 
 
-
-
 //SELECT
-Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
+// Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
 
 
 
@@ -234,30 +222,30 @@ Route::post('/adm', 'App\Http\Controllers\AdministradorController@store');
 
 
 //ROTA PARA A PAGINA DO INSERT ADM
-Route::get('/insertCliente', function () {
-    return view('clienteInsert');
-});
-Route::get('/regiaoInsert', function () {
-    return view('regiaoInsert');
-});
-Route::get('/comentarioInsert', function () {
-    return view('comentarioInsert');
-});
-Route::get('/contatoInsert', function () {
-    return view('contatoInsert');
-});
-Route::get('/estoqueInsert', function () {
-    return view('estoqueInsert');
-});
-Route::get('/farmaciaInsert', function () {
-    return view('farmaciaInsert');
-});
-Route::get('/notificacaoComentarioInsert', function () {
-    return view('notificacaoComentarioInsert');
-});
-Route::get('/notificacaoEstoqueInsert', function () {
-    return view('notificacaoEstoqueInsert');
-});
+// Route::get('/insertCliente', function () {
+//     return view('clienteInsert');
+// });
+// Route::get('/regiaoInsert', function () {
+//     return view('regiaoInsert');
+// });
+// Route::get('/comentarioInsert', function () {
+//     return view('comentarioInsert');
+// });
+// Route::get('/contatoInsert', function () {
+//     return view('contatoInsert');
+// });
+// Route::get('/estoqueInsert', function () {
+//     return view('estoqueInsert');
+// });
+// Route::get('/farmaciaInsert', function () {
+//     return view('farmaciaInsert');
+// });
+// Route::get('/notificacaoComentarioInsert', function () {
+//     return view('notificacaoComentarioInsert');
+// });
+// Route::get('/notificacaoEstoqueInsert', function () {
+//     return view('notificacaoEstoqueInsert');
+// });
 
 //pagina de cadastros da farmacia
 
@@ -274,8 +262,8 @@ Route::get('/notificacaoEstoqueInsert', function () {
 
 
 //clienteFarmacia
- Route::get('/cadastros', [ClienteFarmaciaController::class, 'create'])->name('cliente.create'); // Rota para exibir o formulário
- Route::post('/cadastros', [ClienteFarmaciaController::class, 'store'])->name('cliente.store'); // Rota para salvar os dados no banco
+//  Route::get('/cadastros', [ClienteFarmaciaController::class, 'create'])->name('cliente.create'); // Rota para exibir o formulário
+//  Route::post('/cadastros', [ClienteFarmaciaController::class, 'store'])->name('cliente.store'); // Rota para salvar os dados no banco
  
 
 // //telefone
