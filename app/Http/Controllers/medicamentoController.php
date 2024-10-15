@@ -106,7 +106,7 @@ public function update(Request $request, $id)
         $medicamento->concentracaoMedicamento = $request->concentracao;
         $medicamento->composicaoMedicamento = $request->composicao;
         $medicamento->registroAnvisaMedicamento = $request->registroAnvisa;
-
+        $medicamento->situacaoMedicamento = $request->situacaoMedicamento;
         // Upload de fotos (se fornecidas)
         if ($request->hasFile('fotoOriginal')) {
             $path = $request->file('fotoOriginal')->store('medicamentos/original', 'public');

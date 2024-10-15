@@ -12,15 +12,12 @@ use App\Http\Controllers\TelefoneFabricanteFarmaciaController;
 use App\Http\Controllers\FarmaciaUBSController;
 
 
-
-
-
-
 //novos controllers
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\DetentorController;
 
 
 /*
@@ -62,10 +59,16 @@ Route::post('/cadastroMed', [MedicamentoController::class, 'store']); //cadastro
 Route::get('/medicamento/edit/{idMedicamento}', [MedicamentoController::class, 'edit'])->name('medicamento.edit');
 Route::put('/medicamento/{idMedicamento}', [MedicamentoController::class, 'update'])->name('medicamento.update');
 
+//Detentor
+Route::get('/detentor', [DetentorController::class, 'index']);
 
+Route::get('/detentorCadastro', function () {
+    return view('adm.Medicamento.cadastroDetentor');
+});
 
-
-
+Route::post('/cadastroDetentor', [DetentorController::class, 'store']); //cadastro do med
+Route::put('/detentor/{idFDetentor}', [DetentorController::class, 'update'])->name('detentor.update');
+Route::get('/detentor/edit/{idFDetentor}', [DetentorController::class, 'edit'])->name('detentor.edit');
 
 
 

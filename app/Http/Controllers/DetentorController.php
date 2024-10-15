@@ -10,7 +10,8 @@ class DetentorController extends Controller
     public function index()
     {
         $detentores = DetentorModel::all();
-        return response()->json($detentores);
+
+        return view('adm.Medicamento.detentor', compact('detentores'));
     }
 
     public function store(Request $request)
@@ -27,12 +28,51 @@ class DetentorController extends Controller
         $detentor->ufDetentor = $request->uf;
         $detentor->cepDetentor = $request->cep;
         $detentor->complementoDetentor = $request->complemento;
-        $detentor->situacaoDetentor = $request->situacao;
+        $detentor->situacaoDetentor = "A";
         $detentor->dataCadastroDetentor = now();
 
         $detentor->save();
-        return response()->json(['message' => 'Detentor criado com sucesso!'], 201);
+        
+        return redirect('/detentor');
     }
+
+
+    public function edit($idDetentor)
+    {
+        // Busca o detentor pelo ID
+        $detentor = DetentorModel::findOrFail($idDetentor);
+    
+        // Retorna a view de edição com os dados do detentor
+        return view('adm.Medicamento.editDetentor', compact('detentor'));
+    }
+    
+    public function update(Request $request, $id)
+    {
+    
+        // Encontra o detentor que será atualizado
+        $detentor = DetentorModel::findOrFail($id);
+    
+        // Atualiza os dados do detentor
+        $detentor->nomeDetentor = $request->nome;
+        $detentor->cnpjDetentor = $request->cnpj;
+        $detentor->emailDetentor = $request->email;
+        $detentor->logradouroDetentor = $request->logradouro;
+        $detentor->bairroDetentor = $request->bairro;
+        $detentor->estadoDetentor = $request->estado;
+        $detentor->cidadeDetentor = $request->cidade;
+        $detentor->numeroDetentor = $request->numero;
+        $detentor->ufDetentor = $request->uf;
+        $detentor->cepDetentor = $request->cep;
+        $detentor->complementoDetentor = $request->complemento;
+        $detentor->situacaoDetentor = $request->situacao;
+    
+        // Salva as alterações
+        $detentor->save();
+    
+        // Redireciona o usuário com uma mensagem de sucesso
+        return redirect('/detentor')->with('success', 'Detentor atualizado com sucesso!');
+    }
+    
 
     public function updateapi(Request $request, $id)
     {

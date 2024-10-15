@@ -35,7 +35,7 @@
 							<p> Detentor</p>
 						</td>
 						<td>
-							<a href="/">
+							<a href="/detentor">
 								<span class="status busca">Consultar</span>
 							</a>
 						</td>
