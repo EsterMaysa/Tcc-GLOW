@@ -9,7 +9,7 @@
     <h1>Adicionar um Novo Telefone</h1>
     
     <form action="{{ route('insertTelefone') }}" method="POST">
-        @csrf <!-- Proteção contra CSRF -->
+        @csrf <!-- Proteção contra CSRF vini -->
         
         <label for="numero">Número do Telefone:</label>
         <input type="text" name="telefone" id="telefone"><br><br>
