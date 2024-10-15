@@ -2,7 +2,7 @@
 
 <!--  AQUI VAI A PAGINA DESTINADA AS FUNCIONALIDADES DA UBS-->
 <!--  Essa pagina não será de create, portanto mudará as dashbord-->
-<!--  VOCÊ QUE È BACK crie somente os botoes que vini irá para pagina das funcionalidade. ex: cadastro ubs-->
+<!--  VOCÊ QUE È BACK crie somente os botoes que vini  vini irá para pagina das funcionalidade. ex: cadastro ubs-->
 
 		<!-- MAIN -->
 		<main>

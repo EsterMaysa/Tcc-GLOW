@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TelefoneUBSModel;
-
+//vini
 class TelefoneUBSController extends Controller
 {
     public function index()

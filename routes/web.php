@@ -79,16 +79,6 @@ Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
 //rota insert cliente
-<<<<<<< HEAD
-
-
-Route::get('/consultarCliente', [ClienteAdmController::class, 'index']);
-Route::delete('/deletarCliente/{id}', [ClienteAdmController::class, 'destroy'])->name('deletarCliente');
-
-
-
-=======
->>>>>>> 10eefd54076be9b5f7b18679f6726f8d2a4cfa9d
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
 Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
