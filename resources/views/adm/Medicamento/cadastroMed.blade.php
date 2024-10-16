@@ -57,7 +57,7 @@
             <label for="idDetentor">Detentor</label>
             <select class="form-control" id="idDetentor" name="idDetentor" required>
                 <option value="">Selecione o Detentor</option>
-                @foreach($detentor as $d)
+                @foreach($detentores as $d)
                     <option value="{{ $d->idFDetentor }}">{{ $d->nomeDetentor }}</option>
                 @endforeach           
             </select>

@@ -12,10 +12,10 @@ class MedicamentoController extends Controller
 {
     public function index()
     {
-        $detentor = DetentorModel::all(); 
+        $detentores = DetentorModel::all(); 
         $tiposMedicamento = TipoMedicamentoModel::all(); 
     
-        return view('adm.Medicamento.cadastroMed', compact('detentor', 'tiposMedicamento'));
+        return view('adm.Medicamento.cadastroMed', compact('detentores', 'tiposMedicamento'));
     }
 
     public function medicamentos()
@@ -106,7 +106,7 @@ public function update(Request $request, $id)
         $medicamento->concentracaoMedicamento = $request->concentracao;
         $medicamento->composicaoMedicamento = $request->composicao;
         $medicamento->registroAnvisaMedicamento = $request->registroAnvisa;
-
+        $medicamento->situacaoMedicamento = $request->situacaoMedicamento;
         // Upload de fotos (se fornecidas)
         if ($request->hasFile('fotoOriginal')) {
             $path = $request->file('fotoOriginal')->store('medicamentos/original', 'public');

@@ -9,7 +9,7 @@
     <h1>Adicionar uma Nova Região</h1>
     
     <form action="{{ route('insertRegiao') }}" method="POST">
-        @csrf <!-- Proteção contra CSRF -->
+        @csrf <!-- Proteção contra CSRF vini -->
         
         <label for="numero">Nome da Região:</label>
         <input type="text" name="regiao" id="regiao"><br><br>

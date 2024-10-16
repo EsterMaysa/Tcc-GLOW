@@ -29,6 +29,7 @@ class DetentorModel extends Model
     ];
 
     public $timestamps = false;
+    protected $primaryKey = 'idFDetentor'; 
 
     public function medicamentos()
     {

@@ -40,7 +40,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/ubs">
+				<a href="/selectUBS">
 					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
 					<span class="text"> UBS </span>
 				</a>
@@ -52,8 +52,9 @@
 					<span class="text"> Clientes </span>
 				</a>
 			</li>
+			
 			<li>
-				<a href="/contatos">
+				<a href="/contato">
 					<i class='bx bxs-message-dots'></i>
 					<span class="text"> Mensagens </span>
 				</a>

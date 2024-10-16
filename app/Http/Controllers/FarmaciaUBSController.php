@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\FarmaciaUBSModel; // Corrija para o nome correto do model
 
 class FarmaciaUBSController extends Controller
@@ -18,13 +19,13 @@ class FarmaciaUBSController extends Controller
     public function store(Request $request) 
     {
         // Validação dos dados recebidos
-        $request->validate([
-            'nomeFamaciaUBS' => 'required|string|max:100',
-            'emailFamaciaUBS' => 'required|email|max:100',
-            'senhaFamaciaUBS' => 'required|string|min:8|max:200|unique:tbFamaciaUBS,senhaFamaciaUBS',
-            'tipoFamaciaUBS' => 'nullable|string|max:100',
-            // 'situacaoFamaciaUBS' => 'required|string|in:A,I', // A = Ativo, I = Inativo
-        ]);
+        // $request->validate([
+        //     'nomeFamaciaUBS' => 'required|string|max:100',
+        //     'emailFamaciaUBS' => 'required|email|max:100',
+        //     'senhaFamaciaUBS' => 'required|string|min:8|max:200|unique:tbFamaciaUBS,senhaFamaciaUBS',
+        //     'tipoFamaciaUBS' => 'nullable|string|max:100',
+        //     // 'situacaoFamaciaUBS' => 'required|string|in:A,I', // A = Ativo, I = Inativo
+        // ]);
 
         // Criação de uma nova instância de FarmaciaUBSModel
         $farmacia = new FarmaciaUBSModel();
@@ -41,7 +42,11 @@ class FarmaciaUBSController extends Controller
         $farmacia->save();
 
         // Redirecionar após o cadastro com uma mensagem de sucesso
-        return redirect('/farmaciaInsert');
+        session()->flash('success', 'Farmácia UBS cadastrada com sucesso!');
+
+
+        // Redirecionar após o cadastro com uma mensagem de sucesso
+        return redirect('/insertFarmacia');
     }
 
     // Atualizar dados via API

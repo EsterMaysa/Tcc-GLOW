@@ -102,6 +102,14 @@
             <textarea class="form-control" id="composicaoMedicamento" name="composicao" required>{{ $medicamento->composicaoMedicamento }}</textarea>
         </div>
 
+        <div class="form-group">
+            <label for="situacaoMedicamento">Situação</label>
+            <select class="form-control" id="situacaoMedicamento" name="situacaoMedicamento">
+                <option value="A" {{ $medicamento->situacaoMedicamento == 'Ativo' ? 'selected' : '' }}>Ativado</option>
+                <option value="D" {{ $medicamento->situacaoMedicamento == 'Inativo' ? 'selected' : '' }}>Desativar</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
     </form>
 
