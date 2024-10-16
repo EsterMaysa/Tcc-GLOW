@@ -9,7 +9,7 @@ class ContatoController extends Controller
 {
     public function index()
     {
-        $contatos = ContatoModel::all();
+        $contatos = ContatoModel::with('usuario')->get();
         return view('adm.contato', compact('contatos'));
     }
 

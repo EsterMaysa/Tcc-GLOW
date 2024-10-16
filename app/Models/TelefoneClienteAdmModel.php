@@ -16,15 +16,17 @@ class TelefoneClienteAdmModel extends Model
     protected $fillable = [
         'numeroTelefoneCliente',
         'situacaoTelefoneCliente',
-        'dataCadastroTelefoneCliente'
+        'dataCadastroTelefoneCliente',
+      
     ];
 
     // Desativa as colunas de timestamps padrão (created_at, updated_at)
     public $timestamps = false;
 
-    // Define o relacionamento com o model ClienteAdmModel (um telefone pertence a um cliente)
-    public function cliente()
+    // Definindo o relacionamento com a tabela de clientes
+    public function telefone()
     {
-        return $this->hasOne(ClienteAdmModel::class, 'idTelefoneCliente', 'idTelefoneCliente');
+        return $this->belongsTo(TelefoneClienteAdmModel::class, 'idTelefoneCliente');
     }
+    
 }

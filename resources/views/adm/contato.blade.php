@@ -17,17 +17,19 @@
 		</div>
 	</div>
     <div id="mensagens-lista">
+    @foreach($contatos as $c)
+
         <div class="mensagem">
-        @foreach($contatos as $contato)
-            <p><strong>De:</strong> <span class="remetente"></span></p>
-            <p><strong>Mensagem:</strong> <span class="texto">{{ $contato->mensagemCcontato }}</span></p>
-            <p><strong>Data:</strong> <span class="data">{{ $contato->dataCadastroContato }}</span></p>
-            @endforeach
+            <p><strong>De:</strong> <span class="remetente">{{ $c->usuario->nomeUsuario ?? 'Usuário não encontrado' }}</span></p>
+            <p><strong>Mensagem:</strong> <span class="texto">{{ $c->mensagemCcontato }}</span></p>
+            <p><strong>Data:</strong> <span class="data">{{ $c->dataCadastroContato }}</span></p>
             <div class="responder-form">
                 <textarea placeholder="Digite sua resposta aqui..." rows="4" cols="50"></textarea>
                 <button onclick="enviarResposta()">Enviar Resposta</button>
             </div>
         </div>
+        @endforeach
+
 		<!-- <div class="mensagem">
             <p><strong>De:</strong> <span class="remetente">Nome do Remetente</span></p>
             <p><strong>Mensagem:</strong> <span class="texto">Texto da Mensagem</span></p>

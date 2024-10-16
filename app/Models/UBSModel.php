@@ -12,6 +12,8 @@ class UBSModel extends Model
     protected $table = 'tbUBS';
     protected $connection = 'mysql';
 
+    protected $primaryKey = 'idUBS';
+
     protected $fillable = [
         'nomeUBS',
         'fotoUBS',

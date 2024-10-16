@@ -62,9 +62,19 @@ class TelefoneClienteAdmController extends Controller
     // Método para excluir um telefone
     public function destroy($id)
     {
-        $telefone = TelefoneClienteAdmModel::findOrFail($id); // Busca o telefone pelo ID
-        $telefone->delete(); // Deleta o telefone
-
-        return redirect()->back()->with('success', 'Telefone excluído com sucesso!'); // Retorna com mensagem de sucesso
+        // Tenta encontrar o telefone pelo ID
+        $telefone = TelefoneClienteAdmModel::find($id);
+        
+        // Verifica se o telefone existe
+        if ($telefone) {
+            // Atualiza a situação do telefone para '1' (inativo ou desativado)
+            $telefone->situacaoTelefoneCliente = 1; // Supondo que exista um campo 'situacaoTelefone' no banco de dados
+            $telefone->save(); // Salva a mudança no banco de dados
+    
+            return redirect()->back()->with('success', 'Telefone desativado com sucesso.');
+        } else {
+            return redirect()->back()->with('error', 'Telefone não encontrado.');
+        }
     }
+    
 }

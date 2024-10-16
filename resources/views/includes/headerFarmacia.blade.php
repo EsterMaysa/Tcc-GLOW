@@ -8,7 +8,7 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-	<!-- Nosso CSS -->
+	<!-- Nosso CSS vini-->
 
 	<link rel="stylesheet" href="{{ asset('/css/perfilFarmacia.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/cadFarmacia.css') }}">
