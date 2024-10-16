@@ -17,6 +17,7 @@ class UBSController extends Controller
 {
     $ubs = UBSModel::all(); // Busca todos os dados da UBS
     return view('adm.Ubs.UBS', ['ubs' => $ubs]); // Passa os dados para a view
+    
 }
 
 public function apresentarRegiao()
@@ -29,7 +30,7 @@ public function apresentarRegiao()
 
 
   //vini  
-public function store(Request $request)
+  public function store(Request $request)
 {
     // Validação dos dados de entrada
     $validator = Validator::make($request->all(), [
@@ -46,10 +47,8 @@ public function store(Request $request)
         'numero' => 'required|string|max:10',
         'uf' => 'required|string|max:2',
         'complemento' => 'nullable|string|max:255',
-        
         'idRegiao' => 'required|integer',
         'telefone' => 'required|string|max:15',
-        'situacaoTelefone' => 'nullable|string|max:255',
     ]);
 
     if ($validator->fails()) {
@@ -59,21 +58,22 @@ public function store(Request $request)
     // Cadastrar o telefone primeiro
     $telefone = new TelefoneUBSModel();
     $telefone->numeroTelefoneUBS = $request->telefone;
-    $telefone->situacaoTelefoneUBS = $request->situacaoTelefone;
+    $telefone->situacaoTelefoneUBS = $request->situacaoTelefone ?? '1'; // Define 1 se não for passado
     $telefone->dataCadastroTelefoneUBS = now();
+    $telefone->save();
 
-    // Salvar telefone e verificar se foi salvo corretamente
-    if (!$telefone->save()) {
-        return response()->json(['message' => 'Erro ao salvar telefone'], 500);
+    $telefoneId = $telefone->idTelefoneUBS;
+
+    // Lidar com a foto se foi enviada
+    $fotoPath = null;
+    if ($request->hasFile('foto')) {
+        $fotoPath = $request->file('foto')->store('ubs_fotos', 'public');
     }
 
-    // Obter o ID do telefone recém-cadastrado
-    $telefoneId = $telefone->idTelefoneUBS;
-//vini
     // Cadastrar a UBS
     $ubs = new UBSModel();
     $ubs->nomeUBS = $request->ubs;
-    $ubs->fotoUBS = $request->foto; // Lidar com a foto se necessário
+    $ubs->fotoUBS = $fotoPath; // Caminho da foto salvo no banco
     $ubs->cnpjUBS = $request->cnpj;
     $ubs->latitudeUBS = $request->latitude;
     $ubs->longitudeUBS = $request->longitude;
@@ -86,18 +86,19 @@ public function store(Request $request)
     $ubs->ufUBS = $request->uf;
     $ubs->complementoUBS = $request->complemento;
     $ubs->senhaUBS = bcrypt($request->senha); // Criptografando a senha
-    $ubs->situacaoUBS = $request->situacao;
+    $ubs->situacaoUBS = '1'; // Definindo a situação automaticamente como 1
     $ubs->dataCadastroUBS = now();
     $ubs->idTelefoneUBS = $telefoneId; // ID do telefone
     $ubs->idRegiaoUBS = $request->idRegiao; // ID da região
 
-    // Salvar UBS e verificar se foi salvo corretamente
     if ($ubs->save()) {
         return response()->json(['message' => 'UBS criada com sucesso!'], 201);
     } else {
         return response()->json(['message' => 'Erro ao salvar UBS'], 500);
     }
 }
+
+
 
     
 
@@ -118,4 +119,81 @@ public function store(Request $request)
 
         return response()->json(['message' => 'Sucesso', 'code' => 200]);
     }
+
+    public function edit($idUBS)
+        {
+            // Busca a UBS pelo ID
+            $ubs = UBSModel::findOrFail($idUBS);
+
+            
+
+             // Busca o telefone relacionado à UBS
+             $telefone = TelefoneUBSModel::findOrFail($ubs->idTelefoneUBS);
+             
+             
+             // Retorna a view de edição com os dados da UBS
+            return view('adm.Ubs.editUBS', compact('ubs', 'telefone'));
+        }
+
+        
+        public function update(Request $request, $id)
+{
+    // Validação dos dados
+    $validator = Validator::make($request->all(), [
+        'nomeUBS' => 'required|string|max:255',
+        'cnpjUBS' => 'required|string|max:14',
+        'logradouroUBS' => 'required|string|max:255',
+        'bairroUBS' => 'required|string|max:255',
+        'cidadeUBS' => 'required|string|max:255',
+        'numeroUBS' => 'required|string|max:10',
+        'ufUBS' => 'required|string|max:2',
+        'cepUBS' => 'required|string|max:10',
+        'complementoUBS' => 'nullable|string|max:255',
+        'telefone' => 'required|string|max:15',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    // Atualiza a UBS
+    $ubs = UBSModel::findOrFail($id);
+    $ubs->update([
+        'nomeUBS' => $request->nomeUBS,
+        'cnpjUBS' => $request->cnpjUBS,
+        'logradouroUBS' => $request->logradouroUBS,
+        'bairroUBS' => $request->bairroUBS,
+        'cidadeUBS' => $request->cidadeUBS,
+        'numeroUBS' => $request->numeroUBS,
+        'ufUBS' => $request->ufUBS,
+        'cepUBS' => $request->cepUBS,
+        'complementoUBS' => $request->complementoUBS,
+        'situacaoUBS' => $request->situacaoUBS ?? '1', // Define '1' se o campo não for enviado
+    ]);
+
+    // Atualiza o telefone
+    $telefone = TelefoneUBSModel::findOrFail($ubs->idTelefoneUBS);
+    $telefone->update([
+        'numeroTelefoneUBS' => $request->telefone,
+        'situacaoTelefoneUBS' => $request->situacaoTelefone ?? '1', // Define '1' se o campo não for enviado
+    ]);
+
+    return redirect('/selectUBS')->with('message', 'UBS e telefone atualizados com sucesso!');
 }
+
+public function changeStatus($idUBS)
+{
+    // Encontre a unidade básica de saúde pelo ID
+    $ub = UBSModel::findOrFail($idUBS); // Corrigido para usar UBSModel
+    
+    // Troca o estado: se for 1, muda para 0; se for 0, muda para 1
+    $ub->situacaoUBS = $ub->situacaoUBS == 1 ? 0 : 1; // Aqui deve ser 'situacaoUBS', não 'estado'
+    $ub->save();
+
+    // Retorna uma resposta
+    return redirect()->back()->with('success', 'Estado alterado com sucesso!');
+}
+
+}
+
+
