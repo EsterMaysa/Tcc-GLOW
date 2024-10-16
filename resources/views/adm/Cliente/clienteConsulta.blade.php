@@ -63,9 +63,10 @@
                         <td>{{ $cliente->ufCliente }}</td>
                         <td>{{ $cliente->cidadeCliente }}</td>
                         <td>
-                            <a href="" class="btn btn-primary btn-sm" title="Editar">
-                                ✏️ <!-- Símbolo de lápis para editar -->
-                            </a>
+                        <a href="{{ route('cliente.edit', $cliente->idCliente) }}" class="btn btn-primary btn-sm" title="Editar">
+                            ✏️ <!-- Símbolo de lápis para editar -->
+                        </a>
+
                             <form action="{{ route('deletarCliente', $cliente->idCliente) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')

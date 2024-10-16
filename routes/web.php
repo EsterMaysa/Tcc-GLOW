@@ -49,10 +49,21 @@ Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create'])->name('farmaciaUBS.insert');
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
 
-//rota insert cliente
+//rota cliente
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
 Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
+
+Route::get('/consultarCliente', [ClienteAdmController::class, 'index']);
+
+// Rota para exibir o formulário de edição
+Route::get('/clientes/edit/{idCliente}', [ClienteAdmController::class, 'edit'])->name('cliente.edit');
+
+// Rota para atualizar o cliente (PUT)
+Route::put('/clientes/{idCliente}', [ClienteAdmController::class, 'update'])->name('cliente.update');
+
+
+Route::delete('/deletarCliente/{id}', [ClienteAdmController::class, 'destroy'])->name('deletarCliente');
 
 //Rotas do Medicamento
 Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']); //para aparecer a tabela de med

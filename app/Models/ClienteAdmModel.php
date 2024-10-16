@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\TelefoneClienteAdmController;
 use Illuminate\Database\Eloquent\Model;
 
 class ClienteAdmModel extends Model
@@ -36,8 +37,11 @@ class ClienteAdmModel extends Model
     public $timestamps = false;
 
     // Define o relacionamento com o model TelefoneClienteAdmModel (um cliente possui um telefone)
+    // Definição do relacionamento com telefones
+    // Definindo o relacionamento com a tabela de telefones
     public function telefone()
     {
-        return $this->belongsTo(TelefoneClienteAdmModel::class, 'idTelefoneCliente', 'idTelefoneCliente');
+        return $this->belongsTo(TelefoneClienteAdmModel::class, 'idTelefoneCliente');
     }
+
 }

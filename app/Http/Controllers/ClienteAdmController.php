@@ -73,6 +73,8 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
     $cliente->dataCadastroCliente = now();
     $cliente->save();
 
+    
+
     return redirect()->back()->with('success', 'Cliente criado com sucesso!');
 }
 
@@ -96,10 +98,97 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
     }
 
     public function edit($id)
-    {
-        // Lógica para editar um cliente específico
+        {
+            $cliente = ClienteAdmModel::findOrFail($id);
+            $telefone = TelefoneClienteAdmModel::where('idTelefoneCliente', $cliente->idTelefoneCliente)->first(); // Busca o telefone
+        
+            return view('Adm.Cliente.clienteEditar', compact('cliente', 'telefone'));
+        }
+        public function update(Request $request, $id)
+{
+    // Validação dos dados de entrada
+    // $request->validate([...]);
+
+    // Busca o cliente pelo ID
+    $cliente = ClienteAdmModel::findOrFail($id);
+
+    // Limpa o número do novo telefone
+    $novoNumeroTelefone = preg_replace('/[^0-9]/', '', $request->numeroTelefoneCliente);
+
+    // Verifica se o número do telefone tem 11 caracteres
+    if (strlen($novoNumeroTelefone) > 11) {
+        return redirect()->back()->with('error', 'O número do telefone deve ter no máximo 11 caracteres.');
     }
 
+    // Verifica se o CPF já existe, mas ignora o cliente atual
+    $clienteExistente = ClienteAdmModel::where('cpfCliente', $request->cpfCliente)
+                                       ->where('idCliente', '!=', $cliente->idCliente)
+                                       ->first();
+
+    if ($clienteExistente) {
+        // Se o cliente com o mesmo CPF já existe, retorna um erro
+        return redirect()->back()->with('error', 'Já existe um cliente com este CPF.');
+    }
+
+    // Desativa o telefone antigo se houver
+    if ($cliente->idTelefoneCliente) {
+        $telefoneAntigo = TelefoneClienteAdmModel::find($cliente->idTelefoneCliente);
+        if ($telefoneAntigo) {
+            $telefoneAntigo->situacaoTelefoneCliente = '1'; // Desativa o telefone antigo
+            $telefoneAntigo->save();
+        }
+    }
+
+    // Verifica se o novo número de telefone foi fornecido
+    if ($request->filled('numeroTelefoneCliente')) {
+        // Verifica se já existe um telefone cadastrado
+        $telefoneExistente = TelefoneClienteAdmModel::where('numeroTelefoneCliente', $novoNumeroTelefone)->first();
+
+        if (!$telefoneExistente) {
+            // Criação do telefone se não existir
+            $novoTelefone = new TelefoneClienteAdmModel();
+            $novoTelefone->numeroTelefoneCliente = $novoNumeroTelefone;
+            $novoTelefone->situacaoTelefoneCliente = '0'; // Valor padrão se não fornecido
+            $novoTelefone->dataCadastroTelefoneCliente = now();
+            $novoTelefone->save();
+
+            // Associar o telefone recém-criado ao cliente
+            $idTelefone = $novoTelefone->idTelefoneCliente;
+        } else {
+            // Se o telefone já existe, use o ID do telefone existente
+            $idTelefone = $telefoneExistente->idTelefoneCliente;
+        }
+    } else {
+        // Se o novo número de telefone não foi fornecido, mantém o telefone atual
+        $idTelefone = $cliente->idTelefoneCliente;
+    }
+
+    // Atualiza os dados do cliente
+    $cliente->nomeCliente = $request->nomeCliente;
+    $cliente->cpfCliente = $request->cpfCliente;
+    $cliente->cnsCliente = $request->cnsCliente;
+    $cliente->dataNascCliente = $request->dataNascCliente;
+    $cliente->userCliente = $request->userCliente;
+    $cliente->cepCliente = $request->cepCliente;
+    $cliente->logradouroCliente = $request->logradouroCliente;
+    $cliente->bairroCliente = $request->bairroCliente;
+    $cliente->estadoCliente = $request->estadoCliente;
+    $cliente->cidadeCliente = $request->cidadeCliente;
+    $cliente->numeroCliente = $request->numeroCliente;
+    $cliente->ufCliente = $request->ufCliente;
+    $cliente->complementoCliente = $request->complementoCliente;
+    $cliente->idTelefoneCliente = $idTelefone; // Associa o telefone
+
+    // Salva as alterações
+    $cliente->save();
+
+    // Redireciona com mensagem de sucesso
+    return redirect()->back()->with('success', 'Cliente Atualizado com Sucesso!');
+}
+
+
+    
+    
     public function updateapi(Request $request, $id)
     {
         ClienteAdmModel::where('idCliente', $id)->update([ // Corrigi o nome do model
