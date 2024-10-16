@@ -12,6 +12,8 @@ class TelefoneUBSModel extends Model
     protected $table = 'tbTelefoneUBS';
     protected $connection = 'mysql';
 
+    protected $primaryKey = 'idTelefoneUBS';
+
     protected $fillable = [
         'numeroTelefoneUBS',
         'situacaoTelefoneUBS',

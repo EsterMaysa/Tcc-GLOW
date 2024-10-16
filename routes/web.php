@@ -62,6 +62,10 @@ Route::get('/selectRegiao', [RegiaoUBSController::class, 'index']);
 
 Route::get('/selectRegiaoForm', [UBSController::class, 'apresentarRegiao']);
 
+Route::put('/ubs/{idUBS}', [UBSController::class, 'update'])->name('ubs.update');
+Route::get('/ubs/{idUBS}/edit', [UBSController::class, 'edit'])->name('ubs.edit');
+
+Route::post('/ubs/status/{idUBS}', [UbsController::class, 'changeStatus'])->name('changeStatus');
 
 
 // Rota para salvar os dados da UBS, que deve estar no método 'store' do UBSController
