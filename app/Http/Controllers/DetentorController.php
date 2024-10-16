@@ -65,7 +65,7 @@ class DetentorController extends Controller
         $detentor->cepDetentor = $request->cep;
         $detentor->complementoDetentor = $request->complemento;
         $detentor->situacaoDetentor = $request->situacao;
-    
+
         // Salva as alterações
         $detentor->save();
     

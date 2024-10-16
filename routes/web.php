@@ -211,13 +211,8 @@ Route::get('/contato', function () {
     return view('adm.contato');
 });
 
-
-
-
 //SELECT
 // Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
-
-
 
 // Login adm
 Route::post('/admLogin', 'App\Http\Controllers\AdministradorController@login');
@@ -296,8 +291,6 @@ Route::get('/notificacaoEstoqueInsert', function () {
  Route::post('/editarMedicamentoEstoque', [MedicamentoController::class, 'store'])->name('medicamento.store');
 
 
-
-
 //clienteFarmacia
 //  Route::get('/cadastros', [ClienteFarmaciaController::class, 'create'])->name('cliente.create'); // Rota para exibir o formulário
 //  Route::post('/cadastros', [ClienteFarmaciaController::class, 'store'])->name('cliente.store'); // Rota para salvar os dados no banco
@@ -314,11 +307,6 @@ Route::get('/notificacaoEstoqueInsert', function () {
 
 //Medicamento farmacia
 // Rotas para MedicamentoFarmacia
-
-// 
-
-
-
 
 
 // Route::get('/atualizarMedicamentoEstoque/{id}', [MedicamentoFarmaciaController::class, 'edit'])->name('medicamento.edit');
