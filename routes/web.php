@@ -75,10 +75,13 @@ Route::post('/insertUBS', [UBSController::class, 'store'])->name('insertUBS');
 Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('insertRegiao');
 
 
-//rota para o formulario de inserção da UBS
+//rota para o formulario de inserção da Farmacia
 // Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create']);
 
-// Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmaciaUBS.store');
+Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store']);
+Route::get('/Farmacia', function () {
+    return view('adm.Ubs.insertFarmaciaUbs');
+});
 
 //rota cliente
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
@@ -106,14 +109,16 @@ Route::put('/medicamento/{idMedicamento}', [MedicamentoController::class, 'updat
 
 //Detentor
 Route::get('/detentor', [DetentorController::class, 'index']);
-
 Route::get('/detentorCadastro', function () {
     return view('adm.Medicamento.cadastroDetentor');
 });
 
 Route::post('/cadastroDetentor', [DetentorController::class, 'store']); //cadastro do med
-Route::put('/detentor/{idFDetentor}', [DetentorController::class, 'update'])->name('detentor.update');
-Route::get('/detentor/edit/{idFDetentor}', [DetentorController::class, 'edit'])->name('detentor.edit');
+Route::put('/detentor/{idDetentor}', [DetentorController::class, 'update'])->name('detentor.update');
+Route::get('/detentor/edit/{idDetentor}', [DetentorController::class, 'edit'])->name('detentor.edit');
+
+//Messagens
+Route::get('/contato', [ContatoController::class, 'index']);
 
 
 
@@ -222,9 +227,9 @@ Route::get('/cliente', function () {
     return view('adm.cliente.Cliente');
 });
 
-Route::get('/contato', function () {
-    return view('adm.contato');
-});
+// Route::get('/contato', function () {
+//     return view('adm.contato');
+// });
 
 //SELECT
 // Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
@@ -275,12 +280,12 @@ Route::get('/insertCliente', function () {
 Route::get('/regiaoInsert', function () {
     return view('regiaoInsert');
 });
-Route::get('/comentarioInsert', function () {
-    return view('comentarioInsert');
-});
-Route::get('/contatoInsert', function () {
-    return view('contatoInsert');
-});
+// Route::get('/comentarioInsert', function () {
+//     return view('comentarioInsert');
+// });
+// Route::get('/contatoInsert', function () {
+//     return view('contatoInsert');
+// });
 Route::get('/estoqueInsert', function () {
     return view('estoqueInsert');
 });

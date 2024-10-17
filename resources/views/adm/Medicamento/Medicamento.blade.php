@@ -113,8 +113,8 @@
 									<!-- Botão para alternar fotos -->
 									<button type="button" class="btn btn-info" id="alternarFoto{{ $med->idMedicamento }}"
 										data-tipo="original"
-										data-foto-original="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}"
-										data-foto-genero="{{ asset('storage/' . $med->fotoMedicamentoGenero) }}">
+										data-foto-original="{{ asset('storage/fotos_medicamentos/' . $med->fotoMedicamentoOriginal) }}"
+										data-foto-genero="{{ asset('storage/fotos_medicamentos/' . $med->fotoMedicamentoGenero) }}">
 										Ver Foto de Gênero
 									</button>
 								</div>

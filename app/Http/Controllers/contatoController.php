@@ -23,6 +23,7 @@ class ContatoController extends Controller
         $contato->dataCadastroContato = now();
 
         $contato->save();
+        
         return response()->json(['message' => 'Contato criado com sucesso!'], 201);
     }
 

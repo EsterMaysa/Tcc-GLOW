@@ -109,7 +109,7 @@
                             <p>Farmacia</p>
                         </td>
                         <td>
-                            <a href="/insertFarmacia"> <!-- Usando a função route -->
+                            <a href="/Farmacia"> <!-- Usando a função route -->
                                 <span class="status busca"> Criar </span>
                             </a>
                         </td>
@@ -155,6 +155,7 @@
                     <tr>
                         <th>ID UBS</th>
                         <th>Nome UBS</th>
+                        <th>E-mail UBS</th>
                         <th>Foto UBS</th>
                         <th>CNPJ UBS</th>
                         <th>Latitude</th>
@@ -180,6 +181,7 @@
                         <tr class="ubs-row" data-situacao="{{ $unidade->situacaoUBS }}" style="{{ $unidade->situacaoUBS == 0 ? 'display:none;' : '' }}">
                             <td>{{ $unidade->idUBS }}</td>
                             <td>{{ $unidade->nomeUBS }}</td>
+                            <td>{{ $unidade->emailUBS }}</td>
                             <td><img class="ubs-image" src="{{ $unidade->fotoUBS }}" alt="Foto UBS"></td>
                             <td>{{ $unidade->cnpjUBS }}</td>
                             <td>{{ $unidade->latitudeUBS }}</td>

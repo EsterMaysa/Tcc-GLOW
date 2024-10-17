@@ -34,7 +34,7 @@ class MedicamentoModel extends Model
     
     public function detentor()
     {
-        return $this->belongsTo(DetentorModel::class, 'idFDetentor','idFDetentor');
+        return $this->belongsTo(DetentorModel::class, 'idDetentor',);
     }
 
     public function tipoMedicamento()

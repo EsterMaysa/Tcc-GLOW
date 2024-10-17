@@ -29,10 +29,10 @@ class DetentorModel extends Model
     ];
 
     public $timestamps = false;
-    protected $primaryKey = 'idFDetentor'; 
+    protected $primaryKey = 'idDetentor'; 
 
     public function medicamentos()
     {
-        return $this->hasMany(MedicamentoModel::class, 'idFDetentor');
+        return $this->hasMany(MedicamentoModel::class, 'idDetentor');
     }
 }

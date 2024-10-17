@@ -11,7 +11,7 @@ class FarmaciaUBSController extends Controller
     // Exibir o formulário de criação
     public function create()
     {
-        return view('Adm.Ubs.insertFarmaciaUbs');
+        return view('adm.Ubs.insertFarmaciaUbs');
 
     }
 
@@ -31,12 +31,12 @@ class FarmaciaUBSController extends Controller
         $farmacia = new FarmaciaUBSModel();
 
         // Preenchimento dos campos com os dados do request
-        $farmacia->nomeFamaciaUBS = $request->nomeFamaciaUBS;
-        $farmacia->emailFamaciaUBS = $request->emailFamaciaUBS;
-        $farmacia->senhaFamaciaUBS = Hash::make($request->senhaFamaciaUBS); // Hash da senha
-        $farmacia->tipoFamaciaUBS = $request->tipoFamaciaUBS; // Pode ser opcional
-        $farmacia->situacaoFamaciaUBS = 'A' ;// A (Ativa) ou I (Inativa)
-        $farmacia->dataCadastroFamaciaUBS = now(); // Define a data de cadastro para o momento atual
+        $farmacia->nomeFarmaciaUBS = $request->nomeFamaciaUBS;
+        $farmacia->emailFarmaciaUBS = $request->emailFamaciaUBS;
+        $farmacia->senhaFarmaciaUBS = Hash::make($request->senhaFamaciaUBS); // Hash da senha
+        $farmacia->tipoFarmaciaUBS = $request->tipoFamaciaUBS; // Pode ser opcional
+        $farmacia->situacaoFarmaciaUBS = 'A' ;// A (Ativa) ou I (Inativa)
+        $farmacia->dataCadastroFarmaciaUBS = now(); // Define a data de cadastro para o momento atual
 
         // Salvar os dados no banco de dados
         $farmacia->save();
@@ -44,9 +44,8 @@ class FarmaciaUBSController extends Controller
         // Redirecionar após o cadastro com uma mensagem de sucesso
         session()->flash('success', 'Farmácia UBS cadastrada com sucesso!');
 
-
         // Redirecionar após o cadastro com uma mensagem de sucesso
-        return redirect('/insertFarmacia');
+        return view('adm.Ubs.insertFarmaciaUbs');
     }
 
     // Atualizar dados via API

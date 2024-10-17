@@ -8,7 +8,7 @@
 
 <div class="container">
     <h2>Cadastro de Farmácia UBS</h2>
-    <form action="/criarFarmacia" method="POST">
+    <form action="/insertFarmaciaUbs" method="POST">
         @csrf
         <!-- Nome da Farmácia -->
         <div class="form-group">

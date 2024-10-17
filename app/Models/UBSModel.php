@@ -16,6 +16,7 @@ class UBSModel extends Model
 
     protected $fillable = [
         'nomeUBS',
+        'emailUBS',
         'fotoUBS',
         'cnpjUBS',
         'latitudeUBS',
