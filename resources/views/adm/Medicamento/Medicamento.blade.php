@@ -6,8 +6,6 @@
 		<div class="order">
 			<div class="head">
 				<h3>Cadastros</h3>
-				<i class='bx bx-search'></i>
-				<i class='bx bx-filter'></i>
 			</div>
 			<table>
 				<thead>
@@ -41,12 +39,15 @@
 			</table>
 		</div>
 	</div>
-	<div class="table-data">
+	<div class="table-data" style="max-height: 270px; overflow-y: auto;">
 		<div class="order">
 			<div class="head">
 				<h3>Medicamentos</h3>
-				<i class='bx bx-search'></i>
-				<i class='bx bx-filter'></i>
+				<div class="search-bar">
+					<input type="text" id="searchInput" placeholder="Pesquisar..." class="search-input">
+				</div>				
+				<!-- Ícone de filtro com modal -->
+				<i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
 			</div>
 			<table>
 				<thead>
@@ -93,6 +94,7 @@
 									<p><strong>Registro ANVISA:</strong> {{ $med->registroAnvisaMedicamento }}</p>
 									<p><strong>Forma Farmacêutica:</strong> {{ $med->formaFarmaceuticaMedicamento }}</p>
 									<p><strong>Concentração:</strong> {{ $med->concentracaoMedicamento }}</p>
+									<p><strong>Composição:</strong> {{ $med->composicaoMedicamento }}</p>
 									<p><strong>Detentor:</strong> {{ $med->detentor->nomeDetentor ?? 'N/A' }}</p>
 									<p><strong>Tipo Medicamento:</strong> {{ $med->tipoMedicamento->tipoMedicamento ?? 'N/A' }}</p>
 									<p><strong>Situação:</strong> {{ $med->situacaoMedicamento }}</p>
@@ -152,6 +154,92 @@
 			</table>
 		</div>
 	</div>
+
+	<!-- Modal para filtros -->
+	<!-- Modal para filtros -->
+	<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="filterModalLabel">Filtros</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Filtros com campos de input -->
+
+					<!-- Registro ANVISA -->
+					<div class="mb-3">
+						<label for="filtroRegistroAnvisa" class="form-label">Registro ANVISA</label>
+						<select class="form-select" id="filtroRegistroAnvisa">
+							<option selected>Selecione o status do registro ANVISA</option>
+							<option value="deferido">Deferido</option>
+							<option value="indeferido">Indeferido</option>
+						</select>
+					</div>
+
+					<!-- Forma Farmacêutica -->
+					<div class="mb-3">
+						<label for="filtroFormaFarmaceutica" class="form-label">Forma Farmacêutica</label>
+						<select class="form-select" id="filtroFormaFarmaceutica">
+							<option selected>Selecione a forma farmacêutica</option>
+							<option value="comprimido">Comprimido</option>
+							<option value="capsula">Cápsula</option>
+							<option value="xarope">Xarope</option>
+							<option value="pomada">Pomada</option>
+							<!-- Outras formas farmacêuticas que você possa ter -->
+						</select>
+					</div>
+
+					<!-- Detentor -->
+					<div class="mb-3">
+						<label for="filtroDetentor" class="form-label">Detentor</label>
+						<select class="form-select" id="filtroDetentor">
+							<option selected>Selecione o laboratório ou fabricante</option>
+							<!-- Aqui você pode popular com opções dinâmicas -->
+							<option value="detentor1">Laboratório A</option>
+							<option value="detentor2">Laboratório B</option>
+							<!-- Adicionar mais detentores -->
+						</select>
+					</div>
+
+					<!-- Tipo de Medicamento -->
+					<div class="mb-3">
+						<label for="filtroTipoMedicamento" class="form-label">Tipo de Medicamento</label>
+						<select class="form-select" id="filtroTipoMedicamento">
+							<option selected>Selecione o tipo de medicamento</option>
+							<option value="antibiotico">Antibiótico</option>
+							<option value="analgesico">Analgésico</option>
+							<option value="antiinflamatorio">Anti-inflamatório</option>
+							<!-- Adicionar mais tipos de medicamentos -->
+						</select>
+					</div>
+
+					<!-- Situação -->
+					<div class="mb-3">
+						<label for="filtroSituacao" class="form-label">Situação</label>
+						<select class="form-select" id="filtroSituacao">
+							<option selected>Selecione a situação</option>
+							<option value="ativo">Ativo</option>
+							<option value="inativo">Inativo</option>
+							<option value="expirado">Registro Expirado</option>
+						</select>
+					</div>
+
+					<!-- Data de Cadastro -->
+					<div class="mb-3">
+						<label for="filtroDataCadastro" class="form-label">Data de Cadastro</label>
+						<input type="date" class="form-control" id="filtroDataCadastro">
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Aplicar Filtros</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </main>
 </section>
 <!-- CONTENT -->
