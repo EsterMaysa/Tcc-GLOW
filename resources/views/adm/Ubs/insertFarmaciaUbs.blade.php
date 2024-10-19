@@ -34,39 +34,46 @@
             <input type="text" class="form-control" id="tipoFamaciaUBS" name="tipoFamaciaUBS">
         </div>
         
-        <!-- Situação da Farmácia -->
-        <!-- <div class="form-group">
-            <label for="situacaoFamaciaUBS">Situação</label>
-            <select class="form-control" id="situacaoFamaciaUBS" name="situacaoFamaciaUBS" required>
-                <option value="A">Ativa</option>
-                <option value="I">Inativa</option>
-            </select>
-        </div> -->
-        
-        <!-- Data de Cadastro -->
-        <!-- <div class="form-group">
-            <label for="dataCadastroFamaciaUBS">Data de Cadastro</label>
-            <input type="date" class="form-control" id="dataCadastroFamaciaUBS" name="dataCadastroFamaciaUBS" required>
-        </div> -->
-        
         <!-- Botão de Enviar -->
         <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
+
+    <!-- Tabela para exibir todas as farmácias cadastradas -->
+    <h3 class="mt-5">Todas as Farmácias Cadastradas</h3>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($farmacias as $farmaciaItem) <!-- Altere aqui -->
+    <tr>
+        <td>{{ $farmaciaItem->idFamaciaUBS }}</td>
+        <td>{{ $farmaciaItem->nomeFamaciaUBS }}</td>
+        <td>{{ $farmaciaItem->emailFamaciaUBS }}</td>
+        <td>{{ $farmaciaItem->tipoFamaciaUBS }}</td>
+    </tr>
+@endforeach
+
+        </tbody>
+    </table>
 </div>
 
 <script>
-    // Após 6 segundos (6000 milissegundos), remove a mensagem de sucesso
     setTimeout(function() {
         var successMessage = document.getElementById('successMessage');
         if (successMessage) {
-            successMessage.style.transition = "opacity 1s ease-out"; // Efeito de transição suave
-            successMessage.style.opacity = '0'; // Desvanece a mensagem
+            successMessage.style.transition = "opacity 1s ease-out";
+            successMessage.style.opacity = '0';
             setTimeout(function() {
-                successMessage.remove(); // Remove o elemento do DOM
-            }, 1000); // Dá mais um segundo para o fade out antes de remover
+                successMessage.remove();
+            }, 1000);
         }
-    }, 6000); // Aguarda 6 segundos
+    }, 6000);
 </script>
-
 
 @include('includes.footer')

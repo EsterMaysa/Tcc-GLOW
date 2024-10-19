@@ -83,6 +83,13 @@ Route::get('/Farmacia', function () {
     return view('adm.Ubs.insertFarmaciaUbs');
 });
 
+//rota para mostrar select das farmacia cadastradas
+// Route::get('/insertFarmaciaUbs', [selectFarmaController::class, 'create']);
+
+
+Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+
+
 //rota cliente
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
