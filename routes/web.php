@@ -78,16 +78,22 @@ Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('inser
 //rota para o formulario de inserção da Farmacia
 // Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create']);
 
+// Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store']);
+// Route::get('/Farmacia', function () {
+//     return view('adm.Ubs.insertFarmaciaUbs');
+// });
+
+// //rota para mostrar select das farmacia cadastradas
+// Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create']);
+
+
+// Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+//ROTAS FARMACIA
+// Rota para cadastrar farmácia via POST
 Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store']);
-Route::get('/Farmacia', function () {
-    return view('adm.Ubs.insertFarmaciaUbs');
-});
 
-//rota para mostrar select das farmacia cadastradas
-// Route::get('/insertFarmaciaUbs', [selectFarmaController::class, 'create']);
-
-
-Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+// Rota para exibir o formulário e a lista de farmácias cadastradas
+Route::get('/Farmacia', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
 
 
 //rota cliente

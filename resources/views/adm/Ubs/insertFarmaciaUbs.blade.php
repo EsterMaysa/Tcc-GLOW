@@ -50,15 +50,20 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($farmacias as $farmaciaItem) <!-- Altere aqui -->
-    <tr>
-        <td>{{ $farmaciaItem->idFamaciaUBS }}</td>
-        <td>{{ $farmaciaItem->nomeFamaciaUBS }}</td>
-        <td>{{ $farmaciaItem->emailFamaciaUBS }}</td>
-        <td>{{ $farmaciaItem->tipoFamaciaUBS }}</td>
-    </tr>
-@endforeach
-
+            @if ($farmacias->isEmpty())
+                <tr>
+                    <td colspan="4">Nenhuma farmácia cadastrada.</td>
+                </tr>
+            @else
+                @foreach($farmacias as $farmaciaItem)
+                    <tr>
+                        <td>{{ $farmaciaItem->idFarmaciaUBS }}</td>
+                        <td>{{ $farmaciaItem->nomeFarmaciaUBS }}</td>
+                        <td>{{ $farmaciaItem->emailFarmaciaUBS }}</td>
+                        <td>{{ $farmaciaItem->tipoFarmaciaUBS }}</td>
+                    </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 </div>

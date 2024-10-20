@@ -28,57 +28,63 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
 
     // Armazenar cliente e telefone
     public function store(Request $request)
-{
-    // Validação dos dados do cliente
-    // $request->validate([
-    //     'nomeCliente' => 'required|string|max:255',
-    //     'cpfCliente' => 'required|string|max:14', // CPF geralmente tem até 14 caracteres com máscara
-    //     'dataNascCliente' => 'required|date',
-    //     'userCliente' => 'required|string|max:255',
-    //     'cepCliente' => 'required|string|max:8', // CEP com 8 dígitos
-    //     'logradouroCliente' => 'required|string|max:255',
-    //     'bairroCliente' => 'required|string|max:255',
-    //     'numeroCliente' => 'required|string|max:10',
-    //     'ufCliente' => 'required|string|max:2', // UF com 2 caracteres
-    //     'cidadeCliente' => 'required|string|max:255',
-    //     'situacaoCliente' => 'nullable|string|max:2',
-    //     'complementoCliente' => 'nullable|string|max:255',
-    //     'telefoneCliente' => 'required|string|max:11', // Validação do telefone
-    // ]);
+    {
 
-    // Criação do telefone
-    $telefone = new TelefoneClienteAdmModel();
-    $telefone->numeroTelefoneCliente = $request->telefoneCliente;
-    $telefone->situacaoTelefoneCliente = '0'; // Valor padrão se não fornecido
-    $telefone->dataCadastroTelefoneCliente = now();
-    $telefone->save();
+        // Validação dos dados de entrada
+    $request->validate([
+        'cpfCliente' => 'required|unique:tbCliente,cpfCliente',
+        'cnsCliente' => 'required|unique:tbCliente,cnsCliente',
+        'telefoneCliente' => 'required|unique:tbTelefoneCliente,numeroTelefoneCliente',
+    ], [
+        'cpfCliente.unique' => 'Este CPF já está cadastrado.',
+        'cnsCliente.unique' => 'Este CNS já está cadastrado.',
+        'telefoneCliente.unique' => 'Este telefone já está cadastrado.',
+    ]);
 
-    // Criação do cliente
-    $cliente = new ClienteAdmModel();
-    $cliente->nomeCliente = $request->nomeCliente;
-    $cliente->cpfCliente = $request->cpfCliente;
-    $cliente->cnsCliente = $request->cnsCliente;
-    $cliente->dataNascCliente = $request->dataNascCliente;
-    $cliente->userCliente = $request->userCliente;
-    $cliente->cepCliente = $request->cepCliente;
-    $cliente->logradouroCliente = $request->logradouroCliente;
-    $cliente->bairroCliente = $request->bairroCliente;
-    $cliente->numeroCliente = $request->numeroCliente;
-    $cliente->estadoCliente = $request->estadoCliente;
-    $cliente->cidadeCliente = $request->cidadeCliente;
-    $cliente->ufCliente = $request->ufCliente;
-    $cliente->complementoCliente = $request->complementoCliente;
-    $cliente->idTelefoneCliente = $telefone->idTelefoneCliente; // Relacionando o cliente ao telefone
-    $cliente->situacaoCliente = '0'; // Valor padrão se não fornecido
-    $cliente->dataCadastroCliente = now();
-    $cliente->save();
-
+        // Remover caracteres especiais do CPF e do telefone antes de salvar
+        $cpfLimpo = preg_replace('/[^0-9]/', '', $request->cpfCliente);
+        $telefoneLimpo = !empty($request->telefoneCliente) ? preg_replace('/[^0-9]/', '', $request->telefoneCliente) : null;
     
-
-    return redirect()->back()->with('success', 'Cliente criado com sucesso!');
-}
-
-
+        // Verifica se o campo de telefone foi preenchido
+        if (!empty($telefoneLimpo)) {
+            // Criação do telefone, se o telefone for fornecido
+            $telefone = new TelefoneClienteAdmModel();
+            $telefone->numeroTelefoneCliente = $telefoneLimpo;
+            $telefone->situacaoTelefoneCliente = '0'; // Valor padrão se não fornecido
+            $telefone->dataCadastroTelefoneCliente = now();
+            $telefone->save();
+        }
+    
+        // Criação do cliente
+        $cliente = new ClienteAdmModel();
+        $cliente->nomeCliente = $request->nomeCliente;
+        $cliente->cpfCliente = $cpfLimpo; // Salvar CPF sem formatação
+        $cliente->cnsCliente = $request->cnsCliente;
+        $cliente->dataNascCliente = $request->dataNascCliente;
+        $cliente->userCliente = $request->userCliente ?? null;
+        $cliente->cepCliente = $request->cepCliente;
+        $cliente->logradouroCliente = $request->logradouroCliente;
+        $cliente->bairroCliente = $request->bairroCliente;
+        $cliente->numeroCliente = $request->numeroCliente;
+        $cliente->estadoCliente = $request->estadoCliente;
+        $cliente->cidadeCliente = $request->cidadeCliente;
+        $cliente->ufCliente = $request->ufCliente;
+        $cliente->complementoCliente = $request->complementoCliente;
+    
+        // Verifica se o telefone foi criado e associa o cliente ao telefone, se houver
+        if (isset($telefone)) {
+            $cliente->idTelefoneCliente = $telefone->idTelefoneCliente; // Relacionando o cliente ao telefone
+        } else {
+            $cliente->idTelefoneCliente = null; // Caso não tenha telefone
+        }
+    
+        $cliente->situacaoCliente = '0'; // Valor padrão se não fornecido
+        $cliente->dataCadastroCliente = now();
+        $cliente->save();
+    
+        return view('Adm.Cliente.Cliente')->with('success', 'Cliente criado com sucesso!');
+    }
+    
     // Métodos de API e outros
     public function storeapi(Request $request)
     {
