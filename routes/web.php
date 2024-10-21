@@ -101,7 +101,7 @@ Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
 Route::post('/storeTelefone', [TelefoneClienteAdmController::class, 'store']);
 
-Route::get('/consultarCliente', [ClienteAdmController::class, 'index']);
+Route::get('/Cliente', [ClienteAdmController::class, 'index']);
 
 // Rota para exibir o formulário de edição
 Route::get('/clientes/edit/{idCliente}', [ClienteAdmController::class, 'edit'])->name('cliente.edit');
@@ -111,6 +111,11 @@ Route::put('/clientes/{idCliente}', [ClienteAdmController::class, 'update'])->na
 
 
 Route::delete('/deletarCliente/{id}', [ClienteAdmController::class, 'destroy'])->name('deletarCliente');
+
+// Rota para exibir a tela de clientes com filtros aplicados
+Route::get('/cliente/filtros', [ClienteAdmController::class, 'filtros'])->name('cliente.filtros');
+Route::get('/cliente', [ClienteAdmController::class, 'index'])->name('cliente.index');
+
 
 //Rotas do Medicamento
 Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']); //para aparecer a tabela de med
@@ -236,9 +241,9 @@ Route::get('/editarPerfil', function () {
 // });
 
 
-Route::get('/cliente', function () {
-    return view('adm.cliente.Cliente');
-});
+// Route::get('/cliente', function () {
+//     return view('adm.cliente.Cliente');
+// });
 
 // Route::get('/contato', function () {
 //     return view('adm.contato');

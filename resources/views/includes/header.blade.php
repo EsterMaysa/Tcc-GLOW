@@ -47,7 +47,7 @@
 			</li>
 			
 			<li>
-				<a href="/cliente">
+				<a href="/Cliente">
 					<i class='bx bxs-plus-circle'></i>
 					<span class="text"> Clientes </span>
 				</a>
