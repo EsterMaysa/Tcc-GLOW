@@ -96,6 +96,16 @@ Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store']);
 Route::get('/Farmacia', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
 
 
+// Rota para exibir o formulário de edição
+Route::get('/farmacia/{id}/edit', [FarmaciaUBSController::class, 'edit'])->name('farmacia.edit');
+Route::post('/farmacia/{id}', [FarmaciaUBSController::class, 'update'])->name('farmacia.update');
+
+// Rota para atualizar uma farmácia
+Route::post('/updateFarmaciaUbs/{id}', [FarmaciaUBSController::class, 'update'])->name('farmacia.update');
+
+// Rota para marcar uma farmácia como excluída
+Route::delete('/farmacia/{id}', [FarmaciaUBSController::class, 'changeStatus'])->name('farmacia.destroy');
+
 //rota cliente
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);
 Route::post('/criarCliente', 'App\Http\Controllers\ClienteAdmController@store');
