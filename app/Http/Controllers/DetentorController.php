@@ -39,10 +39,7 @@ class DetentorController extends Controller
 
     public function edit($idDetentor)
     {
-        // Busca o detentor pelo ID
         $detentor = DetentorModel::findOrFail($idDetentor);
-    
-        // Retorna a view de edição com os dados do detentor
         return view('adm.Medicamento.editDetentor', compact('detentor'));
     }
     
@@ -76,7 +73,7 @@ class DetentorController extends Controller
 
     public function updateapi(Request $request, $id)
     {
-        DetentorModel::where('idFDetentor', $id)->update([
+        DetentorModel::where('idDetentor', $id)->update([
             'nomeDetentor' => $request->nome,
             'cnpjDetentor' => $request->cnpj,
             'emailDetentor' => $request->email,

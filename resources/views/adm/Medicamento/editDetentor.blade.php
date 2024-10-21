@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <form action="{{ route('detentor.update', $detentor->idFDetentor) }}" method="POST">
+    <form action="{{ route('detentor.update', $detentor->idDetentor) }}" method="POST">
         @csrf
         @method('PUT')
 

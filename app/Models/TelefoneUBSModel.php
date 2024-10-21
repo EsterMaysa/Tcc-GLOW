@@ -16,6 +16,7 @@ class TelefoneUBSModel extends Model
 
     protected $fillable = [
         'numeroTelefoneUBS',
+        'numeroTelefoneUBS2',
         'situacaoTelefoneUBS',
         'dataCadastroTelefoneUBS',
     ];

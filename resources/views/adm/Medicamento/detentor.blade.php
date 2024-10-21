@@ -73,14 +73,14 @@
 
                 <!-- Botão para abrir o modal -->
                 <td>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $d->idFDetentor }}">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $d->idDetentor }}">
                         Ver mais
                     </button>
                 </td>
             </tr>
 
             <!-- Modal para os detalhes -->
-            <div class="modal fade" id="modalDetalhes{{ $d->idFDetentor }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modalDetalhes{{ $d->idDetentor }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -103,8 +103,8 @@
                     <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($d->dataCadastroDetentor)->format('d/m/Y') }}</p>
                   </div>
                   <div class="modal-footer">
-                    <a href="{{ route('detentor.edit', $d->idFDetentor) }}" class="btn btn-warning">Editar</a>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <a href="{{ route('detentor.edit', $d->idDetentor) }}" class="btn btn-warning">Editar</a>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                   </div>
                 </div>
               </div>

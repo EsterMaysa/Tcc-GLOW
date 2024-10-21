@@ -4,60 +4,103 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\FarmaciaUBSModel; // Corrija para o nome correto do model
+use App\Models\FarmaciaUBSModel; // Certifique-se de que o nome do modelo está correto
 
 class FarmaciaUBSController extends Controller
 {
     // Exibir o formulário de criação
-    public function create()
+    public function showForm(Request $request)
     {
-        return view('Adm.Ubs.insertFarmaciaUbs');
-
+        // Obtém todas as farmácias cadastradas que estão ativas
+        $query = $request->input('query');
+        $farmacias = FarmaciaUBSModel::where('situacaoFarmaciaUBS', 'A');
+    
+        if ($query) {
+            $farmacias = $farmacias->where('nomeFarmaciaUBS', 'LIKE', "%{$query}%");
+        }
+    
+        $farmacias = $farmacias->get();
+    
+        // Passa a variável $farmacias para a view
+        return view('adm.Ubs.insertFarmaciaUbs', compact('farmacias'));
     }
 
     // Armazenar os dados da Farmácia UBS
     public function store(Request $request) 
     {
-        // Validação dos dados recebidos
-        // $request->validate([
-        //     'nomeFamaciaUBS' => 'required|string|max:100',
-        //     'emailFamaciaUBS' => 'required|email|max:100',
-        //     'senhaFamaciaUBS' => 'required|string|min:8|max:200|unique:tbFamaciaUBS,senhaFamaciaUBS',
-        //     'tipoFamaciaUBS' => 'nullable|string|max:100',
-        //     // 'situacaoFamaciaUBS' => 'required|string|in:A,I', // A = Ativo, I = Inativo
-        // ]);
+        // Validação dos dados
+        $request->validate([
+            'nomeFamaciaUBS' => 'required|string|max:100',
+            'emailFamaciaUBS' => 'required|email|max:100',
+            'senhaFamaciaUBS' => 'required|string|min:3', // Senha deve ter pelo menos 3 caracteres
+            'tipoFamaciaUBS' => 'nullable|string|max:100',
+        ]);
 
         // Criação de uma nova instância de FarmaciaUBSModel
         $farmacia = new FarmaciaUBSModel();
+        $farmacia->nomeFarmaciaUBS = $request->nomeFamaciaUBS;
+        $farmacia->emailFarmaciaUBS = $request->emailFamaciaUBS;
+        $farmacia->senhaFarmaciaUBS = Hash::make($request->senhaFamaciaUBS); // Hash da senha
+        $farmacia->tipoFarmaciaUBS = $request->tipoFamaciaUBS; // Campo opcional
+        $farmacia->situacaoFarmaciaUBS = 'A'; // Define como 'Ativa'
+        $farmacia->dataCadastroFarmaciaUBS = now(); // Data de cadastro
 
-        // Preenchimento dos campos com os dados do request
-        $farmacia->nomeFamaciaUBS = $request->nomeFamaciaUBS;
-        $farmacia->emailFamaciaUBS = $request->emailFamaciaUBS;
-        $farmacia->senhaFamaciaUBS = Hash::make($request->senhaFamaciaUBS); // Hash da senha
-        $farmacia->tipoFamaciaUBS = $request->tipoFamaciaUBS; // Pode ser opcional
-        $farmacia->situacaoFamaciaUBS = 'A' ;// A (Ativa) ou I (Inativa)
-        $farmacia->dataCadastroFamaciaUBS = now(); // Define a data de cadastro para o momento atual
-
-        // Salvar os dados no banco de dados
+        // Salva os dados no banco
         $farmacia->save();
 
-        // Redirecionar após o cadastro com uma mensagem de sucesso
+        // Mensagem de sucesso
         session()->flash('success', 'Farmácia UBS cadastrada com sucesso!');
 
-
-        // Redirecionar após o cadastro com uma mensagem de sucesso
-        return redirect('/insertFarmacia');
+        // Redireciona para exibir o formulário e as farmácias cadastradas
+        return redirect()->route('farmacia.showForm');
     }
 
-    // Atualizar dados via API
-    public function updateapi(Request $request, $id)
+    // Método para exibir o formulário de edição
+    public function edit($id)
     {
-        FarmaciaUBSModel::where('idFamaciaUBS', $id)->update([
-            'nomeFamaciaUBS' => $request->nome,
-            'idUBS' => $request->idUBS,
-            'situacaoFamaciaUBS' => $request->situacao,
+        // Encontra a farmácia pelo ID
+        $farmacia = FarmaciaUBSModel::findOrFail($id);
+        
+        // Retorna a view de edição com os dados da farmácia
+        return view('adm.Ubs.editFarmaciaUbs', compact('farmacia'));
+    }
+    
+    // Atualizar dados via POST (simulando PUT com _method)
+    public function update(Request $request, $id)
+    {
+        // Validação dos dados
+        $request->validate([
+            'nomeFarmaciaUBS' => 'required|string|max:100',
+            'emailFarmaciaUBS' => 'required|email|max:100',
+            'tipoFamaciaUBS' => 'nullable|string|max:100',
         ]);
+    
+        // Atualiza os dados da farmácia
+        $farmacia = FarmaciaUBSModel::findOrFail($id);
+        $farmacia->nomeFarmaciaUBS = $request->nomeFarmaciaUBS;
+        $farmacia->emailFarmaciaUBS = $request->emailFarmaciaUBS;
+        $farmacia->tipoFarmaciaUBS = $request->tipoFamaciaUBS;
+        $farmacia->save();
+    
+        // Mensagem de sucesso
+        session()->flash('success', 'Farmácia atualizada com sucesso!');
+    
+        // Redireciona de volta para a lista de farmácias
+        return redirect()->route('farmacia.showForm');
+    }
+    
+    // Método para mudar o status da farmácia
+    public function changeStatus($id)
+    {
+        // Marca a farmácia como excluída
+        $farmacia = FarmaciaUBSModel::findOrFail($id);
+        $farmacia->situacaoFarmaciaUBS = '0'; // Marca como excluída
+        $farmacia->save();
 
-        return response()->json(['message' => 'Sucesso', 'code' => 200]);
+        // Mensagem de sucesso
+        session()->flash('success', 'Farmácia excluída com sucesso!');
+
+        // Redireciona de volta para a lista de farmácias
+        return redirect()->route('farmacia.showForm');
     }
 }

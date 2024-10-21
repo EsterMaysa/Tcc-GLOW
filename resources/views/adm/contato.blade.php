@@ -16,7 +16,7 @@
 				</ul>
 		</div>
 	</div>
-    <div id="mensagens-lista">
+    <!-- <div id="mensagens-lista">
     @foreach($contatos as $c)
 
         <div class="mensagem">
@@ -28,9 +28,9 @@
                 <button onclick="enviarResposta()">Enviar Resposta</button>
             </div>
         </div>
-        @endforeach
+        @endforeach -->
 
-		<!-- <div class="mensagem">
+		<div class="mensagem">
             <p><strong>De:</strong> <span class="remetente">Nome do Remetente</span></p>
             <p><strong>Mensagem:</strong> <span class="texto">Texto da Mensagem</span></p>
             <p><strong>Data:</strong> <span class="data">Data e Hora</span></p>
@@ -39,7 +39,7 @@
                 <textarea placeholder="Digite sua resposta aqui..." rows="4" cols="50"></textarea>
                 <button onclick="enviarResposta()">Enviar Resposta</button>
             </div>
-        </div> -->
+        </div>
     </div>
 </section>
 @include('includes.footer')

@@ -7,6 +7,8 @@
 	<!-- Boxicons -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
 	<!-- Nosso CSS -->
 	<link rel="stylesheet" href="{{ asset('/css/style.css') }}">
@@ -47,7 +49,7 @@
 			</li>
 			
 			<li>
-				<a href="/cliente">
+				<a href="/Cliente">
 					<i class='bx bxs-plus-circle'></i>
 					<span class="text"> Clientes </span>
 				</a>

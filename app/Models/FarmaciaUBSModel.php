@@ -9,17 +9,22 @@ class FarmaciaUBSModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbfamaciaubs';
+    protected $table = 'tbfarmaciaubs';
+    protected $primaryKey = 'idFarmaciaUBS'; // Nome da chave primária
+    
     // protected $connection = 'mysql';
 
     protected $fillable = [
-        'nomeFamaciaUBS',
-        'emailFamaciaUBS',
-        'senhaFamaciaUBS',
-        'tipoFamaciaUBS',
-        'situacaoFamaciaUBS',
-        'dataCadastroFamaciaUBS',
+        'nomeFarmaciaUBS',
+        'emailFarmaciaUBS',
+        'senhaFarmaciaUBS',
+        'tipoFarmaciaUBS',
+        'situacaoFarmaciaUBS',
+        'dataCadastroFarmaciaUBS',
     ];
 
     public $timestamps = false;
+
+
+    
 }
