@@ -10,6 +10,8 @@ class FarmaciaUBSModel extends Model
     use HasFactory;
 
     protected $table = 'tbfarmaciaubs';
+    protected $primaryKey = 'idFarmaciaUBS'; // Nome da chave primária
+    
     // protected $connection = 'mysql';
 
     protected $fillable = [
@@ -22,4 +24,7 @@ class FarmaciaUBSModel extends Model
     ];
 
     public $timestamps = false;
+
+
+    
 }
