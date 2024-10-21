@@ -19,14 +19,14 @@ class MedicamentoController extends Controller
     }
 
     public function medicamentos()
-    {
-        $medicamento = MedicamentoModel::with(['detentor','tipoMedicamento'])
-        ->orderBy('dataCadastroMedicamento', 'desc')
-        ->get();
-    
-        return view('adm.Medicamento.Medicamento', compact('medicamento'));
+        {
+            $medicamento = MedicamentoModel::with(['detentor', 'tipoMedicamento'])
+                ->orderBy('dataCadastroMedicamento', 'desc')
+                ->take(7) // ou ->limit(10)
+                ->get();
 
-    }
+            return view('adm.Medicamento.Medicamento', compact('medicamento'));
+        }
 
     public function store(Request $request)
     {

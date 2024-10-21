@@ -42,9 +42,27 @@
 				</a>
 			</li>
 			<li>
+				<a href="/medicamentoForm">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text"> Cadastro Medicamento </span>
+				</a>
+			</li>
+			<li>
+				<a href="/detentor">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text"> Cadastro Detentor </span>
+				</a>
+			</li>
+			<li>
 				<a href="/selectUBS">
 					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
 					<span class="text"> UBS </span>
+				</a>
+			</li>
+			<li>
+				<a href="/selectUBS">
+					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
+					<span class="text"> Cadastrar UBS </span>
 				</a>
 			</li>
 			
