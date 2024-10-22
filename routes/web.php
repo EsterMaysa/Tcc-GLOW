@@ -18,6 +18,7 @@ use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DetentorController;
+use Illuminate\Http\Request;
 
 
 /*
@@ -127,19 +128,34 @@ Route::get('/cliente/filtros', [ClienteAdmController::class, 'filtros'])->name('
 Route::get('/cliente', [ClienteAdmController::class, 'index'])->name('cliente.index');
 
 
-//Rotas do Medicamento
+//ROTAS DO MEDICAMENTO
 Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']); //para aparecer a tabela de med
 Route::get('/medicamentoForm', [MedicamentoController::class, 'index']); //para aparecer o tipo med e o detentor no cadastro
 Route::post('/cadastroMed', [MedicamentoController::class, 'store']); //cadastro do med
 
 Route::get('/medicamento/edit/{idMedicamento}', [MedicamentoController::class, 'edit'])->name('medicamento.edit');
 Route::put('/medicamento/{idMedicamento}', [MedicamentoController::class, 'update'])->name('medicamento.update');
+Route::put('/medicamentos/desativar/{id}', [MedicamentoController::class, 'desativar'])->name('medicamento.desativar');
 
-//Detentor
+
+//TIPO MEDICAMENTO 
+
+Route::get('/TipoMedicamento', function (Request $request) {
+    return view('adm.Medicamento.cadastroTipoMed', ['formData' => $request->input()]);
+})->name('TipoMedicamento');
+
+Route::post('/TipoMedicamento', [TipoMedicamentoController::class, 'store'])->name('TipoMedicamento');
+
+//DETENTOR
 Route::get('/detentor', [DetentorController::class, 'index']);
 Route::get('/detentorCadastro', function () {
     return view('adm.Medicamento.cadastroDetentor');
 });
+
+Route::get('/newDetentor', function (Request $request) {
+    return view('adm.Medicamento.newDetentor', ['formData' => $request->input()]);
+})->name('NewDetentor');
+Route::post('/newDetentor', [DetentorController::class, 'NewDetentor'])->name('newDetentor');
 
 Route::post('/cadastroDetentor', [DetentorController::class, 'store']); //cadastro do med
 Route::put('/detentor/{idDetentor}', [DetentorController::class, 'update'])->name('detentor.update');
