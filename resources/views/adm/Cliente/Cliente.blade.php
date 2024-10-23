@@ -95,30 +95,29 @@
             <!-- Overlay para desfoque -->
             <div id="overlay" class="overlay" style="display: none;"></div>
 
-            <!-- Modal de Detalhes -->
-            <div id="detailsModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="closeDetailsModal()">&times;</span>
-                    <h2>Detalhes do Paciente</h2>
-                    <div id="detailsContent">
-                        <!-- <p><strong>ID:</strong> <span id="detailId"></span></p> -->
-                        <p><strong>Nome:</strong> <span id="detailNome"></span></p>
-                        <p><strong>CPF:</strong> <span id="detailCpf"></span></p>
-                        <p><strong>CNS:</strong> <span id="detailCns"></span></p>
-                        <p><strong>Data de Nascimento:</strong> <span id="detailDataNasc"></span></p>
-                        <p><strong>Usuário:</strong> <span id="detailUsuario"></span></p>
-                        <p><strong>Telefone:</strong> <span id="detailTelefone"></span></p>
-                        <p><strong>CEP:</strong> <span id="detailCep"></span></p>
-                        <p><strong>Logradouro:</strong> <span id="detailLogradouro"></span></p>
-                        <p><strong>Bairro:</strong> <span id="detailBairro"></span></p>
-                        <p><strong>Número:</strong> <span id="detailNumero"></span></p>
-                        <p><strong>UF:</strong> <span id="detailUf"></span></p>
-                        <p><strong>Cidade:</strong> <span id="detailCidade"></span></p>
-                    </div>
-                </div>
-            </div>
+   <!-- Modal de Detalhes -->
+<div id="detailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeDetailsModal()">&times;</span>
+        <h2>Detalhes do Cliente</h2>
+        <div id="detailsContent">
+            <!-- <p><strong>ID:</strong> <span id="detailId"></span></p> -->
+            <p><strong>Nome:</strong> <span id="detailNome"></span></p>
+            <p><strong>CPF:</strong> <span id="detailCpf"></span></p>
+            <p><strong>CNS:</strong> <span id="detailCns"></span></p>
+            <p><strong>Data de Nascimento:</strong> <span id="detailDataNasc"></span></p>
+            <p><strong>Usuário:</strong> <span id="detailUsuario"></span></p>
+            <p><strong>Telefone:</strong> <span id="detailTelefone"></span></p>
+            <p><strong>CEP:</strong> <span id="detailCep"></span></p>
+			<p><strong>Logradouro:</strong> <span id="detailLogradouro"></span></p>
+			<p><strong>Bairro:</strong> <span id="detailBairro"></span></p>
+			<p><strong>Numero:</strong> <span id="detailnumero"></span></p>
+			<p><strong>Uf:</strong> <span id="detailUf"></span></p>
+			<p><strong>Cidade:</strong> <span id="detailCidade"></span></p>
         </div>
     </div>
+</div>
+
 
 </main>
 
@@ -261,35 +260,34 @@
 </style>
 
 <script>
-function openDetailsModal(cliente) {
-    // Preenche os detalhes do cliente no modal
-    document.getElementById('detailNome').innerText = cliente.nomeCliente;
-    document.getElementById('detailCpf').innerText = cliente.cpfCliente;
-    document.getElementById('detailCns').innerText = cliente.cnsCliente;
-    document.getElementById('detailDataNasc').innerText = cliente.dataNascCliente;
-    document.getElementById('detailUsuario').innerText = cliente.userCliente;
-    document.getElementById('detailTelefone').innerText = cliente.idTelefoneCliente; // Ajuste se necessário
-    document.getElementById('detailCep').innerText = cliente.cepCliente;
-    document.getElementById('detailLogradouro').innerText = cliente.logradouroCliente; // Ajuste se necessário
-    document.getElementById('detailBairro').innerText = cliente.bairroCliente; // Ajuste se necessário
-    document.getElementById('detailNumero').innerText = cliente.numeroCliente; // Ajuste se necessário
-    document.getElementById('detailUf').innerText = cliente.ufCliente; // Ajuste se necessário
-    document.getElementById('detailCidade').innerText = cliente.cidadeCliente; // Ajuste se necessário
-
-    // Mostra o fundo desfocado e o modal
-    document.getElementById('overlay').style.display = 'block';
-    document.getElementById('detailsModal').style.display = 'block';
-}
-
-// Fecha o modal e restaura o foco quando o usuário clica fora dele
-window.onclick = function(event) {
-    var modalDetails = document.getElementById("detailsModal");
-    var overlay = document.getElementById("overlay");
-
-    // Verifica se o clique foi fora do modal ou do overlay
-    if (event.target === modalDetails || event.target === overlay) {
-        closeDetailsModal(); // Chama a função para fechar o modal
+    function openModal() {
+        document.getElementById("filterModal").style.display = "block";
     }
+
+    function closeModal() {
+        document.getElementById("filterModal").style.display = "none";
+    }
+
+    
+//Modal Cliente
+	function openDetailsModal(cliente) {
+    document.getElementById("detailId").innerText = cliente.idCliente;
+    document.getElementById("detailNome").innerText = cliente.nomeCliente;
+    document.getElementById("detailCpf").innerText = cliente.cpfCliente;
+    document.getElementById("detailCns").innerText = cliente.cnsCliente;
+    document.getElementById("detailDataNasc").innerText = cliente.dataNascCliente;
+    document.getElementById("detailUsuario").innerText = cliente.userCliente;
+    document.getElementById("detailTelefone").innerText = cliente.idTelefoneCliente;
+    document.getElementById("detailCep").innerText = cliente.cepCliente;
+	document.getElementById("detailLogradouro").innerText = cliente.logradouroCliente;
+	document.getElementById("detailBairro").innerText = cliente.bairroCliente;
+	document.getElementById("detailnumero").innerText = cliente.numeroCliente;
+	document.getElementById("detailUf").innerText = cliente.ufCliente;
+	document.getElementById("detailCidade").innerText = cliente.cidadeCliente;
+    // Preencha outros campos conforme necessário
+	
+    // Exibe o modal
+    document.getElementById("detailsModal").style.display = "block";
 }
 
 function closeDetailsModal() {

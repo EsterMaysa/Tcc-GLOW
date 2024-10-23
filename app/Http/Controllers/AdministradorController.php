@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\AdministradorModel;
 use Illuminate\Http\Request;
+use App\Models\AdministradorModel; // Corrigi o nome do model ClienteAdm
+use Illuminate\Support\Facades\Hash;
 
 class AdministradorController extends Controller
 {
@@ -42,22 +44,27 @@ class AdministradorController extends Controller
      */
     public function store(Request $request)
     {
-        // Valida os dados do formulário
+        // Validação dos dados
         $validatedData = $request->validate([
-            'fotoAministrador' => 'required|max:400',
-            'nomeAdministrador' => 'required|max:100',
-            'emailAdministrador' => 'required|email|max:350',
-            'senhaAdministrador' => 'required|max:50',
-            'situacaoAdministrador' => 'required|max:2',
-            'dataCadastroAdministrador' => 'required|date',
+            'nome' => 'required|string|max:100',
+            'email' => 'required|email|max:350|unique:tbAdministrador,emailAdministrador',
+            'senha' => 'required|string|min:8', // Adicionando validação mínima
         ]);
-
-        // Cria um novo administrador no banco
-        AdministradorModel::create($validatedData);
-
-        // Redireciona de volta com uma mensagem de sucesso
-        return redirect()->route('admin.index')->with('success', 'Administrador criado com sucesso!');
+        
+        // Criar o novo administrador
+        $administrador = new AdministradorModel();
+        $administrador->nomeAdministrador = $validatedData['nome'];
+        $administrador->emailAdministrador = $validatedData['email'];
+        $administrador->senhaAdministrador = Hash::make($validatedData['senha']);  // Criptografar a senha
+        $administrador->situacaoAdministrador = 'A'; // Por exemplo, 'A' para ativo
+        $administrador->dataCadastroAdministrador = now(); // Data atual
+        
+        $administrador->save();
+        
+        // Redirecionar ou retornar uma resposta
+        return redirect('/')->with('success', 'Administrador cadastrado com sucesso!');
     }
+    
 
     /**
      * Display the specified resource.

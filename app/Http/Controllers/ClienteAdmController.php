@@ -16,7 +16,7 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
     
     public function indexLogin()
     {
-        $clientes = ClienteAdmModel::all(); // Usar o model correto
+        $clientes = ClienteAdmModel::all(); 
         return response()->json($clientes); // Retorna dados como JSON
     }
 
