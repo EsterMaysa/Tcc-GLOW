@@ -1,6 +1,7 @@
 @include('includes.header') <!-- include -->
 
 <!-- MAIN -->
+<!-- ta feio a parte da barra de pesquisa perdao duda -->
 <main>
     <div class="head-title">
         <div class="left">
