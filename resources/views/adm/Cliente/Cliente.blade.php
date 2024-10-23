@@ -163,7 +163,7 @@
         <span class="close" onclick="closeDetailsModal()">&times;</span>
         <h2>Detalhes do Cliente</h2>
         <div id="detailsContent">
-            <p><strong>ID:</strong> <span id="detailId"></span></p>
+            <!-- <p><strong>ID:</strong> <span id="detailId"></span></p> -->
             <p><strong>Nome:</strong> <span id="detailNome"></span></p>
             <p><strong>CPF:</strong> <span id="detailCpf"></span></p>
             <p><strong>CNS:</strong> <span id="detailCns"></span></p>
@@ -397,7 +397,7 @@ button.btn-primary:hover {
     
 //Modal Cliente
 	function openDetailsModal(cliente) {
-    document.getElementById("detailId").innerText = cliente.idCliente;
+    // document.getElementById("detailId").innerText = cliente.idCliente;
     document.getElementById("detailNome").innerText = cliente.nomeCliente;
     document.getElementById("detailCpf").innerText = cliente.cpfCliente;
     document.getElementById("detailCns").innerText = cliente.cnsCliente;
