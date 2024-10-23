@@ -30,6 +30,7 @@ class MedicamentoController extends Controller
         return view('adm.Medicamento.Medicamento', compact('medicamento'));
     }
 
+
     public function store(Request $request)
     {
         $medicamento = new MedicamentoModel();
