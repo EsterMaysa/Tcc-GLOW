@@ -23,7 +23,7 @@
                     <img src="{{ asset('Image/logoAdm.png') }}" alt="IMG" style=" width: 350% ; margin-top: -30%">
                 </div>
 
-                <form class="login100-form validate-form" action="/adm" method="post">
+                <form class="login100-form validate-form" action="/cadastroAdm" method="post">
                     @csrf
                     <span class="login100-form-title" style="font-size: 20px; margin-top: -45% "><br>
                         Cadastro | Administrador 
@@ -39,14 +39,6 @@
 
                     <div class="wrap-input100 validate-input" data-validate="Email válido é obrigatório: ex@abc.xyz">
                         <input class="input100" type="email" name="email" placeholder="Email" required>
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                        </span>
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="Email válido é obrigatório: ex@abc.xyz">
-                        <input class="input100" type="text" name="tipoAdministrador" placeholder="Tipo de Administrador" required>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
