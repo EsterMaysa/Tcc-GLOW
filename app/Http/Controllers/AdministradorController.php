@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdministradorModel;
 use Illuminate\Http\Request;
 use App\Models\AdministradorModel; // Corrigi o nome do model ClienteAdm
 use Illuminate\Support\Facades\Hash;
@@ -15,15 +14,9 @@ class AdministradorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    // Seleciona o primeiro administrador cadastrado
-    $admin = AdministradorModel::first(); // Seleciona apenas o primeiro administrador
-
-    // Retorna a view com os dados do administrador
-    return view('perfil', compact('admin'));
-}
-
-    
+    {
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -32,8 +25,7 @@ class AdministradorController extends Controller
      */
     public function create()
     {
-        // Mostra o formulário para criação de um novo administrador
-        return view('admin.create');
+        //
     }
 
     /**
@@ -74,9 +66,7 @@ class AdministradorController extends Controller
      */
     public function show($id)
     {
-        // Exibe um administrador específico
-        $administrador = AdministradorModel::findOrFail($id);
-        return view('admin.show', compact('administrador'));
+        //
     }
 
     /**
@@ -87,9 +77,7 @@ class AdministradorController extends Controller
      */
     public function edit($id)
     {
-        // Mostra o formulário de edição de um administrador
-        $administrador = AdministradorModel::findOrFail($id);
-        return view('admin.edit', compact('administrador'));
+        //
     }
 
     /**
@@ -101,21 +89,7 @@ class AdministradorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Valida os dados do formulário de edição
-        $validatedData = $request->validate([
-            'fotoAministrador' => 'required|max:400',
-            'nomeAdministrador' => 'required|max:100',
-            'emailAdministrador' => 'required|email|max:350',
-            'senhaAdministrador' => 'required|max:50',
-            'situacaoAdministrador' => 'required|max:2',
-            'dataCadastroAdministrador' => 'required|date',
-        ]);
-
-        // Atualiza o administrador existente
-        AdministradorModel::where('idAdministrador', $id)->update($validatedData);
-
-        // Redireciona de volta com uma mensagem de sucesso
-        return redirect()->route('admin.index')->with('success', 'Administrador atualizado com sucesso!');
+        //
     }
 
     /**
@@ -126,10 +100,6 @@ class AdministradorController extends Controller
      */
     public function destroy($id)
     {
-        // Deleta o administrador
-        AdministradorModel::destroy($id);
-
-        // Redireciona de volta com uma mensagem de sucesso
-        return redirect()->route('admin.index')->with('success', 'Administrador removido com sucesso!');
+        //
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\ClienteAdmController;
 use App\Http\Controllers\TelefoneClienteAdmController;
 use Illuminate\Support\Facades\Route;
