@@ -25,8 +25,7 @@
                             </a>
                         </td>
                     </tr>
-                    
-					
+
                 </tbody>
             </table>
         </div>
@@ -46,7 +45,6 @@
                         <th>Código de Barras</th>
                         <th>Nome</th>
                         <th>Nome Genérico</th>
-                        <th>Registro ANVISA</th>
                         <th>Situação</th>
                         <th>Data de Cadastro</th>
                         <th>Ações</th>
@@ -58,7 +56,7 @@
                         <td style="padding: 10px;">{{ $med->codigoDeBarrasMedicamento }}</td>
                         <td>{{ $med->nomeMedicamento }}</td>
                         <td>{{ $med->nomeGenericoMedicamento }}</td>
-                        <td>{{ $med->registroAnvisaMedicamento }}</td>
+
                         <td>{{ $med->situacaoMedicamento }}</td>
                         <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
                         <td>
@@ -66,6 +64,7 @@
                                 Ver mais
                             </button>
                             <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
+
                         </td>
                     </tr>
 
@@ -110,10 +109,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-									<a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
 
-                                </div>
-								
                             </div>
                         </div>
                     </div>

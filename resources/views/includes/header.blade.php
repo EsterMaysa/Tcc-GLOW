@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +17,7 @@
 	<link rel="stylesheet" href="{{ asset('/css/perfil.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/notificacoes.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/configuracoes.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 	<title> Dashboard Administrador | FarmaSUS </title>
 	<link rel="shortcut icon" href="{{ asset('/Image/favicon (1).ico') }}" type="image/x-icon">
@@ -43,36 +44,41 @@
 			</li>
 			<li>
 				<a href="/medicamentoForm">
-					<i class='bx bxs-doughnut-chart'></i>
+					<i class='bx bxs-plus-circle'></i>
+
 					<span class="text"> Cadastro Medicamento </span>
 				</a>
 			</li>
 			<li>
 				<a href="/detentor">
-					<i class='bx bxs-doughnut-chart'></i>
+
+					<i class='bx bxs-plus-circle'></i>
+
 					<span class="text"> Cadastro Detentor </span>
 				</a>
 			</li>
 			<li>
 				<a href="/selectUBS">
-					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
+					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text"> UBS </span>
 				</a>
 			</li>
 			<li>
-				<a href="/selectUBS">
-					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
+
+				<a href="/selectRegiaoForm">
+					<i class='bx bxs-plus-circle'></i>
 					<span class="text"> Cadastrar UBS </span>
 				</a>
 			</li>
-			
+
+
 			<li>
 				<a href="/Cliente">
 					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Clientes </span>
+					<span class="text"> Paciente </span>
 				</a>
 			</li>
-			
+
 			<li>
 				<a href="/contato">
 					<i class='bx bxs-message-dots'></i>
@@ -82,29 +88,33 @@
 
 		</ul>
 		<ul class="boto">
-    		<li>
+			<li>
 				<a href="/configuracoes" class="boto2">
 					<i class='bx bxs-cog'></i>
 					<span class="text"> Configurações </span>
 				</a>
-    		</li>
+			</li>
 			<li>
 				<a href="/perfil" class="boto2">
 					<i class='bx bxs-user'></i>
 					<span class="text"> Perfil </span>
 				</a>
-    		</li>
-    		<li>
-			<form action="/logout" method="POST" style="display: inline;">
-				@csrf 
-				<button type="submit" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i>
-				<span class="text"> Sair </span></button
-			</form>
-    		</li>
+			</li>
+			<li>
+				<!-- <form action="/logout" method="POST" style="display: inline;">
+					@csrf 
+					<button type="submit" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i>
+					<span class="text"> Sair </span></button
+				</form> -->
+				<a href="/login" class="boto2">
+					<i class='bx bxs-log-out-circle' id="logout-icon"></i>
+					<span class="text"> Sair </span>
+				</a>
+			</li>
 		</ul>
 
 	</section>
-	
+
 	<section id="content">
 		<nav>
 			<form action="#">

@@ -12,21 +12,24 @@ class MedicamentoController extends Controller
 {
     public function index()
     {
-        $detentores = DetentorModel::all(); 
-        $tiposMedicamento = TipoMedicamentoModel::all(); 
-    
-        return view('adm.Medicamento.cadastroMed', compact('detentores', 'tiposMedicamento'));
+        $detentores = DetentorModel::all();
+        $tiposMedicamento = TipoMedicamentoModel::all();
+        // Verifica se há dados na sessão para preencher o formulário
+        $formData = session()->getOldInput(); // Obter dados antigos do input
+
+        return view('adm.Medicamento.cadastroMed', compact('detentores', 'tiposMedicamento', 'formData'));
     }
 
     public function medicamentos()
-        {
-            $medicamento = MedicamentoModel::with(['detentor', 'tipoMedicamento'])
-                ->orderBy('dataCadastroMedicamento', 'desc')
-                ->take(7) // ou ->limit(10)
-                ->get();
+    {
+        $medicamento = MedicamentoModel::with(['detentor', 'tipoMedicamento'])
+            ->orderBy('dataCadastroMedicamento', 'desc')
+            ->take(7) 
+            ->get();
 
-            return view('adm.Medicamento.Medicamento', compact('medicamento'));
-        }
+        return view('adm.Medicamento.Medicamento', compact('medicamento'));
+    }
+
 
     public function store(Request $request)
     {
@@ -43,14 +46,14 @@ class MedicamentoController extends Controller
             $fileOriginal = $request->file('fotoOriginal');
             $pathOriginal = $fileOriginal->store('fotos_medicamentos', 'public');
             $medicamento->fotoMedicamentoOriginal = $pathOriginal;
-        }       
-        
+        }
+
         if ($request->hasFile('fotoGenero')) {
             $fileGenero = $request->file('fotoGenero');
             $pathGenero = $fileGenero->store('fotos_medicamentos', 'public');
             $medicamento->fotoMedicamentoGenero = $pathGenero;
         }
-    
+
 
         $medicamento->idDetentor = $request->idDetentor;
         $medicamento->idTipoMedicamento = $request->idTipo;
@@ -64,21 +67,21 @@ class MedicamentoController extends Controller
         return redirect('/medicamento');
     }
 
-// Função para exibir o formulário de edição
-public function edit($idMedicamento)
-{
-    // Busca o medicamento pelo ID
-    $medicamento = MedicamentoModel::findOrFail($idMedicamento);
+    // Função para exibir o formulário de edição
+    public function edit($idMedicamento)
+    {
+        // Busca o medicamento pelo ID
+        $medicamento = MedicamentoModel::findOrFail($idMedicamento);
 
-    // Carrega as opções de Detentor e Tipos de Medicamento
-    $detentor = DetentorModel::all();
-    $tiposMedicamento = TipoMedicamentoModel::all();
+        // Carrega as opções de Detentor e Tipos de Medicamento
+        $detentor = DetentorModel::all();
+        $tiposMedicamento = TipoMedicamentoModel::all();
 
-    // Retorna a view de edição com os dados do medicamento
-    return view('adm.Medicamento.editMedicamento', compact('medicamento','detentor', 'tiposMedicamento'));
-}
+        // Retorna a view de edição com os dados do medicamento
+        return view('adm.Medicamento.editMedicamento', compact('medicamento', 'detentor', 'tiposMedicamento'));
+    }
 
-public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         // Validação dos campos
         // $request->validate([
@@ -143,5 +146,19 @@ public function update(Request $request, $id)
         ]);
 
         return response()->json(['message' => 'Sucesso', 'code' => 200]);
+    }
+
+    public function desativar($id)
+    {
+        // Encontrar o medicamento pelo ID
+        $medicamento = MedicamentoModel::find($id);
+
+        if ($medicamento) {
+            // Desativar o medicamento (atualizar o campo de situação)
+            $medicamento->situacaoMedicamento = 'D'; // ou outro valor que indica "inativo"
+            $medicamento->save();
+        }
+
+        return redirect('/medicamento')->with('success', 'Medicamento desativado com sucesso.');
     }
 }

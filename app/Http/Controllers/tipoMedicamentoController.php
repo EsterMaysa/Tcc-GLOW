@@ -18,11 +18,14 @@ class TipoMedicamentoController extends Controller
         $tipo = new TipoMedicamentoModel();
         $tipo->tipoMedicamento = $request->tipo;
         $tipo->formaMedicamento = $request->forma;
-        $tipo->situacaoTipoMedicamento = $request->situacao;
+        $tipo->situacaoTipoMedicamento = "A";
         $tipo->dataCadastroTipoMedicamento = now();
 
         $tipo->save();
-        return response()->json(['message' => 'Tipo de Medicamento criado com sucesso!'], 201);
+
+        return redirect('/medicamentoForm')
+        ->with('TipoMedicamento', $tipo->idTipoMedicamento) // Preserva o ID do novo tipo
+        ->withInput();    
     }
 
     public function updateapi(Request $request, $id)

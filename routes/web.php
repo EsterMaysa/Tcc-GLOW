@@ -18,6 +18,9 @@ use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DetentorController;
+use App\Http\Controllers\AdministradorController;
+
+use Illuminate\Http\Request;
 
 
 /*
@@ -127,19 +130,34 @@ Route::get('/cliente/filtros', [ClienteAdmController::class, 'filtros'])->name('
 Route::get('/cliente', [ClienteAdmController::class, 'index'])->name('cliente.index');
 
 
-//Rotas do Medicamento
+//ROTAS DO MEDICAMENTO
 Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']); //para aparecer a tabela de med
 Route::get('/medicamentoForm', [MedicamentoController::class, 'index']); //para aparecer o tipo med e o detentor no cadastro
 Route::post('/cadastroMed', [MedicamentoController::class, 'store']); //cadastro do med
 
 Route::get('/medicamento/edit/{idMedicamento}', [MedicamentoController::class, 'edit'])->name('medicamento.edit');
 Route::put('/medicamento/{idMedicamento}', [MedicamentoController::class, 'update'])->name('medicamento.update');
+Route::put('/medicamentos/desativar/{id}', [MedicamentoController::class, 'desativar'])->name('medicamento.desativar');
 
-//Detentor
+
+//TIPO MEDICAMENTO 
+
+Route::get('/TipoMedicamento', function (Request $request) {
+    return view('adm.Medicamento.cadastroTipoMed', ['formData' => $request->input()]);
+})->name('TipoMedicamento');
+
+Route::post('/TipoMedicamento', [TipoMedicamentoController::class, 'store'])->name('TipoMedicamento');
+
+//DETENTOR
 Route::get('/detentor', [DetentorController::class, 'index']);
 Route::get('/detentorCadastro', function () {
     return view('adm.Medicamento.cadastroDetentor');
 });
+
+Route::get('/newDetentor', function (Request $request) {
+    return view('adm.Medicamento.newDetentor', ['formData' => $request->input()]);
+})->name('NewDetentor');
+Route::post('/newDetentor', [DetentorController::class, 'NewDetentor'])->name('newDetentor');
 
 Route::post('/cadastroDetentor', [DetentorController::class, 'store']); //cadastro do med
 Route::put('/detentor/{idDetentor}', [DetentorController::class, 'update'])->name('detentor.update');
@@ -148,11 +166,26 @@ Route::get('/detentor/edit/{idDetentor}', [DetentorController::class, 'edit'])->
 //Messagens
 Route::get('/contato', [ContatoController::class, 'index']);
 
+//Peerfil
+Route::get('/perfilADM', [AdministradorController::class, 'perfil'])->name('perfil');
 
+//ADM
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/login', function () {
+    return view('adm.login');
+});
+Route::get('/cadastroAdm', function () {
+    return view('adm.cadastroAdm');
+});
 
+// Login adm
+Route::post('/admLogin', 'App\Http\Controllers\AdministradorController@login');
+Route::post('/logout','App\Http\Controllers\AdministradorController@logout');
 
-
+Route::post('/cadastroAdm','App\Http\Controllers\AdministradorController@store');
 
 
 
@@ -214,16 +247,7 @@ Route::get('/fabricante', function () {
 
 
 /* Páginas ADM */
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/login', function () {
-    return view('adm.login');
-});
-Route::get('/cadastroAdm', function () {
-    return view('adm.cadastroAdm');
-});
 
 Route::get('/perfil', function () {
     return view('adm.Perfil.perfil');
@@ -262,9 +286,7 @@ Route::get('/editarPerfil', function () {
 //SELECT
 // Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
 
-// Login adm
-Route::post('/admLogin', 'App\Http\Controllers\AdministradorController@login');
-Route::post('/logout','App\Http\Controllers\AdministradorController@logout');
+
 
 Route::get('/', function () {
     return view('welcome'); // Retorna a view home do Adm
@@ -285,20 +307,6 @@ Route::get('/', function () {
 
 // Cadastros
 Route::post('/farmacia', 'App\Http\Controllers\FarmaciaController@store');
-Route::post('/adm', 'App\Http\Controllers\AdministradorController@store');
-
-
-//INSEERTS ESTER FUNCIONANDO
-
-//ROTA PARA O METODO Insert ADM
-
-// Route::post('/criarRegiao', 'App\Http\Controllers\regiaoControllers@store');
-// Route::post('/criarComentario', 'App\Http\Controllers\comentariosController@store');
-// Route::post('/criarContato', 'App\Http\Controllers\contatoController@store');
-// Route::post('/criarEstoque', 'App\Http\Controllers\estoqueController@store');
-// Route::post('/criarFarmacia', 'App\Http\Controllers\farmaciaController@storeInsertADM');
-// Route::post('/criarNotificacaoComentario', 'App\Http\Controllers\notificacaoComentarioController@store');
-// Route::post('/criarNotificacaoEstoque', 'App\Http\Controllers\notificacaoEstoqueController@store');
 
 
 //ROTA PARA A PAGINA DO INSERT ADM
@@ -332,40 +340,14 @@ Route::get('/notificacaoEstoqueInsert', function () {
 
 //estoqueFaarmacia
 // // Rota para exibir o formulário de criar novo medicamento
- Route::get('/editarMedicamentoEstoque', [MedicamentoController::class, 'create']);
+//  Route::get('/editarMedicamentoEstoque', [MedicamentoController::class, 'create']);
 
 
-// // Rota para processar o formulário de criação de medicamento
- Route::post('/editarMedicamentoEstoque', [MedicamentoController::class, 'store'])->name('medicamento.store');
+// // // Rota para processar o formulário de criação de medicamento
+//  Route::post('/editarMedicamentoEstoque', [MedicamentoController::class, 'store'])->name('medicamento.store');
 
+// Route::post('/fabricanteFarma','App\Http\Controllers\FabricanteController@store');
 
-//clienteFarmacia
-//  Route::get('/cadastros', [ClienteFarmaciaController::class, 'create'])->name('cliente.create'); // Rota para exibir o formulário
-//  Route::post('/cadastros', [ClienteFarmaciaController::class, 'store'])->name('cliente.store'); // Rota para salvar os dados no banco
- 
-
-// //telefone
-// Route::get('/telefones', [TelefoneClienteController::class, 'index'])->name('telefones.index');
-// Route::get('/telefones/create', [TelefoneClienteController::class, 'create'])->name('telefones.create');
-// Route::post('/telefones', [TelefoneClienteController::class, 'store'])->name('telefones.store');
-// Route::get('/telefones/{id}/edit', [TelefoneClienteController::class, 'edit'])->name('telefones.edit');
-// Route::put('/telefones/{id}', [TelefoneClienteController::class, 'update'])->name('telefones.update');
-// Route::delete('/telefones/{id}', [TelefoneClienteController::class, 'destroy'])->name('telefones.destroy');
-
-
-//Medicamento farmacia
-// Rotas para MedicamentoFarmacia
-
-
-// Route::get('/atualizarMedicamentoEstoque/{id}', [MedicamentoFarmaciaController::class, 'edit'])->name('medicamento.edit');
-// Route::put('/medicamentos', [MedicamentoFarmaciaController::class, 'update'])->name('medicamento.update');
-
-
-// tipo med
-// Route::get('/tipoMedicamento', [tipoMedicamentoController::class, 'index'])->name('tipoMedicamento.index');
-
-Route::post('/fabricanteFarma','App\Http\Controllers\FabricanteController@store');
-
-//rota telefone do fabricante
-Route::get('/telefonesFabricante', [TelefoneFabricanteFarmaciaController::class, 'index'])->name('telefones.index');
-Route::post('/telefonesFabricante', [TelefoneFabricanteFarmaciaController::class, 'store'])->name('telefones.store');
+// //rota telefone do fabricante
+// Route::get('/telefonesFabricante', [TelefoneFabricanteFarmaciaController::class, 'index'])->name('telefones.index');
+// Route::post('/telefonesFabricante', [TelefoneFabricanteFarmaciaController::class, 'store'])->name('telefones.store');

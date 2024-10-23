@@ -14,6 +14,32 @@ class DetentorController extends Controller
         return view('adm.Medicamento.detentor', compact('detentores'));
     }
 
+    public function NewDetentor(Request $request)
+    {
+        $detentor = new DetentorModel();
+        $detentor->nomeDetentor = $request->nome;
+        $detentor->cnpjDetentor = $request->cnpj;
+        $detentor->emailDetentor = $request->email;
+        $detentor->logradouroDetentor = $request->logradouro;
+        $detentor->bairroDetentor = $request->bairro;
+        $detentor->estadoDetentor = $request->estado;
+        $detentor->cidadeDetentor = $request->cidade;
+        $detentor->numeroDetentor = $request->numero;
+        $detentor->ufDetentor = $request->uf;
+        $detentor->cepDetentor = $request->cep;
+        $detentor->complementoDetentor = $request->complemento;
+        $detentor->situacaoDetentor = "A";
+        $detentor->dataCadastroDetentor = now();
+    
+        $detentor->save();
+    
+        // Redirecionar com os dados antigos do formulário e o novo detentor selecionado
+        return redirect('/medicamentoForm')
+            ->with('novoDetentor', $detentor->idDetentor)
+            ->withInput();  // Preserva os inputs já preenchidos
+    }
+    
+
     public function store(Request $request)
     {
         $detentor = new DetentorModel();
