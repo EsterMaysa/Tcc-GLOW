@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\ClienteAdmController;
 use App\Http\Controllers\TelefoneClienteAdmController;
 use Illuminate\Support\Facades\Route;
@@ -164,6 +165,8 @@ Route::get('/detentor/edit/{idDetentor}', [DetentorController::class, 'edit'])->
 //Messagens
 Route::get('/contato', [ContatoController::class, 'index']);
 
+//Peerfil
+Route::get('/perfilADM', [AdministradorController::class, 'perfil'])->name('perfil');
 
 
 

@@ -69,7 +69,7 @@
 			<li>
 				<a href="/Cliente">
 					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Clientes </span>
+					<span class="text"> Paciente </span>
 				</a>
 			</li>
 			
