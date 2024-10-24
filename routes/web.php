@@ -166,6 +166,8 @@ Route::get('/detentor/edit/{idDetentor}', [DetentorController::class, 'edit'])->
 //Messagens
 Route::get('/contato', [ContatoController::class, 'index']);
 
+//Peerfil
+Route::get('/perfilADM', [AdministradorController::class, 'perfil'])->name('perfil');
 
 //ADM
 Route::get('/', function () {

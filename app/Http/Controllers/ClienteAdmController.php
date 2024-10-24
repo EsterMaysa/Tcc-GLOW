@@ -230,41 +230,26 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
 
     public function filtros(Request $request)
 {
-    // Captura os filtros enviados pelo modal
-    $nome = $request->input('nomeCliente'); // Altere aqui
-    $cpf = $request->input('cpfCliente'); // Altere aqui
-    $cidade = $request->input('cidadeCliente'); // Altere aqui
-    $uf = $request->input('ufCliente'); // Altere aqui
-    $cns = $request->input('cnsCliente'); // Altere aqui
+    $queryInput = $request->input('query'); // Nome único para a pesquisa geral
 
     // Consulta personalizada de acordo com os filtros
     $query = ClienteAdmModel::query();
 
-    if (!empty($nome)) {
-        $query->where('nomeCliente', 'like', '%' . $nome . '%');
-    }
-
-    if (!empty($cpf)) {
-        $query->where('cpfCliente', $cpf);
-    }
-
-    if (!empty($cns)) {
-        $query->where('cnsCliente', $cns);
-    }    
-
-    if (!empty($cidade)) {
-        $query->where('cidadeCliente', 'like', '%' . $cidade . '%');
-    }
-
-    if (!empty($uf)) {
-        $query->where('ufCliente', $uf);
+    if (!empty($queryInput)) {
+        $query->where(function($q) use ($queryInput) {
+            $q->where('nomeCliente', 'like', '%' . $queryInput . '%')
+              ->orWhere('cpfCliente', $queryInput)
+              ->orWhere('cnsCliente', $queryInput)
+              ->orWhere('ufCliente', 'like', '%' . $queryInput . '%');
+        });
     }
 
     $clientes = $query->get();
 
     // Retorna a mesma view, mas com os resultados filtrados e os dados de entrada
-    return view('Adm.Cliente.Cliente', compact('clientes', 'nome', 'cpf', 'cns', 'cidade', 'uf'));
+    return view('Adm.Cliente.Cliente', compact('clientes', 'queryInput'));
 }
+
   
     
     

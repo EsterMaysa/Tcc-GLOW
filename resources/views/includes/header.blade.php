@@ -45,12 +45,15 @@
 			<li>
 				<a href="/medicamentoForm">
 					<i class='bx bxs-plus-circle'></i>
+
 					<span class="text"> Cadastro Medicamento </span>
 				</a>
 			</li>
 			<li>
 				<a href="/detentor">
+
 					<i class='bx bxs-plus-circle'></i>
+
 					<span class="text"> Cadastro Detentor </span>
 				</a>
 			</li>
@@ -61,16 +64,18 @@
 				</a>
 			</li>
 			<li>
+
 				<a href="/selectRegiaoForm">
 					<i class='bx bxs-plus-circle'></i>
 					<span class="text"> Cadastrar UBS </span>
 				</a>
 			</li>
 
+
 			<li>
 				<a href="/Cliente">
 					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Clientes </span>
+					<span class="text"> Paciente </span>
 				</a>
 			</li>
 
