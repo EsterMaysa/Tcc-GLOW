@@ -1,17 +1,17 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Boxicons -->
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	Boxicons -->
+	<!-- <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
 
 
 	<!-- Nosso CSS -->
-	<link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+	<!-- <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/clienteConsulta.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/perfil.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/notificacoes.css') }}">
@@ -40,8 +40,8 @@
 					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text"> Medicamento </span>
 				</a>
-			</li>
-			<li>
+			</li> -->
+			<!-- <li>
 				<a href="/medicamentoForm">
 				<i class='bx bxs-plus-circle'></i>
 				<span class="text"> Cadastro Medicamento </span>
@@ -52,8 +52,8 @@
 				<i class='bx bxs-plus-circle'></i>
 				<span class="text"> Cadastro Detentor </span>
 				</a>
-			</li>
-			<li>
+			</li> -->
+			<!-- <li>
 				<a href="/selectUBS">
 				<i class='bx bxs-doughnut-chart'></i>
 				<span class="text"> UBS </span>
@@ -109,7 +109,7 @@
 			</form>
     		</li>
 		</ul>
-
+		</form>
 	</section>
 	
 	<section id="content">
@@ -127,7 +127,7 @@
 			<a href="/perfil" class="profile">
 				<img src="{{ asset('/Image/perfilAzulAdm.png') }}">
 			</a>
-		</nav>
+		</nav> --> 
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -202,6 +202,12 @@
 				</a>
 			</li>
 
+			<li>
+				<a href="/insertFarmaciaUbs">
+				<i class='bx bxs-plus-circle'></i>
+				<span class="text"> Cadastrar Farmacia </span>
+				</a>
+			</li>
 
 			<li>
 				<a href="/Cliente">
