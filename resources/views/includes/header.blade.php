@@ -137,8 +137,6 @@
 			<a href="/perfil" class="profile">
 				<img src="{{ asset('/Image/perfilAzulAdm.png') }}">
 			</a>
-<<<<<<< HEAD
-=======
 		</nav> --> 
 
 <!DOCTYPE html>
@@ -279,5 +277,4 @@
 			<a href="/perfil" class="profile">
 				<img src="{{ asset('/Image/perfilAzulAdm.png') }}">
 			</a>
->>>>>>> 0349e4548ae6bd605b4a2686a1337a1d61506c8d
 		</nav>
