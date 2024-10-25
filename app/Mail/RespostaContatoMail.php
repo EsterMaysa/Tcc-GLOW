@@ -19,6 +19,7 @@ class RespostaContatoMail extends Mailable
         $this->body = $body;
     }
 
+    //vini
     public function build()
     {
         return $this->subject($this->title)
