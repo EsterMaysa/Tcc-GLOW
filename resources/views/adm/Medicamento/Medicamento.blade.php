@@ -26,7 +26,6 @@
                         </td>
                     </tr>
 
-
                 </tbody>
             </table>
         </div>
@@ -57,6 +56,7 @@
                         <td style="padding: 10px;">{{ $med->codigoDeBarrasMedicamento }}</td>
                         <td>{{ $med->nomeMedicamento }}</td>
                         <td>{{ $med->nomeGenericoMedicamento }}</td>
+
                         <td>{{ $med->situacaoMedicamento }}</td>
                         <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
                         <td>
@@ -64,13 +64,7 @@
                                 Ver mais
                             </button>
                             <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
-                            <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja desativar este medicamento?')">
-                                    Desativar
-                                </button>
-                            </form>
+
                         </td>
                     </tr>
 
@@ -115,17 +109,6 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                    
-                                    <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
-
-                                    <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja desativar este medicamento?')">
-                                            Desativar
-                                        </button>
-                                    </form>
-                                </div>
 
                             </div>
                         </div>
