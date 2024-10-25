@@ -65,6 +65,13 @@
 				<span class="text"> Cadastrar UBS </span>
 				</a>
 			</li>
+
+			<li>
+				<a href="/farmacias2">
+				<i class='bx bxs-plus-circle'></i>
+				<span class="text"> Cadastrar Farmacia </span>
+				</a>
+			</li>
 			
 			<li>
 				<a href="/Cliente">

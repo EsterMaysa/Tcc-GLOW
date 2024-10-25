@@ -21,6 +21,7 @@ use App\Http\Controllers\DetentorController;
 use Illuminate\Http\Request;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -91,10 +92,20 @@ Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('inser
 // Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
 //ROTAS FARMACIA
 // Rota para cadastrar farmácia via POST
-Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store']);
+// Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store']);
+
+// Rota para exibir o formulário e as farmácias cadastradas
+Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+
+// Rota para armazenar os dados da farmácia
+Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmacia.store');
+
+
+Route::get('/farmacia', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+
 
 // Rota para exibir o formulário e a lista de farmácias cadastradas
-Route::get('/Farmacia', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+//  Route::get('/farmacias', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
 
 
 // Rota para exibir o formulário de edição
@@ -162,11 +173,25 @@ Route::put('/detentor/{idDetentor}', [DetentorController::class, 'update'])->nam
 Route::get('/detentor/edit/{idDetentor}', [DetentorController::class, 'edit'])->name('detentor.edit');
 
 //Messagens
-Route::get('/contato', [ContatoController::class, 'index']);
+
+// Defina a rota para o índice de contatos
+// Route::get('/contatos', [ContatoController::class, 'index'])->name('contato.index');
+
+Route::prefix('contato')->group(function () {
+    Route::get('/', [ContatoController::class, 'index'])->name('contato.index'); // Rota para listar contatos
+    Route::post('/store', [ContatoController::class, 'store'])->name('contato.store'); // Rota para armazenar um novo contato
+    Route::delete('/excluir/{id}', [ContatoController::class, 'excluir'])->name('contato.excluir'); // Rota para excluir um contato
+});
+
+
+//exclui a mensagem
+// Route::delete('/contato/{id}', [ContatoController::class, 'excluir'])->name('contato.destroy');
+// Route::delete('/contato/{id}', [ContatoController::class, 'destroy'])->name('contato.destroy');
 
 
 
-
+// Route::get('/contato', [ContatoController::class, 'index'])->name('contato.index');
+// Route::post('contatos', ContatoController::class)->only(['index', 'contato.destroy']);
 
 
 

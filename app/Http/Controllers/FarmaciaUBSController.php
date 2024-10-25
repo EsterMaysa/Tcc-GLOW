@@ -8,21 +8,21 @@ use App\Models\FarmaciaUBSModel; // Certifique-se de que o nome do modelo está 
 
 class FarmaciaUBSController extends Controller
 {
-    // Exibir o formulário de criação
+    // Exibir o formulário de criação e a lista de farmácias
     public function showForm(Request $request)
     {
         // Obtém todas as farmácias cadastradas que estão ativas
         $query = $request->input('query');
         $farmacias = FarmaciaUBSModel::where('situacaoFarmaciaUBS', 'A');
-    
+
         if ($query) {
             $farmacias = $farmacias->where('nomeFarmaciaUBS', 'LIKE', "%{$query}%");
         }
-    
+
         $farmacias = $farmacias->get();
-    
+
         // Passa a variável $farmacias para a view
-        return view('adm.Ubs.insertFarmaciaUbs', compact('farmacias'));
+    return view('adm.Ubs.insertFarmaciaUbs', compact('farmacias'));
     }
 
     // Armazenar os dados da Farmácia UBS
