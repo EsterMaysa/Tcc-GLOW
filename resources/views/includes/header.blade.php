@@ -66,10 +66,10 @@
 			<li>
 
 				<a href="/selectRegiaoForm">
-<<<<<<< HEAD
+
 					<i class='bx bxs-plus-circle'></i>
 					<span class="text"> Cadastrar UBS </span>
-=======
+
 				<i class='bx bxs-plus-circle'></i>
 				<span class="text"> Cadastrarrr UBS </span>
 				</a>
@@ -79,7 +79,7 @@
 				<a href="/insertFarmaciaUbs">
 				<i class='bx bxs-plus-circle'></i>
 				<span class="text"> Cadastrar Farmacia </span>
->>>>>>> 0349e4548ae6bd605b4a2686a1337a1d61506c8d
+
 				</a>
 			</li>
 
@@ -118,15 +118,15 @@
 					<button type="submit" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i>
 					<span class="text"> Sair </span></button
 				</form>
-				<!-- <a href="/login" class="boto2">
+				<! <a href="/login" class="boto2">
 					<i class='bx bxs-log-out-circle' id="logout-icon"></i>
 					<span class="text"> Sair </span>
 				</a> -->
-			</li>
+			<!-- </li>
 		</ul>
 		</form>
-	</section>
-
+	</section> -->
+<!-- 
 	<section id="content">
 		<nav>
 			
@@ -137,7 +137,7 @@
 			<a href="/perfil" class="profile">
 				<img src="{{ asset('/Image/perfilAzulAdm.png') }}">
 			</a>
-		</nav> --> 
+		</nav> -->
 
 <!DOCTYPE html>
 <html lang="pt-br">
