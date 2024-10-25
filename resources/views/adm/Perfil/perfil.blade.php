@@ -1,5 +1,6 @@
-@include('includes.header')
- <!-- Inclui o header -->
+@include('includes.header') 
+<!-- Inclui o header -->
+
 <section class="profile-section">
     <main>
         <!-- Conteúdo do Perfil -->
@@ -7,38 +8,45 @@
             <div class="current-profile-image">
                 <img src="{{ asset('/Image/perfilAzulAdm.png')}}" alt="Foto do Admin" class="profile-img">
             </div>
-            <div class="profile-card">
-                <div class="profile-info">
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="name">Nome</label>
-                                <input type="text" id="name" name="name" class="form-control transparent-input" value="Nome do Admin" readonly>
+
+            @if($admin)
+                <div class="profile-card">
+                    <div class="profile-info">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Nome</label>
+                                    <input type="text" id="name" name="name" class="form-control transparent-input" value="{{ $admin->nomeAdministrador }}" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control transparent-input" value="{{ $admin->emailAdministrador }}" readonly>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" class="form-control transparent-input" value="admin@example.com" readonly>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="role">Cargo</label>
+                                    <input type="text" id="role" name="role" class="form-control transparent-input" value="Administrador" readonly>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="role">Cargo</label>
-                                <input type="text" id="role" name="role" class="form-control transparent-input" value="Administrador" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="phone">Telefone</label>
-                                <input type="text" id="phone" name="phone" class="form-control transparent-input" value="(11) 1234-5678" readonly>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">Telefone</label>
+                                    <input type="text" id="phone" name="phone" class="form-control transparent-input" value="(11) 1234-5678" readonly>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="alert alert-warning">
+                    Nenhum administrador encontrado.
+                </div>
+            @endif
 
             <!-- Botão para editar perfil -->
             <div class="edit-profile">
@@ -49,4 +57,5 @@
     <!-- MAIN -->
 </section>
 
-@include('includes.footer') <!-- Inclui o footer -->
+@include('includes.footer') 
+<!-- Inclui o footer -->

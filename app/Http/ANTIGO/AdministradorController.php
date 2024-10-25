@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Hash;
 
-class AdministradorController extends Controller
+class AntigoAdministradorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -101,14 +101,13 @@ class AdministradorController extends Controller
     public function store(Request $request)
     {
         $adm = new AdministradorModel();
-
+        
         //$clienteModel->idCliente = $request->id;
         $adm->nomeAdministrador = $request->nome;
         $adm->emailAdministrador = $request->email;
         $adm->senhaAdministrador = Hash::make($request->senha); //senha criptografada
         $adm->tipoAdministrador = $request->tipoAdministrador;
         $adm->dataCadastroAdministrador = now(); 
-
       
         $adm->save();  
 
