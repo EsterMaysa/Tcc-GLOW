@@ -1,5 +1,6 @@
     @include('includes.headerFarmacia')
 
+
     <!-- Main content -->
     <div class="col-md-9 col-lg-10 main-content">
         <div class="head-title">
@@ -11,25 +12,6 @@
                     <li><a class="active" href="/">Editar Quantidade</a></li>
                 </ul>
             </div>
-        </div>
-
-        <!-- Mensagens de Sucesso e Erro -->
-        <div class="messages">
-            @if (session('success_messages'))
-                <div class="alert alert-success">
-                    {{ session('success_messages') }}
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
         </div>
 
         <!-- Formulário para editar a quantidade -->

@@ -196,8 +196,8 @@
                             <td>{{ $unidade->complementoUBS }}</td>
                             <td>{{ $unidade->situacaoUBS }}</td>
                             <td>{{ $unidade->dataCadastroUBS }}</td>
-                            <td>{{ $unidade->idTelefoneUBS }}</td>
-                            <td>{{ $unidade->idRegiaoUBS }}</td>
+                            <td>{{ $unidade->telefone->numeroTelefoneUBS ?? 'N/A' }}</td> <!-- Exibindo o número de telefone -->
+                            <td>{{ $unidade->regiao->nomeRegiaoUBS ?? 'N/A' }}</td> <!-- Exibindo o nome da região -->
                             <td>
                                 <a href="{{ route('ubs.edit', $unidade->idUBS) }}" class="edit-icon">
                                     <i class="fas fa-pencil-alt"></i>
