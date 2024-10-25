@@ -208,6 +208,24 @@ Route::get('/perfilADM', [AdministradorController::class, 'perfil'])->name('perf
 Route::get('/', function () {
     return view('welcome');
 });
+<<<<<<< HEAD
+
+// Route::get('/login', function () {
+//     return view('adm.login');
+// });
+Route::get('/formsAdm', function () {
+    return view('adm.cadastroAdm');
+});
+
+// Login e cadastro adm
+Route::post('/admLogin', 'App\Http\Controllers\AdministradorController@login');
+Route::post('/logout','App\Http\Controllers\AdministradorController@logout');
+Route::post('/cadastroAdm','App\Http\Controllers\AdministradorController@store');
+
+//Perfil ARRUMAR
+Route::get('/perfil', [AdministradorController::class, 'showProfile'])->middleware('auth');
+=======
+>>>>>>> 0349e4548ae6bd605b4a2686a1337a1d61506c8d
 
 Route::get('/login', function () {
     return view('adm.login');
@@ -216,6 +234,11 @@ Route::get('/cadastroAdm', function () {
     return view('adm.cadastroAdm');
 });
 
+<<<<<<< HEAD
+// Route::get('/login', function () {
+//     return view('adm.login');
+// })->name('login');
+=======
 // Login adm
 Route::post('/admLogin', 'App\Http\Controllers\AdministradorController@login');
 Route::post('/logout','App\Http\Controllers\AdministradorController@logout');
@@ -224,6 +247,7 @@ Route::post('/cadastroAdm','App\Http\Controllers\AdministradorController@store')
 
 
 
+>>>>>>> 0349e4548ae6bd605b4a2686a1337a1d61506c8d
 
 
 
@@ -282,16 +306,24 @@ Route::get('/fabricante', function () {
 
 
 /* Páginas ADM */
+<<<<<<< HEAD
+=======
 
 
 Route::get('/perfil', function () {
     return view('adm.Perfil.perfil');
 })->name('perfil');
+>>>>>>> 0349e4548ae6bd605b4a2686a1337a1d61506c8d
 
 
-Route::get('/editarPerfil', function () {
-    return view('adm.Perfil.editarPerfil');
-});
+// Route::get('/perfil', function () {
+//     return view('adm.Perfil.perfil');
+// })->name('perfil');
+
+
+// Route::get('/editarPerfil', function () {
+//     return view('adm.Perfil.editarPerfil');
+// });
 
  Route::get('/configuracoes', function () {
     return view('adm.configuracoes');
