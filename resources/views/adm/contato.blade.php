@@ -23,12 +23,15 @@
                 <p><strong>E-mail:</strong> <span class="email">{{ $c->usuario->emailUsuario ?? 'E-mail não disponível' }}</span></p>
                 <p><strong>Mensagem:</strong> <span class="texto">{{ $c->mensagemContato }}</span></p>
                 <p><strong>Data:</strong> <span class="data">{{ $c->dataCadastroContato }}</span></p>
-                
+
                 <div class="responder-form">
-                    <textarea placeholder="Digite sua resposta aqui..." rows="4" cols="50"></textarea>
-                    <button id="submit-btn" onclick="enviarResposta()">Enviar Resposta</button>
+                    <form action="{{ route('contato.responder', $c->idContato) }}" method="POST">
+                        @csrf
+                        <textarea name="resposta" placeholder="Digite sua resposta aqui..." rows="4" cols="50" required></textarea>
+                        <button type="submit">Enviar Resposta</button>
+                    </form>
                 </div>
-                
+
                 <!-- Botão de exclusão -->
                 <form action="{{ route('contato.excluir', $c->idContato) }}" method="POST" style="display:inline;" onsubmit="return confirm('Você tem certeza que deseja excluir esta mensagem?');">
                     @csrf

@@ -23,8 +23,11 @@ class UBSController extends Controller
 
     public function index()
     {
-        $ubs = UBSModel::all(); // Busca todos os dados da UBS
-        return view('adm.Ubs.UBS', ['ubs' => $ubs]); // Passa os dados para a view
+        // $ubs = UBSModel::all(); // Busca todos os dados da UBS
+        // return view('adm.Ubs.UBS', ['ubs' => $ubs]); // Passa os dados para a view
+
+        $ubs = UBSModel::with(['regiao', 'telefone'])->get(); // Certifique-se de que os relacionamentos estão definidos
+        return view('adm.Ubs.UBS', compact('ubs'));
     }
 
     public function apresentarRegiao()

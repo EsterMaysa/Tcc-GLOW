@@ -1,13 +1,20 @@
 @include('includes.header')
 
-@if (session('message'))
+<!-- @if (session('message'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('message') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+@endif -->
+
+@if (session('message'))
+    <script>
+        alert("{{ session('message') }}");
+    </script>
 @endif
+
 
 <main>
 	<div class="dashboard">

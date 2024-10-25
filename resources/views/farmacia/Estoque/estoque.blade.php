@@ -1,4 +1,6 @@
 @include('includes.headerFarmacia')
+<!-- PAGINA PRINCIPAL DO ESTOQUE A HOME DO ESTOQUE -->
+
 
 <!-- Main content -->
 <div class="container d-flex justify-content-center">
