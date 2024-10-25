@@ -41,7 +41,7 @@ class UBSController extends Controller
     // Validação dos dados de entrada
     $validator = Validator::make($request->all(), [
         'ubs' => 'required|string|max:255',
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         'cnpj' => 'required|string|max:14',
         'cep' => 'required|string|max:10',
         'numero' => 'required|string|max:10',
@@ -93,10 +93,10 @@ class UBSController extends Controller
     $telefoneId = $telefone->idTelefoneUBS;
 
     // Lidar com a foto se foi enviada
-    $fotoPath = null;
-    if ($request->hasFile('foto')) {
-        $fotoPath = $request->file('foto')->store('ubs_fotos', 'public');
-    }
+    // $fotoPath = null;
+    // if ($request->hasFile('foto')) {
+    //     $fotoPath = $request->file('foto')->store('ubs_fotos', 'public');
+    // }
 
     if ($request->filled('telefone2')) {
         $telefone->numeroTelefoneUBS2 = $request->telefone2;
@@ -110,7 +110,17 @@ class UBSController extends Controller
     $ubs = new UBSModel();
     $ubs->nomeUBS = $request->ubs;
     $ubs->emailUBS = $request->email;
-    $ubs->fotoUBS = $request->foto; // Caminho da foto salvo no banco
+
+    //foto
+    if ($request->hasFile('fotoUBS')) {
+        $fileUbs = $request->file('fotoUBS');
+        $pathUbs = $fileUbs->store('ubs_fotos', 'public');
+        $ubs->fotoUBS = $pathUbs;
+    }
+
+    // $ubs->fotoUBS = $request->foto; // Caminho da foto salvo no banco
+
+
     $ubs->cnpjUBS = $request->cnpj;
     $ubs->latitudeUBS = $latitude;
     $ubs->longitudeUBS = $longitude;
@@ -127,6 +137,10 @@ class UBSController extends Controller
     $ubs->dataCadastroUBS = now();
     $ubs->idTelefoneUBS = $telefoneId; // ID do telefone
     $ubs->idRegiaoUBS = $request->idRegiao; // ID da região
+
+    // $ubs->save();
+
+    // return redirect('/selectUBS');
 
     // if ($ubs->save()) {
     //     // Envio do e-mail aqui

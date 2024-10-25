@@ -35,6 +35,8 @@ Route::get('/configuracoes', function () {
     return view('adm.configuracoes');
 });
 
+
+
 //UBS
 
 // Rota para exibir o formulário de cadastro da UBS
@@ -81,6 +83,7 @@ Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('inser
 
 
 
+//FARMACIA
 
 //rota para o formulario de inserção da Farmacia
 // Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create']);

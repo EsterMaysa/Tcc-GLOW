@@ -46,8 +46,5 @@ class UBSModel extends Model
     }
     public $timestamps = false;
 
-    public function regiao()
-    {
-        return $this->belongsTo(RegiaoUBSModel::class, 'idRegiaoUBS');
-    }
+   
 }
