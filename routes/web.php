@@ -83,15 +83,14 @@ Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('inser
 
 
 
-//FARMACIA
+//FARMACIA ADM
 
 //rota para o formulario de inserção da Farmacia
 // Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create']);
 
 // Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store']);
-// Route::get('/Farmacia', function () {
-//     return view('adm.Ubs.insertFarmaciaUbs');
-// });
+
+
 
 // //rota para mostrar select das farmacia cadastradas
 // Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'create']);
@@ -103,17 +102,17 @@ Route::post('/insertRegiao', [RegiaoUBSController::class, 'store'])->name('inser
 // Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store']);
 
 // Rota para exibir o formulário e as farmácias cadastradas
-Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+// Route::get('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
 
 // Rota para armazenar os dados da farmácia
-Route::post('/insertFarmaciaUbs', [FarmaciaUBSController::class, 'store'])->name('farmacia.store');
 
+Route::get('/farmaciaForms', function () {
+    return view('adm.Ubs.insertFarmaciaUbs');
+});
 
-Route::get('/farmacia', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+Route::post('/insertFarmacia', [FarmaciaUBSController::class, 'store']);
 
-
-// Rota para exibir o formulário e a lista de farmácias cadastradas
-//  Route::get('/farmacias', [FarmaciaUBSController::class, 'showForm'])->name('farmacia.showForm');
+Route::get('/farmacia', [FarmaciaUBSController::class, 'showForm']);
 
 
 // Rota para exibir o formulário de edição
@@ -125,6 +124,8 @@ Route::post('/updateFarmaciaUbs/{id}', [FarmaciaUBSController::class, 'update'])
 
 // Rota para marcar uma farmácia como excluída
 Route::delete('/farmacia/{id}', [FarmaciaUBSController::class, 'changeStatus'])->name('farmacia.destroy');
+
+
 
 //rota CLIENTE
 Route::get('/criarCliente', [ClienteAdmController::class, 'create']);

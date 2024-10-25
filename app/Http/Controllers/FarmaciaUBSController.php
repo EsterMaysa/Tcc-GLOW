@@ -22,7 +22,7 @@ class FarmaciaUBSController extends Controller
         $farmacias = $farmacias->get();
 
         // Passa a variável $farmacias para a view
-    return view('adm.Ubs.insertFarmaciaUbs', compact('farmacias'));
+        return view('adm.Ubs.farmacias', compact('farmacias'));
     }
 
     // Armazenar os dados da Farmácia UBS
@@ -52,7 +52,7 @@ class FarmaciaUBSController extends Controller
         session()->flash('success', 'Farmácia UBS cadastrada com sucesso!');
 
         // Redireciona para exibir o formulário e as farmácias cadastradas
-        return redirect()->route('farmacia.showForm');
+        return redirect('/farmacia');
     }
 
     // Método para exibir o formulário de edição
@@ -86,7 +86,7 @@ class FarmaciaUBSController extends Controller
         session()->flash('success', 'Farmácia atualizada com sucesso!');
     
         // Redireciona de volta para a lista de farmácias
-        return redirect()->route('farmacia.showForm');
+        return redirect('/farmacia');
     }
     
     // Método para mudar o status da farmácia
@@ -101,6 +101,6 @@ class FarmaciaUBSController extends Controller
         session()->flash('success', 'Farmácia excluída com sucesso!');
 
         // Redireciona de volta para a lista de farmácias
-        return redirect()->route('farmacia.showForm');
+        return redirect('/farmacia');
     }
 }

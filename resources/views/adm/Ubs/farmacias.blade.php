@@ -10,7 +10,7 @@
     <h3>Todas as Farmácias Cadastradas</h3>
     
     <!-- Formulário de Pesquisa -->
-    <form action="{{ route('farmacia.showForm') }}" method="GET" class="mb-3">
+    <form action="/farmacia" method="GET" class="mb-3">
         <div class="input-group" style="width: 280px;">
             <input type="hidden" name="query" id="searchQuery" value="{{ request('query') }}">
             <input type="text" id="searchInput" placeholder="Pesquisar pelo nome da farmácia" class="form-control" value="{{ request('query') }}">
