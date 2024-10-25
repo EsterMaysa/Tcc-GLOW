@@ -185,6 +185,9 @@ Route::prefix('contato')->group(function () {
     Route::delete('/excluir/{id}', [ContatoController::class, 'excluir'])->name('contato.excluir'); // Rota para excluir um contato
 });
 
+//resposta da mensagem ao email
+Route::post('/contato/responder/{id}', [ContatoController::class, 'responder'])->name('contato.responder');
+
 
 //exclui a mensagem
 // Route::delete('/contato/{id}', [ContatoController::class, 'excluir'])->name('contato.destroy');

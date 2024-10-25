@@ -198,14 +198,14 @@
 
 				<a href="/selectRegiaoForm">
 					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Cadastrar UBS </span>
+					<span class="text"> Cadastrar uma UBS </span>
 				</a>
 			</li>
 
 			<li>
 				<a href="/insertFarmaciaUbs">
 				<i class='bx bxs-plus-circle'></i>
-				<span class="text"> Cadastrar Farmacia </span>
+				<span class="text"> Cadastrar uma Farmacia </span>
 				</a>
 			</li>
 

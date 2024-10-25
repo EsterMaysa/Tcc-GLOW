@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ContatoModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RespostaContatoMail; // Adicione esta linha
 
 class ContatoController extends Controller
 {
     public function index()
     {
-            // Carregar os contatos com seus respectivos usuários
-            $contatos = ContatoModel::with('usuario')->where('situacaoContato', 1)->get(); // Certifique-se de filtrar contatos ativos
-            return view('adm.contato', compact('contatos'));
-        }
+        // Carregar os contatos com seus respectivos usuários
+        $contatos = ContatoModel::with('usuario')->where('situacaoContato', 1)->get(); // Certifique-se de filtrar contatos ativos
+        return view('adm.contato', compact('contatos'));
+    }
+
     public function store(Request $request)
     {
         // Validação dos campos
@@ -62,7 +65,7 @@ class ContatoController extends Controller
         // Encontra o contato pelo ID
         $contato = ContatoModel::find($id);
         if (!$contato) {
-            return redirect()->back()->with('success', 'Contato não encontrado.');
+            return redirect()->back()->with('error', 'Contato não encontrado.');
         }
 
         // Altera a situação do contato para 0 (inativo)
@@ -71,5 +74,28 @@ class ContatoController extends Controller
 
         // Mensagem de sucesso
         return redirect()->route('contato.index')->with('success', 'Contato excluído com sucesso!');
+    }
+
+    public function responder(Request $request, $id)
+    {
+        // Validação da resposta
+        $request->validate(['resposta' => 'required|string']);
+
+        // Encontra o contato pelo ID e verifica se o e-mail do usuário existe
+        $contato = ContatoModel::find($id);
+        if (!$contato || !$contato->usuario || !$contato->usuario->emailUsuario) {
+            return redirect()->back()->with('error', 'Contato ou e-mail não encontrado.');
+        }
+
+        // Dados do e-mail
+        $detalhes = [
+            'title' => 'Resposta ao seu contato',
+            'body' => $request->resposta,
+        ];
+
+        // Envio do e-mail usando a classe Mailable
+        Mail::to($contato->usuario->emailUsuario)->send(new RespostaContatoMail($detalhes['title'], $detalhes['body']));
+
+        return redirect()->back()->with('success', 'Resposta enviada com sucesso!');
     }
 }
