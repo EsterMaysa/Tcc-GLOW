@@ -110,7 +110,7 @@
 			</li>
 		</ul>
 		</form>
-	</section>
+	</section> 
 
 	<section id="content">
 		
