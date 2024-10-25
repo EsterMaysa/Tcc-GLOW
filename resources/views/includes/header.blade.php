@@ -1,3 +1,4 @@
+
  <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -71,7 +72,12 @@
 				</a>
 			</li>
 
-
+			<li>
+				<a href="/insertFarmaciaUbs">
+				<i class='bx bxs-plus-circle'></i>
+				<span class="text"> Cadastrar uma Farmacia </span>
+				</a>
+			</li>
 			<li>
 				<a href="/Cliente">
 					<i class='bx bxs-plus-circle'></i>
@@ -110,7 +116,7 @@
 			</li>
 		</ul>
 		</form>
-	</section> 
+	</section>
 
 	<section id="content">
 		
