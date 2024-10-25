@@ -11,7 +11,7 @@ class RegiaoUBSModel extends Model
 
     protected $table = 'tbRegiaoUBS';
     protected $connection = 'mysql';
-
+    protected $primaryKey = 'idRegiaoUBS'; 
     protected $fillable = [
         'nomeRegiaoUBS',
         'situacaoRegiaoUBS',
