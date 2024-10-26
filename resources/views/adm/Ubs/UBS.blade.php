@@ -104,43 +104,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <!-- <tr>
                         <td>
                             <p>Posto</p>
                         </td>
                         <td>
                             <a href="/selectRegiaoForm">
-                                <span class="status busca">Criar</span>
+                                <span class="status busca">Cadastrar</span>
                             </a>
                         </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td>
                             <p>Região</p>
                         </td>
                         <td>
                             <a href="/formRegiao">
-                                <span class="status busca"> Criar </span>
+                                <span class="status busca"> Cadastrar </span>
                             </a>
                         </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>
                             <p>Farmacia</p>
                         </td>
                         <td>
-                            <a href="/Farmacia"> <!-- Usando a função route -->
+                            <a href="/Farmacia"> 
                                 <span class="status busca"> Criar </span>
                             </a>
                         </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td>
                             <p>Telefone</p>
                         </td>
                         <td>
                             <a href="formTelefone">
-                                <span class="status busca"> Criar </span>
+                                <span class="status busca"> Cadastrar </span>
                             </a>
                         </td>
                     </tr>
@@ -323,8 +323,9 @@
 
 
 
-    @include('includes.footer') <!-- include -->
+   
 
     <!-- Link para o Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+@include('includes.footer') <!-- include -->

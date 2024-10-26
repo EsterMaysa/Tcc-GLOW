@@ -6,24 +6,25 @@
     </div>
 @endif
 
-<div class="container">
-    <h3>Todas as Farmácias Cadastradas</h3>
-    
-    <!-- Formulário de Pesquisa -->
-    <form action="/farmacia" method="GET" class="mb-3">
-        <div class="input-group" style="width: 280px;">
-            <input type="hidden" name="query" id="searchQuery" value="{{ request('query') }}">
-            <input type="text" id="searchInput" placeholder="Pesquisar pelo nome da farmácia" class="form-control" value="{{ request('query') }}">
+<!-- Encosta a tabela e o título no canto esquerdo -->
+<div class="container-fluid" style="padding-left: 0; margin-top:18px;">
+    <!-- Título -->
+    <h3 style="margin-left: 15px; ">Todas as Farmácias Cadastradas</h3>
+
+    <!-- Formulário de Pesquisa alinhado abaixo do título -->
+    <form action="{{ url('/farmacia') }}" method="GET" class="mb-3" style="margin-left: 15px; display: flex; align-items: center; margin-top:18px;">
+        <div class="input-group" style="width: 330px;">
+            <input type="text" name="query" id="searchInput" placeholder="Pesquisar pelo nome da farmácia" class="form-control" value="{{ request('query') }}">
             <div class="input-group-append">
-                <button type="submit" class="btn btn-secondary">
-                    <i class="fas fa-search"></i>
+                <button type="submit" class="btn btn-secondary" style="margin-top: -2px;">
+                    <i class="fas fa-search" style="font-size: 0.9em;"></i> <!-- Ícone ajustado -->
                 </button>
             </div>
         </div>
     </form>
 
-    <!-- Tabela de Farmácias -->
-    <table class="table table-bordered">
+    <!-- Tabela de Farmácias com margem superior -->
+    <table class="table table-bordered" style="width: auto; margin-left: 15px; margin-top: 20px;">
         <thead>
             <tr>
                 <th>Nome</th>

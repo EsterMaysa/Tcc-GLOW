@@ -2,7 +2,7 @@
 
 <!-- MAIN -->
 <main>
-    <div class="table-data">
+    <!-- <div class="table-data">
         <div class="order">
             <div class="head">
                 <h3>Cadastros</h3>
@@ -29,7 +29,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </div> -->
     <div class="table-data">
         <div class="order">
             <div class="head">

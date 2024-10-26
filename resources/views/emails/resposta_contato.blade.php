@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ $title }}</title>
-</head>
-<body>
-    <h1>{{ $title }}</h1>
-    <p>{{ $body }}</p>
-</body>
-</html>
+
+<h2>ola vc recebeu msg</h2>
+<p>{{$data['mensagemContato']}}</p>

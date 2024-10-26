@@ -193,20 +193,13 @@ Route::prefix('contato')->group(function () {
 });
 
 //resposta da mensagem ao email
-Route::post('/contato/responder/{id}', [ContatoController::class, 'responder'])->name('contato.responder');
+
+Route::post('/contato/{id}/resposta', [ContatoController::class, 'resposta'])->name('contato.resposta');
 
 
-//exclui a mensagem
-// Route::delete('/contato/{id}', [ContatoController::class, 'excluir'])->name('contato.destroy');
-// Route::delete('/contato/{id}', [ContatoController::class, 'destroy'])->name('contato.destroy');
+Route::get('/contato', [ContatoController::class, 'index'])->name('contato.index');
 
 
-
-// Route::get('/contato', [ContatoController::class, 'index'])->name('contato.index');
-// Route::post('contatos', ContatoController::class)->only(['index', 'contato.destroy']);
-
-
-Route::get('/contato', [ContatoController::class, 'index']);
 
 //Peerfil
 Route::get('/perfilADM', [AdministradorController::class, 'perfil'])->name('perfil');

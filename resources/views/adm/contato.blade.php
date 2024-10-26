@@ -25,11 +25,18 @@
                 <p><strong>Data:</strong> <span class="data">{{ $c->dataCadastroContato }}</span></p>
 
                 <div class="responder-form">
-                    <form action="{{ route('contato.responder', $c->idContato) }}" method="POST">
-                        @csrf
-                        <textarea name="resposta" placeholder="Digite sua resposta aqui..." rows="4" cols="50" required></textarea>
-                        <button type="submit">Enviar Resposta</button>
-                    </form>
+                    @if($c->respostaContato) <!-- Verifica se já existe uma resposta -->
+                        <div style="color: green;">Resposta: {{ $c->respostaContato }}</div>
+                    @else
+                        <form action="{{ route('contato.resposta', $c->idContato) }}" method="POST" class="resposta-form" onsubmit="return enviarResposta(event, '{{ $c->idContato }}')">
+                            @csrf
+                            <textarea name="resposta" placeholder="Digite sua resposta aqui..." rows="4" cols="50" required></textarea>
+                            <button type="submit" class="btn-enviar">Enviar Resposta</button>
+                        </form>
+                        <div class="resposta-enviada-{{ $c->idContato }}" style="display: none; color: green;">
+                            Resposta enviada!
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Botão de exclusão -->
@@ -45,3 +52,39 @@
     </div>
 </main>
 @include('includes.footer')
+
+<script>
+    function enviarResposta(event, contatoId) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        var form = event.target; // Obtém o formulário que foi enviado
+        var formData = new FormData(form); // Cria um objeto FormData para enviar os dados do formulário
+
+        // Faz a requisição AJAX para enviar a resposta
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Se a resposta for bem-sucedida, oculta o formulário e mostra a mensagem
+                form.querySelector('textarea').style.display = 'none'; // Esconde a caixa de texto
+                form.querySelector('.btn-enviar').style.display = 'none'; // Esconde o botão
+                document.querySelector('.resposta-enviada-' + contatoId).style.display = 'block'; // Mostra a mensagem de confirmação
+            } else {
+                // Lida com erros de validação
+                return response.json().then(data => {
+                    alert(data.message || 'Erro ao enviar a resposta.'); // Exibe uma mensagem de erro
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao enviar a resposta.');
+        });
+    }
+</script>
