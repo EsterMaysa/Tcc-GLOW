@@ -150,7 +150,7 @@ Route::get('/cliente', [ClienteAdmController::class, 'index'])->name('cliente.in
 
 //ROTAS DO MEDICAMENTO
 Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']); //para aparecer a tabela de med
-Route::get('/medicamentoForm', [MedicamentoController::class, 'index']); //para aparecer o tipo med e o detentor no cadastro
+Route::get('/medicamentoForm', [MedicamentoController::class, 'index'])->name('medicamentoForm'); //para aparecer o tipo med e o detentor no cadastro
 Route::post('/cadastroMed', [MedicamentoController::class, 'store']); //cadastro do med
 
 Route::get('/medicamento/edit/{idMedicamento}', [MedicamentoController::class, 'edit'])->name('medicamento.edit');
@@ -180,6 +180,7 @@ Route::post('/newDetentor', [DetentorController::class, 'NewDetentor'])->name('n
 Route::post('/cadastroDetentor', [DetentorController::class, 'store']); //cadastro do med
 Route::put('/detentor/{idDetentor}', [DetentorController::class, 'update'])->name('detentor.update');
 Route::get('/detentor/edit/{idDetentor}', [DetentorController::class, 'edit'])->name('detentor.edit');
+Route::put('/detentor/desativar/{idDetentor}', [DetentorController::class, 'desativar'])->name('desativarDetentor');
 
 //MENSSAGEM
 

@@ -35,7 +35,7 @@
             <div class="head">
                 <h3>Medicamentos</h3>
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Pesquisar..." class="search-input">
+                    <input type="text" id="searchInput" placeholder="Pesquisar por nome, nome generico e codigo de barras..." class="search-input" style="width: 500px;">
                 </div>
                 <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
             </div>
@@ -48,6 +48,9 @@
                         <th>Situação</th>
                         <th>Data de Cadastro</th>
                         <th>Ações</th>
+                        <th></th>
+                        <th></th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -57,14 +60,38 @@
                         <td>{{ $med->nomeMedicamento }}</td>
                         <td>{{ $med->nomeGenericoMedicamento }}</td>
 
-                        <td>{{ $med->situacaoMedicamento }}</td>
+                        <!-- <td>{{ $med->situacaoMedicamento }}</td> -->
+                        <td>
+                            @if( $med->situacaoMedicamento === 'A')
+                                Ativado
+                            @elseif( $med->situacaoMedicamento === 'D')
+                                Desativado
+                            @else
+                                Indefinido
+                            @endif
+                        </td>
                         <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
+                        
+                        @if ($med->situacaoMedicamento == 'A')
+                        <td>
+                            <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
+
+                        </td>
+                        <td>
+                            <!-- Verifica se está ativo -->
+                            <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('PUT') <!-- Usar PUT para desativar -->
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja desativar este medicamento?');">
+                                    <i class="fas fa-ban"></i> Desativar
+                                </button>
+                            </form>
+                        </td>
+                        @endif
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $med->idMedicamento }}">
                                 Ver mais
                             </button>
-                            <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
-
                         </td>
                     </tr>
 
@@ -101,40 +128,46 @@
 
                                     <!-- Botão para alternar fotos -->
                                     <button type="button" class="btn btn-info" id="alternarFoto{{ $med->idMedicamento }}"
-                                        data-tipo="original"
-                                        data-foto-original="{{ asset('storage/fotos_medicamentos/' . $med->fotoMedicamentoOriginal) }}"
-                                        data-foto-genero="{{ asset('storage/fotos_medicamentos/' . $med->fotoMedicamentoGenero) }}">
+                                        data-foto-original="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}"
+                                        data-foto-genero="{{ asset('storage/' . $med->fotoMedicamentoGenero) }}"
+                                    >
                                         Ver Foto de Gênero
                                     </button>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-
                             </div>
-                        </div>
-                    </div>
 
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            var tipoAtual = 'original';
-                            var botaoAlternar = document.getElementById('alternarFoto{{ $med->idMedicamento }}');
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var tipoAtual = 'original';
+                                    var botaoAlternar = document.getElementById('alternarFoto{{ $med->idMedicamento }}');
 
-                            botaoAlternar.addEventListener('click', function() {
-                                var imagem = document.getElementById('imagemExibida{{ $med->idMedicamento }}');
+                                    // Verifica se o botão existe
+                                    if (botaoAlternar) {
+                                        botaoAlternar.addEventListener('click', function() {
+                                            var imagem = document.getElementById('imagemExibida{{ $med->idMedicamento }}');
 
-                                if (tipoAtual === 'original') {
-                                    imagem.src = botaoAlternar.getAttribute('data-foto-genero');
-                                    botaoAlternar.textContent = 'Ver Foto Original';
-                                    tipoAtual = 'genero';
-                                } else {
-                                    imagem.src = botaoAlternar.getAttribute('data-foto-original');
-                                    botaoAlternar.textContent = 'Ver Foto de Gênero';
-                                    tipoAtual = 'original';
-                                }
-                            });
-                        });
-                    </script>
-                    @endforeach
+                                            // Verifica se a imagem existe
+                                            if (imagem) {
+                                                if (tipoAtual === 'original') {
+                                                    imagem.src = botaoAlternar.getAttribute('data-foto-genero');
+                                                    botaoAlternar.textContent = 'Ver Foto Original';
+                                                    tipoAtual = 'genero';
+                                                } else {
+                                                    imagem.src = botaoAlternar.getAttribute('data-foto-original');
+                                                    botaoAlternar.textContent = 'Ver Foto de Gênero';
+                                                    tipoAtual = 'original';
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+                            @endforeach
                 </tbody>
             </table>
         </div>

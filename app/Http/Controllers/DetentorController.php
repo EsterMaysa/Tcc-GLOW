@@ -9,7 +9,7 @@ class DetentorController extends Controller
 {
     public function index()
     {
-        $detentores = DetentorModel::all();
+        $detentores = DetentorModel::orderBy('dataCadastroDetentor', 'desc')->take(10)->get();
 
         return view('adm.Medicamento.detentor', compact('detentores'));
     }
@@ -33,10 +33,11 @@ class DetentorController extends Controller
     
         $detentor->save();
     
+        
         // Redirecionar com os dados antigos do formulário e o novo detentor selecionado
-        return redirect('/medicamentoForm')
-            ->with('novoDetentor', $detentor->idDetentor)
-            ->withInput();  // Preserva os inputs já preenchidos
+        return redirect(session('previous_url', '/medicamentoForm'))
+        ->with('novoDetentor', $detentor->idDetentor)
+        ->withInput(); 
     }
     
 
@@ -95,6 +96,15 @@ class DetentorController extends Controller
         // Redireciona o usuário com uma mensagem de sucesso
         return redirect('/detentor')->with('success', 'Detentor atualizado com sucesso!');
     }
+    public function desativar($id)
+    {
+        $detentor = DetentorModel::findOrFail($id);
+        $detentor->situacaoDetentor = "D"; 
+        $detentor->save();
+
+        return redirect()->back()->with('success', 'Detentor desativado com sucesso!');
+    }
+
     
 
     public function updateapi(Request $request, $id)
