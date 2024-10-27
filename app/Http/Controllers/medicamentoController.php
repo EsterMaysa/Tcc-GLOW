@@ -24,7 +24,7 @@ class MedicamentoController extends Controller
     {
         $medicamento = MedicamentoModel::with(['detentor', 'tipoMedicamento'])
             ->orderBy('dataCadastroMedicamento', 'desc')
-            ->take(10)
+            ->take(7) 
             ->get();
 
         return view('adm.Medicamento.Medicamento', compact('medicamento'));
@@ -33,30 +33,6 @@ class MedicamentoController extends Controller
 
     public function store(Request $request)
     {
-
-
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'nomeGenerico' => 'nullable|string|max:255',
-            'codigoDeBarras' => 'required|string|max:200', // Verifica se o código de barras é único
-            'registroAnvisa' => 'nullable|string|max:50',
-            'concentracao' => 'nullable|string|max:50',
-            'formaFarmaceutica' => 'nullable|string|max:50',
-            'composicao' => 'nullable|string|max:255',
-            'fotoOriginal' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Limite de 2MB
-            'fotoGenero' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Limite de 2MB
-            'idDetentor' => 'required|exists:tbDetentor,idDetentor', // Verifica se o detentor existe
-            'idTipo' => 'required|exists:tbTipoMedicamento,idTipoMedicamento', // Verifica se o tipo de medicamento existe
-        ]);
-
-        $existingMedicamento = MedicamentoModel::where('codigoDeBarrasMedicamento', $request->codigoDeBarras)
-            ->where('situacaoMedicamento', 'A') // A significa Ativo
-            ->first();
-
-        if ($existingMedicamento) {
-            return redirect()->back()->withErrors(['codigoDeBarras' => 'Já existe um medicamento ativo com este código de barras.'])->withInput();
-        }
-
         $medicamento = new MedicamentoModel();
         $medicamento->nomeMedicamento = $request->nome;
         $medicamento->nomeGenericoMedicamento = $request->nomeGenerico;
@@ -107,7 +83,18 @@ class MedicamentoController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        // Validação dos campos
+        // $request->validate([
+        //     'codigoDeBarras' => 'required|string|max:255',
+        //     'nome' => 'required|string|max:255',
+        //     'nomeGenerico' => 'required|string|max:255',
+        //     'idDetentor' => 'required|exists:detentores,idFDetentor',
+        //     'idTipo' => 'required|exists:tipos_medicamentos,idTipoMedicamento',
+        //     'formaFarmaceutica' => 'required|string',
+        //     'concentracao' => 'required|string',
+        //     'composicao' => 'required|string',
+        //     'registroAnvisa' => 'required|string',
+        // ]);
 
         // Encontra o medicamento que será atualizado
         $medicamento = MedicamentoModel::findOrFail($id);
@@ -123,17 +110,14 @@ class MedicamentoController extends Controller
         $medicamento->composicaoMedicamento = $request->composicao;
         $medicamento->registroAnvisaMedicamento = $request->registroAnvisa;
         $medicamento->situacaoMedicamento = $request->situacaoMedicamento;
-
-
-
         // Upload de fotos (se fornecidas)
-        if ($request->hasFile('fotoOriginalMedicamento')) {
-            $path = $request->file('fotoOriginalMedicamento')->store('fotos_medicamentos', 'public');
+        if ($request->hasFile('fotoOriginal')) {
+            $path = $request->file('fotoOriginal')->store('medicamentos/original', 'public');
             $medicamento->fotoOriginalMedicamento = $path;
         }
 
-        if ($request->hasFile('fotoGenericoMedicamento')) {
-            $path = $request->file('fotoGenericoMedicamento')->store('fotos_medicamentos', 'public');
+        if ($request->hasFile('fotoGenero')) {
+            $path = $request->file('fotoGenero')->store('medicamentos/generico', 'public');
             $medicamento->fotoGenericoMedicamento = $path;
         }
 

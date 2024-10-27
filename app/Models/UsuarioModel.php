@@ -21,7 +21,6 @@ class UsuarioModel extends Model
         'senhaUsuario',
         'situacaoUsuario', // Corrigido para remover o acento
         'dataCadastroUsuario',
-        'emailUsuario',
     ];
 
     public $timestamps = false; // Mantenha isso se não precisar de timestamps
