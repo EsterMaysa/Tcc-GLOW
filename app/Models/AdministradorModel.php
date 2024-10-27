@@ -2,24 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdministradorModel extends Model
+class AdministradorModel extends Authenticatable
 {
     use HasFactory;
 
-    protected $table = 'tbAdministrador'; // Nome da tabela
-    protected $primaryKey = 'idAdministrador'; // Chave primária
+    protected $table = 'tbadministrador'; // Nome da tabela
+    
+    protected $connection = 'mysql';
 
     protected $fillable = [
-        'fotoAdministrador',
+        'fotoAministrador',
         'nomeAdministrador',
         'emailAdministrador',
         'senhaAdministrador',
         'situacaoAdministrador',
         'dataCadastroAdministrador',
     ];
-
+    protected $hidden = [
+        'senhaAdministrador'
+    ];
     public $timestamps = false;
 }

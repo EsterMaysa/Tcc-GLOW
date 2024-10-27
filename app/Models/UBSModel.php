@@ -35,6 +35,16 @@ class UBSModel extends Model
         'idTelefoneUBS',
         'idRegiaoUBS',
     ];
+    public function regiao()
+    {
+        return $this->belongsTo(RegiaoUBSModel::class, 'idRegiaoUBS'); // Use a chave estrangeira correta
+    }
 
+    public function telefone()
+    {
+        return $this->belongsTo(TelefoneUBSModel::class, 'idTelefoneUBS'); // Use a chave estrangeira correta
+    }
     public $timestamps = false;
+
+   
 }

@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -212,12 +213,13 @@
         }
     </style>
 </head>
+
 <body>
     <div class="form-container">
         <h1>Adicionar uma nova UBS</h1>
-        <form id="ubsForm" action="{{ route('insertUBS') }}" method="POST" enctype="multipart/form-data" onsubmit="return checkCNPJ()">
+        <form id="ubsForm" action="/insertUBS" method="POST" enctype="multipart/form-data" onsubmit="return checkCNPJ()">
             @csrf <!-- Proteção contra CSRF -->
-            
+
             <label for="nome">Nome da UBS:</label>
             <input type="text" name="ubs" id="ubs" required><br>
 
@@ -275,13 +277,16 @@
             <select id="idRegiao" name="idRegiao" required>
                 <option value="">Selecione a região</option>
                 @foreach($regioes as $r)
-                    <option value="{{ $r->idRegiaoUBS }}">{{ $r->nomeRegiaoUBS }}</option>
-                @endforeach           
+                <option value="{{ $r->idRegiaoUBS }}">{{ $r->nomeRegiaoUBS }}</option>
+                @endforeach
             </select><br>
 
             <label for="numero">Número:</label>
             <input type="text" name="numero" id="numero" required><br>
 
+            <label for="foto">Foto da UBS:</label>
+            <input type="file" name="fotoUBS" id="fotoUBS"  required><br>
+           
             <label for="telefone">Telefones:</label>
             <div id="telefoneContainer">
                 <div class="telefone-field">
@@ -301,5 +306,6 @@
         </form>
     </div>
 </body>
+
 </html>
 @include('includes.footer')

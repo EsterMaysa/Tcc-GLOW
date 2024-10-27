@@ -15,7 +15,7 @@
                     <!-- Novo Remédio -->
                     <div class="btn-group">
                         <span>Novo Remédio</span>
-                        <button class="btn-custom btn-add" onclick="window.location.href='/entradaForms'">
+                        <button class="btn-custom btn-add" onclick="window.location.href='/editarMedicamentoEstoque'">
                             +
                         </button>
                     </div>

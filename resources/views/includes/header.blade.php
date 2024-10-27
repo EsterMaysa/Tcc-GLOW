@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Boxicons -->
+	<!-- Boxicons  -->
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
 
 
 	<!-- Nosso CSS -->
-	<link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+	 <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/clienteConsulta.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/perfil.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/notificacoes.css') }}">
@@ -36,33 +37,31 @@
 					<span class="text"> Início </span>
 				</a>
 			</li>
-			<li>
-				<a href="/medicamento">
-					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text"> Medicamento </span>
-				</a>
-			</li>
-			<li>
-				<a href="/medicamentoForm">
-					<i class='bx bxs-plus-circle'></i>
-
-					<span class="text"> Cadastro Medicamento </span>
-				</a>
-			</li>
+			
+			
 			<li>
 				<a href="/detentor">
 
 					<i class='bx bxs-plus-circle'></i>
 
-					<span class="text"> Cadastro Detentor </span>
+					<span class="text"> Cadastrar Detentor </span>
 				</a>
-			</li>
+			</li> 
+			<!-- <li>
+
+				<a href="/selectRegiaoForm">
+					<i class='bx bxs-plus-circle'></i>
+					<span class="text"> Cadastrar UBS </span>
+				</a>
+			</li> -->
+
 			<li>
-				<a href="/selectUBS">
-					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text"> UBS </span>
+				<a href="/farmaciaForms">
+				<i class='bx bxs-plus-circle'></i>
+				<span class="text"> Cadastrar Farmacia </span>
 				</a>
 			</li>
+			
 			<li>
 
 				<a href="/selectRegiaoForm">
@@ -71,8 +70,30 @@
 				</a>
 			</li>
 
+			<li> 
+				<a href="/medicamentoForm">
+					<i class='bx bxs-plus-circle'></i>
+
+					<span class="text"> Cadastrar Medicamento </span>
+				</a>
+			</li>
 
 			<li>
+				<a href="/selectUBS">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text"> Ubs </span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/medicamento">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text"> Medicamento </span>
+				</a>
+			</li>
+
+			<li>
+			
 				<a href="/Cliente">
 					<i class='bx bxs-plus-circle'></i>
 					<span class="text"> Paciente </span>
@@ -101,33 +122,16 @@
 				</a>
 			</li>
 			<li>
-				<!-- <form action="/logout" method="POST" style="display: inline;">
+				<form action="/logout" method="POST" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja sair?');">
 					@csrf 
 					<button type="submit" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i>
 					<span class="text"> Sair </span></button
-				</form> -->
-				<a href="/login" class="boto2">
-					<i class='bx bxs-log-out-circle' id="logout-icon"></i>
-					<span class="text"> Sair </span>
-				</a>
+				</form>
+				
 			</li>
 		</ul>
-
+		</form>
 	</section>
 
 	<section id="content">
-		<nav>
-			<form action="#">
-				<div class="form-input">
-					<input type="search" placeholder="Buscar...">
-					<button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
-				</div>
-			</form>
-			<a href="/notificacoes" class="notification">
-				<i class='bx bxs-bell'></i>
-				<span class="num"> 4 </span>
-			</a>
-			<a href="/perfil" class="profile">
-				<img src="{{ asset('/Image/perfilAzulAdm.png') }}">
-			</a>
-		</nav>
+		
