@@ -9,14 +9,10 @@
                 <img src="{{ asset('/Image/perfilAzulAdm.png')}}" alt="Foto do Admin" class="profile-img">
             </div>
 
-<<<<<<< HEAD
-            @if($admin)
-=======
             @if($admin->isNotEmpty())
                 @php
                     $admin = $admin->first(); // Pega o primeiro administrador da lista
                 @endphp
->>>>>>> 0349e4548ae6bd605b4a2686a1337a1d61506c8d
                 <div class="profile-card">
                     <div class="profile-info">
                         <div class="form-row">

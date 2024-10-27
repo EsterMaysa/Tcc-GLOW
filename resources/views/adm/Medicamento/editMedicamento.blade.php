@@ -17,7 +17,7 @@
 
         <div class="form-group">
             <label for="codigoDeBarrasMedicamento">Código de Barras</label>
-            <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras" value="{{ $medicamento->codigoDeBarrasMedicamento }}" readonly required>
+            <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras" value="{{ $medicamento->codigoDeBarrasMedicamento }}" required>
         </div>
 
         <div class="form-group">
@@ -30,53 +30,15 @@
             <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenerico" value="{{ $medicamento->nomeGenericoMedicamento }}" required>
         </div>
 
-        <!-- Exibir e editar a foto do Medicamento Original -->
         <div class="form-group">
-            <label for="fotoMedicamentoOriginal">Foto Medicamento Original</label><br>
-
-            <!-- Exibir a imagem atual -->
-            <img
-                id="imgPreviewOriginal"
-                src="{{ asset('storage/' . $medicamento->fotoMedicamentoOriginal) }}"
-                alt="Foto do Medicamento Original"
-                style="max-width: 150px; cursor: pointer;"
-                onclick="document.getElementById('fotoOriginal').click();">
-
-            <!-- Campo oculto de upload de imagem -->
-            <input type="file" id="fotoOriginalMedicamento" name="fotoOriginalMedicamento" style="display: none;" onchange="previewImage(event, 'imgPreviewOriginal')">
+            <label for="fotoMedicamentoOriginal">Foto Medicamento Original</label>
+            <input type="file" class="form-control" id="fotoMedicamentoOriginal" name="fotoOriginal">
         </div>
 
-        <!-- Exibir e editar a foto do Medicamento Genérico -->
         <div class="form-group">
-            <label for="fotoMedicamentoGenero">Foto Medicamento Genérico</label><br>
-
-            <!-- Exibir a imagem atual -->
-            <img
-                id="imgPreviewGenero"
-                src="{{ asset('storage/' . $medicamento->fotoMedicamentoGenero) }}"
-                alt="Foto do Medicamento Genérico"
-                style="max-width: 150px; cursor: pointer;"
-                onclick="document.getElementById('fotoGenero').click();">
-
-            <!-- Campo oculto de upload de imagem -->
-            <input type="file" id="fotoGenericoMedicamento" name="fotoGenericoMedicamento" style="display: none;" onchange="previewImage(event, 'imgPreviewGenero')">
+            <label for="fotoMedicamentoGenero">Foto Medicamento Genérico</label>
+            <input type="file" class="form-control" id="fotoMedicamentoGenero" name="fotoGenero">
         </div>
-
-        <!-- JavaScript para pré-visualizar a imagem selecionada -->
-        <script>
-            function previewImage(event, previewId) {
-                const reader = new FileReader();
-                reader.onload = function() {
-                    const output = document.getElementById(previewId);
-                    output.src = reader.result; // Atualiza o src da imagem para a nova imagem
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            }
-        </script>
-
-
-
-
 
         <div class="form-group">
             <label for="registroAnvisaMedicamento">Registro ANVISA</label><br>
@@ -96,9 +58,9 @@
             <select class="form-control" id="idDetentor" name="idDetentor" required>
                 <option value="">Selecione o Detentor</option>
                 @foreach($detentor as $d)
-                <option value="{{ $d->idFDetentor }}" {{ $medicamento->idDetentor == $d->idFDetentor ? 'selected' : '' }}>
-                    {{ $d->nomeDetentor }}
-                </option>
+                    <option value="{{ $d->idFDetentor }}" {{ $medicamento->idDetentor == $d->idFDetentor ? 'selected' : '' }}>
+                        {{ $d->nomeDetentor }}
+                    </option>
                 @endforeach
             </select>
         </div>
@@ -108,9 +70,9 @@
             <select class="form-control" id="idTipoMedicamento" name="idTipo" required>
                 <option value="">Selecione o Tipo de Medicamento</option>
                 @foreach($tiposMedicamento as $t)
-                <option value="{{ $t->idTipoMedicamento }}" {{ $medicamento->idTipoMedicamento == $t->idTipoMedicamento ? 'selected' : '' }}>
-                    {{ $t->tipoMedicamento }}
-                </option>
+                    <option value="{{ $t->idTipoMedicamento }}" {{ $medicamento->idTipoMedicamento == $t->idTipoMedicamento ? 'selected' : '' }}>
+                        {{ $t->tipoMedicamento }}
+                    </option>
                 @endforeach
             </select>
         </div>

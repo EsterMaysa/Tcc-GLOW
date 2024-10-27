@@ -1,6 +1,4 @@
 @include('includes.headerFarmacia')
-<!-- PAGINA PRINCIPAL DO ESTOQUE A HOME DO ESTOQUE -->
-
 
 <!-- Main content -->
 <div class="container d-flex justify-content-center">
@@ -15,7 +13,7 @@
                     <!-- Novo Remédio -->
                     <div class="btn-group">
                         <span>Novo Remédio</span>
-                        <button class="btn-custom btn-add" onclick="window.location.href='/entradaForms'">
+                        <button class="btn-custom btn-add" onclick="window.location.href='/editarMedicamentoEstoque'">
                             +
                         </button>
                     </div>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AdministradorModel; // Corrigi o nome do model ClienteAdm
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class AdministradorController extends Controller
 {
@@ -35,73 +34,29 @@ class AdministradorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-    // LOGIN
-
-    public function logout()
-    {
-        Auth::logout(); // Desloga o usuário
-        
-        session()->flash('message', 'Você foi deslogado com sucesso.'); // Armazena a mensagem na sessão
-
-        return view('adm.login'); // Redireciona para a página de login
-    }
-
-    public function login(Request $request)
-    {
-        // Validar o input
-        $request->validate([
-            'email' => 'required|email',
-            'senha' => 'required|',
-        ]);
-
-        // Encontrar o usuário pelo email no banco correto
-        $user = AdministradorModel::where('emailAdministrador', $request->email)->first();
-
-        // Verificar se a senha está correta
-        if ($user && Hash::check($request->senha, $user->senhaAdministrador)) {
-
-            Auth::login($user);
-
-            session()->flash('message', 'Bem-vindo administrador, ' . $user->nomeAdministrador . '! Pronta(o) para fazer um check-up?');
-
-            return redirect('/'); 
-
-        } else {
-            session()->flash('error', 'Email ou senha incorretos.');
-            return redirect()->back();    
-        }
-    }
-    public function showProfile()
-    {
-        $admin = Auth::user(); // Obtém o administrador logado
-
-        if (!$admin) {
-            // Se não houver administrador logado, redireciona para a página de login
-            return redirect()->route('login')->with('message', 'Você precisa estar logado para acessar esta página.');
-        }
-        return view('adm.Perfil.perfil', compact('admin')); // Passa o administrador para a view
-    }
     public function store(Request $request)
     {
-
-        // ALTER TABLE tbadministrador MODIFY senhaAdministrador VARCHAR(100);
-
-        $adm = new AdministradorModel();
-
-        $adm->fotoAministrador = "sem foto";
-        $adm->nomeAdministrador = $request->nome;
-        $adm->emailAdministrador = $request->email;
-        $adm->senhaAdministrador = Hash::make($request->senha); //  
-        $adm->situacaoAdministrador = 'A'; // Por exemplo, 'A' para ativo
-        $adm->dataCadastroAdministrador = now(); // Data atual 
-        $adm->save();
-
+        // Validação dos dados
+        $validatedData = $request->validate([
+            'nome' => 'required|string|max:100',
+            'email' => 'required|email|max:350|unique:tbAdministrador,emailAdministrador',
+            'senha' => 'required|string|min:8', // Adicionando validação mínima
+        ]);
+        
+        // Criar o novo administrador
+        $administrador = new AdministradorModel();
+        $administrador->nomeAdministrador = $validatedData['nome'];
+        $administrador->emailAdministrador = $validatedData['email'];
+        $administrador->senhaAdministrador = Hash::make($validatedData['senha']);  // Criptografar a senha
+        $administrador->situacaoAdministrador = 'A'; // Por exemplo, 'A' para ativo
+        $administrador->dataCadastroAdministrador = now(); // Data atual
+        
+        $administrador->save();
+        
         // Redirecionar ou retornar uma resposta
         return redirect('/')->with('success', 'Administrador cadastrado com sucesso!');
     }
     
-
 
     /**
      * Display the specified resource.
