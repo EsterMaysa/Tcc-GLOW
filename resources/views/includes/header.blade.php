@@ -37,24 +37,13 @@
 					<span class="text"> Início </span>
 				</a>
 			</li>
-			
-			
+
 			<li>
-				<a href="/detentor">
-
-					<i class='bx bxs-plus-circle'></i>
-
-					<span class="text"> Cadastrar Detentor </span>
+				<a href="/selectUBS">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text"> Ubs </span>
 				</a>
-			</li> 
-			<!-- <li>
-
-				<a href="/selectRegiaoForm">
-					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Cadastrar UBS </span>
-				</a>
-			</li> -->
-
+			</li>
 			<li>
 				<a href="/farmaciaForms">
 				<i class='bx bxs-plus-circle'></i>
@@ -70,6 +59,12 @@
 				</a>
 			</li>
 
+			<li>
+				<a href="/medicamento">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text"> Medicamento </span>
+				</a>
+			</li>
 			<li> 
 				<a href="/medicamentoForm">
 					<i class='bx bxs-plus-circle'></i>
@@ -79,19 +74,13 @@
 			</li>
 
 			<li>
-				<a href="/selectUBS">
-					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text"> Ubs </span>
-				</a>
-			</li>
+				<a href="/detentor">
 
-			<li>
-				<a href="/medicamento">
-					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text"> Medicamento </span>
-				</a>
-			</li>
+					<i class='bx bxs-plus-circle'></i>
 
+					<span class="text"> Cadastrar Detentor </span>
+				</a>
+			</li> 
 			<li>
 			
 				<a href="/Cliente">
