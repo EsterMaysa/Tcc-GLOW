@@ -348,6 +348,13 @@ Route::get('/MedicamentoHome', function () {
     return view('farmacia.Medicamento.medicamentoFarmacia');
 });
 
+//motivo Entrada
+Route::get('/motivEntrada', function () {
+    return view('farmacia.Medicamento.motivEntrada');
+});
+Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
+
+
 
 //FUNCIONARIO
 Route::get('/FuncionarioHome', function () {

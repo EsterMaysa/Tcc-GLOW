@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <form action="/motivoentrada" method="POST">
+    <form action="/motivEntrada" method="POST">
             @csrf <!-- Token de segurança para o formulário -->
             
             <div class="form-group">
