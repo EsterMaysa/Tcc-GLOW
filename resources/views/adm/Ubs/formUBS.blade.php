@@ -1,12 +1,182 @@
-@include('includes.header')
+<!--Vinícius, fiz algumas alterações no modo telefone (ao clicar duas vezes no botão adicionar telefone,
+ um modal informativo aparece dizendo que o número total já foi alcançado), Tirei o header pois ele não era necessário 
+ e todos os scripts de JS estão  no final da página pois eles são internos. Creio que o front dessa já está ok (ASS: Maria Eduarda)-->
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar UBS</title>
-    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+@include('includes.header')
+<link rel="stylesheet" href="{{ url('css/CadastroUBS.css') }}"> <!--CSS PARA ESSA PÁGINA FICA APENAS NESSE ARQUIVO :)-->
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo">
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1>Adicionar UBS</h1>
+        <p>Adicione novas UBS no sistema por aqui</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/AdicionarEndereço.png')}}" alt="Cadastro de Medicamentos" class="img-fluid" />
+    </div>
+</div>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form id="ubsForm" action="{{ route('insertUBS') }}" method="POST" enctype="multipart/form-data" onsubmit="return checkCNPJ()">
+                @csrf
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="ubs">
+                            <i class="fas fa-hospital"></i> Nome da UBS :
+                        </label>
+                        <input type="text" name="ubs" id="ubs" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> E-mail :
+                        </label>
+                        <input type="text" name="email" id="email" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="cnpj">
+                            <i class="fas fa-id-card"></i> CNPJ :
+                        </label>
+                        <input type="text" name="cnpj" id="cnpj" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="cep">
+                            <i class="fas fa-map-marker-alt"></i> CEP :
+                        </label>
+                        <input type="text" name="cep" id="cep" required onblur="buscaCep()">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="logradouro">
+                            <i class="fas fa-road"></i> Logradouro :
+                        </label>
+                        <input type="text" name="logradouro" id="logradouro" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="bairro">
+                            <i class="fas fa-home"></i> Bairro :
+                        </label>
+                        <input type="text" name="bairro" id="bairro" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="cidade">
+                            <i class="fas fa-city"></i> Cidade :
+                        </label>
+                        <input type="text" name="cidade" id="cidade" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="uf">
+                            <i class="fas fa-globe"></i> UF :
+                        </label>
+                        <select name="uf" id="uf" required>
+                            <option value="">Selecione o estado</option>
+                            <option value="AC">Acre (AC)</option>
+                            <option value="AL">Alagoas (AL)</option>
+                            <option value="AP">Amapá (AP)</option>
+                            <option value="AM">Amazonas (AM)</option>
+                            <option value="BA">Bahia (BA)</option>
+                            <option value="CE">Ceará (CE)</option>
+                            <option value="DF">Distrito Federal (DF)</option>
+                            <option value="ES">Espírito Santo (ES)</option>
+                            <option value="GO">Goiás (GO)</option>
+                            <option value="MA">Maranhão (MA)</option>
+                            <option value="MT">Mato Grosso (MT)</option>
+                            <option value="MS">Mato Grosso do Sul (MS)</option>
+                            <option value="MG">Minas Gerais (MG)</option>
+                            <option value="PA">Pará (PA)</option>
+                            <option value="PB">Paraíba (PB)</option>
+                            <option value="PR">Paraná (PR)</option>
+                            <option value="PE">Pernambuco (PE)</option>
+                            <option value="PI">Piauí (PI)</option>
+                            <option value="RJ">Rio de Janeiro (RJ)</option>
+                            <option value="RN">Rio Grande do Norte (RN)</option>
+                            <option value="RS">Rio Grande do Sul (RS)</option>
+                            <option value="RO">Rondônia (RO)</option>
+                            <option value="RR">Roraima (RR)</option>
+                            <option value="SC">Santa Catarina (SC)</option>
+                            <option value="SP">São Paulo (SP)</option>
+                            <option value="SE">Sergipe (SE)</option>
+                            <option value="TO">Tocantins (TO)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="numero">
+                            <i class="fas fa-sort-numeric-up"></i> Número:
+                        </label>
+                        <input type="text" name="numero" id="numero" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="telefone">
+                            <i class="fas fa-phone"></i> Telefone :
+                        </label>
+                        <div id="telefoneContainer">
+                            <!-- Os campos de telefone serão adicionados aqui -->
+                        </div>
+                        <div class="add-phone-container">
+                            <button type="button" onclick="addPhoneField()">
+                                <i class="fas fa-plus-circle"></i> Adicionar Telefone 
+                            </button>
+                            <span class="info-text">Você pode adicionar apenas 2 números de telefone.</span> 
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <label for="latitude">
+                            <i class="fas fa-map-marker"></i> Latitude :
+                        </label>
+                        <input type="text" name="latitude" id="latitude" required readonly>
+                    </div>
+                    <div class="form-col">
+                        <label for="longitude">
+                            <i class="fas fa-map-marker"></i> Longitude :
+                        </label>
+                        <input type="text" name="longitude" id="longitude" required readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col full-width">
+                        <label for="regiao">
+                            <i class="fas fa-globe-americas"></i> Selecione a região :
+                        </label>
+                        <select id="idRegiao" name="idRegiao" required>
+                            <option value="">Selecione a região</option>
+                            @foreach($regioes as $r)
+                                <option value="{{ $r->idRegiaoUBS }}">{{ $r->nomeRegiaoUBS }}</option>
+                            @endforeach           
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="button">Adicionar UBS</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+<!-- Modal para exibir o número atingido de telefones -->
+<div id="alertModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <p id="alertText"></p>
+    </div>
+</div>
+
+@include('includes.footer')
     <script>
         function buscaCep() {
             const cep = document.getElementById('cep').value.replace(/\D/g, ''); // Remove caracteres não numéricos
@@ -49,24 +219,42 @@
                 .catch(() => alert('Erro ao buscar a latitude e longitude.'));
         }
 
-        // Função para adicionar um novo campo de telefone
-        function addPhoneField() {
-            const container = document.getElementById('telefoneContainer');
-            const newField = document.createElement('div');
-            newField.className = 'telefone-field';
-
-            newField.innerHTML = `
-                <input type="text" name="telefone2" placeholder="Número do Telefone" required>
-                <button type="button" class="remove-phone" onclick="removePhoneField(this)">-</button>
-            `;
-
-            container.appendChild(newField);
+        // Exibe o modal personalizado com a mensagem desejada
+        function showModal(message) {
+            document.getElementById("alertText").innerText = message;
+            document.getElementById("alertModal").style.display = "block";
         }
 
-        // Função para remover um campo de telefone
+        // Fecha o modal
+        function closeModal() {
+            document.getElementById("alertModal").style.display = "none";
+        }
+
+        let phoneCount = 0; // declaração global
+
+        function addPhoneField() {
+            if (phoneCount < 2) {
+                const container = document.getElementById('telefoneContainer');
+
+                const newField = document.createElement('div');
+                newField.className = 'telefone-field';
+                newField.innerHTML = `
+                    <input type="text" name="telefone[]" placeholder="Número do Telefone" required>
+                    <button type="button" class="remove-phone" onclick="removePhoneField(this)">
+                        <i class="fas fa-minus-circle"></i>
+                    </button>
+                `;
+                container.appendChild(newField);
+                phoneCount++;
+            } else {
+                showModal("O limite máximo de números de telefone já foi alcançado.");
+            }
+        }
+
         function removePhoneField(button) {
-            const field = button.parentElement;
-            field.remove();
+            const phoneField = button.parentElement;
+            phoneField.remove();
+            phoneCount--; // Decrementa o contador ao remover um campo
         }
 
         // Validação do CNPJ
@@ -132,174 +320,3 @@
             }
         }
     </script>
-
-    <style>
-        /* Estilos específicos do formulário */
-        .form-container {
-            background-color: #f5f5f5;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-container h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        .form-container label {
-            font-size: 16px;
-            color: #555;
-        }
-
-        .form-container input[type="text"],
-        .form-container input[type="password"],
-        .form-container input[type="file"],
-        .form-container select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        .form-container button {
-            background-color: #28a745;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 18px;
-        }
-
-        .form-container button:hover {
-            background-color: #218838;
-        }
-
-        .telefone-field {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-        }
-
-        .telefone-field input[type="text"] {
-            flex: 1;
-            margin-right: 5px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .telefone-field button {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            width: 40px;
-            height: 40px;
-        }
-
-        .telefone-field button:hover {
-            background-color: #c82333;
-        }
-    </style>
-</head>
-<body>
-    <div class="form-container">
-        <h1>Adicionar uma nova UBS</h1>
-        <form id="ubsForm" action="{{ route('insertUBS') }}" method="POST" enctype="multipart/form-data" onsubmit="return checkCNPJ()">
-            @csrf <!-- Proteção contra CSRF -->
-            
-            <label for="nome">Nome da UBS:</label>
-            <input type="text" name="ubs" id="ubs" required><br>
-
-            <label for="email">E-mail UBS:</label>
-            <input type="text" name="email" id="email" required><br>
-
-            <label for="cnpj">CNPJ da UBS:</label>
-            <input type="text" name="cnpj" id="cnpj" required><br>
-
-            <label for="cep">CEP:</label>
-            <input type="text" name="cep" id="cep" required onblur="buscaCep()"><br>
-
-            <label for="logradouro">Logradouro:</label>
-            <input type="text" name="logradouro" id="logradouro" required><br>
-
-            <label for="bairro">Bairro:</label>
-            <input type="text" name="bairro" id="bairro" required><br>
-
-            <label for="cidade">Cidade:</label>
-            <input type="text" name="cidade" id="cidade" required><br>
-
-            <label for="uf">UF:</label>
-            <select name="uf" id="uf" required>
-                <option value="">Selecione o estado</option>
-                <option value="AC">Acre (AC)</option>
-                <option value="AL">Alagoas (AL)</option>
-                <option value="AP">Amapá (AP)</option>
-                <option value="AM">Amazonas (AM)</option>
-                <option value="BA">Bahia (BA)</option>
-                <option value="CE">Ceará (CE)</option>
-                <option value="DF">Distrito Federal (DF)</option>
-                <option value="ES">Espírito Santo (ES)</option>
-                <option value="GO">Goiás (GO)</option>
-                <option value="MA">Maranhão (MA)</option>
-                <option value="MT">Mato Grosso (MT)</option>
-                <option value="MS">Mato Grosso do Sul (MS)</option>
-                <option value="MG">Minas Gerais (MG)</option>
-                <option value="PA">Pará (PA)</option>
-                <option value="PB">Paraíba (PB)</option>
-                <option value="PR">Paraná (PR)</option>
-                <option value="PE">Pernambuco (PE)</option>
-                <option value="PI">Piauí (PI)</option>
-                <option value="RJ">Rio de Janeiro (RJ)</option>
-                <option value="RN">Rio Grande do Norte (RN)</option>
-                <option value="RS">Rio Grande do Sul (RS)</option>
-                <option value="RO">Rondônia (RO)</option>
-                <option value="RR">Roraima (RR)</option>
-                <option value="SC">Santa Catarina (SC)</option>
-                <option value="SP">São Paulo (SP)</option>
-                <option value="SE">Sergipe (SE)</option>
-                <option value="TO">Tocantins (TO)</option>
-            </select><br>
-
-            <label for="regiao">Selecione a região:</label>
-            <select id="idRegiao" name="idRegiao" required>
-                <option value="">Selecione a região</option>
-                @foreach($regioes as $r)
-                    <option value="{{ $r->idRegiaoUBS }}">{{ $r->nomeRegiaoUBS }}</option>
-                @endforeach           
-            </select><br>
-
-            <label for="numero">Número:</label>
-            <input type="text" name="numero" id="numero" required><br>
-
-            <label for="telefone">Telefones:</label>
-            <div id="telefoneContainer">
-                <div class="telefone-field">
-                    <input type="text" name="telefone" placeholder="Número do Telefone" required>
-                    <button type="button" class="remove-phone" onclick="removePhoneField(this)">-</button>
-                </div>
-            </div>
-            <button type="button" onclick="addPhoneField()">Adicionar Telefone</button><br>
-
-            <label for="latitude">Latitude:</label>
-            <input type="text" name="latitude" id="latitude" required readonly><br>
-
-            <label for="longitude">Longitude:</label>
-            <input type="text" name="longitude" id="longitude" required readonly><br>
-
-            <button type="submit">Adicionar UBS</button>
-        </form>
-    </div>
-</body>
-</html>
-@include('includes.footer')

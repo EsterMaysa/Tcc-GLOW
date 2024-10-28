@@ -1,139 +1,72 @@
-@include('includes.header') <!-- include -->
+@include('includes.header') 
+<link rel="stylesheet" href="{{ url('css/UBS.css')}}">
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo"> 
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1>UBS</h1>
+        <p>Você pode gerenciar UBS por aqui.</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/pacientes.png')}}" alt="Cadastro de Medicamentos" class="img-fluid" />
+    </div>
+</div>
+
+
+<div class="tabela">
+    <div class="btn-container">
+        <div class="btn-card">
+            <p>Posto</p>
+            <a href="/selectRegiaoForm">
+                <button class="btn-acao"><i class="fas fa-plus"></i> Criar</button>
+            </a>
+        </div>
+        <div class="btn-card">
+            <p>Região</p>
+            <a href="/formRegiao">
+                <button class="btn-acao"><i class="fas fa-plus"></i> Criar</button>
+            </a>
+        </div>
+        <div class="btn-card">
+            <p>Farmacia</p>
+            <a href="/Farmacia">
+                <button class="btn-acao"><i class="fas fa-plus"></i> Criar</button>
+            </a>
+        </div>
+        <div class="btn-card">
+            <p>Telefone</p>
+            <a href="formTelefone">
+                <button class="btn-acao"><i class="fas fa-plus"></i> Criar</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
 
 <!-- MAIN -->
 <main>
-    <style>
-        .ubs-table {
-            width: 100%; /* A tabela ocupa 100% da largura disponível */
-            border-collapse: collapse; /* Remove espaços entre as bordas das células */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para a tabela */
-            border-radius: 8px; /* Bordas arredondadas */
-            overflow: hidden; /* Para garantir que as bordas arredondadas apareçam */
-            margin-top: 20px; /* Espaço acima da tabela */
-        }
-
-        .ubs-table th, .ubs-table td {
-            padding: 20px; /* Aumenta o espaçamento interno (padding) das células */
-            text-align: left; /* Alinha o conteúdo à esquerda */
-            border: 1px solid #ddd; /* Borda leve em cada célula */
-        }
-
-        .ubs-table th {
-            background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
-            font-weight: bold; /* Deixa o texto do cabeçalho em negrito */
-            font-size: 1.1em; /* Aumenta o tamanho da fonte do cabeçalho */
-        }
-
-        .ubs-row:nth-child(even) {
-            background-color: #f9f9f9; /* Cor de fundo para linhas pares */
-        }
-
-        .ubs-image {
-            max-width: 100px; /* Define o tamanho máximo das imagens */
-            height: auto; /* Mantém a proporção da imagem */
-            border-radius: 5px; /* Bordas arredondadas nas imagens */
-        }
-
-        .ubs-row:hover {
-            background-color: #e9e9e9; /* Cor de fundo ao passar o mouse nas linhas */
-        }
-
-        .ubs-table td {
-            line-height: 1.5; /* Aumenta a altura da linha para melhor legibilidade */
-        }
-
-        .search-container {
-            margin: 20px 0; /* Espaço acima e abaixo do campo de pesquisa */
-        }
-
-        .search-container input {
-            width: 100%; /* Campo de pesquisa ocupa 100% da largura disponível */
-            padding: 10px; /* Espaçamento interno do campo */
-            border: 1px solid #ccc; /* Borda do campo */
-            border-radius: 5px; /* Bordas arredondadas */
-            font-size: 16px; /* Tamanho da fonte do campo */
-        }
-    </style>
-
-    <div class="head-title">
-        <div class="left">
-            <h1> Criar </h1>
-            <ul class="breadcrumb">
-                <li>
-                    <a href="/">Home</a>
-                </li>
-                <li><i class='bx bx-chevron-right'></i></li>
-                <li>
-                    <a class="active" href="/"> UBS </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
     <div class="table-data">
         <div class="order">
-            <div class="head">
-                <h3> Criar Campos</h3>
-                <i class='bx bx-search'></i>
-                <i class='bx bx-filter'></i>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Campo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <p>Posto</p>
-                        </td>
-                        <td>
-                            <a href="/selectRegiaoForm">
-                                <span class="status busca">Criar</span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Região</p>
-                        </td>
-                        <td>
-                            <a href="/formRegiao">
-                                <span class="status busca"> Criar </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Farmacia</p>
-                        </td>
-                        <td>
-                            <a href="/Farmacia"> <!-- Usando a função route -->
-                                <span class="status busca"> Criar </span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>Telefone</p>
-                        </td>
-                        <td>
-                            <a href="formTelefone">
-                                <span class="status busca"> Criar </span>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <br>
             <div class="head">
                 <h3>Lista de Unidades Básicas de Saúde (UBS)</h3>
                 <i class='bx bx-search'></i>
                 <i class='bx bx-filter'></i>
             </div>
-
             <!-- Campo de pesquisa -->
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Pesquisar por nome ou CNPJ da UBS...">

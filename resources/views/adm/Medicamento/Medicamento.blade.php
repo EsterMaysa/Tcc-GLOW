@@ -1,4 +1,6 @@
 @include('includes.header') <!-- include -->
+<link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+
 
 <!-- MAIN -->
 <main>
