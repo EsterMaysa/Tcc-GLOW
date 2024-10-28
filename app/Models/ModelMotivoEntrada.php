@@ -1,5 +1,5 @@
 <?php
-//Farmacia
+//Tabela da Farmacia
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
