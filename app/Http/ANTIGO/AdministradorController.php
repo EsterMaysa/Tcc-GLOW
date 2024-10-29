@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Hash;
 
-class AdministradorController extends Controller
+class AntigoAdministradorController extends Controller
 {
     /**
      * Display a listing of the resource.

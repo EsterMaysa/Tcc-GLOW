@@ -8,22 +8,26 @@ use App\Models\FarmaciaUBSModel; // Certifique-se de que o nome do modelo está 
 
 class FarmaciaUBSController extends Controller
 {
-    // Exibir o formulário de criação
+    // Exibir o formulário de criação e a lista de farmácias
     public function showForm(Request $request)
-    {
-        // Obtém todas as farmácias cadastradas que estão ativas
-        $query = $request->input('query');
-        $farmacias = FarmaciaUBSModel::where('situacaoFarmaciaUBS', 'A');
-    
-        if ($query) {
-            $farmacias = $farmacias->where('nomeFarmaciaUBS', 'LIKE', "%{$query}%");
-        }
-    
-        $farmacias = $farmacias->get();
-    
-        // Passa a variável $farmacias para a view
-        return view('adm.Ubs.insertFarmaciaUbs', compact('farmacias'));
+{
+    // Obtém o valor do filtro
+    $query = $request->input('query');
+
+    // Base para consulta de farmácias ativas
+    $farmacias = FarmaciaUBSModel::where('situacaoFarmaciaUBS', 'A');
+
+    // Adiciona o filtro se a query estiver preenchida
+    if ($query) {
+        $farmacias = $farmacias->where('nomeFarmaciaUBS', 'LIKE', "%{$query}%");
     }
+
+    $farmacias = $farmacias->get();
+
+    // Retorna a view com os dados das farmácias filtradas
+    return view('adm.Ubs.farmacias', compact('farmacias'));
+}
+
 
     // Armazenar os dados da Farmácia UBS
     public function store(Request $request) 
@@ -52,7 +56,7 @@ class FarmaciaUBSController extends Controller
         session()->flash('success', 'Farmácia UBS cadastrada com sucesso!');
 
         // Redireciona para exibir o formulário e as farmácias cadastradas
-        return redirect()->route('farmacia.showForm');
+        return redirect('/farmacia');
     }
 
     // Método para exibir o formulário de edição
@@ -79,14 +83,14 @@ class FarmaciaUBSController extends Controller
         $farmacia = FarmaciaUBSModel::findOrFail($id);
         $farmacia->nomeFarmaciaUBS = $request->nomeFarmaciaUBS;
         $farmacia->emailFarmaciaUBS = $request->emailFarmaciaUBS;
-        $farmacia->tipoFarmaciaUBS = $request->tipoFamaciaUBS;
+        $farmacia->tipoFarmaciaUBS = $request->tipoFarmaciaUBS;
         $farmacia->save();
     
         // Mensagem de sucesso
         session()->flash('success', 'Farmácia atualizada com sucesso!');
     
         // Redireciona de volta para a lista de farmácias
-        return redirect()->route('farmacia.showForm');
+        return redirect('/farmacia');
     }
     
     // Método para mudar o status da farmácia
@@ -101,6 +105,6 @@ class FarmaciaUBSController extends Controller
         session()->flash('success', 'Farmácia excluída com sucesso!');
 
         // Redireciona de volta para a lista de farmácias
-        return redirect()->route('farmacia.showForm');
+        return redirect('/farmacia');
     }
 }

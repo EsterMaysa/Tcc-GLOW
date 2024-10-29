@@ -1,15 +1,22 @@
 @include('includes.header')
 <link rel="stylesheet" href="{{ url('css/DashboardAdm.css')}}"> <!--CSS DESSA PÁGINA É SOMENTE ESSE-->
 
-@if (session('message'))
+<!-- @if (session('message'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('message') }}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+@endif -->
+
+@if (session('message'))
+    <script>
+        alert("{{ session('message') }}");
+    </script>
 @endif
 <body>
+
 
     <nav class="navbar">
         <div class="navbar-brand">
@@ -27,6 +34,7 @@
             <p>Estamos felizes em tê-lo aqui. Você pode gerenciar usuários, visualizar relatórios e muito mais.</p>
         </div>
     </div>
+
 
     <div class="container-dois">
         <div class="stat-card">

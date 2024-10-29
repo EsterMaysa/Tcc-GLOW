@@ -7,14 +7,28 @@
             <h1>Cadastro Medicamentos</h1>
         </div>
     </div>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
 
     <form action="/cadastroMed" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
             <label for="codigoDeBarrasMedicamento">Código de Barras</label>
-            <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras"
-                value="{{ old('codigoDeBarras', $formData['codigoDeBarras'] ?? '') }}" required>
+            <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras" value="{{ old('codigoDeBarras', $formData['codigoDeBarras'] ?? '') }}" required>
         </div>
 
         <div class="form-group">
@@ -33,25 +47,25 @@
             <label for="registroAnvisaMedicamento">Registro ANVISA</label><br>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="registroAnvisa" id="registroSim" value="Deferido"
-                    {{ old('registroAnvisa', $formData['registroAnvisa'] ?? '') == 'Deferido' ? 'checked' : '' }}>
+                    {{ old('registroAnvisa', $formData['registroAnvisa'] ?? '') == 'Deferido' ? 'checked' : '' }} required>
                 <label class="form-check-label" for="registroSim">Deferido</label>
             </div>
 
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="registroAnvisa" id="registroNao" value="Indeferido"
-                    {{ old('registroAnvisa', $formData['registroAnvisa'] ?? '') == 'Indeferido' ? 'checked' : '' }}>
+                    {{ old('registroAnvisa', $formData['registroAnvisa'] ?? '') == 'Indeferido' ? 'checked' : '' }} required>
                 <label class="form-check-label" for="registroNao">Indeferido</label>
             </div>
         </div>
 
         <div class="form-group">
             <label for="fotoMedicamentoOriginal">Foto Medicamento Original</label>
-            <input type="file" class="form-control" id="fotoMedicamentoOriginal" name="fotoOriginal">
+            <input type="file" class="form-control" id="fotoMedicamentoOriginal" name="fotoOriginal" required>
         </div>
 
         <div class="form-group">
             <label for="fotoMedicamentoGenero">Foto Medicamento Genérico</label>
-            <input type="file" class="form-control" id="fotoMedicamentoGenero" name="fotoGenero">
+            <input type="file" class="form-control" id="fotoMedicamentoGenero" name="fotoGenero" required>
         </div>
 
         <div class="form-group">

@@ -177,6 +177,7 @@
 </div>
 
 @include('includes.footer')
+
     <script>
         function buscaCep() {
             const cep = document.getElementById('cep').value.replace(/\D/g, ''); // Remove caracteres não numéricos
@@ -318,5 +319,5 @@
             if (checkCNPJ()) {
                 document.getElementById('ubsForm').submit();
             }
-        }
+        }   
     </script>

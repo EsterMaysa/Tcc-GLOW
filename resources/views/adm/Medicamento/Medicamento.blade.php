@@ -36,11 +36,19 @@
         <div class="order">
             <div class="head">
                 <h3>Medicamentos</h3>
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Pesquisar..." class="search-input">
-                </div>
+                <form action="{{ route('medicamentos.search') }}" method="GET">
+                    <input
+                        type="text"
+                        name="query"
+                        id="searchInput"
+                        placeholder="Pesquisar por nome, nome generico, codigo de barras e nome do Detentor..."
+                        class="search-input"
+                        style="width: 700px;"
+                        onkeyup="if(event.key === 'Enter') this.form.submit();">
+                </form>
                 <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
             </div>
+
             <table>
                 <thead>
                     <tr>
@@ -50,23 +58,51 @@
                         <th>Situação</th>
                         <th>Data de Cadastro</th>
                         <th>Ações</th>
+                        <th></th>
+                        <th></th>
+
                     </tr>
                 </thead>
+                @foreach($medicamento as $med)
+
                 <tbody>
-                    @foreach($medicamento as $med)
                     <tr>
                         <td style="padding: 10px;">{{ $med->codigoDeBarrasMedicamento }}</td>
                         <td>{{ $med->nomeMedicamento }}</td>
                         <td>{{ $med->nomeGenericoMedicamento }}</td>
 
-                        <td>{{ $med->situacaoMedicamento }}</td>
+                        <!-- <td>{{ $med->situacaoMedicamento }}</td> -->
+                        <td>
+                            @if( $med->situacaoMedicamento === 'A')
+                            Ativado
+                            @elseif( $med->situacaoMedicamento === 'D')
+                            Desativado
+                            @else
+                            Indefinido
+                            @endif
+                        </td>
                         <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
+
+                        @if ($med->situacaoMedicamento == 'A')
+                        <td>
+                            <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
+
+                        </td>
+                        <td>
+                            <!-- Verifica se está ativo -->
+                            <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('PUT') <!-- Usar PUT para desativar -->
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja desativar este medicamento?');">
+                                    <i class="fas fa-ban"></i> Desativar
+                                </button>
+                            </form>
+                        </td>
+                        @endif
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $med->idMedicamento }}">
                                 Ver mais
                             </button>
-                            <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
-
                         </td>
                     </tr>
 
@@ -103,42 +139,22 @@
 
                                     <!-- Botão para alternar fotos -->
                                     <button type="button" class="btn btn-info" id="alternarFoto{{ $med->idMedicamento }}"
-                                        data-tipo="original"
-                                        data-foto-original="{{ asset('storage/fotos_medicamentos/' . $med->fotoMedicamentoOriginal) }}"
-                                        data-foto-genero="{{ asset('storage/fotos_medicamentos/' . $med->fotoMedicamentoGenero) }}">
+                                        data-foto-original="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}"
+                                        data-foto-genero="{{ asset('storage/' . $med->fotoMedicamentoGenero) }}">
                                         Ver Foto de Gênero
                                     </button>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-
                             </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            var tipoAtual = 'original';
-                            var botaoAlternar = document.getElementById('alternarFoto{{ $med->idMedicamento }}');
-
-                            botaoAlternar.addEventListener('click', function() {
-                                var imagem = document.getElementById('imagemExibida{{ $med->idMedicamento }}');
-
-                                if (tipoAtual === 'original') {
-                                    imagem.src = botaoAlternar.getAttribute('data-foto-genero');
-                                    botaoAlternar.textContent = 'Ver Foto Original';
-                                    tipoAtual = 'genero';
-                                } else {
-                                    imagem.src = botaoAlternar.getAttribute('data-foto-original');
-                                    botaoAlternar.textContent = 'Ver Foto de Gênero';
-                                    tipoAtual = 'original';
-                                }
-                            });
-                        });
-                    </script>
-                    @endforeach
                 </tbody>
+                @endforeach
+
             </table>
+
         </div>
     </div>
 
@@ -151,67 +167,157 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- Situação Checklist -->
                     <div class="mb-3">
-                        <label for="filtroRegistroAnvisa" class="form-label">Registro ANVISA</label>
-                        <select class="form-select" id="filtroRegistroAnvisa">
-                            <option selected>Selecione o status do registro ANVISA</option>
-                            <option value="deferido">Deferido</option>
-                            <option value="indeferido">Indeferido</option>
-                        </select>
+                        <label class="form-label">Situação</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="A" id="situacaoAtivo" name="situacao[]">
+                            <label class="form-check-label" for="situacaoAtivo">Ativo</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="D" id="situacaoInativo" name="situacao[]">
+                            <label class="form-check-label" for="situacaoInativo">Inativo</label>
+                        </div>
                     </div>
 
+                    <!-- Forma Farmacêutica Checklist -->
                     <div class="mb-3">
-                        <label for="filtroFormaFarmaceutica" class="form-label">Forma Farmacêutica</label>
-                        <select class="form-select" id="filtroFormaFarmaceutica">
-                            <option selected>Selecione a forma farmacêutica</option>
-                            <option value="comprimido">Comprimido</option>
-                            <option value="capsula">Cápsula</option>
-                            <option value="xarope">Xarope</option>
-                            <option value="pomada">Pomada</option>
-                        </select>
+                        <label class="form-label">Forma Farmacêutica</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Comprimido" id="formaComprimido" name="formaFarmaceutica[]">
+                            <label class="form-check-label" for="formaComprimido">Comprimido</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="Cápsula" id="formaCapsula" name="formaFarmaceutica[]">
+                            <label class="form-check-label" for="formaCapsula">Cápsula</label>
+                        </div>
+                        <!-- Adicione outros checkboxes conforme necessário -->
                     </div>
 
-                    <div class="mb-3">
-                        <label for="filtroDetentor" class="form-label">Detentor</label>
-                        <select class="form-select" id="filtroDetentor">
-                            <option selected>Selecione o laboratório ou fabricante</option>
-                            <option value="detentor1">Laboratório A</option>
-                            <option value="detentor2">Laboratório B</option>
-                        </select>
-                    </div>
-
+                    <!-- Tipo de Medicamento -->
                     <div class="mb-3">
                         <label for="filtroTipoMedicamento" class="form-label">Tipo de Medicamento</label>
-                        <select class="form-select" id="filtroTipoMedicamento">
-                            <option selected>Selecione o tipo de medicamento</option>
-                            <option value="antibiotico">Antibiótico</option>
-                            <option value="analgesico">Analgésico</option>
-                            <option value="antiinflamatorio">Anti-inflamatório</option>
+                        <select class="form-select" id="filtroTipoMedicamento" name="tipoMedicamento">
+                            <option value="">Todos os tipos de medicamento</option>
+                            @foreach($tiposMedicamento as $t)
+                            <option value="{{ $t->idTipoMedicamento }}">
+                                {{ $t->tipoMedicamento }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="filtroSituacao" class="form-label">Situação</label>
-                        <select class="form-select" id="filtroSituacao">
-                            <option selected>Selecione a situação</option>
-                            <option value="ativo">Ativo</option>
-                            <option value="inativo">Inativo</option>
-                            <option value="expirado">Registro Expirado</option>
-                        </select>
-                    </div>
-
+                    <!-- Data de Cadastro -->
                     <div class="mb-3">
                         <label for="filtroDataCadastro" class="form-label">Data de Cadastro</label>
-                        <input type="date" class="form-control" id="filtroDataCadastro">
+                        <input type="date" class="form-control" id="filtroDataCadastro" name="dataCadastro">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Aplicar Filtros</button>
+                    <button type="button" class="btn btn-primary" id="applyFilters">Aplicar Filtros</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('applyFilters').addEventListener('click', function() {
+            // Coletar dados dos checkboxes de situação
+            let situacao = Array.from(document.querySelectorAll('input[name="situacao[]"]:checked')).map(cb => cb.value);
+
+            // Coletar dados dos checkboxes de forma farmacêutica
+            let formaFarmaceutica = Array.from(document.querySelectorAll('input[name="formaFarmaceutica[]"]:checked')).map(cb => cb.value);
+
+            // Coletar dados do tipo de medicamento e data de cadastro
+            let tipoMedicamento = document.getElementById('filtroTipoMedicamento').value;
+            let dataCadastro = document.getElementById('filtroDataCadastro').value;
+
+            // Criar objeto de filtros
+            let filters = {
+                situacao: situacao,
+                formaFarmaceutica: formaFarmaceutica,
+                tipoMedicamento: tipoMedicamento,
+                dataCadastro: dataCadastro
+            };
+
+            // Enviar requisição AJAX
+            fetch('/filtro-medicamentos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(filters)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Aqui você pode processar os resultados
+
+                    // Supondo que `data` é um array de medicamentos filtrados
+                    const tableBody = document.querySelector('table tbody');
+                    tableBody.innerHTML = ''; // Limpa a tabela existente
+
+                    // Preenche a tabela com os medicamentos filtrados
+                    data.forEach(med => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+            <td style="padding: 10px;">${med.codigoDeBarrasMedicamento}</td>
+            <td>${med.nomeMedicamento}</td>
+            <td>${med.nomeGenericoMedicamento}</td>
+            <td>${med.situacaoMedicamento === 'A' ? 'Ativado' : 'Desativado'}</td>
+            <td>${new Date(med.dataCadastroMedicamento).toLocaleDateString('pt-BR')}</td>
+            <td>
+                <a href="/medicamento/edit/${med.idMedicamento}" class="btn btn-warning">Editar</a>
+            </td>
+            <td>
+                <form action="/medicamento/desativar/${med.idMedicamento}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja desativar este medicamento?');">
+                        <i class="fas fa-ban"></i> Desativar
+                    </button>
+                </form>
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes${med.idMedicamento}">
+                    Ver mais
+                </button>
+            </td>
+        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var tipoAtual = 'original';
+            var botaoAlternar = document.getElementById('alternarFoto{{ $med->idMedicamento }}');
+
+            // Verifica se o botão existe
+            if (botaoAlternar) {
+                botaoAlternar.addEventListener('click', function() {
+                    var imagem = document.getElementById('imagemExibida{{ $med->idMedicamento }}');
+
+                    // Verifica se a imagem existe
+                    if (imagem) {
+                        if (tipoAtual === 'original') {
+                            imagem.src = botaoAlternar.getAttribute('data-foto-genero');
+                            botaoAlternar.textContent = 'Ver Foto Original';
+                            tipoAtual = 'genero';
+                        } else {
+                            imagem.src = botaoAlternar.getAttribute('data-foto-original');
+                            botaoAlternar.textContent = 'Ver Foto de Gênero';
+                            tipoAtual = 'original';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+
 </main>
 
 @include('includes.footer') <!-- include -->
