@@ -9,6 +9,10 @@ use App\Models\RegiaoUBSModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 
+
+use App\Mail\UBSRegistrationSuccessMail;
+use Illuminate\Support\Facades\Mail;
+
 class UBSController extends Controller
 {
 
@@ -19,8 +23,11 @@ class UBSController extends Controller
 
     public function index()
     {
-        $ubs = UBSModel::all(); // Busca todos os dados da UBS
-        return view('adm.Ubs.UBS', ['ubs' => $ubs]); // Passa os dados para a view
+        // $ubs = UBSModel::all(); // Busca todos os dados da UBS
+        // return view('adm.Ubs.UBS', ['ubs' => $ubs]); // Passa os dados para a view
+
+        $ubs = UBSModel::with(['regiao', 'telefone'])->get(); // Certifique-se de que os relacionamentos estão definidos
+        return view('adm.Ubs.UBS', compact('ubs'));
     }
 
     public function apresentarRegiao()
@@ -30,105 +37,132 @@ class UBSController extends Controller
     }
 
     public function store(Request $request)
-    {
-        // Validação dos dados de entrada
-        $validator = Validator::make($request->all(), [
-            'ubs' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'cnpj' => 'required|string|max:14',
-            'cep' => 'required|string|max:10',
-            'numero' => 'required|string|max:10',
-            'complemento' => 'nullable|string|max:255',
-            'idRegiao' => 'required|integer',
-     
-        ]);
+{
+    // Validação dos dados de entrada
+    $validator = Validator::make($request->all(), [
+        'ubs' => 'required|string|max:255',
+        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        'cnpj' => 'required|string|max:14',
+        'cep' => 'required|string|max:10',
+        'numero' => 'required|string|max:10',
+        'complemento' => 'nullable|string|max:255',
+        'idRegiao' => 'required|integer',
+    ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
 
-        // Busca o endereço usando ViaCEP
-        $cep = $request->cep;
-        $viacepResponse = Http::get("https://viacep.com.br/ws/{$cep}/json/");
+    // Busca o endereço usando ViaCEP
+    $cep = $request->cep;
+    $viacepResponse = Http::get("https://viacep.com.br/ws/{$cep}/json/");
 
-        if ($viacepResponse->failed()) {
-            return response()->json(['message' => 'CEP inválido ou ViaCEP indisponível.'], 400);
-        }
+    if ($viacepResponse->failed()) {
+        return response()->json(['message' => 'CEP inválido ou ViaCEP indisponível.'], 400);
+    }
 
-        $endereco = $viacepResponse->json();
+    $endereco = $viacepResponse->json();
 
-        // Se o CEP foi encontrado, obtem o logradouro, bairro, cidade e uf
-        $logradouro = $endereco['logradouro'] ?? '';
-        $bairro = $endereco['bairro'] ?? '';
-        $cidade = $endereco['localidade'] ?? '';
-        $uf = $endereco['uf'] ?? '';
+    // Se o CEP foi encontrado, obtem o logradouro, bairro, cidade e uf
+    $logradouro = $endereco['logradouro'] ?? '';
+    $bairro = $endereco['bairro'] ?? '';
+    $cidade = $endereco['localidade'] ?? '';
+    $uf = $endereco['uf'] ?? '';
 
-        // Obtém as coordenadas geográficas usando Nominatim
-        $query = urlencode("{$logradouro}, {$bairro}, {$cidade}, {$uf}");
-        $nominatimResponse = Http::get("https://nominatim.openstreetmap.org/search?q={$query}&format=json");
+    // Obtém as coordenadas geográficas usando Nominatim
+    $query = urlencode("{$logradouro}, {$bairro}, {$cidade}, {$uf}");
+    $nominatimResponse = Http::get("https://nominatim.openstreetmap.org/search?q={$query}&format=json");
 
-        $latitude = null;
-        $longitude = null;
+    $latitude = null;
+    $longitude = null;
 
-        if ($nominatimResponse->successful() && count($nominatimResponse->json()) > 0) {
-            $location = $nominatimResponse->json()[0];
-            $latitude = $location['lat'];
-            $longitude = $location['lon'];
-        }
+    if ($nominatimResponse->successful() && count($nominatimResponse->json()) > 0) {
+        $location = $nominatimResponse->json()[0];
+        $latitude = $location['lat'];
+        $longitude = $location['lon'];
+    }
 
-        // Cadastrar o telefone primeiro
-        $telefone = new TelefoneUBSModel();
-        $telefone->numeroTelefoneUBS = $request->telefone;
+    // Cadastrar o telefone primeiro
+    $telefone = new TelefoneUBSModel();
+    $telefone->numeroTelefoneUBS = $request->telefone;
+    $telefone->numeroTelefoneUBS2 = $request->telefone2;
+    $telefone->situacaoTelefoneUBS = $request->situacaoTelefone ?? '1'; // Define 1 se não for passado
+    $telefone->dataCadastroTelefoneUBS = now();
+    $telefone->save();
+
+    $telefoneId = $telefone->idTelefoneUBS;
+
+    // Lidar com a foto se foi enviada
+    // $fotoPath = null;
+    // if ($request->hasFile('foto')) {
+    //     $fotoPath = $request->file('foto')->store('ubs_fotos', 'public');
+    // }
+
+    if ($request->filled('telefone2')) {
         $telefone->numeroTelefoneUBS2 = $request->telefone2;
-        $telefone->situacaoTelefoneUBS = $request->situacaoTelefone ?? '1'; // Define 1 se não for passado
-        $telefone->dataCadastroTelefoneUBS = now();
         $telefone->save();
+    }
 
-        $telefoneId = $telefone->idTelefoneUBS;
-
-        // Lidar com a foto se foi enviada
-        $fotoPath = null;
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('ubs_fotos', 'public');
-        }
-
-
-        if ($request->filled('telefone2')) {
-            $telefone->numeroTelefoneUBS2 = $request->telefone2;
-            $telefone->save();
-        }
-
-        // Formatar o CNPJ
+    // Formatar o CNPJ
     $cnpjFormatado = $this->formatarCnpj($request->cnpj);
 
-        // Cadastrar a UBS
-        $ubs = new UBSModel();
-        $ubs->nomeUBS = $request->ubs;
-        $ubs->emailUBS = $request->email;
-        $ubs->fotoUBS = $request->foto; // Caminho da foto salvo no banco
-        $ubs->cnpjUBS = $request->cnpj;
-        $ubs->latitudeUBS = $request->latitude;
-        $ubs->longitudeUBS = $request->longitude;
-        $ubs->cepUBS = $request->cep;
-        $ubs->logradouroUBS = $logradouro;
-        $ubs->bairroUBS = $bairro;
-        $ubs->estadoUBS = $uf;
-        $ubs->cidadeUBS = $cidade;
-        $ubs->numeroUBS = $request->numero;
-        $ubs->ufUBS = $uf;
-        $ubs->complementoUBS = $request->complemento;
-        $ubs->senhaUBS = bcrypt($request->senha); // Criptografando a senha
-        $ubs->situacaoUBS = '1'; // Definindo a situação automaticamente como 1
-        $ubs->dataCadastroUBS = now();
-        $ubs->idTelefoneUBS = $telefoneId; // ID do telefone
-        $ubs->idRegiaoUBS = $request->idRegiao; // ID da região
+    // Cadastrar a UBS
+    $ubs = new UBSModel();
+    $ubs->nomeUBS = $request->ubs;
+    $ubs->emailUBS = $request->email;
 
-        if ($ubs->save()) {
-            return response()->json(['message' => 'UBS criada com sucesso!'], 201);
-        } else {
-            return response()->json(['message' => 'Erro ao salvar UBS'], 500);
-        }
+    //foto
+    if ($request->hasFile('fotoUBS')) {
+        $fileUbs = $request->file('fotoUBS');
+        $pathUbs = $fileUbs->store('ubs_fotos', 'public');
+        $ubs->fotoUBS = $pathUbs;
     }
+
+    // $ubs->fotoUBS = $request->foto; // Caminho da foto salvo no banco
+
+
+    $ubs->cnpjUBS = $request->cnpj;
+    $ubs->latitudeUBS = $latitude;
+    $ubs->longitudeUBS = $longitude;
+    $ubs->cepUBS = $request->cep;
+    $ubs->logradouroUBS = $logradouro;
+    $ubs->bairroUBS = $bairro;
+    $ubs->estadoUBS = $uf;
+    $ubs->cidadeUBS = $cidade;
+    $ubs->numeroUBS = $request->numero;
+    $ubs->ufUBS = $uf;
+    $ubs->complementoUBS = $request->complemento;
+    $ubs->senhaUBS = bcrypt($request->senha); // Criptografando a senha
+    $ubs->situacaoUBS = '1'; // Definindo a situação automaticamente como 1
+    $ubs->dataCadastroUBS = now();
+    $ubs->idTelefoneUBS = $telefoneId; // ID do telefone
+    $ubs->idRegiaoUBS = $request->idRegiao; // ID da região
+
+    // $ubs->save();
+
+    // return redirect('/selectUBS');
+
+    // if ($ubs->save()) {
+    //     // Envio do e-mail aqui
+    //     try {
+    //         Mail::to('vini.va338@gmail.com')->send(new \App\Mail\UBSRegistrationSuccessMail($ubs));
+    //     } catch (\Exception $e) {
+    //         return response()->json(['message' => 'UBS criada, mas ocorreu um erro ao enviar o e-mail: ' . $e->getMessage()], 500);
+    //     }
+    //     return response()->json(['message' => 'UBS criada com sucesso!'], 201);
+    // }
+
+    try {
+        Mail::to('ubsjardimaurora70@gmail.com')->send(new UBSRegistrationSuccessMail($ubs));
+        return 'E-mail enviado com sucesso!';
+    } catch (\Exception $e) {
+        return 'Erro ao enviar e-mail: ' . $e->getMessage();
+    }
+
+ 
+    
+}
+
 
     public function updateapi(Request $request, $id)
     {
@@ -148,23 +182,43 @@ class UBSController extends Controller
         return response()->json(['message' => 'Sucesso', 'code' => 200]);
     }
 
-    public function edit($idUBS)
-        {
-            // Busca a UBS pelo ID
-            $ubs = UBSModel::findOrFail($idUBS);
-
-            
-
-             // Busca o telefone relacionado à UBS
-             $telefone = TelefoneUBSModel::findOrFail($ubs->idTelefoneUBS);
-             
-             
-             // Retorna a view de edição com os dados da UBS
-            return view('adm.Ubs.editUBS', compact('ubs', 'telefone'));
-        }
-
+    // public function edit($idUBS)
+    // {
+    //     // Busca a UBS pelo ID
+    //     $ubs = UBSModel::findOrFail($idUBS);
+    
+    //     // Busca o telefone relacionado à UBS
+    //     $telefone = TelefoneUBSModel::findOrFail($ubs->idTelefoneUBS);
+    
+    //     // Busca a região relacionada à UBS
+    //     $regiao = RegiaoUBSModel::all();
         
-        public function update(Request $request, $id)
+    //     // Retorna a view de edição com os dados da UBS
+    //     return view('adm.Ubs.editUBS', compact('ubs', 'telefone', 'regiao'));
+    // }    
+
+    public function edit($idUBS)
+{
+    // Busca a UBS pelo ID
+    $ubs = UBSModel::findOrFail($idUBS);
+    
+    // Busca o telefone relacionado à UBS
+    $telefone = TelefoneUBSModel::findOrFail($ubs->idTelefoneUBS);
+    
+    // Busca a região específica relacionada à UBS
+    $regiao = RegiaoUBSModel::findOrFail($ubs->idRegiaoUBS);
+
+    // Busca todas as regiões para preencher o select na view
+    $regioes = RegiaoUBSModel::all();
+    
+    // Retorna a view de edição com os dados da UBS
+    return view('adm.Ubs.editUBS', compact('ubs', 'telefone', 'regiao', 'regioes'));
+}
+
+    
+    
+        
+public function update(Request $request, $id)
 {
     // Validação dos dados
     $validator = Validator::make($request->all(), [
@@ -178,6 +232,7 @@ class UBSController extends Controller
         'cepUBS' => 'required|string|max:10',
         'complementoUBS' => 'nullable|string|max:255',
         'telefone' => 'required|string|max:15',
+        'idRegiao' => 'required|exists:tbRegiaoUBS,idRegiaoUBS', // Adicionando a validação para o ID da região
     ]);
 
     if ($validator->fails()) {
@@ -194,6 +249,7 @@ class UBSController extends Controller
         'cidadeUBS' => $request->cidadeUBS,
         'numeroUBS' => $request->numeroUBS,
         'ufUBS' => $request->ufUBS,
+        'idRegiaoUBS' => $request->idRegiao, // Atualizando o ID da região
         'cepUBS' => $request->cepUBS,
         'complementoUBS' => $request->complementoUBS,
         'situacaoUBS' => $request->situacaoUBS ?? '1', // Define '1' se o campo não for enviado
