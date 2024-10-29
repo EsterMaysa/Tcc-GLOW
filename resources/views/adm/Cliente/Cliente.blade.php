@@ -1,41 +1,51 @@
-@include('includes.header') <!-- include -->
+@include('includes.header')
+<link rel="stylesheet" href="{{ url('css/Paciente.css')}}"> <!--CSS DESSA PÁGINA É SOMENTE ESSE-->
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo"> 
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1>Pacientes</h1>
+        <p>Você pode gerenciar medicamentos, detentores e consultar a tabela de medicamentos.</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/pacientes.png')}}" alt="Cadastro de Medicamentos" class="img-fluid" />
+    </div>
+</div>
+
+<div class="cadastros-container">
+    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Cadastrar</h3>
+    <div class="cadastros-list">
+        <div class="cadastro-item">
+            <p>Cadastrar Paciente</p> 
+            <a href="criarCliente" class="cadastrar-link">
+                <i class="fas fa-plus"></i> <!-- Ícone de adição -->
+                <span class="status-busca"> Cadastrar </span>
+            </a>
+        </div>
+    </div>
+</div>
 
 <!-- MAIN -->
 <main>
-    <div class="head-title">
-        <div class="left">
-            <h1>Paciente</h1>
-            <ul class="breadcrumb">
-                <li>
-                    <a href="/cliente">Home</a>
-                </li>
-                <li><i class='bx bx-chevron-right'></i></li>
-                <li>
-                    <a class="active" href="/cliente">Paciente</a>
-                </li>
-            </ul>
-        </div>
-        <!-- Botão de cadastro com novo design -->
-        <div>
-            <td>
-                <a href="criarCliente">
-                    <span class="status busca cadastro-btn">Cadastrar Paciente</span>
-                </a>
-            </td>
-        </div>
-    </div>
-
     <div class="table-data">
         <div class="order">
             <div class="head">
                 <h3>Campos</h3>
-
                 <!-- Formulário de Pesquisa -->
                 <form action="{{ route('cliente.filtros') }}" method="GET">
-                    <div class="input-group mb-3">
+                    <div class="search-container2">
                         <h5>Pesquisar paciente</h5>
-                        <input type="text" name="query" class="form-control" placeholder="Nome, CPF, CNS ou UF" aria-label="Pesquisar Pacientes" aria-describedby="button-search" value="{{ request('query') }}">
-                        <button class="btn btn-primary" type="submit" id="button-search">🔍</button>
+                        <input type="text" name="query" placeholder="Nome, CPF, CNS ou UF" aria-label="Pesquisar Pacientes" aria-describedby="button-search" value="{{ request('query') }}" class="search-input2">
+                        <button class="search-button2" type="submit" id="button-search"><i class="fas fa-search"></i></button>
                     </div>
                 </form>
             </div>
@@ -67,19 +77,21 @@
                                 <td>{{ $cliente->idTelefoneCliente }}</td>
                                 <td>{{ $cliente->cepCliente }}</td>
                                 <td>
-                                    <a href="{{ route('cliente.edit', $cliente->idCliente) }}" class="btn btn-primary btn-sm" title="Editar">
-                                        ✏️
-                                    </a>
-                                    <button onclick="openDetailsModal({{ json_encode($cliente) }})" class="btn btn-info btn-sm" title="Ver Mais">
-                                        👁️
-                                    </button>
-                                    <form action="{{ route('deletarCliente', $cliente->idCliente) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Deletar">
-                                            🗑️
-                                        </button>
-                                    </form>
+                                    <div class="action-icons">
+                                        <a href="{{ route('cliente.edit', $cliente->idCliente) }}" class="icon-action" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" onclick="openDetailsModal({{ json_encode($cliente) }})" class="icon-action" title="Ver Mais">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <form action="{{ route('deletarCliente', $cliente->idCliente) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="icon-action" title="Deletar">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -94,205 +106,109 @@
 
             <!-- Overlay para desfoque -->
             <div id="overlay" class="overlay" style="display: none;"></div>
-
-   <!-- Modal de Detalhes -->
-<div id="detailsModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeDetailsModal()">&times;</span>
-        <h2>Detalhes do Cliente</h2>
-        <div id="detailsContent">
-            <!-- <p><strong>ID:</strong> <span id="detailId"></span></p> -->
-            <p><strong>Nome:</strong> <span id="detailNome"></span></p>
-            <p><strong>CPF:</strong> <span id="detailCpf"></span></p>
-            <p><strong>CNS:</strong> <span id="detailCns"></span></p>
-            <p><strong>Data de Nascimento:</strong> <span id="detailDataNasc"></span></p>
-            <p><strong>Usuário:</strong> <span id="detailUsuario"></span></p>
-            <p><strong>Telefone:</strong> <span id="detailTelefone"></span></p>
-            <p><strong>CEP:</strong> <span id="detailCep"></span></p>
-			<p><strong>Logradouro:</strong> <span id="detailLogradouro"></span></p>
-			<p><strong>Bairro:</strong> <span id="detailBairro"></span></p>
-			<p><strong>Numero:</strong> <span id="detailnumero"></span></p>
-			<p><strong>Uf:</strong> <span id="detailUf"></span></p>
-			<p><strong>Cidade:</strong> <span id="detailCidade"></span></p>
         </div>
     </div>
-</div>
 
+    <!-- Modal de Filtros -->
+    <div id="filterModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Filtrar Clientes</h2>
+            <form method="GET" action="{{ route('cliente.filtros') }}">
+                <label for="nomeCliente">Nome:</label>
+                <input type="text" id="nomeCliente" name="nomeCliente">
 
+                <label for="cpfCliente">CPF:</label>
+                <input type="text" id="cpfCliente" name="cpfCliente">
+
+                <label for="cnsCliente">CNS:</label>
+                <input type="text" id="cnsCliente" name="cnsCliente">
+
+                <label for="cidadeCliente">Cidade:</label>
+                <input type="text" id="cidadeCliente" name="cidadeCliente">
+
+                <label for="ufCliente">UF:</label>
+                <select id="ufCliente" name="ufCliente">
+                    <!-- Opções de UF -->
+                    <!-- Add the states here -->
+                </select>
+
+                <button type="submit" class="btn btn-primary">Aplicar Filtro</button>
+                <a href="{{ route('cliente.index') }}" class="btn btn-secondary">Cancelar Filtro</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDetailsModal()">&times;</span>
+            <h2>Detalhes do Cliente</h2>
+            <div id="detailsContent">
+                <p><strong>Nome:</strong> <span id="detailNome"></span></p>
+                <p><strong>CPF:</strong> <span id="detailCpf"></span></p>
+                <p><strong>CNS:</strong> <span id="detailCns"></span></p>
+                <p><strong>Data de Nascimento:</strong> <span id="detailDataNasc"></span></p>
+                <p><strong>Usuário:</strong> <span id="detailUsuario"></span></p>
+                <p><strong>Telefone:</strong> <span id="detailTelefone"></span></p>
+                <p><strong>CEP:</strong> <span id="detailCep"></span></p>
+                <p><strong>Logradouro:</strong> <span id="detailLogradouro"></span></p>
+                <p><strong>Bairro:</strong> <span id="detailBairro"></span></p>
+                <p><strong>Número:</strong> <span id="detailNumero"></span></p>
+                <p><strong>UF:</strong> <span id="detailUf"></span></p>
+                <p><strong>Cidade:</strong> <span id="detailCidade"></span></p>
+            </div>
+        </div>
+    </div>
 </main>
 
-@include('includes.footer') <!-- include -->
-
-<!-- Estilos CSS para a tabela e barra de pesquisa -->
-<style>
-    /* Estilos gerais */
-    main {
-        padding: 20px;
-    }
-
-    .head-title {
-        margin-bottom: 40px;
-        text-align: center;
-    }
-
-    /* Estilo da barra de pesquisa */
-    .search-bar {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .search-bar input {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 300px;
-    }
-
-    .search-bar button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        font-size: 18px;
-    }
-
-    .search-bar button i {
-        color: #0056b3;
-    }
-
-    /* Estilo do botão de cadastro */
-    .cadastro-btn {
-        background-color: #14213D;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-weight: bold;
-        text-transform: uppercase;
-        cursor: pointer;
-        text-align: center;
-    }
-
-    .cadastro-btn:hover {
-        background-color: #0056b3;
-    }
-
-    /* Estilo da tabela */
-    .table {
-        width: 80%;
-        margin: 20px auto;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 10px;
-        border: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f1f1f1;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    /* Estilos do Modal */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 40%; /* Could be more or less, depending on screen size */
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: red; /* Muda a cor para vermelho ao passar o mouse */
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Efeito de desfoque */
-.blurred {
-    position: fixed; /* Fica fixo no fundo */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro */
-    filter: blur(4px); /* Aplica o efeito de desfoque */
-    z-index: 1; /* Fica abaixo do modal */
-}
-/* Estilo do Overlay */
-.overlay {
-    position: fixed; /* Fica fixo no fundo */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro com transparência */
-    z-index: 1; /* Fica abaixo do modal */
-    backdrop-filter: blur(5px); /* Aplica o desfoque ao fundo */
-    display: none; /* Escondido por padrão */
-}
-
-
-</style>
+@include('includes.footer')
 
 <script>
-    function openModal() {
-        document.getElementById("filterModal").style.display = "block";
-    }
+// Função para abrir o modal de filtros
+function openModal() {
+    var modal = document.getElementById("filterModal");
+    modal.style.display = "block";
+}
 
-    function closeModal() {
-        document.getElementById("filterModal").style.display = "none";
-    }
+// Função para fechar o modal de filtros
+function closeModal() {
+    var modal = document.getElementById("filterModal");
+    modal.style.display = "none";
+}
 
+// Função para abrir o modal de detalhes
+function openDetailsModal(cliente) {
+    var modal = document.getElementById("detailsModal");
     
-//Modal Cliente
-	function openDetailsModal(cliente) {
-    document.getElementById("detailId").innerText = cliente.idCliente;
-    document.getElementById("detailNome").innerText = cliente.nomeCliente;
-    document.getElementById("detailCpf").innerText = cliente.cpfCliente;
-    document.getElementById("detailCns").innerText = cliente.cnsCliente;
-    document.getElementById("detailDataNasc").innerText = cliente.dataNascCliente;
-    document.getElementById("detailUsuario").innerText = cliente.userCliente;
-    document.getElementById("detailTelefone").innerText = cliente.idTelefoneCliente;
-    document.getElementById("detailCep").innerText = cliente.cepCliente;
-	document.getElementById("detailLogradouro").innerText = cliente.logradouroCliente;
-	document.getElementById("detailBairro").innerText = cliente.bairroCliente;
-	document.getElementById("detailnumero").innerText = cliente.numeroCliente;
-	document.getElementById("detailUf").innerText = cliente.ufCliente;
-	document.getElementById("detailCidade").innerText = cliente.cidadeCliente;
-    // Preencha outros campos conforme necessário
-	
-    // Exibe o modal
-    document.getElementById("detailsModal").style.display = "block";
+    // Preenche os detalhes do cliente no modal
+    document.getElementById("detailNome").textContent = cliente.nomeCliente;
+    document.getElementById("detailCpf").textContent = cliente.cpfCliente;
+    document.getElementById("detailCns").textContent = cliente.cnsCliente;
+    document.getElementById("detailDataNasc").textContent = cliente.dataNascCliente;
+    document.getElementById("detailUsuario").textContent = cliente.userCliente;
+    document.getElementById("detailTelefone").textContent = cliente.idTelefoneCliente;
+    document.getElementById("detailCep").textContent = cliente.cepCliente;
+    document.getElementById("detailLogradouro").textContent = cliente.logradouroCliente;
+    document.getElementById("detailBairro").textContent = cliente.bairroCliente;
+    document.getElementById("detailNumero").textContent = cliente.numeroCliente;
+    document.getElementById("detailUf").textContent = cliente.ufCliente;
+    document.getElementById("detailCidade").textContent = cliente.cidadeCliente;
+
+    modal.style.display = "block";
 }
 
+// Função para fechar o modal de detalhes
 function closeDetailsModal() {
-    document.getElementById("detailsModal").style.display = "none";
-    document.getElementById("overlay").style.display = "none"; // Oculta o fundo desfocado
+    var modal = document.getElementById("detailsModal");
+    modal.style.display = "none";
 }
 
+// Fecha o modal se o usuário clicar fora dele
+window.onclick = function(event) {
+    var modal = document.getElementById("filterModal");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
 </script>

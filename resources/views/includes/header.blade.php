@@ -1,127 +1,50 @@
 
  <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
+	<!--Tags Obrigátórias!-->
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Boxicons  -->
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
 
-	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<!--Boxicons-->
+	<link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-	<!-- Nosso CSS -->
-	 <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
-	<link rel="stylesheet" href="{{ asset('/css/clienteConsulta.css') }}">
-	<link rel="stylesheet" href="{{ asset('/css/perfil.css') }}">
-	<link rel="stylesheet" href="{{ asset('/css/notificacoes.css') }}">
-	<link rel="stylesheet" href="{{ asset('/css/configuracoes.css') }}">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-	<title> Dashboard Administrador | FarmaSUS </title>
-	<link rel="shortcut icon" href="{{ asset('/Image/favicon (1).ico') }}" type="image/x-icon">
-
+	<!--CSS-->
+	<link rel="stylesheet" href="{{ url('css/header.css')}}">
+	
+	<!--Título e favicon da página-->
+	<title>Dashboard FarmaSUS</title>
+	<link rel="shortcut icon" href="{{ asset('Image/favicon.ico')}}" type="image/x-icon">
 </head>
-
 <body>
-	<section id="sidebar">
-		<a href="/" class="brand">
-			<span class="text1" style="margin-left: 50px;"><img src="{{ asset('/Image/logoAdm.png')}}" width="70%"></span>
-		</a>
-		<ul class="side-menu top">
-			<li class="active">
-				<a href="/">
-					<i class='bx bxs-dashboard'></i>
-					<span class="text"> Início </span>
-				</a>
-			</li>
 
-			<li>
-				<a href="/selectUBS">
-					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text"> Ubs </span>
-				</a>
-			</li>
-			<li>
-				<a href="/farmaciaForms">
-				<i class='bx bxs-plus-circle'></i>
-				<span class="text"> Cadastrar Farmacia </span>
-				</a>
-			</li>
-			
-			<li>
+	<div class="header">
+		<div class="side-nav">
+			<div class="user">
+				<img src="{{ asset('Image/adm.png')}}" alt="foto-perfil" class="user-img">
+				<div>
+					<h2> Gabrielly Vasconcelos </h2>
+					<p>Administrador(a)</p>
+				</div>
+			</div>
+			<ul>
+				<li><a href="/"><img src="{{ asset('Image/dashboard.png')}}"><p>Painel</p></a></li>
+				<li><a href="/medicamento"><img src="{{ asset('Image/reports.png')}}"><p>Medicamentos</p></a></li>
+				<li><a href="/medicamentoForm"><img src="{{ asset('Image/reports.png')}}"><p> Cadastro Medicamentos</p></a></li>
+				<li><a href="/detentor"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro Detentor</p></a></li>
+				<li><a href="/selectUBS"><img src="{{ asset('Image/rewards.png')}}"><p>Unidades Básicas de Saúde</p></a></li>
+				<li><a href="/selectRegiaoForm"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro de UBS</p></a></li>
+				<li><a href="/cliente"><img src="{{ asset('Image/projects.png')}}"><p>Pacientes</p></a></li>
+				<li><a href="/contato"><img src="{{ asset('Image/messages.png')}}"><p>Mensagens</p></a></li>	
+			</ul>
+			<ul>
+				<li><a href="/perfil"><img src="{{ asset('Image/members.png')}}"><p>Perfil</p></a></li>
+				<li><a href="/configuracoes"><img src="{{ asset('Image/setting.png')}}"><p> Configurações </p></a></li>
+				<li><a href="/logout"><img src="{{ asset('Image/logout.png')}}"><p>Sair</p></a></li>
+			</ul>
+		</div>
+	</div>
 
-				<a href="/selectRegiaoForm">
-					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Cadastrar UBS </span>
-				</a>
-			</li>
-
-			<li>
-				<a href="/medicamento">
-					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text"> Medicamento </span>
-				</a>
-			</li>
-			<li> 
-				<a href="/medicamentoForm">
-					<i class='bx bxs-plus-circle'></i>
-
-					<span class="text"> Cadastrar Medicamento </span>
-				</a>
-			</li>
-
-			<li>
-				<a href="/detentor">
-
-					<i class='bx bxs-plus-circle'></i>
-
-					<span class="text"> Cadastrar Detentor </span>
-				</a>
-			</li> 
-			<li>
-			
-				<a href="/Cliente">
-					<i class='bx bxs-plus-circle'></i>
-					<span class="text"> Paciente </span>
-				</a>
-			</li>
-
-			<li>
-				<a href="/contato">
-					<i class='bx bxs-message-dots'></i>
-					<span class="text"> Mensagens </span>
-				</a>
-			</li>
-
-		</ul>
-		<ul class="boto">
-			<li>
-				<a href="/configuracoes" class="boto2">
-					<i class='bx bxs-cog'></i>
-					<span class="text"> Configurações </span>
-				</a>
-			</li>
-			<li>
-				<a href="/perfil" class="boto2">
-					<i class='bx bxs-user'></i>
-					<span class="text"> Perfil </span>
-				</a>
-			</li>
-			<li>
-				<form action="/logout" method="POST" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja sair?');">
-					@csrf 
-					<button type="submit" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i>
-					<span class="text"> Sair </span></button
-				</form>
-				
-			</li>
-		</ul>
-		</form>
-	</section>
-
-	<section id="content">
-		
