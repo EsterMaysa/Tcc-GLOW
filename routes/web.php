@@ -255,57 +255,6 @@ Route::get('/cadastroAdm', function () {
 
 
 
-
-
-
-
-
-
-
-/* Páginas ADM */
-
-// Route::get('/perfil', function () {
-//     return view('adm.Perfil.perfil');
-// })->name('perfil');
-
-
-// Route::get('/editarPerfil', function () {
-//     return view('adm.Perfil.editarPerfil');
-// });
-
-// Route::get('/configuracoesNotificacoes', function () {
-//     return view('adm.configuracoesNotificacoes');
-// });
-// Route::get('/notificacoes', function () {
-//     return view('adm.Notificacao.notificacoes');
-// });
-
-//PAGINAS MEDICAMENTO_UBS_CLIENTE
-
-// Route::get('/ubs', function () {
-//     return view('adm.UBS.UBS');
-// });
-
-
-// Route::get('/cliente', function () {
-//     return view('adm.cliente.Cliente');
-// });
-
-// Route::get('/contato', function () {
-//     return view('adm.contato');
-// });
-
-//SELECT
-// Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
-
-
-
-// Route::get('/perfil', 'App\Http\Controllers\AdministradorController@perfil')->name('perfil');
-
-
-
-
-
 // TODAS DO LADO FARMACIA 
 
 /* Páginas  farmacia*/
@@ -353,9 +302,15 @@ Route::get('/MedicamentoHome', function () {
     return view('farmacia.Medicamento.medicamentoFarmacia');
 });
 
+
+//entrada de medicamento
+Route::get('/MedicamentoHome', function () {
+    return view('farmacia.Medicamento.medicamentoFarmacia');
+});
+
 //motivo Entrada
-Route::get('/motivEntrada', function () {
-    return view('farmacia.Medicamento.motivEntrada');
+Route::get('/EntradaMed', function () {
+    return view('farmacia.Medicamento.MedicamentoEntrada');
 });
 Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
 
