@@ -22,15 +22,40 @@ class MedicamentoController extends Controller
 
     public function medicamentos()
     {
+        $detentores = DetentorModel::all();
+        $tiposMedicamento = TipoMedicamentoModel::all();
+
         $medicamento = MedicamentoModel::with(['detentor', 'tipoMedicamento'])
             ->orderBy('dataCadastroMedicamento', 'desc')
-            ->take(10)
             ->get();
 
-        return view('adm.Medicamento.Medicamento', compact('medicamento'));
+        return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento'));
     }
 
+    public function search(Request $request)
+    {
 
+        $detentores = DetentorModel::all();
+        $tiposMedicamento = TipoMedicamentoModel::all();
+
+        $query = $request->input('query');
+    
+        // Buscando medicamentos com base na query
+        $medicamento = MedicamentoModel::with(['detentor', 'tipoMedicamento'])
+            ->where('nomeMedicamento', 'like', "%{$query}%")
+            ->orWhere('nomeGenericoMedicamento', 'like', "%{$query}%")
+            ->orWhere('codigoDeBarrasMedicamento', 'like', "%{$query}%")
+            ->orWhereHas('detentor', function($q) use ($query) {
+                $q->where('nomeDetentor', 'like', "%{$query}%");
+            })
+            ->orderBy('dataCadastroMedicamento', 'desc')
+            ->get();
+    
+        // Retornar a view com os medicamentos filtrados
+        return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento'));
+    }
+    
+    
     public function store(Request $request)
     {
 
@@ -177,4 +202,47 @@ class MedicamentoController extends Controller
 
         return redirect('/medicamento')->with('success', 'Medicamento desativado com sucesso.');
     }
+
+    public function filtrar(Request $request)
+    {
+        // Inicia a consulta base para a tabela Medicamento
+        $query = MedicamentoModel::query();
+    
+        // Filtro para Registro ANVISA
+        if ($request->filled('registroAnvisa')) {
+            $query->whereIn('registroAnvisaMedicamento', $request->registroAnvisa);
+        }
+    
+        // Filtro para Forma Farmacêutica
+        if ($request->filled('formaFarmaceutica')) {
+            $query->whereIn('formaFarmaceuticaMedicamento', $request->formaFarmaceutica);
+        }
+    
+        // Filtro para Situação
+        if ($request->filled('situacao')) {
+            $query->whereIn('situacaoMedicamento', $request->situacao);
+        }
+    
+        // Filtro para Detentor (caso seja uma seleção única)
+        if ($request->filled('detentor')) {
+            $query->where('idDetentor', $request->detentor);
+        }
+    
+        // Filtro para Tipo de Medicamento (caso seja uma seleção única)
+        if ($request->filled('tipoMedicamento')) {
+            $query->where('idTipoMedicamento', $request->tipoMedicamento);
+        }
+    
+        // Filtro para Data de Cadastro
+        if ($request->filled('dataCadastro')) {
+            $query->whereDate('created_at', $request->dataCadastro);
+        }
+    
+        // Executa a consulta com os filtros aplicados
+        $resultados = $query->get();
+    
+        // Retorna os resultados em JSON
+        return response()->json($resultados);
+    }
+    
 }

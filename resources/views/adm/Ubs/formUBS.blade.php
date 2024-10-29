@@ -131,7 +131,7 @@
             if (checkCNPJ()) {
                 document.getElementById('ubsForm').submit();
             }
-        }
+        }   
     </script>
 
     <style>

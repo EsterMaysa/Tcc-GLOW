@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DetentorModel;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 
 class DetentorController extends Controller
 {
@@ -30,20 +32,49 @@ class DetentorController extends Controller
         $detentor->complementoDetentor = $request->complemento;
         $detentor->situacaoDetentor = "A";
         $detentor->dataCadastroDetentor = now();
-    
+
         $detentor->save();
-    
-        
+
+
         // Redirecionar com os dados antigos do formulário e o novo detentor selecionado
         return redirect(session('previous_url', '/medicamentoForm'))
-        ->with('novoDetentor', $detentor->idDetentor)
-        ->withInput(); 
+            ->with('novoDetentor', $detentor->idDetentor)
+            ->withInput();
     }
-    
+
 
     public function store(Request $request)
     {
+
+        // Limpa o CEP e realiza a requisição na API ViaCEP
+        $cep = preg_replace('/\D/', '', $request->cep); // Remove caracteres não numéricos
+
+        $viacepResponse = Http::get("https://viacep.com.br/ws/{$cep}/json/");
+
+        // Se a requisição falhar, retorna erro ao usuário
+        if ($viacepResponse->failed()) {
+            return response()->json(['message' => 'CEP inválido ou ViaCEP indisponível.'], 400);
+        }
+
+        $endereco = $viacepResponse->json();
+
+        // Preenche os dados de endereço caso o CEP seja encontrado
+        $logradouro = $endereco['logradouro'] ?? '';
+        $bairro = $endereco['bairro'] ?? '';
+        $cidade = $endereco['localidade'] ?? '';
+        $uf = $endereco['uf'] ?? '';
+
+        // Completa o request com os dados do endereço
+        $request->merge([
+            'logradouro' => $logradouro,
+            'bairro' => $bairro,
+            'cidade' => $cidade,
+            'estado' => $uf,
+        ]);
+
+        // Salva o detentor no banco de dados
         $detentor = new DetentorModel();
+
         $detentor->nomeDetentor = $request->nome;
         $detentor->cnpjDetentor = $request->cnpj;
         $detentor->emailDetentor = $request->email;
@@ -52,16 +83,18 @@ class DetentorController extends Controller
         $detentor->estadoDetentor = $request->estado;
         $detentor->cidadeDetentor = $request->cidade;
         $detentor->numeroDetentor = $request->numero;
-        $detentor->ufDetentor = $request->uf;
+        $detentor->ufDetentor = $request->estado;
         $detentor->cepDetentor = $request->cep;
         $detentor->complementoDetentor = $request->complemento;
         $detentor->situacaoDetentor = "A";
         $detentor->dataCadastroDetentor = now();
 
         $detentor->save();
-        
+
         return redirect('/detentor');
     }
+
+
 
 
     public function edit($idDetentor)
@@ -69,13 +102,13 @@ class DetentorController extends Controller
         $detentor = DetentorModel::findOrFail($idDetentor);
         return view('adm.Medicamento.editDetentor', compact('detentor'));
     }
-    
+
     public function update(Request $request, $id)
     {
-    
+
         // Encontra o detentor que será atualizado
         $detentor = DetentorModel::findOrFail($id);
-    
+
         // Atualiza os dados do detentor
         $detentor->nomeDetentor = $request->nome;
         $detentor->cnpjDetentor = $request->cnpj;
@@ -92,20 +125,20 @@ class DetentorController extends Controller
 
         // Salva as alterações
         $detentor->save();
-    
+
         // Redireciona o usuário com uma mensagem de sucesso
         return redirect('/detentor')->with('success', 'Detentor atualizado com sucesso!');
     }
     public function desativar($id)
     {
         $detentor = DetentorModel::findOrFail($id);
-        $detentor->situacaoDetentor = "D"; 
+        $detentor->situacaoDetentor = "D";
         $detentor->save();
 
         return redirect()->back()->with('success', 'Detentor desativado com sucesso!');
     }
 
-    
+
 
     public function updateapi(Request $request, $id)
     {

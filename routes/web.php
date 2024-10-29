@@ -148,6 +148,8 @@ Route::get('/cliente/filtros', [ClienteAdmController::class, 'filtros'])->name('
 Route::get('/cliente', [ClienteAdmController::class, 'index'])->name('cliente.index');
 
 
+
+
 //ROTAS DO MEDICAMENTO
 Route::get('/medicamento', [MedicamentoController::class, 'medicamentos']); //para aparecer a tabela de med
 Route::get('/medicamentoForm', [MedicamentoController::class, 'index'])->name('medicamentoForm'); //para aparecer o tipo med e o detentor no cadastro
@@ -156,6 +158,9 @@ Route::post('/cadastroMed', [MedicamentoController::class, 'store']); //cadastro
 Route::get('/medicamento/edit/{idMedicamento}', [MedicamentoController::class, 'edit'])->name('medicamento.edit');
 Route::put('/medicamento/{idMedicamento}', [MedicamentoController::class, 'update'])->name('medicamento.update');
 Route::put('/medicamentos/desativar/{id}', [MedicamentoController::class, 'desativar'])->name('medicamento.desativar');
+
+Route::post('/filtro-medicamentos', [MedicamentoController::class, 'filtrar']);
+Route::get('/medicamentos/search', [MedicamentoController::class, 'search'])->name('medicamentos.search');
 
 
 //TIPO MEDICAMENTO 
