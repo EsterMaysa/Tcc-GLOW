@@ -4,7 +4,6 @@ use App\Http\Controllers\ClienteAdmController;
 use App\Http\Controllers\TelefoneClienteAdmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteFarmaciaController; // Certifique-se de importar o ClienteController
-use App\Http\Controllers\MedicamentoController;
 use App\Http\Controllers\MedicamentoFarmaciaController;
 use App\Http\Controllers\TelefoneClienteController;
 use App\Http\Controllers\tipoMedicamentoController;
@@ -13,12 +12,15 @@ use App\Http\Controllers\FarmaciaUBSController;
 
 
 //novos controllers
+use App\Http\Controllers\MedicamentoController;
+
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DetentorController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\MedicamentoFarmaciaUBSController;
 
 use Illuminate\Http\Request;
 
@@ -230,26 +232,14 @@ Route::post('/cadastroAdm','App\Http\Controllers\AdministradorController@store')
 //Perfil ARRUMAR
 Route::get('/perfil', [AdministradorController::class, 'showProfile'])->middleware('auth');
 
+
+//views login e cadastro
 Route::get('/login', function () {
     return view('adm.login');
 });
 Route::get('/cadastroAdm', function () {
     return view('adm.cadastroAdm');
 });
-
-// Route::get('/login', function () {
-//     return view('adm.login');
-// })->name('login');
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -296,17 +286,37 @@ Route::get('/SaidaMed', function () {
     return view('farmacia.Estoque.medicamentoSaida');
 });
 
+
 //MEDICAMENTO FARMACIA
 
-Route::get('/MedicamentoHome', function () {
-    return view('farmacia.Medicamento.medicamentoFarmacia');
+Route::get('/MedicamentoHome', [MedicamentoFarmaciaUBSController::class, 'index']);
+
+Route::get('/FormsMed', function () {
+    return view('farmacia.Medicamento.cadMedicamento');
 });
+
+Route::get('/editMedFarmacia', function () {
+    return view('farmacia.Medicamento.atualizarMedicamento');
+});
+
+Route::post('/CadMedFarma', [MedicamentoFarmaciaUBSController::class, 'store']);
+Route::get('/medicamentosFarma/{id}/edit', [MedicamentoFarmaciaUBSController::class, 'edit'])->name('medicamentosFarma.edit');
+
+Route::put('/medicamentosFarma/{id}', [MedicamentoFarmaciaUBSController::class, 'update'])->name('medicamentosFarma.update');
+
+Route::patch('/medicamentosFarmaDel/{id}', [MedicamentoFarmaciaUBSController::class, 'destroy'])->name('medicamentosFarma.desativar');
+
+//busca pelo codBa
+Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMedicamentoPorCodigo'])->name('CodMed');
+
+
+
 
 
 //entrada de medicamento
-Route::get('/MedicamentoHome', function () {
-    return view('farmacia.Medicamento.medicamentoFarmacia');
-});
+// Route::get('/MedicamentoHome', function () {
+//     return view('farmacia.Medicamento.medicamentoFarmacia');
+// });
 
 //motivo Entrada
 Route::get('/EntradaMed', function () {

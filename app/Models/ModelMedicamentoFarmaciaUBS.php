@@ -13,6 +13,7 @@ class ModelMedicamentoFarmaciaUBS extends Model
     protected $table = 'tbMedicamentoFarmaciaUBS';
     protected $primaryKey = 'idMedicamento';
     protected $connection = 'mysql2';
+    public $timestamps = false;
 
     protected $fillable = [
         'nomeMedicamento',
@@ -27,18 +28,18 @@ class ModelMedicamentoFarmaciaUBS extends Model
         'dataCadastroMedicamento'
     ];
 
-    public function prescricoes()
-    {
-        return $this->hasMany(ModelPrescricao::class, 'idMedicamento');
-    }
+    // public function prescricoes()
+    // {
+    //     return $this->hasMany(ModelPrescricao::class, 'idMedicamento');
+    // }
 
-    public function entradas()
-    {
-        return $this->hasMany(ModelEntradaMedicamento::class, 'idMedicamento');
-    }
+    // public function entradas()
+    // {
+    //     return $this->hasMany(ModelEntradaMedicamento::class, 'idMedicamento');
+    // }
 
-    public function estoques()
-    {
-        return $this->hasMany(ModelEstoqueFarmaciaUBS::class, 'idMedicamento');
-    }
+    // public function estoques()
+    // {
+    //     return $this->hasMany(ModelEstoqueFarmaciaUBS::class, 'idMedicamento');
+    // }
 }
