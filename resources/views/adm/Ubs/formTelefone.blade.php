@@ -1,26 +1,44 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Telefone</title>
-</head>
-<body>
-    <h1>Adicionar um Novo Telefone</h1>
-    
-    <form action="{{ route('insertTelefone') }}" method="POST">
+<!--CSS incluido aqui (ASS:Duda)-->
+
+@include('includes.header') 
+<link rel="stylesheet" href="{{ url('css/Formularios.css')}}">
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo"> 
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1>Cadastrar Telefone</h1>
+        <p>Cadastre um telefone novo.</p>
+    </div>
+</div>
+
+<main>
+    <form action="{{ route('insertTelefone') }}" method="POST" class="formulario">
         @csrf <!-- Proteção contra CSRF vini -->
-        
-        <label for="numero">Número do Telefone:</label>
-        <input type="text" name="telefone" id="telefone"><br><br>
-        
-        
-        
-        <label for="situacao">Situação:</label>
-        <input type="text" name="situacao" id="situacao"><br><br>
-        <br><br>
-        
-        <button type="submit">Cadastrar Telefone</button>
+        <div class="input-container">
+            <label for="regiao">
+                <i class="fas fa-map-marker-alt icon"></i>
+                Número de Telefone:
+            </label>
+            <input type="text" name="telefone" id="telefone" placeholder="Digite o número" style="background-color: #F7F7F7;">
+        </div>
+        <div class="input-container">
+            <label for="situacao">
+                <i class="fas fa-info-circle icon"></i> 
+                Situação :
+            </label>
+            <input type="text" name="situacao" id="situacao" placeholder="Digite a situação" style="background-color: #F7F7F7;">
+        </div>
+        <button type="submit" class="botaozinho">Cadastrar Telefone</button>
     </form>
-</body>
-</html>
+</main>
+
+
