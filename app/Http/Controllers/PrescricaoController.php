@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelPrescricao;
+use App\Models\ModelMedicamentoFarmaciaUBS;
+
 use Illuminate\Http\Request;
 
 class PrescricaoController extends Controller
 {
     public function index()
     {
-        $prescricoes = ModelPrescricao::all();
-        return response()->json($prescricoes);
+        $prescricoes = ModelPrescricao::with('medicamento')->get();
+        $medicamento = ModelMedicamentoFarmaciaUBS::all();
+        return view('farmacia.Medicamento.cadPrescrição', compact('medicamento','prescricoes'));
     }
 
     public function store(Request $request)
@@ -21,11 +24,11 @@ class PrescricaoController extends Controller
         $prescricao->dosagemPrescricao = $request->dosagemPrescricao;
         $prescricao->duracaoRemedio = $request->duracaoRemedio;
         $prescricao->idMedicamento = $request->idMedicamento;
-        $prescricao->situacaoPrescricao = $request->situacaoPrescricao;
+        $prescricao->situacaoPrescricao = "A";
         $prescricao->dataCadastroPrescricao = now();
         $prescricao->save();
 
-        return response()->json(['message' => 'Prescrição cadastrada com sucesso!'], 201);
+        return redirect('/prescricao');
     }
 
     public function show($id)

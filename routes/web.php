@@ -21,6 +21,8 @@ use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DetentorController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\MedicamentoFarmaciaUBSController;
+use App\Http\Controllers\PrescricaoController;
+
 
 use Illuminate\Http\Request;
 
@@ -310,13 +312,10 @@ Route::patch('/medicamentosFarmaDel/{id}', [MedicamentoFarmaciaUBSController::cl
 Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMedicamentoPorCodigo'])->name('CodMed');
 
 
+//Prescrição
+Route::get('/prescricao', [PrescricaoController::class, 'index']);
+Route::post('/Cadprescricao', [PrescricaoController::class, 'store']);
 
-
-
-//entrada de medicamento
-// Route::get('/MedicamentoHome', function () {
-//     return view('farmacia.Medicamento.medicamentoFarmacia');
-// });
 
 //motivo Entrada
 Route::get('/EntradaMed', function () {

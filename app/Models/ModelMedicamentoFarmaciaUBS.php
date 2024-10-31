@@ -28,10 +28,10 @@ class ModelMedicamentoFarmaciaUBS extends Model
         'dataCadastroMedicamento'
     ];
 
-    // public function prescricoes()
-    // {
-    //     return $this->hasMany(ModelPrescricao::class, 'idMedicamento');
-    // }
+    public function prescricoes()
+    {
+        return $this->hasMany(ModelPrescricao::class, 'idMedicamento');
+    }
 
     // public function entradas()
     // {
