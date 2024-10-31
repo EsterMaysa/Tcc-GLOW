@@ -43,7 +43,15 @@
 			<ul>
 				<li><a href="/perfil"><img src="{{ asset('Image/members.png')}}"><p>Perfil</p></a></li>
 				<li><a href="/configuracoes"><img src="{{ asset('Image/setting.png')}}"><p> Configurações </p></a></li>
-				<li><a href="/logout"><img src="{{ asset('Image/logout.png')}}"><p>Sair</p></a></li>
+				<li>
+					<a href="#" onclick="event.preventDefault(); if(confirm('Tem certeza que deseja sair?')) document.getElementById('logout-form').submit();">
+						<img src="{{ asset('Image/logout.png') }}">
+						<p>Sair</p>
+					</a>
+				</li>
+				<form id="logout-form" action="/logout" method="POST" style="display: none;">
+					@csrf
+				</form>
 			</ul>
 		</div>
 	</div>

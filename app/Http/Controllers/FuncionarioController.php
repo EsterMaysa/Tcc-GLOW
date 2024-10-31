@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ModelFuncionario;
+use App\Models\ModelFuncionarioFarmaciaUBS;
 use Illuminate\Http\Request;
 
 class FuncionarioFarmaciaUBSController extends Controller
 {
     public function index()
     {
-        $funcionarios = ModelFuncionario::all();
+        $funcionarios = ModelFuncionarioFarmaciaUBS::all();
         return response()->json($funcionarios);
     }
 
     public function store(Request $request)
     {
-        $funcionario = new ModelFuncionario();
+        $funcionario = new ModelFuncionarioFarmaciaUBS();
         $funcionario->nomeFuncionario = $request->nomeFuncionario;
         $funcionario->cpfFuncionario = $request->cpfFuncionario;
         $funcionario->cargoFuncionario = $request->cargoFuncionario;
@@ -28,7 +28,7 @@ class FuncionarioFarmaciaUBSController extends Controller
 
     public function show($id)
     {
-        $funcionario = ModelFuncionario::find($id);
+        $funcionario = ModelFuncionarioFarmaciaUBS::find($id);
         if (!$funcionario) {
             return response()->json(['message' => 'Funcionário não encontrado'], 404);
         }
@@ -37,7 +37,7 @@ class FuncionarioFarmaciaUBSController extends Controller
 
     public function update(Request $request, $id)
     {
-        $funcionario = ModelFuncionario::find($id);
+        $funcionario = ModelFuncionarioFarmaciaUBS::find($id);
         if (!$funcionario) {
             return response()->json(['message' => 'Funcionário não encontrado'], 404);
         }
@@ -48,7 +48,7 @@ class FuncionarioFarmaciaUBSController extends Controller
 
     public function destroy($id)
     {
-        $funcionario = ModelFuncionario::find($id);
+        $funcionario = ModelFuncionarioFarmaciaUBS::find($id);
         if (!$funcionario) {
             return response()->json(['message' => 'Funcionário não encontrado'], 404);
         }

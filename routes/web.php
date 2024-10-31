@@ -19,7 +19,9 @@ use App\Http\Controllers\RegiaoUBSController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DetentorController;
 use App\Http\Controllers\AdministradorController;
-
+use App\Http\Controllers\EntradaMedicamentoController;
+use App\Http\Controllers\MotivoEntradaController;
+use App\Models\ModelMotivoEntrada;
 use Illuminate\Http\Request;
 
 
@@ -349,15 +351,34 @@ Route::get('/SaidaMed', function () {
 
 //MEDICAMENTO FARMACIA
 
-Route::get('/MedicamentoHome', function () {
-    return view('farmacia.Medicamento.medicamentoFarmacia');
-});
+Route::get('/MedicamentoHome', [EntradaMedicamentoController::class, 'index'])->name('medicamentos.index');
+//rota botao novo medicamento
+Route::get('/entradamedinsert', [EntradaMedicamentoController::class, 'create'])->name('entradaMedInsert');
+
+// Rota para armazenar a nova entrada de medicamento
+Route::post('/entrada-medicamento/store', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
+//busca o funcionario pelo nome
+Route::get('/funcionario/buscar', [EntradaMedicamentoController::class, 'buscarFuncionario'])->name('buscarFuncionario');
+//cria o motivo automatico
+Route::post('/motivoEntrada/buscarOuCriar', [MotivoEntradaController::class, 'buscarOuCriarMotivo'])->name('motivoEntrada.buscarOuCriar');
+
+
 
 //motivo Entrada
 Route::get('/motivEntrada', function () {
     return view('farmacia.Medicamento.motivEntrada');
 });
-Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
+//Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
+
+// // Página principal com o formulário de cadastro e lista de motivos
+// Route::get('/motivEntrada', [MotivoEntradaController::class, 'index'])->name('motivEntrada.index');
+
+
+Route::get('/motivEntrada', [MotivoEntradaController::class, 'index'])->name('motivEntrada.index');
+Route::post('/motivEntrada', [MotivoEntradaController::class, 'store'])->name('motivEntrada.store');
+Route::get('/motivEntradaEdit/{id}', [MotivoEntradaController::class, 'edit'])->name('motivEntrada.edit');
+Route::put('/motivEntrada/{id}', [MotivoEntradaController::class, 'update'])->name('motivEntrada.update');
+Route::delete('/motivEntrada/{id}', [MotivoEntradaController::class, 'destroy'])->name('motivEntrada.destroy');
 
 
 
