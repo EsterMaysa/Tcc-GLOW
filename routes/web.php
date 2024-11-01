@@ -22,8 +22,17 @@ use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\MedicamentoFarmaciaUBSController;
 use App\Http\Controllers\PrescricaoController;
 
-
+use App\Http\Controllers\EntradaMedicamentoController;
+use App\Http\Controllers\MotivoEntradaController;
+use App\Models\ModelMotivoEntrada;
 use Illuminate\Http\Request;
+
+
+
+//controllers farmacia
+
+use App\Http\Controllers\SaidaMedicamentoController;
+use App\Http\Controllers\MotivoSaidaController;
 
 
 //NOVAS 
@@ -290,10 +299,8 @@ Route::get('/SaidaMed', function () {
 
 //MEDICAMENTO FARMACIA
 
-Route::get('/MedicamentoHome', [MedicamentoFarmaciaUBSController::class, 'index']);
-
-Route::get('/FormsMed', function () {
-    return view('farmacia.Medicamento.cadMedicamento');
+Route::get('/MedicamentoHome', function () {
+    return view('farmacia.Medicamento.medicamentoFarmacia');
 });
 
 Route::get('/editMedFarmacia', function () {
@@ -322,7 +329,24 @@ Route::patch('/PrescricaoDel/{id}', [PrescricaoController::class, 'destroy'])->n
 Route::get('/EntradaMed', function () {
     return view('farmacia.Medicamento.MedicamentoEntrada');
 });
-Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
+//Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
+
+// // Página principal com o formulário de cadastro e lista de motivos
+// Route::get('/motivEntrada', [MotivoEntradaController::class, 'index'])->name('motivEntrada.index');
+
+
+Route::get('/motivEntrada', [MotivoEntradaController::class, 'index'])->name('motivEntrada.index');
+Route::post('/motivEntrada', [MotivoEntradaController::class, 'store'])->name('motivEntrada.store');
+Route::get('/motivEntradaEdit/{id}', [MotivoEntradaController::class, 'edit'])->name('motivEntrada.edit');
+Route::put('/motivEntrada/{id}', [MotivoEntradaController::class, 'update'])->name('motivEntrada.update');
+Route::delete('/motivEntrada/{id}', [MotivoEntradaController::class, 'destroy'])->name('motivEntrada.destroy');
+
+//saidamed
+
+// Exibe o formulário
+
+Route::get('/saida-medicamento/create', [SaidaMedicamentoController::class, 'create'])->name('saidaMedicamento.create');
+Route::post('/saida-medicamento', [SaidaMedicamentoController::class, 'store'])->name('saidaMedicamento.store');
 
 
 

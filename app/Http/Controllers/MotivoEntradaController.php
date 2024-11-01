@@ -10,10 +10,11 @@ class MotivoEntradaController extends Controller
 {
     // Exibir todos os motivos de entrada
     public function index()
-    {
-        $motivos = ModelMotivoEntrada::all();
-        return response()->json($motivos);
-    }
+{
+    $motivos = ModelMotivoEntrada::all();
+    return view('farmacia.Medicamento.motivEntrada', compact('motivos')); // Substitua 'nomeDaSuaView' pelo nome correto da sua view
+}
+
 
     // Criar um novo motivo de entrada
     public function store(Request $request)
@@ -57,7 +58,16 @@ class MotivoEntradaController extends Controller
         $motivo->update($request->all());
         return response()->json($motivo);
     }
-
+    public function edit($id)
+    {
+        $motivo = ModelMotivoEntrada::find($id);
+        
+        
+    if (!$motivo) {
+            return redirect()->back()->with('error', 'Motivo de entrada não encontrado.');
+        }
+        return view('motivEntradaEdit', compact('motivo'));
+    }
     // Deletar um motivo de entrada
     public function destroy($id)
     {
