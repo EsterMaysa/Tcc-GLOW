@@ -16,16 +16,17 @@
             <input type="text" class="form-control" id="nomeMedicamento" name="nomeMedicamento" value="{{ old('nomeMedicamento') }}" required>
         </div>
 
-        <!-- Nome Genérico do Medicamento -->
-        <div class="form-group">
-            <label for="nomeGenericoMedicamento">Nome Genérico do Medicamento</label>
-            <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenericoMedicamento" value="{{ old('nomeGenericoMedicamento') }}" required>
-        </div>
-        <!-- Validade do Medicamento -->
-        <div class="form-group">
-            <label for="validadeMedicamento">Data de Validade</label>
-            <input type="date" class="form-control" id="validadeMedicamento" name="validadeMedicamento" required>
-        </div>
+    <!-- Nome Genérico do Medicamento -->
+    <div class="form-group">
+        <label for="nomeGenericoMedicamento">Nome Genérico do Medicamento</label>
+        <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenericoMedicamento" required>
+    </div>
+
+    <!-- Validade do Medicamento -->
+    <div class="form-group">
+        <label for="validadeMedicamento">Data de Validade</label>
+        <input type="date" class="form-control" id="validadeMedicamento" name="validadeMedicamento" required>
+    </div>
 
         <!-- Lote do Medicamento -->
         <div class="form-group">
