@@ -1,5 +1,6 @@
 @include('includes.header') 
 <link rel="stylesheet" href="{{ url('css/UBS.css')}}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
 <nav class="navbar">
@@ -18,63 +19,44 @@
         <p>Você pode gerenciar UBS por aqui.</p>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/pacientes.png')}}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/AdmTrabalhandoSemFundo.png')}}" alt="Cadastro de Medicamentos" class="img-fluid" />
     </div>
 </div>
-
 
 <div class="tabela">
     <div class="btn-container">
         <div class="btn-card">
-            <p>Posto</p>
-            <a href="/selectRegiaoForm">
-                <button class="btn-acao"><i class="fas fa-plus"></i> Criar</button>
-            </a>
+            <p><i class="fas fa-hospital"></i> Posto</p>
+            <a href="/selectRegiaoForm" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
         <div class="btn-card">
-            <p>Região</p>
-            <a href="/formRegiao">
-                <button class="btn-acao"><i class="fas fa-plus"></i> Criar</button>
-            </a>
+            <p><i class="fas fa-map-marker-alt"></i> Região</p>
+            <a href="/formRegiao" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
         <div class="btn-card">
-            <p>Farmacia</p>
-            <a href="/Farmacia">
-                <button class="btn-acao"><i class="fas fa-plus"></i> Criar</button>
-            </a>
+            <p><i class="fas fa-pharmacy"></i> Farmacia</p>
+            <a href="/Farmacia" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
         <div class="btn-card">
-            <p>Telefone</p>
-            <a href="formTelefone">
-                <button class="btn-acao"><i class="fas fa-plus"></i> Criar</button>
-            </a>
+            <p><i class="fas fa-phone"></i> Telefone</p>
+            <a href="/formTelefone" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
     </div>
 </div>
 
-
-
-
-
-
-
-
-<!-- MAIN -->
 <main>
     <div class="table-data">
         <div class="order">
-
             <div class="head">
-                <h3>Lista de Unidades Básicas de Saúde (UBS)</h3>
-                <i class='bx bx-search'></i>
-                <i class='bx bx-filter'></i>
+                <h3>Unidades Básicas de Saúde (UBS)</h3>
+                <div class="icon-container">
+                    <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
+                </div>
             </div>
             <!-- Campo de pesquisa -->
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Pesquisar por nome ou CNPJ da UBS...">
-
             </div>
-
 
             <table class="ubs-table">
                 <thead>
@@ -93,14 +75,12 @@
                 @foreach ($ubs as $unidade)
 
                 <tbody id="ubsTableBody">
-                    <tr class="ubs-row" data-situacao="{{ $unidade->situacaoUBS }}" style="{{ $unidade->situacaoUBS == 0 ? 'display:none;' : '' }}">
+                    <tr class="ubs-row" data-situacao="{{ $unidade->situacaoUBS }}" ,style="{{ $unidade->situacaoUBS == 0 ? 'display:none;' : '' }}">
                         <td>{{ $unidade->nomeUBS }}</td>
                         <td>{{ $unidade->emailUBS }}</td>
                         <td>{{ $unidade->cnpjUBS }}</td>
                         <td>{{ $unidade->situacaoUBS }}</td>
                         <td>{{ $unidade->dataCadastroUBS }}</td>
-
-
                         <td>
                             <a href="{{ route('ubs.edit', $unidade->idUBS) }}" class="edit-icon">
                                 <i class="fas fa-pencil-alt"></i>
@@ -121,8 +101,6 @@
                                 Ver mais
                             </button>
                         </td>
-
-
                     </tr>
                     <!-- Modal do ver mais -->
                     <div class="modal fade" id="modalDetalhes{{ $unidade->idUBS }}" tabindex="-1" aria-labelledby="modalUBSLabel" aria-hidden="true">
@@ -133,9 +111,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-
                                     <img src="{{ asset('storage/' . $unidade->fotoUBS) }}" alt="Foto UBS" style="max-width: 100%;margin-bottom: 5%;">
-
                                     <p><strong>Situação UBS:</strong> {{ $unidade->situacaoUBS }}</p>
                                     <p><strong>Nome UBS:</strong> {{ $unidade->nomeUBS }}</p>
                                     <p><strong>E-mail:</strong> {{ $unidade->emailUBS }}</p>
@@ -149,8 +125,6 @@
                                     <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($unidade->dataCadastroUBS)->format('d/m/Y') }}</p>
                                     <p><strong>Telefone:</strong> {{ $unidade->telefone->numeroTelefoneUBS ?? 'N/A' }}</p>
                                     <p><strong>Telefone 2:</strong> {{ $unidade->telefone->numeroTelefoneUBS2 ?? 'Não Cadastrdo' }}</p>
-
-
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -195,57 +169,53 @@
             </div>
         </div>
     </div>
-
-    <script>
-    // Função para filtrar a tabela pela barra de pesquisa
-    function filterTable() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const rows = document.querySelectorAll('#ubsTableBody tr');
-        
-        rows.forEach(row => {
-            const nomeUBS = row.cells[0].textContent.toLowerCase(); // Nome da UBS
-            const cnpjUBS = row.cells[2].textContent.toLowerCase(); // CNPJ da UBS
-            
-            // Verifica se a linha deve ser exibida com base na pesquisa
-            const matchesSearch = nomeUBS.includes(searchTerm) || cnpjUBS.includes(searchTerm);
-            const situacao = row.getAttribute('data-situacao');
-            const isActive = situacao == 1;
-            const isInactive = situacao == 0;
-
-            // Verifica se a linha deve ser exibida com base nos filtros
-            const showActive = document.getElementById('filterActive').checked;
-            const showInactive = document.getElementById('filterInactive').checked;
-
-            const matchesFilter = (showActive && isActive) || (showInactive && isInactive);
-
-            // A linha é visível se corresponder à pesquisa e aos filtros
-            if ((matchesSearch && matchesFilter) || (searchTerm === '' && matchesFilter)) {
-                row.style.display = 'table-row'; // Mostra a linha se corresponder
-            } else {
-                row.style.display = 'none'; // Esconde a linha se não corresponder
-            }
-        });
-    }
-
-    // Lógica para aplicar os filtros
-    document.getElementById('applyFilters').addEventListener('click', function() {
-        // Atualiza a pesquisa após aplicar os filtros
-        filterTable(); // Chama a função de filtragem
-
-        // Fecha o modal após aplicar os filtros
-        var modal = bootstrap.Modal.getInstance(document.getElementById('filterModal'));
-        modal.hide();
-    });
-
-    // Adiciona o evento de entrada ao campo de pesquisa
-    document.getElementById('searchInput').addEventListener('input', filterTable);
-</script>
-
-
-
-   
-
-    <!-- Link para o Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Função para filtrar a tabela pela barra de pesquisa
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#ubsTableBody tr');
+            
+            rows.forEach(row => {
+                const nomeUBS = row.cells[0].textContent.toLowerCase(); // Nome da UBS
+                const cnpjUBS = row.cells[2].textContent.toLowerCase(); // CNPJ da UBS
+                
+                // Verifica se a linha deve ser exibida com base na pesquisa
+                const matchesSearch = nomeUBS.includes(searchTerm) || cnpjUBS.includes(searchTerm);
+                const situacao = row.getAttribute('data-situacao');
+                const isActive = situacao == 1;
+                const isInactive = situacao == 0;
+
+                // Verifica se a linha deve ser exibida com base nos filtros
+                const showActive = document.getElementById('filterActive').checked;
+                const showInactive = document.getElementById('filterInactive').checked;
+
+                const matchesFilter = (showActive && isActive) || (showInactive && isInactive);
+
+                // A linha é visível se corresponder à pesquisa e aos filtros
+                if ((matchesSearch && matchesFilter) || (searchTerm === '' && matchesFilter)) {
+                    row.style.display = 'table-row'; // Mostra a linha se corresponder
+                } else {
+                    row.style.display = 'none'; // Esconde a linha se não corresponder
+                }
+            });
+        }
+
+        // Lógica para aplicar os filtros
+        document.getElementById('applyFilters').addEventListener('click', function() {
+            // Atualiza a pesquisa após aplicar os filtros
+            filterTable(); // Chama a função de filtragem
+
+            // Fecha o modal após aplicar os filtros
+            var modal = bootstrap.Modal.getInstance(document.getElementById('filterModal'));
+            modal.hide();
+        });
+        // Adiciona o evento de entrada ao campo de pesquisa
+        document.getElementById('searchInput').addEventListener('input', filterTable);
+    </script>
+
+
+
+
 @include('includes.footer') <!-- include -->

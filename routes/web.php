@@ -4,7 +4,6 @@ use App\Http\Controllers\ClienteAdmController;
 use App\Http\Controllers\TelefoneClienteAdmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteFarmaciaController; // Certifique-se de importar o ClienteController
-use App\Http\Controllers\MedicamentoController;
 use App\Http\Controllers\MedicamentoFarmaciaController;
 use App\Http\Controllers\TelefoneClienteController;
 use App\Http\Controllers\tipoMedicamentoController;
@@ -13,12 +12,17 @@ use App\Http\Controllers\FarmaciaUBSController;
 
 
 //novos controllers
+use App\Http\Controllers\MedicamentoController;
+
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DetentorController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\MedicamentoFarmaciaUBSController;
+use App\Http\Controllers\PrescricaoController;
+
 use App\Http\Controllers\EntradaMedicamentoController;
 use App\Http\Controllers\MotivoEntradaController;
 use App\Models\ModelMotivoEntrada;
@@ -232,77 +236,14 @@ Route::post('/cadastroAdm','App\Http\Controllers\AdministradorController@store')
 //Perfil ARRUMAR
 Route::get('/perfil', [AdministradorController::class, 'showProfile'])->middleware('auth');
 
+
+//views login e cadastro
 Route::get('/login', function () {
     return view('adm.login');
 });
 Route::get('/cadastroAdm', function () {
     return view('adm.cadastroAdm');
 });
-
-// Route::get('/login', function () {
-//     return view('adm.login');
-// })->name('login');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Páginas ADM */
-
-// Route::get('/perfil', function () {
-//     return view('adm.Perfil.perfil');
-// })->name('perfil');
-
-
-// Route::get('/editarPerfil', function () {
-//     return view('adm.Perfil.editarPerfil');
-// });
-
-// Route::get('/configuracoesNotificacoes', function () {
-//     return view('adm.configuracoesNotificacoes');
-// });
-// Route::get('/notificacoes', function () {
-//     return view('adm.Notificacao.notificacoes');
-// });
-
-//PAGINAS MEDICAMENTO_UBS_CLIENTE
-
-// Route::get('/ubs', function () {
-//     return view('adm.UBS.UBS');
-// });
-
-
-// Route::get('/cliente', function () {
-//     return view('adm.cliente.Cliente');
-// });
-
-// Route::get('/contato', function () {
-//     return view('adm.contato');
-// });
-
-//SELECT
-// Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
-
-
-
-// Route::get('/perfil', 'App\Http\Controllers\AdministradorController@perfil')->name('perfil');
 
 
 
@@ -349,24 +290,16 @@ Route::get('/SaidaMed', function () {
     return view('farmacia.Estoque.medicamentoSaida');
 });
 
+
 //MEDICAMENTO FARMACIA
 
-Route::get('/MedicamentoHome', [EntradaMedicamentoController::class, 'index'])->name('medicamentos.index');
-//rota botao novo medicamento
-Route::get('/entradamedinsert', [EntradaMedicamentoController::class, 'create'])->name('entradaMedInsert');
-
-// Rota para armazenar a nova entrada de medicamento
-Route::post('/entrada-medicamento/store', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
-//busca o funcionario pelo nome
-Route::get('/funcionario/buscar', [EntradaMedicamentoController::class, 'buscarFuncionario'])->name('buscarFuncionario');
-//cria o motivo automatico
-Route::post('/motivoEntrada/buscarOuCriar', [MotivoEntradaController::class, 'buscarOuCriarMotivo'])->name('motivoEntrada.buscarOuCriar');
-
-
+Route::get('/MedicamentoHome', function () {
+    return view('farmacia.Medicamento.medicamentoFarmacia');
+});
 
 //motivo Entrada
-Route::get('/motivEntrada', function () {
-    return view('farmacia.Medicamento.motivEntrada');
+Route::get('/EntradaMed', function () {
+    return view('farmacia.Medicamento.MedicamentoEntrada');
 });
 //Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
 

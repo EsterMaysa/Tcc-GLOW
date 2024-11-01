@@ -9,13 +9,40 @@ class MedicamentoFarmaciaUBSController extends Controller
 {
     public function index()
     {
-        $medicamentos = ModelMedicamentoFarmaciaUBS::all();
-        return response()->json($medicamentos);
+        $medicamento = ModelMedicamentoFarmaciaUBS::all();
+        return view('farmacia.Medicamento.medicamentoFarmacia', compact('medicamento'));
     }
 
     public function store(Request $request)
     {
         $medicamento = new ModelMedicamentoFarmaciaUBS();
+
+        $medicamento->nomeMedicamento = $request->nomeMedicamento;
+        $medicamento->nomeGenericoMedicamento = $request->nomeGenericoMedicamento;
+        $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarrasMedicamento;
+        $medicamento->validadeMedicamento = $request->validadeMedicamento;
+        $medicamento->loteMedicamento = $request->loteMedicamento;
+        $medicamento->dosagemMedicamento = $request->dosagemMedicamento;
+        $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceuticaMedicamento;
+        $medicamento->composicaoMedicamento = $request->composicaoMedicamento;
+        $medicamento->situacaoMedicamento = "A";
+        $medicamento->dataCadastroMedicamento = now();
+        $medicamento->save();
+
+        return redirect('/MedicamentoHome');
+    }
+
+
+    public function edit($id)
+    {
+        $medicamento = ModelMedicamentoFarmaciaUBS::findOrFail($id);
+        return view('farmacia.Medicamento.atualizarMedicamento', compact('medicamento'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $medicamento = ModelMedicamentoFarmaciaUBS::findOrFail($id);
+
         $medicamento->nomeMedicamento = $request->nomeMedicamento;
         $medicamento->nomeGenericoMedicamento = $request->nomeGenericoMedicamento;
         $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarrasMedicamento;
@@ -25,40 +52,20 @@ class MedicamentoFarmaciaUBSController extends Controller
         $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceuticaMedicamento;
         $medicamento->composicaoMedicamento = $request->composicaoMedicamento;
         $medicamento->situacaoMedicamento = $request->situacaoMedicamento;
-        $medicamento->dataCadastroMedicamento = now();
+
         $medicamento->save();
 
-        return response()->json(['message' => 'Medicamento cadastrado com sucesso!'], 201);
+        return redirect('/MedicamentoHome')->with('success', 'Medicamento atualizado com sucesso!');
     }
 
-    public function show($id)
-    {
-        $medicamento = ModelMedicamentoFarmaciaUBS::find($id);
-        if (!$medicamento) {
-            return response()->json(['message' => 'Medicamento não encontrado'], 404);
-        }
-        return response()->json($medicamento);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $medicamento = ModelMedicamentoFarmaciaUBS::find($id);
-        if (!$medicamento) {
-            return response()->json(['message' => 'Medicamento não encontrado'], 404);
-        }
-
-        $medicamento->update($request->all());
-        return response()->json($medicamento);
-    }
 
     public function destroy($id)
     {
-        $medicamento = ModelMedicamentoFarmaciaUBS::find($id);
-        if (!$medicamento) {
-            return response()->json(['message' => 'Medicamento não encontrado'], 404);
-        }
-
-        $medicamento->delete();
-        return response()->json(['message' => 'Medicamento deletado com sucesso']);
+        $medicamento = ModelMedicamentoFarmaciaUBS::findOrFail($id);
+        $medicamento->situacaoMedicamento = 'D'; 
+        $medicamento->save();
+    
+        return redirect('/MedicamentoHome')->with('success', 'Medicamento Desativado com sucesso!');
+    
     }
 }

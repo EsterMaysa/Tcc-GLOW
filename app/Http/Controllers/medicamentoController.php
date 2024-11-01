@@ -203,6 +203,18 @@ class MedicamentoController extends Controller
         return redirect('/medicamento')->with('success', 'Medicamento desativado com sucesso.');
     }
 
+    public function buscarMedicamentoPorCodigo($codigoDeBarras)
+    {
+        // Busca o medicamento na tabela tbMedicamento do banco de dados bdAdminGeral
+        $medicamento = MedicamentoModel::where('codigoDeBarrasMedicamento', $codigoDeBarras)->first();
+
+        if ($medicamento) {
+            return response()->json($medicamento);
+        }
+
+        return response()->json(null);
+    }
+
     public function filtrar(Request $request)
     {
         // Inicia a consulta base para a tabela Medicamento

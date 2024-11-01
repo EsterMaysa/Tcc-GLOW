@@ -1,7 +1,6 @@
 @include('includes.header') <!-- include -->
 <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
 
-
 <!-- MAIN -->
 <main>
     <div class="table-data">
@@ -46,6 +45,8 @@
                         style="width: 700px;"
                         onkeyup="if(event.key === 'Enter') this.form.submit();">
                 </form>
+
+                <!-- aqui tá o botão que abre o modal dos filtro (não funcionando o bck dele) -->
                 <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
             </div>
 
@@ -220,103 +221,7 @@
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById('applyFilters').addEventListener('click', function() {
-            // Coletar dados dos checkboxes de situação
-            let situacao = Array.from(document.querySelectorAll('input[name="situacao[]"]:checked')).map(cb => cb.value);
-
-            // Coletar dados dos checkboxes de forma farmacêutica
-            let formaFarmaceutica = Array.from(document.querySelectorAll('input[name="formaFarmaceutica[]"]:checked')).map(cb => cb.value);
-
-            // Coletar dados do tipo de medicamento e data de cadastro
-            let tipoMedicamento = document.getElementById('filtroTipoMedicamento').value;
-            let dataCadastro = document.getElementById('filtroDataCadastro').value;
-
-            // Criar objeto de filtros
-            let filters = {
-                situacao: situacao,
-                formaFarmaceutica: formaFarmaceutica,
-                tipoMedicamento: tipoMedicamento,
-                dataCadastro: dataCadastro
-            };
-
-            // Enviar requisição AJAX
-            fetch('/filtro-medicamentos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify(filters)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data); // Aqui você pode processar os resultados
-
-                    // Supondo que `data` é um array de medicamentos filtrados
-                    const tableBody = document.querySelector('table tbody');
-                    tableBody.innerHTML = ''; // Limpa a tabela existente
-
-                    // Preenche a tabela com os medicamentos filtrados
-                    data.forEach(med => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-            <td style="padding: 10px;">${med.codigoDeBarrasMedicamento}</td>
-            <td>${med.nomeMedicamento}</td>
-            <td>${med.nomeGenericoMedicamento}</td>
-            <td>${med.situacaoMedicamento === 'A' ? 'Ativado' : 'Desativado'}</td>
-            <td>${new Date(med.dataCadastroMedicamento).toLocaleDateString('pt-BR')}</td>
-            <td>
-                <a href="/medicamento/edit/${med.idMedicamento}" class="btn btn-warning">Editar</a>
-            </td>
-            <td>
-                <form action="/medicamento/desativar/${med.idMedicamento}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja desativar este medicamento?');">
-                        <i class="fas fa-ban"></i> Desativar
-                    </button>
-                </form>
-            </td>
-            <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes${med.idMedicamento}">
-                    Ver mais
-                </button>
-            </td>
-        `;
-                        tableBody.appendChild(row);
-                    });
-                })
-        });
-
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var tipoAtual = 'original';
-            var botaoAlternar = document.getElementById('alternarFoto{{ $med->idMedicamento }}');
-
-            // Verifica se o botão existe
-            if (botaoAlternar) {
-                botaoAlternar.addEventListener('click', function() {
-                    var imagem = document.getElementById('imagemExibida{{ $med->idMedicamento }}');
-
-                    // Verifica se a imagem existe
-                    if (imagem) {
-                        if (tipoAtual === 'original') {
-                            imagem.src = botaoAlternar.getAttribute('data-foto-genero');
-                            botaoAlternar.textContent = 'Ver Foto Original';
-                            tipoAtual = 'genero';
-                        } else {
-                            imagem.src = botaoAlternar.getAttribute('data-foto-original');
-                            botaoAlternar.textContent = 'Ver Foto de Gênero';
-                            tipoAtual = 'original';
-                        }
-                    }
-                });
-            }
-        });
-    </script>
-    @endforeach
+    @endforeach    
 
 </main>
 

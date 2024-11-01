@@ -11,7 +11,12 @@
 
         </div>
     </div>
-    
+    <div class="right">
+        <a href="/prescricao" class="btn btn-primary">
+            Cadastrar Prescrição
+        </a>
+    </div>
+
 </div>
 
 
