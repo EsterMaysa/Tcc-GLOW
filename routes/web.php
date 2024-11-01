@@ -323,10 +323,17 @@ Route::delete('/motivEntrada/{id}', [MotivoEntradaController::class, 'destroy'])
 //saidamed
 
 // Exibe o formulário
+Route::get('/saidaMed', [SaidaMedicamentoController::class, 'create'])->name('saidaMed.create');
+Route::post('/saidaMed', [SaidaMedicamentoController::class, 'store'])->name('saidaMed.store');
 
-Route::get('/saida-medicamento/create', [SaidaMedicamentoController::class, 'create'])->name('saidaMedicamento.create');
-Route::post('/saida-medicamento', [SaidaMedicamentoController::class, 'store'])->name('saidaMedicamento.store');
 
+//motivSaida
+
+// Rota para exibir o formulário de cadastro de motivo de saída
+Route::get('/motivoSaida', [MotivoSaidaController::class, 'create'])->name('motivoSaida.create');
+
+// Rota para processar o cadastro de motivo de saída
+Route::post('/motivo-saida', [MotivoSaidaController::class, 'store'])->name('motivoSaida.store');
 
 
 //FUNCIONARIO

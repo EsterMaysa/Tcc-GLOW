@@ -2,54 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ModelMotivoSaida;
 use Illuminate\Http\Request;
+use App\Models\ModelMotivoSaida;
 
 class MotivoSaidaController extends Controller
 {
-    public function index()
+    // Método para exibir o formulário de cadastro
+    public function create()
     {
-        $motivos = ModelMotivoSaida::all();
-        return response()->json($motivos);
+        return view('motivoSaidaMed'); // Nome da view do formulário
     }
 
+    // Método para armazenar o cadastro no banco de dados
     public function store(Request $request)
     {
-        $motivo = new ModelMotivoSaida();
-        $motivo->motivoSaida = $request->motivoSaida;
-        $motivo->save();
+        $request->validate([
+            'motivosaida' => 'required|string|max:255',
+        ]);
 
-        return response()->json(['message' => 'Motivo de saída cadastrado com sucesso!'], 201);
-    }
+        ModelMotivoSaida::create([
+            'motivosaida' => $request->motivosaida,
+        ]);
 
-    public function show($id)
-    {
-        $motivo = ModelMotivoSaida::find($id);
-        if (!$motivo) {
-            return response()->json(['message' => 'Motivo não encontrado'], 404);
-        }
-        return response()->json($motivo);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $motivo = ModelMotivoSaida::find($id);
-        if (!$motivo) {
-            return response()->json(['message' => 'Motivo não encontrado'], 404);
-        }
-
-        $motivo->update($request->all());
-        return response()->json($motivo);
-    }
-
-    public function destroy($id)
-    {
-        $motivo = ModelMotivoSaida::find($id);
-        if (!$motivo) {
-            return response()->json(['message' => 'Motivo não encontrado'], 404);
-        }
-
-        $motivo->delete();
-        return response()->json(['message' => 'Motivo deletado com sucesso']);
+        return redirect()->back()->with('success', 'Motivo de saída cadastrado com sucesso!');
     }
 }

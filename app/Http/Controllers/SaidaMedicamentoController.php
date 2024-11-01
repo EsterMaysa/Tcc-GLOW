@@ -3,30 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SaidaMedicamento; // Certifique-se de que os modelos necessários foram importados
-use App\Models\MotivoSaida;
-
+use App\Models\ModelSaidaMedicamento;
+use App\Models\ModelMotivoSaida;
 
 class SaidaMedicamentoController extends Controller
 {
-    // Exibe o formulário de criação
     public function create()
     {
-        $motivos = MotivoSaida::all(); // Carrega os motivos de saída para o formulário
-        return view('saidaMedicamento', compact('motivos')); // Carrega a view 'saidaMed' com a lista de motivos
+        // Carregue os motivos de saída
+        $motivos = ModelMotivoSaida::all();
+
+        // Verifique se os motivos foram carregados corretamente
+        if ($motivos->isEmpty()) {
+            return redirect()->back()->with('error', 'Nenhum motivo de saída encontrado.');
+        }
+
+        return view('saidaMed', compact('motivos'));
     }
 
-    // Salva os dados no banco de dados
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'dataSaida' => 'required|date',
-            'quantidade' => 'required|integer',
-            'idMotivoSaida' => 'required|exists:tbmotivoSaida,idMotivoSaida',
+            'quantidade' => 'required|integer|min:1',
+            'idMotivoSaida' => 'required|exists:tbmotivosaida,id' // Confirme se 'id' é a coluna correta
         ]);
 
-        SaidaMedicamento::create($validatedData);
+        ModelSaidaMedicamento::create([
+            'dataSaida' => $request->dataSaida,
+            'quantidade' => $request->quantidade,
+            'idMotivoSaida' => $request->idMotivoSaida
+        ]);
 
-        return redirect()->route('saidaMedicamento.create')->with('success', 'Saída de medicamento cadastrada com sucesso!');
+        return redirect()->back()->with('success', 'Saída de medicamento cadastrada com sucesso!');
     }
 }
