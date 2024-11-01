@@ -1,4 +1,5 @@
 @include('includes.headerFarmacia')
+<div class="container" style="margin: 20px;">
 
 <form action="/CadMedFarma" method="POST">
     @csrf
@@ -21,7 +22,6 @@
         <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenericoMedicamento" required>
     </div>
 
-    
     <!-- Validade do Medicamento -->
     <div class="form-group">
         <label for="validadeMedicamento">Data de Validade</label>
@@ -42,9 +42,19 @@
 
     <!-- Forma Farmacêutica do Medicamento -->
     <div class="form-group">
-        <label for="formaFarmaceuticaMedicamento">Forma Farmacêutica</label>
-        <input type="text" class="form-control" id="formaFarmaceuticaMedicamento" name="formaFarmaceuticaMedicamento" required>
-    </div>
+            <label for="formaMedicamento">Forma Farmacêutica</label>
+            <select class="form-control" id="formaMedicamento" name="forma" required>
+                <option value="">Selecione a Forma Farmacêutica</option>
+                <option value="Comprimido">Comprimido</option>
+                <option value="Cápsula">Cápsula</option>
+                <option value="Pomada" >Pomada</option>
+                <option value="Solução" >Solução</option>
+                <option value="Suspensão" >Suspensão</option>
+                <option value="Creme" >Creme</option>
+                <option value="Gel" >Gel</option>
+                <option value="Injeção" >Injeção</option>
+            </select>
+        </div>
 
     <!-- Composição do Medicamento -->
     <div class="form-group">
@@ -56,6 +66,7 @@
     <!-- Botão de Enviar -->
     <button type="submit" class="btn btn-primary">Cadastrar Medicamento</button>
 </form>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function buscarMedicamento() {
@@ -66,6 +77,8 @@
                 url: `/CodMed/${codigoDeBarras}`,
                 type: 'GET',
                 success: function(data) {
+                    console.log(data); // Adicione isso para ver o que está retornando
+
                     if (data) {
                         $('#nomeMedicamento').val(data.nomeMedicamento);
                         $('#nomeGenericoMedicamento').val(data.nomeGenericoMedicamento);

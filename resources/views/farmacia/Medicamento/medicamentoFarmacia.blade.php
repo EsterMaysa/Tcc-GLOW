@@ -1,6 +1,8 @@
 @include('includes.headerFarmacia')
 
 <!-- Main content -->
+<div class="container" style="margin: 10px;">
+
 <div class="col-md-9 col-lg-10 main-content">
     <div class="head-title">
         <div class="left">
@@ -65,6 +67,6 @@
         </tbody>
     </table>
 </div>
-
+</div>
 
 @include('includes.footer')

@@ -315,6 +315,8 @@ Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMed
 //Prescrição
 Route::get('/prescricao', [PrescricaoController::class, 'index']);
 Route::post('/Cadprescricao', [PrescricaoController::class, 'store']);
+Route::put('/Cadprescricao/{id}', [PrescricaoController::class, 'update'])->name('prescricao.update');
+Route::patch('/PrescricaoDel/{id}', [PrescricaoController::class, 'destroy'])->name('prescricao.desativar');
 
 
 //motivo Entrada
