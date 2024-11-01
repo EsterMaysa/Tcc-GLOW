@@ -23,6 +23,13 @@ use App\Http\Controllers\AdministradorController;
 use Illuminate\Http\Request;
 
 
+
+//controllers farmacia
+
+use App\Http\Controllers\SaidaMedicamentoController;
+use App\Http\Controllers\MotivoSaidaController;
+
+
 //NOVAS 
 
 // TODAS DO LADO ADM 
@@ -313,6 +320,13 @@ Route::get('/EntradaMed', function () {
     return view('farmacia.Medicamento.MedicamentoEntrada');
 });
 Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
+
+//saidamed
+
+// Exibe o formulário
+
+Route::get('/saida-medicamento/create', [SaidaMedicamentoController::class, 'create'])->name('saidaMedicamento.create');
+Route::post('/saida-medicamento', [SaidaMedicamentoController::class, 'store'])->name('saidaMedicamento.store');
 
 
 
