@@ -13,7 +13,6 @@ use App\Http\Controllers\FarmaciaUBSController;
 
 //novos controllers
 use App\Http\Controllers\MedicamentoController;
-
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
