@@ -14,7 +14,7 @@
         <li>Cidade: {{ $ubs->cidadeUBS }} - {{ $ubs->ufUBS }}</li>
         <li>E-mail: {{ $ubs->emailUBS }} </li>
     </ul>
-    <p>Para inserir sua senha, visite <a href="http://127.0.0.1:8000/selectRegiaoForm">nosso site</a>.</p>
+    <p>Para inserir sua senha, visite <a href="http://127.0.0.1:8000/verificacao">nosso site</a>.</p>
     
     
     <p>Obrigado!</p>

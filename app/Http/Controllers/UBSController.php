@@ -122,8 +122,8 @@ class UBSController extends Controller
 
 
     $ubs->cnpjUBS = $request->cnpj;
-    $ubs->latitudeUBS = $latitude;
-    $ubs->longitudeUBS = $longitude;
+    $ubs->latitudeUBS = $request->latitude;
+    $ubs->longitudeUBS = $request->longitude;
     $ubs->cepUBS = $request->cep;
     $ubs->logradouroUBS = $logradouro;
     $ubs->bairroUBS = $bairro;
@@ -138,7 +138,16 @@ class UBSController extends Controller
     $ubs->idTelefoneUBS = $telefoneId; // ID do telefone
     $ubs->idRegiaoUBS = $request->idRegiao; // ID da região
 
-    // $ubs->save();
+    $ubs->save();
+
+    try {
+                Mail::to('vini.va338@gmail.com')->send(new \App\Mail\UBSRegistrationSuccessMail($ubs));
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'UBS criada, mas ocorreu um erro ao enviar o e-mail: ' . $e->getMessage()], 500);
+            }
+            return response()->json(['message' => 'UBS criada com sucesso!'], 201);
+    
+    
 
     // return redirect('/selectUBS');
 
@@ -152,12 +161,12 @@ class UBSController extends Controller
     //     return response()->json(['message' => 'UBS criada com sucesso!'], 201);
     // }
 
-    try {
-        Mail::to('ubsjardimaurora70@gmail.com')->send(new UBSRegistrationSuccessMail($ubs));
-        return 'E-mail enviado com sucesso!';
-    } catch (\Exception $e) {
-        return 'Erro ao enviar e-mail: ' . $e->getMessage();
-    }
+    // try {
+    //     Mail::to('ubsjardimaurora70@gmail.com')->send(new UBSRegistrationSuccessMail($ubs));
+    //     return 'E-mail enviado com sucesso!';
+    // } catch (\Exception $e) {
+    //     return 'Erro ao enviar e-mail: ' . $e->getMessage();
+    // }
 
  
     
@@ -214,6 +223,32 @@ class UBSController extends Controller
     // Retorna a view de edição com os dados da UBS
     return view('adm.Ubs.editUBS', compact('ubs', 'telefone', 'regiao', 'regioes'));
 }
+
+
+
+public function verificarEmail(Request $request)
+{
+    // Valida os dados recebidos
+  
+    try {
+        // Busca a UBS pelo e-mail na tabela tbubs
+        $ubs = UBSModel::where('emailUBS', $request->email)->firstOrFail();
+
+        // Atualiza a senha da UBS
+        $ubs->senhaUBS = bcrypt($request->senha);
+        $ubs->save();
+
+        return response()->json(['message' => 'Senha atualizada com sucesso!'], 200);
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return response()->json(['message' => 'UBS não encontrada.'], 404);
+    }
+}
+
+
+
+
+
+
 
     
     

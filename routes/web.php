@@ -19,6 +19,7 @@ use App\Http\Controllers\RegiaoUBSController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DetentorController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\FuncionarioFarmaciaUBSController;
 
 use Illuminate\Http\Request;
 
@@ -366,8 +367,41 @@ Route::get('/FuncionarioHome', function () {
     return view('farmacia.Funcionario.funcionario');
 });
 
+Route::get('/formFuncionario', function () {
+    return view('farmacia.Funcionario.formFuncionario');
+});
+
+Route::get('/editFuncionario', function () {
+    return view('farmacia.Funcionario.editFuncionario');
+});
+
+//cadastro do funcionario
+Route::post('/insertFuncionario', [FuncionarioFarmaciaUBSController::class, 'store'])->name('insertFuncionario');
+
+//edit do funcionario
+Route::get('/funcionarios/{idFuncionario}/edit', [FuncionarioFarmaciaUBSController::class, 'edit'])->name('funcionario.edit');
+
+Route::put('/funcionarios/{idFuncionario}', [FuncionarioFarmaciaUBSController::class, 'update'])->name('funcionario.update');
 
 
 
+Route::get('/funcionarios', [FuncionarioFarmaciaUBSController::class, 'index'])->name('funcionario.index');
+Route::post('/funcionarios/{idFuncionario}/delete', [FuncionarioFarmaciaUBSController::class, 'destroy'])->name('funcionario.destroy');
 
 
+
+//Tipo movimentação
+
+Route::get('/TipoMovimentaçãoHome', function () {
+    return view('farmacia.TipoMovimentacao.TipoMovimentacao');
+});
+
+
+//verificação da senha
+
+Route::get('/verificacao', function () {
+    return view('farmacia.verificacao.verificacao');
+});
+
+
+Route::post('/verificar-email', [UBSController::class, 'verificarEmail'])->name('verificar.email');
