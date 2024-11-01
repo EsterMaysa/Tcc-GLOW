@@ -13,7 +13,6 @@ use App\Http\Controllers\FarmaciaUBSController;
 
 //novos controllers
 use App\Http\Controllers\MedicamentoController;
-
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
@@ -303,6 +302,28 @@ Route::get('/SaidaMed', function () {
 Route::get('/MedicamentoHome', function () {
     return view('farmacia.Medicamento.medicamentoFarmacia');
 });
+
+Route::get('/editMedFarmacia', function () {
+    return view('farmacia.Medicamento.atualizarMedicamento');
+});
+
+Route::post('/CadMedFarma', [MedicamentoFarmaciaUBSController::class, 'store']);
+Route::get('/medicamentosFarma/{id}/edit', [MedicamentoFarmaciaUBSController::class, 'edit'])->name('medicamentosFarma.edit');
+
+Route::put('/medicamentosFarma/{id}', [MedicamentoFarmaciaUBSController::class, 'update'])->name('medicamentosFarma.update');
+
+Route::patch('/medicamentosFarmaDel/{id}', [MedicamentoFarmaciaUBSController::class, 'destroy'])->name('medicamentosFarma.desativar');
+
+//busca pelo codBa
+Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMedicamentoPorCodigo'])->name('CodMed');
+
+
+//Prescrição
+Route::get('/prescricao', [PrescricaoController::class, 'index']);
+Route::post('/Cadprescricao', [PrescricaoController::class, 'store']);
+Route::put('/Cadprescricao/{id}', [PrescricaoController::class, 'update'])->name('prescricao.update');
+Route::patch('/PrescricaoDel/{id}', [PrescricaoController::class, 'destroy'])->name('prescricao.desativar');
+
 
 //motivo Entrada
 Route::get('/EntradaMed', function () {
