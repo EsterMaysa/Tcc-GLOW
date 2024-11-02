@@ -1,134 +1,179 @@
-<!-- 
-AQUI VAI A PAGINA DO MEDICAMENTO - A HOME MEDICAMENTO - QUE TERÁ O BOTÃO DE CADASTRAR 
-O MEDICAMENTO QUE CHEGOU, ATUALIZAR E DESATIVAR, E PODERÁ VER OS MEDICAMENTOS DESSA FARMÁCIA. 
--->
 @include('includes.headerFarmacia')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<div class="col-md-9 col-lg-10 main-content">
-    <div class="head-title">
-        <div class="left">
-            <h1>Medicamento Disponiveis</h1>
+<!-- Main content -->
+<div class="container" style="margin: 10px;">
+    <div class="col-md-9 col-lg-10 main-content">
+        <div class="head-title">
+            <div class="left">
+                <h1>Medicamentos</h1>
+            </div>
+
+            <!-- Botão para a página de cadastro de medicamentos -->
+            <div class="right">
+                <a href="/FormsMed" class="btn btn-primary">Cadastrar Medicamento</a>
+            </div>
+
+            <!-- Modal de Filtros -->
+            <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="filterModalLabel">Filtros de Medicamentos</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Formulário de filtros -->
+                            <form action="/filtrarMedFarma" method="GET">
+                                <!-- Forma Farmacêutica (Checkboxes) -->
+                                <div class="form-group">
+                                    <label>Forma Farmacêutica</label>
+                                    @php
+                                    $formasFarmaceuticas = ['Comprimido', 'Cápsula', 'Pomada', 'Solução', 'Suspensão', 'Creme', 'Gel', 'Injeção'];
+                                    @endphp
+                                    @foreach ($formasFarmaceuticas as $forma)
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="formaFarmaceutica[]" value="{{ $forma }}" id="forma{{ $forma }}">
+                                        <label class="form-check-label" for="forma{{ $forma }}">{{ $forma }}</label>
+                                    </div>
+                                    @endforeach
+                                </div>
+
+                                <!-- Validade do Medicamento -->
+                                <div class="form-group">
+                                    <label for="filtroValidadeInicio">Validade</label>
+                                    <div class="input-group">
+                                        <p>de</p>
+                                        <input type="date" class="form-control" id="filtroValidadeInicio" name="filtroValidadeInicio" placeholder="De">
+                                        <p>Até</p>
+                                        <input type="date" class="form-control" id="filtroValidadeFim" name="filtroValidadeFim" placeholder="Até">
+                                    </div>
+                                </div>
+
+                                <!-- Data de Cadastro do Medicamento -->
+                                <div class="form-group">
+                                    <label for="filtroDataCadastroInicio">Data de Cadastro</label>
+                                    <div class="input-group">
+                                        <p>de</p>
+                                        <input type="date" class="form-control" id="filtroDataCadastroInicio" name="filtroDataCadastroInicio" placeholder="De">
+                                        <p>Até</p>
+                                        <input type="date" class="form-control" id="filtroDataCadastroFim" name="filtroDataCadastroFim" placeholder="Até">
+                                    </div>
+                                </div>
+
+                                <!-- Situação -->
+                                <div class="form-group">
+                                    <label for="filtroSituacao">Situação</label>
+                                    <select class="form-control" id="filtroSituacao" name="filtroSituacao">
+                                        <option value="">Todos</option>
+                                        <option value="A">Ativo</option>
+                                        <option value="D">Inativo</option>
+                                    </select>
+                                </div>
+
+                                <!-- Botão de Aplicar Filtros -->
+                                <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                                <a href="/MedicamentoHome" class="btn btn-secondary">Cancelar Filtros</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#filterModal">
+                Filtros
+            </button>
+            <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" style="margin-top: 10px;">
         </div>
     </div>
 
-    
+    <div class="container">
+        <table class="table table-striped" id="medicamentoTable"> <!-- Adicionando o ID aqui -->
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Nome Genérico</th>
+                    <th>Código de Barras</th>
+                    <th>Lote</th>
+                    <th>Dosagem</th>
+                    <th>Forma Farmacêutica</th>
+                    <th>Validade</th>
+                    <th>Composição</th>
+                    <th>Situação</th>
+                    <th>Data de Cadastro</th>
+                    <th>Ações</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($medicamentos as $med)
+                <tr>
+                    <td>{{ $med->nomeMedicamento }}</td>
+                    <td>{{ $med->nomeGenericoMedicamento }}</td>
+                    <td>{{ $med->codigoDeBarrasMedicamento }}</td>
+                    <td>{{ $med->loteMedicamento }}</td>
+                    <td>{{ $med->dosagemMedicamento }}</td>
+                    <td>{{ $med->formaFarmaceuticaMedicamento }}</td>
+                    <td>{{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</td>
+                    <td>{{ $med->composicaoMedicamento }}</td>
+                    <td>{{ $med->situacaoMedicamento == 'A' ? 'Ativo' : 'Inativo' }}</td>
+                    <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
+                   
+                   
+                    @if ($med->situacaoMedicamento == 'A')
+                    <td>
+                        <a href="{{ route('medicamentosFarma.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
+                        <form action="{{ route('medicamentosFarma.desativar', $med->idMedicamento) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desativar este medicamento?');">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-danger">Desativar</button>
+                        </form>
+                       
+                    </td>
+                    @else
+                    <td>
+                        <form action="{{ route('medicamentosFarma.ativar', $med->idMedicamento) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja ativar este medicamento?');">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-primary">Ativar</button>
+                        </form>
+                    </td>
+                 @endif
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<script src="{{ asset('vendor/jquery/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/popper.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- jQuery e Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+// Função para filtrar a tabela de medicamentos
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    const filter = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#medicamentoTable tbody tr');
+
+    rows.forEach(row => {
+        const columns = row.getElementsByTagName('td');
+        let match = false;
+
+        for (let i = 0; i < columns.length; i++) {
+            if (columns[i].textContent.toLowerCase().includes(filter)) {
+                match = true;
+                break;
+            }
+        }
+
+        row.style.display = match ? '' : 'none'; // Exibir ou ocultar a linha
+    });
+});
+</script>
 
 @include('includes.footer')
-<!-- Estilos CSS Atualizados -->
-<style>
-    .form-row {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-    }
-
-    .form-group {
-        flex: 1;
-        margin-right: 10px;
-    }
-
-    .form-group:last-child {
-        margin-right: 0;
-    }
-
-    .form-group select,
-    .form-group input,
-    .form-group textarea {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        font-size: 14px;
-    }
-
-    .messages {
-        margin-bottom: 20px;
-        text-align: center;
-    }
-
-    .alert {
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 10px;
-        display: inline-block;
-        width: 100%;
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .alert-success {
-        background-color: #4CAF50;
-        color: #155724;
-    }
-
-    .alert-danger {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-    }
-
-    .styled-form {
-        background-color: #14213D; /* Cor do formulário alterada */
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .form-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        min-height: 80vh;
-        margin-left: 160px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        color: white; /* Mantém o texto branco para contraste */
-    }
-
-    .submit-btn {
-        padding: 9px 320px;
-        background-color: #57b8ff; /* Tom suave de azul */
-        border: none;
-        border-radius: 5px;
-        color: black;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-left: 250px;
-    }
-
-    .submit-btn:hover {
-        background-color: #4b89f5; /* Tom mais escuro ao passar o mouse */
-    }
-
-    .button-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .btn-secondary {
-        background-color: #57b8ff; /* Botão suave de azul */
-        padding: 9px 15px;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-        margin: 0 auto;
-    }
-
-    .btn-secondary:hover {
-        background-color: #4b89f5; /* Tom mais escuro ao passar o mouse */
-    }
-</style>
