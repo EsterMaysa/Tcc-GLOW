@@ -12,17 +12,7 @@
             <label for="codigoDeBarrasMedicamento">Código de Barras</label>
             <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarrasMedicamento" value="{{ old('codigoDeBarrasMedicamento') }}" required onblur="buscarMedicamento()">
         </div>
-        <!-- Código de Barras do Medicamento -->
-        <div class="form-group">
-            <label for="codigoDeBarrasMedicamento">Código de Barras</label>
-            <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarrasMedicamento" value="{{ old('codigoDeBarrasMedicamento') }}" required onblur="buscarMedicamento()">
-        </div>
 
-        <!-- Nome do Medicamento -->
-        <div class="form-group">
-            <label for="nomeMedicamento">Nome do Medicamento</label>
-            <input type="text" class="form-control" id="nomeMedicamento" name="nomeMedicamento" value="{{ old('nomeMedicamento') }}" required>
-        </div>
         <!-- Nome do Medicamento -->
         <div class="form-group">
             <label for="nomeMedicamento">Nome do Medicamento</label>
