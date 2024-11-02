@@ -25,7 +25,10 @@ use App\Http\Controllers\FuncionarioFarmaciaUBSController;
 
 use App\Http\Controllers\EntradaMedicamentoController;
 use App\Http\Controllers\MotivoEntradaController;
+use App\Http\Controllers\EstoqueFarmaciaUBSController;
+
 use App\Models\ModelMotivoEntrada;
+
 use Illuminate\Http\Request;
 
 
@@ -285,9 +288,16 @@ Route::get('/editarPerfilFarmacia', function () {
 
 
 //ESTOQUE
-Route::get('/estoqueHome', function () {
-    return view('farmacia.Estoque.estoque');
-});
+
+// Route::get('/estoqueHome', function () {
+//     return view('farmacia.Estoque.estoque');
+// });
+Route::get('/estoqueHome', [EstoqueFarmaciaUBSController::class, 'index']);
+Route::post('/CadEstoque', [EstoqueFarmaciaUBSController::class, 'store']);
+Route::put('/Estoque/{id}', [EstoqueFarmaciaUBSController::class, 'update'])->name('estoque.update');
+Route::patch('/Estoque/{id}/desativar', [EstoqueFarmaciaUBSController::class, 'destroy'])->name('desativar');
+Route::patch('/Estoque/{id}/ativar', [EstoqueFarmaciaUBSController::class, 'ativar'])->name('estoque.ativar');
+
 
 Route::get('/SaidaMed', function () {
     return view('farmacia.Estoque.medicamentoSaida');
@@ -320,6 +330,8 @@ Route::patch('/medicamentosFarmaAtiv/{id}', [MedicamentoFarmaciaUBSController::c
 Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMedicamentoPorCodigo'])->name('CodMed');
 //filtre
 Route::get('/filtrarMedFarma', [MedicamentoFarmaciaUBSController::class, 'filtrar'])->name('medicamentos.filtrar');
+
+
 
 //Prescrição
 Route::get('/prescricao', [PrescricaoController::class, 'index']);
