@@ -24,7 +24,7 @@ class FuncionarioFarmaciaUBSController extends Controller
         $funcionario->dataCadastroFuncionario = now();
         $funcionario->save();
 
-        return response()->json(['message' => 'Funcionário cadastrado com sucesso!'], 201);
+        return redirect('/funcionarios')->with('message', 'Funcionário cadastrado com sucesso!');
     }
 
     public function edit($idFuncionario)
