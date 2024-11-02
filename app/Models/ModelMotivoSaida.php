@@ -1,5 +1,4 @@
 <?php
-//Tabela da Farmacia
 
 namespace App\Models;
 
@@ -10,16 +9,13 @@ class ModelMotivoSaida extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbMotivoSaida';
-    protected $primaryKey = 'idMotivoSaida';
     protected $connection = 'mysql2';
 
-    protected $fillable = [
-        'motivoSaida'
-    ];
+    protected $primaryKey = 'idMotivoSaida';
 
-    public function saidas()
-    {
-        return $this->hasMany(ModelSaidaMedicamento::class, 'idMotivoSaida');
-    }
+    protected $table = 'tbmotivosaida'; // Verifique se este nome está correto
+
+    protected $fillable = ['motivosaida'];
+
+    public $timestamps = false; // Se a tabela não tem os campos created_at e updated_at
 }

@@ -13,7 +13,6 @@ use App\Http\Controllers\FarmaciaUBSController;
 
 //novos controllers
 use App\Http\Controllers\MedicamentoController;
-
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
@@ -27,6 +26,13 @@ use App\Http\Controllers\EntradaMedicamentoController;
 use App\Http\Controllers\MotivoEntradaController;
 use App\Models\ModelMotivoEntrada;
 use Illuminate\Http\Request;
+
+
+
+//controllers farmacia
+
+use App\Http\Controllers\SaidaMedicamentoController;
+use App\Http\Controllers\MotivoSaidaController;
 
 
 //NOVAS 
@@ -293,13 +299,31 @@ Route::get('/SaidaMed', function () {
 
 //MEDICAMENTO FARMACIA
 
-//MEDICAMENTO FARMACIA
-
-Route::get('/MedicamentoHome', [MedicamentoFarmaciaUBSController::class, 'index']);
-
-Route::get('/FormsMed', function () {
-    return view('farmacia.Medicamento.cadMedicamento');
+Route::get('/MedicamentoHome', function () {
+    return view('farmacia.Medicamento.medicamentoFarmacia');
 });
+
+Route::get('/editMedFarmacia', function () {
+    return view('farmacia.Medicamento.atualizarMedicamento');
+});
+
+Route::post('/CadMedFarma', [MedicamentoFarmaciaUBSController::class, 'store']);
+Route::get('/medicamentosFarma/{id}/edit', [MedicamentoFarmaciaUBSController::class, 'edit'])->name('medicamentosFarma.edit');
+
+Route::put('/medicamentosFarma/{id}', [MedicamentoFarmaciaUBSController::class, 'update'])->name('medicamentosFarma.update');
+
+Route::patch('/medicamentosFarmaDel/{id}', [MedicamentoFarmaciaUBSController::class, 'destroy'])->name('medicamentosFarma.desativar');
+
+//busca pelo codBa
+Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMedicamentoPorCodigo'])->name('CodMed');
+
+
+//Prescrição
+Route::get('/prescricao', [PrescricaoController::class, 'index']);
+Route::post('/Cadprescricao', [PrescricaoController::class, 'store']);
+Route::put('/Cadprescricao/{id}', [PrescricaoController::class, 'update'])->name('prescricao.update');
+Route::patch('/PrescricaoDel/{id}', [PrescricaoController::class, 'destroy'])->name('prescricao.desativar');
+
 
 Route::get('/editMedFarmacia', function () {
     return view('farmacia.Medicamento.atualizarMedicamento');
@@ -343,7 +367,20 @@ Route::post('/motivEntrada', [MotivoEntradaController::class, 'store'])->name('m
 Route::get('/motivEntradaEdit/{id}', [MotivoEntradaController::class, 'edit'])->name('motivEntrada.edit');
 Route::put('/motivEntrada/{id}', [MotivoEntradaController::class, 'update'])->name('motivEntrada.update');
 Route::delete('/motivEntrada/{id}', [MotivoEntradaController::class, 'destroy'])->name('motivEntrada.destroy');
+//saidamed
 
+// Exibe o formulário
+Route::get('/saidaMed', [SaidaMedicamentoController::class, 'create'])->name('saidaMed.create');
+Route::post('/saidaMed', [SaidaMedicamentoController::class, 'store'])->name('saidaMed.store');
+
+
+//motivSaida
+
+// Rota para exibir o formulário de cadastro de motivo de saída
+Route::get('/motivoSaida', [MotivoSaidaController::class, 'create'])->name('motivoSaida.create');
+
+// Rota para processar o cadastro de motivo de saída
+Route::post('/motivo-saida', [MotivoSaidaController::class, 'store'])->name('motivoSaida.store');
 
 //FUNCIONARIO
 Route::get('/FuncionarioHome', function () {
