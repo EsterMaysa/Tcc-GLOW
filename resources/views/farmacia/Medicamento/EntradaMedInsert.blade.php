@@ -1,7 +1,3 @@
-<!-- 
-AQUI VAI A PAGINA DO MEDICAMENTO - A HOME MEDICAMENTO - QUE TERÁ O BOTÃO DE CADASTRAR 
-O MEDICAMENTO QUE CHEGOU, ATUALIZAR E DESATIVAR, E PODERÁ VER OS MEDICAMENTOS DESSA FARMÁCIA. 
--->
 @include('includes.headerFarmacia')
 
 <div class="col-md-9 col-lg-10 main-content">
@@ -11,18 +7,24 @@ O MEDICAMENTO QUE CHEGOU, ATUALIZAR E DESATIVAR, E PODERÁ VER OS MEDICAMENTOS D
         </div>
     </div>
 
-    <!-- Formulário de Cadastro de Entrada de Medicamentos -->
     <div class="container">
         <h2>Cadastrar Entrada de Medicamento</h2>
         <form action="{{ route('entradaMedStore') }}" method="POST">
             @csrf
 
             <div class="form-group">
-                <label for="nomeMedicamento">Nome do Medicamento:</label>
-                <input type="text" name="nomeMedicamento" class="form-control" id="nomeMedicamento" required placeholder="Digite o nome do medicamento">
-                <input type="hidden" name="idMedicamento" id="idMedicamento"> <!-- Campo oculto para armazenar o ID do medicamento -->
+                <label for="medicamento">Medicamento:</label>
+                <select name="idMedicamento" class="form-control" id="medicamento" required>
+                    <option value="">Selecione um medicamento</option>
+                    @foreach($medicamentos as $medicamento)
+                        <option value="{{ $medicamento->idMedicamento }}" data-lote="{{ $medicamento->loteMedicamento }}" data-validade="{{ $medicamento->validadeMedicamento }}">
+                            {{ $medicamento->nomeMedicamento }}
+                        </option>
+                    @endforeach
+                </select>
                 <small id="medicamentoError" style="color: red; display: none;">Medicamento não cadastrado.</small>
             </div>
+
             <div class="form-group">
                 <label for="dataEntrada">Data de Entrada:</label>
                 <input type="date" name="dataEntrada" class="form-control" value="{{ date('Y-m-d') }}" required>
@@ -35,106 +37,72 @@ O MEDICAMENTO QUE CHEGOU, ATUALIZAR E DESATIVAR, E PODERÁ VER OS MEDICAMENTOS D
 
             <div class="form-group">
                 <label for="lote">Lote:</label>
-                <input type="text" name="lote" class="form-control" required>
+                <input type="text" name="lote" class="form-control" required readonly id="lote">
             </div>
 
             <div class="form-group">
                 <label for="validade">Validade:</label>
-                <input type="date" name="validade" class="form-control" required>
+                <input type="date" name="validade" class="form-control" required readonly id="validade">
             </div>
 
             <div class="form-group">
                 <label for="motivoEntrada">Motivo da Entrada:</label>
                 <input type="text" name="motivoEntrada" class="form-control" id="motivoEntrada" required placeholder="Digite o motivo da entrada">
-                <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada"> <!-- Campo oculto para armazenar o ID -->
-            </div>
-            
-            <div class="form-group">
-                <label for="nomeFuncionario">Funcionário Responsável:</label>
-                <input type="text" name="nomeFuncionario" class="form-control" id="nomeFuncionario" required placeholder="Digite o nome do funcionário">
-                <input type="hidden" name="idFuncionario" id="idFuncionario"> <!-- Campo oculto para armazenar o ID do funcionário -->
+                <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada">
             </div>
 
+            <div class="form-group">
+                <label for="funcionario">Funcionário Responsável:</label>
+                <select name="idFuncionario" class="form-control" id="funcionario" required>
+                    <option value="">Selecione um funcionário</option>
+                    @foreach($funcionarios as $funcionario)
+                        <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
+                    @endforeach
+                </select>
+            </div>
 
             <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
     </div>
-
 </div>
 
 @include('includes.footer')
 
 <script>
-    // busca o funcionario pelo nome
-    document.getElementById('nomeFuncionario').addEventListener('input', function() {
-        const nomeFuncionario = this.value;
-        
-        // Faz a requisição AJAX para buscar o ID do funcionário
-        if (nomeFuncionario) {
-            fetch(`/funcionario/buscar?nomeFuncionario=${nomeFuncionario}`)
-                .then(response => response.json())
-                .then(data => {
-                    // Se o ID for encontrado, atribui ao campo oculto; se não, limpa o campo
-                    document.getElementById('idFuncionario').value = data.idFuncionario || '';
-                })
-                .catch(error => console.error('Erro ao buscar funcionário:', error));
-        } else {
-            // Limpa o campo de ID caso o nome esteja vazio
-            document.getElementById('idFuncionario').value = '';
-        }
+    // Atualiza os campos de lote e validade quando o medicamento é selecionado
+    document.getElementById('medicamento').addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const lote = selectedOption.getAttribute('data-lote');
+        const validade = selectedOption.getAttribute('data-validade');
+
+        document.getElementById('lote').value = lote || '';
+        document.getElementById('validade').value = validade || '';
     });
-</script>
 
-<script>
-   // motivo entrada cadastra automatico
-document.getElementById('motivoEntrada').addEventListener('blur', function() {
-    const motivoEntrada = this.value;
+    // motivo entrada cadastra automático
+    document.getElementById('motivoEntrada').addEventListener('blur', function() {
+        const motivoEntrada = this.value;
 
-    if (motivoEntrada) {
-        fetch('/motivoEntrada/buscarOuCriar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ motivoEntrada: motivoEntrada })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Atribui o ID do motivo ao campo oculto
-            document.getElementById('idMotivoEntrada').value = data.idMotivoEntrada;
-        })
-        .catch(error => console.error('Erro ao buscar/criar motivo de entrada:', error));
-    }
-});
-
-</script>
-
-<script>
-// Busca o medicamento pelo nome
-document.getElementById('nomeMedicamento').addEventListener('blur', function() {
-    const nomeMedicamento = this.value;
-
-    if (nomeMedicamento) {
-        fetch(`/medicamento/buscar?nomeMedicamento=${nomeMedicamento}`)
+        if (motivoEntrada) {
+            fetch('/motivoEntrada/buscarOuCriar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ motivoEntrada: motivoEntrada })
+            })
             .then(response => response.json())
             .then(data => {
-                if (data.idMedicamento) {
-                    // Se o ID for encontrado, atribui ao campo oculto
-                    document.getElementById('idMedicamento').value = data.idMedicamento;
+                if (data.idMotivoEntrada) {
+                    document.getElementById('idMotivoEntrada').value = data.idMotivoEntrada;
                 } else {
-                    // Caso o medicamento não esteja cadastrado, exibe o alerta e limpa o campo oculto
-                    alert('Erro: Medicamento não cadastrado.');
-                    document.getElementById('idMedicamento').value = '';
+                    console.error('Erro ao criar motivo de entrada:', data);
                 }
             })
-            .catch(error => console.error('Erro ao buscar medicamento:', error));
-    } else {
-        // Limpa o campo de ID caso o nome esteja vazio
-        document.getElementById('idMedicamento').value = '';
-    }
-});
-
+            .catch(error => console.error('Erro ao buscar/criar motivo de entrada:', error));
+        }
+    });
 </script>
 
 <style>

@@ -45,7 +45,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/EntradaMed">
+				<a href="/EntradaMedicamentoHome">
 					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text">Entrada Medicamentos </span>
 				</a>

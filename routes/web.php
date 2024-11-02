@@ -322,22 +322,48 @@ Route::put('/Cadprescricao/{id}', [PrescricaoController::class, 'update'])->name
 Route::patch('/PrescricaoDel/{id}', [PrescricaoController::class, 'destroy'])->name('prescricao.desativar');
 
 
-//motivo Entrada
-Route::get('/EntradaMed', function () {
-    return view('farmacia.Medicamento.MedicamentoEntrada');
+Route::get('/editMedFarmacia', function () {
+    return view('farmacia.Medicamento.atualizarMedicamento');
 });
-//Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
 
-// // Página principal com o formulário de cadastro e lista de motivos
-// Route::get('/motivEntrada', [MotivoEntradaController::class, 'index'])->name('motivEntrada.index');
+Route::post('/CadMedFarma', [MedicamentoFarmaciaUBSController::class, 'store']);
+Route::get('/medicamentosFarma/{id}/edit', [MedicamentoFarmaciaUBSController::class, 'edit'])->name('medicamentosFarma.edit');
 
+Route::put('/medicamentosFarma/{id}', [MedicamentoFarmaciaUBSController::class, 'update'])->name('medicamentosFarma.update');
+Route::patch('/medicamentosFarmaDel/{id}', [MedicamentoFarmaciaUBSController::class, 'destroy'])->name('medicamentosFarma.desativar');
+Route::patch('/medicamentosFarmaAtiv/{id}', [MedicamentoFarmaciaUBSController::class, 'ativar'])->name('medicamentosFarma.ativar');
+
+//busca pelo codBa
+Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMedicamentoPorCodigo'])->name('CodMed');
+//filtre
+Route::get('/filtrarMedFarma', [MedicamentoFarmaciaUBSController::class, 'filtrar'])->name('medicamentos.filtrar');
+
+//Prescrição
+Route::get('/prescricao', [PrescricaoController::class, 'index']);
+Route::post('/Cadprescricao', [PrescricaoController::class, 'store']);
+Route::put('/Cadprescricao/{id}', [PrescricaoController::class, 'update'])->name('prescricao.update');
+Route::patch('/PrescricaoDel/{id}', [PrescricaoController::class, 'destroy'])->name('prescricao.desativar');
+
+
+
+
+//ENTRADA MEDICAMENTO
+Route::get('/EntradaMedicamentoHome', [EntradaMedicamentoController::class, 'index'])->name('medicamentos.index');
+
+//rota botao novo medicamento
+Route::get('/entradamedinsert', [EntradaMedicamentoController::class, 'create'])->name('entradaMedInsert');
+// Rota para armazenar a nova entrada de medicamento
+Route::post('/entrada-medicamento/store', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
+//busca o funcionario pelo nome
+Route::get('/funcionario/buscar', [EntradaMedicamentoController::class, 'buscarFuncionario'])->name('buscarFuncionario');
+//cria o motivo automatico
+Route::post('/motivoEntrada/buscarOuCriar', [MotivoEntradaController::class, 'buscarOuCriarMotivo'])->name('motivoEntrada.buscarOuCriar');
 
 Route::get('/motivEntrada', [MotivoEntradaController::class, 'index'])->name('motivEntrada.index');
 Route::post('/motivEntrada', [MotivoEntradaController::class, 'store'])->name('motivEntrada.store');
 Route::get('/motivEntradaEdit/{id}', [MotivoEntradaController::class, 'edit'])->name('motivEntrada.edit');
 Route::put('/motivEntrada/{id}', [MotivoEntradaController::class, 'update'])->name('motivEntrada.update');
 Route::delete('/motivEntrada/{id}', [MotivoEntradaController::class, 'destroy'])->name('motivEntrada.destroy');
-
 //saidamed
 
 // Exibe o formulário
@@ -352,7 +378,6 @@ Route::get('/motivoSaida', [MotivoSaidaController::class, 'create'])->name('moti
 
 // Rota para processar o cadastro de motivo de saída
 Route::post('/motivo-saida', [MotivoSaidaController::class, 'store'])->name('motivoSaida.store');
-
 
 //FUNCIONARIO
 Route::get('/FuncionarioHome', function () {
