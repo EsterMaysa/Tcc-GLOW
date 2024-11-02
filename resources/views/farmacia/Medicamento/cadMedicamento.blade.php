@@ -21,6 +21,7 @@
             <label for="nomeGenericoMedicamento">Nome Genérico do Medicamento</label>
             <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenericoMedicamento" value="{{ old('nomeGenericoMedicamento') }}" required>
         </div>
+
         <!-- Validade do Medicamento -->
         <div class="form-group">
             <label for="validadeMedicamento">Data de Validade</label>
@@ -31,12 +32,6 @@
         <div class="form-group">
             <label for="loteMedicamento">Lote</label>
             <input type="text" class="form-control" id="loteMedicamento" name="loteMedicamento" required>
-        </div>
-
-        <!-- Dosagem do Medicamento -->
-        <div class="form-group">
-            <label for="dosagemMedicamento">Dosagem</label>
-            <input type="text" class="form-control" id="dosagemMedicamento" name="dosagemMedicamento" required>
         </div>
 
         <!-- Forma Farmacêutica do Medicamento -->
@@ -55,17 +50,23 @@
             </select>
         </div>
 
+        <!-- Dosagem do Medicamento -->
+        <div class="form-group">
+            <label for="dosagemMedicamento">Dosagem</label>
+            <input type="text" class="form-control" id="dosagemMedicamento" name="dosagemMedicamento" required>
+        </div>
+
         <!-- Composição do Medicamento -->
         <div class="form-group">
             <label for="composicaoMedicamento">Composição</label>
             <textarea class="form-control" id="composicaoMedicamento" name="composicaoMedicamento" required></textarea>
         </div>
-
-
         <!-- Botão de Enviar -->
         <button type="submit" class="btn btn-primary">Cadastrar Medicamento</button>
     </form>
 </div>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function buscarMedicamento() {
@@ -77,27 +78,24 @@
                 type: 'GET',
                 success: function(data) {
                     console.log(data); // Veja o que está sendo retornado
+
                     if (data) {
+                        // Atualiza os inputs visíveis com os valores recebidos
                         $('#nomeMedicamento').val(data.nomeMedicamento);
                         $('#nomeGenericoMedicamento').val(data.nomeGenericoMedicamento);
                         $('#composicaoMedicamento').val(data.composicaoMedicamento);
-
-                        // Remover a desabilitação dos campos
-                        // $('#codigoDeBarrasMedicamento').prop('disabled', true);
-                        // $('#nomeMedicamento').prop('disabled', true);
-                        // $('#nomeGenericoMedicamento').prop('disabled', true);
-                        // $('#composicaoMedicamento').prop('disabled', true);
                     } else {
                         alert('Código de barras não encontrado!');
                     }
                 },
-                error: function() {
+                error: function(jqXHR) {
                     alert('Erro ao buscar o medicamento!');
+                    console.error(jqXHR.responseText); // Exibe detalhes do erro no console
                 }
-
             });
         }
     }
+
 </script>
 
 @include('includes.footer')

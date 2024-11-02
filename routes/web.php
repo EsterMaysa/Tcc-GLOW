@@ -171,7 +171,7 @@ Route::get('/medicamento/edit/{idMedicamento}', [MedicamentoController::class, '
 Route::put('/medicamento/{idMedicamento}', [MedicamentoController::class, 'update'])->name('medicamento.update');
 Route::put('/medicamentos/desativar/{id}', [MedicamentoController::class, 'desativar'])->name('medicamento.desativar');
 
-Route::post('/filtro-medicamentos', [MedicamentoController::class, 'filtrar']);
+// Route::post('/filtro-medicamentos', [MedicamentoController::class, 'filtrar']);
 Route::get('/medicamentos/search', [MedicamentoController::class, 'search'])->name('medicamentos.search');
 
 
@@ -214,10 +214,7 @@ Route::prefix('contato')->group(function () {
 
 Route::post('/contato/{id}/resposta', [ContatoController::class, 'resposta'])->name('contato.resposta');
 
-
 Route::get('/contato', [ContatoController::class, 'index'])->name('contato.index');
-
-
 
 //Peerfil
 Route::get('/perfilADM', [AdministradorController::class, 'perfil'])->name('perfil');
@@ -250,9 +247,6 @@ Route::get('/login', function () {
 Route::get('/cadastroAdm', function () {
     return view('adm.cadastroAdm');
 });
-
-
-
 
 
 // TODAS DO LADO FARMACIA 
@@ -299,8 +293,10 @@ Route::get('/SaidaMed', function () {
 
 //MEDICAMENTO FARMACIA
 
-Route::get('/MedicamentoHome', function () {
-    return view('farmacia.Medicamento.medicamentoFarmacia');
+Route::get('/MedicamentoHome', [MedicamentoFarmaciaUBSController::class, 'index']);
+
+Route::get('/FormsMed', function () {
+    return view('farmacia.Medicamento.cadMedicamento');
 });
 
 Route::get('/editMedFarmacia', function () {
@@ -311,12 +307,13 @@ Route::post('/CadMedFarma', [MedicamentoFarmaciaUBSController::class, 'store']);
 Route::get('/medicamentosFarma/{id}/edit', [MedicamentoFarmaciaUBSController::class, 'edit'])->name('medicamentosFarma.edit');
 
 Route::put('/medicamentosFarma/{id}', [MedicamentoFarmaciaUBSController::class, 'update'])->name('medicamentosFarma.update');
-
 Route::patch('/medicamentosFarmaDel/{id}', [MedicamentoFarmaciaUBSController::class, 'destroy'])->name('medicamentosFarma.desativar');
+Route::patch('/medicamentosFarmaAtiv/{id}', [MedicamentoFarmaciaUBSController::class, 'ativar'])->name('medicamentosFarma.ativar');
 
 //busca pelo codBa
 Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMedicamentoPorCodigo'])->name('CodMed');
-
+//filtre
+Route::get('/filtrarMedFarma', [MedicamentoFarmaciaUBSController::class, 'filtrar'])->name('medicamentos.filtrar');
 
 //Prescrição
 Route::get('/prescricao', [PrescricaoController::class, 'index']);
