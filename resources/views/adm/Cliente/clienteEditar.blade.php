@@ -1,18 +1,30 @@
+<!--CSS completo (ASS: Duda) Cuidado pois estão estou usando um para duas páginas-->
+
 @include('includes.header')
+<link rel="stylesheet" href="{{ url('css/InserirPaciente.css')}}">
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1>Editar Cliente</h1>
+        <p>Edite os clientes já existentes.</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/AdmCriando.png') }}" alt="Edição de Clientes" class="img-fluid" />
+    </div>
+</div>
 
 <!-- MAIN -->
 <main>
-    <div class="head-title">
-        <div class="left">
-            <h1>Editar Cliente</h1>
-            <ul class="breadcrumb">
-                <li><a href="/">Home</a></li>
-                <li><i class='bx bx-chevron-right'></i></li>
-                <li><a class="active" href="/">Editar Cliente</a></li>
-            </ul>
-        </div>
-    </div>
-
     <!-- Exibir mensagens de sucesso ou erro -->
     @if(session('success'))
         <div class="alert alert-success">
@@ -24,7 +36,6 @@
         </div>
     @endif
 
-    <!-- Contêiner para centralizar o formulário -->
     <div class="form-wrapper">
         <form action="{{ route('cliente.update', $cliente->idCliente) }}" method="POST" class="styled-form">
             @csrf
@@ -32,84 +43,78 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="nomeCliente">Nome do Cliente:</label>
+                    <label for="nomeCliente"><i class="fas fa-user"></i> Nome do Cliente:</label>
                     <input type="text" id="nomeCliente" name="nomeCliente" value="{{ $cliente->nomeCliente }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="cpfCliente">CPF do Cliente:</label>
+                    <label for="cpfCliente"><i class="fas fa-id-card"></i> CPF do Cliente:</label>
                     <input type="text" id="cpfCliente" name="cpfCliente" maxlength="11" value="{{ $cliente->cpfCliente }}" required>
                 </div>
-            </div>
 
-            <div class="form-row">
                 <div class="form-group">
-                    <label for="cnsCliente">CNS do Cliente:</label>
+                    <label for="cnsCliente"><i class="fas fa-hospital-user"></i> CNS do Cliente:</label>
                     <input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" value="{{ $cliente->cnsCliente }}" required>
                 </div>
-
-                <div class="form-group">
-                    <label for="dataNascCliente">Data de Nascimento:</label>
-                    <input type="date" id="dataNascCliente" name="dataNascCliente" value="{{ $cliente->dataNascCliente }}" required>
-                </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="userCliente">Usuário:</label>
+                    <label for="dataNascCliente"><i class="fas fa-calendar-alt"></i> Data de Nascimento:</label>
+                    <input type="date" id="dataNascCliente" name="dataNascCliente" value="{{ $cliente->dataNascCliente }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="userCliente"><i class="fas fa-user-circle"></i> Usuário:</label>
                     <input type="text" id="userCliente" name="userCliente" value="{{ $cliente->userCliente }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="numeroTelefoneCliente">Novo Telefone do Cliente:</label>
+                    <label for="numeroTelefoneCliente"><i class="fas fa-phone"></i> Novo Telefone do Cliente:</label>
                     <input type="text" id="numeroTelefoneCliente" name="numeroTelefoneCliente" maxlength="15" oninput="mascaraTelefone(this)" value="{{ $telefone->numeroTelefoneCliente }}" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group cep-field">
-                    <label for="cepCliente">CEP do Cliente:</label>
+                    <label for="cepCliente"><i class="fas fa-map-marker-alt"></i> CEP do Cliente:</label>
                     <input type="text" id="cepCliente" name="cepCliente" maxlength="8" value="{{ $cliente->cepCliente }}" required>
                 </div>
 
                 <div class="form-group complemento-field">
-                    <label for="complementoCliente">Complemento:</label>
+                    <label for="complementoCliente"><i class="fas fa-info-circle"></i> Complemento:</label>
                     <input type="text" id="complementoCliente" name="complementoCliente" value="{{ $cliente->complementoCliente }}">
                 </div>
-            </div>
 
-            <div class="form-row">
                 <div class="form-group">
-                    <label for="logradouroCliente">Logradouro:</label>
+                    <label for="logradouroCliente"><i class="fas fa-road"></i> Logradouro:</label>
                     <input type="text" id="logradouroCliente" name="logradouroCliente" value="{{ $cliente->logradouroCliente }}" required readonly>
                 </div>
 
                 <div class="form-group">
-                    <label for="bairroCliente">Bairro:</label>
+                    <label for="bairroCliente"><i class="fas fa-home"></i> Bairro:</label>
                     <input type="text" id="bairroCliente" name="bairroCliente" value="{{ $cliente->bairroCliente }}" required readonly>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="cidadeCliente">Cidade:</label>
+                    <label for="cidadeCliente"><i class="fas fa-city"></i> Cidade:</label>
                     <input type="text" id="cidadeCliente" name="cidadeCliente" value="{{ $cliente->cidadeCliente }}" required readonly>
                 </div>
 
                 <div class="form-group">
-                    <label for="ufCliente">UF:</label>
+                    <label for="ufCliente"><i class="fas fa-globe"></i> UF:</label>
                     <input type="text" id="ufCliente" name="ufCliente" value="{{ $cliente->ufCliente }}" required readonly>
                 </div>
-            </div>
 
-            <div class="form-row">
                 <div class="form-group">
-                    <label for="estadoCliente">Estado:</label>
+                    <label for="estadoCliente"><i class="fas fa-map"></i> Estado:</label>
                     <input type="text" id="estadoCliente" name="estadoCliente" value="{{ $cliente->estadoCliente }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="numeroCliente">Número:</label>
+                    <label for="numeroCliente"><i class="fas fa-sort-numeric-up-alt"></i> Número:</label>
                     <input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" value="{{ $cliente->numeroCliente }}" required>
                 </div>
             </div>
@@ -122,113 +127,6 @@
 </main>
 
 @include('includes.footer')
-
-<!-- Estilos CSS -->
-<style>
-    /* Estilo para a página principal */
-    main {
-        padding: 20px;
-    }
-
-    /* Estilo para manter o título e breadcrumb no topo */
-    .head-title {
-        margin-bottom: 40px;
-        text-align: center;
-    }
-
-    /* Estilo para alertas */
-    .alert {
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        text-align: center;
-    }
-    .alert-success {
-        background-color: #d4edda;
-        color: #155724;
-    }
-    .alert-danger {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-
-    /* Form-wrapper centraliza o formulário */
-    .form-wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        margin-top: 50px;
-        height: auto;
-    }
-
-    /* Estilo moderno e delicado para o formulário */
-    .styled-form {
-        background-color: #1f2b5b;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 600px;
-    }
-
-    /* Form-row para alinhar as colunas */
-    .form-row {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-    }
-
-    .form-group {
-        flex: 1;
-    }
-
-    /* Estilo específico para o campo CEP e Complemento */
-    .cep-field {
-        flex: 0.5;
-    }
-
-    .complemento-field {
-        flex: 0.5;
-    }
-
-    .form-group label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 6px;
-        color: #fff;
-    }
-
-    .form-group input {
-        width: 100%; /* Garante que todos os inputs ocupem 100% do espaço do container */
-        padding: 10px;
-        border-radius: 4px;
-        border: 1px solid #ddd;
-        font-size: 14px;
-    }
-
-    .form-group input:focus {
-        outline: none;
-        border-color: #57b8ff;
-        box-shadow: 0 0 4px rgba(87, 184, 255, 0.3);
-    }
-
-    /* Botão de envio */
-    .submit-btn {
-        padding: 12px 25px;
-        background-color: #57b8ff;
-        color: white;
-        font-size: 16px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-left: 14%;
-    }
-
-    .submit-btn:hover {
-        background-color: #4b89f5;
-    }
-</style>
 
 <!-- Script para buscar endereço usando a API do ViaCEP -->
 <script>

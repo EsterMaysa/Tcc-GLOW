@@ -13,6 +13,7 @@ class ModelPrescricao extends Model
     protected $table = 'tbPrescricao';
     protected $primaryKey = 'idPrescricao';
     protected $connection = 'mysql2';
+    public $timestamps = false;
 
     protected $fillable = [
         'dataPrescricao',

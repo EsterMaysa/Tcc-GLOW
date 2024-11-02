@@ -1,9 +1,9 @@
-@include('includes.headerFarmacia')
 <!-- 
-AQUI VAI A PAGINA DO MEDICAMENTO - A HOME MEDICAMENTO - QUE TERÁ O BOTAO DE CADASTRA 
-O MEDICAMNETO QUE CHEGOU,ATUALISAR E DESATIVAR, E PODERÁ VER OS MEDICAMENTOS DESSA FARMACIA. -->
+AQUI VAI A PAGINA DO MEDICAMENTO - A HOME MEDICAMENTO - QUE TERÁ O BOTÃO DE CADASTRAR 
+O MEDICAMENTO QUE CHEGOU, ATUALIZAR E DESATIVAR, E PODERÁ VER OS MEDICAMENTOS DESSA FARMÁCIA. 
+-->
+@include('includes.headerFarmacia')
 
-<!-- Main content -->
 <div class="col-md-9 col-lg-10 main-content">
     <div class="head-title">
         <div class="left">

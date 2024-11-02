@@ -4,7 +4,6 @@ use App\Http\Controllers\ClienteAdmController;
 use App\Http\Controllers\TelefoneClienteAdmController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteFarmaciaController; // Certifique-se de importar o ClienteController
-use App\Http\Controllers\MedicamentoController;
 use App\Http\Controllers\MedicamentoFarmaciaController;
 use App\Http\Controllers\TelefoneClienteController;
 use App\Http\Controllers\tipoMedicamentoController;
@@ -13,14 +12,21 @@ use App\Http\Controllers\FarmaciaUBSController;
 
 
 //novos controllers
+use App\Http\Controllers\MedicamentoController;
+
 use App\Http\Controllers\UBSController;
 use App\Http\Controllers\TelefoneUBSController;
 use App\Http\Controllers\RegiaoUBSController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\DetentorController;
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\MedicamentoFarmaciaUBSController;
+use App\Http\Controllers\PrescricaoController;
 use App\Http\Controllers\FuncionarioFarmaciaUBSController;
 
+use App\Http\Controllers\EntradaMedicamentoController;
+use App\Http\Controllers\MotivoEntradaController;
+use App\Models\ModelMotivoEntrada;
 use Illuminate\Http\Request;
 
 
@@ -231,77 +237,14 @@ Route::post('/cadastroAdm','App\Http\Controllers\AdministradorController@store')
 //Perfil ARRUMAR
 Route::get('/perfil', [AdministradorController::class, 'showProfile'])->middleware('auth');
 
+
+//views login e cadastro
 Route::get('/login', function () {
     return view('adm.login');
 });
 Route::get('/cadastroAdm', function () {
     return view('adm.cadastroAdm');
 });
-
-// Route::get('/login', function () {
-//     return view('adm.login');
-// })->name('login');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Páginas ADM */
-
-// Route::get('/perfil', function () {
-//     return view('adm.Perfil.perfil');
-// })->name('perfil');
-
-
-// Route::get('/editarPerfil', function () {
-//     return view('adm.Perfil.editarPerfil');
-// });
-
-// Route::get('/configuracoesNotificacoes', function () {
-//     return view('adm.configuracoesNotificacoes');
-// });
-// Route::get('/notificacoes', function () {
-//     return view('adm.Notificacao.notificacoes');
-// });
-
-//PAGINAS MEDICAMENTO_UBS_CLIENTE
-
-// Route::get('/ubs', function () {
-//     return view('adm.UBS.UBS');
-// });
-
-
-// Route::get('/cliente', function () {
-//     return view('adm.cliente.Cliente');
-// });
-
-// Route::get('/contato', function () {
-//     return view('adm.contato');
-// });
-
-//SELECT
-// Route::get('/getUsuario','App\Http\Controllers\UsuarioController@index');
-
-
-
-// Route::get('/perfil', 'App\Http\Controllers\AdministradorController@perfil')->name('perfil');
 
 
 
@@ -348,6 +291,7 @@ Route::get('/SaidaMed', function () {
     return view('farmacia.Estoque.medicamentoSaida');
 });
 
+
 //MEDICAMENTO FARMACIA
 
 Route::get('/MedicamentoHome', function () {
@@ -355,10 +299,20 @@ Route::get('/MedicamentoHome', function () {
 });
 
 //motivo Entrada
-Route::get('/motivEntrada', function () {
-    return view('farmacia.Medicamento.motivEntrada');
+Route::get('/EntradaMed', function () {
+    return view('farmacia.Medicamento.MedicamentoEntrada');
 });
-Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
+//Route::post('/motivEntrada','App\Http\Controllers\MotivoEntradaController@store');
+
+// // Página principal com o formulário de cadastro e lista de motivos
+// Route::get('/motivEntrada', [MotivoEntradaController::class, 'index'])->name('motivEntrada.index');
+
+
+Route::get('/motivEntrada', [MotivoEntradaController::class, 'index'])->name('motivEntrada.index');
+Route::post('/motivEntrada', [MotivoEntradaController::class, 'store'])->name('motivEntrada.store');
+Route::get('/motivEntradaEdit/{id}', [MotivoEntradaController::class, 'edit'])->name('motivEntrada.edit');
+Route::put('/motivEntrada/{id}', [MotivoEntradaController::class, 'update'])->name('motivEntrada.update');
+Route::delete('/motivEntrada/{id}', [MotivoEntradaController::class, 'destroy'])->name('motivEntrada.destroy');
 
 
 

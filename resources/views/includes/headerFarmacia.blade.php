@@ -41,6 +41,12 @@
 			<li>
 				<a href="/MedicamentoHome">
 					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Medicamentos </span>
+				</a>
+			</li>
+			<li>
+				<a href="/EntradaMed">
+					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text">Entrada Medicamentos </span>
 				</a>
 			</li>
@@ -64,12 +70,12 @@
 				</a>
 			</li>
 		
-			<li>
+			<!-- <li>
 				<a href="">
 					<i class='bx bxs-message-dots'></i>
 					<span class="text"> Mensagens </span>
 				</a>
-			</li>
+			</li> -->
 		</ul>
 		<ul class="boto">
     		<li>

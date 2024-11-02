@@ -11,6 +11,8 @@ class ModelMotivoEntrada extends Model
 
     protected $table = 'tbMotivoEntrada';
 
+    protected $primaryKey = 'idMotivoEntrada';
+
     protected $connection = 'mysql2';
 
     public $timestamps = false;
@@ -18,4 +20,7 @@ class ModelMotivoEntrada extends Model
     protected $fillable = [
         'motivoEntrada',
     ];
+
+
+
 }

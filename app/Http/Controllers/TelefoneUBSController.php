@@ -26,10 +26,6 @@ class TelefoneUBSController extends Controller
     }
 
 
-
-
-
-    
     public function updateapi(Request $request, $id)
     {
         TelefoneUBSModel::where('idTelefoneUBS', $id)->update([
