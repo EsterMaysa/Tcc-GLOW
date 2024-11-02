@@ -238,7 +238,7 @@ public function verificarEmail(Request $request)
         $ubs->senhaUBS = bcrypt($request->senha);
         $ubs->save();
 
-        return response()->json(['message' => 'Senha atualizada com sucesso!'], 200);
+        return redirect('/homeFarmacia')->with('success', 'Senha atualizada com sucesso!');
     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
         return response()->json(['message' => 'UBS não encontrada.'], 404);
     }

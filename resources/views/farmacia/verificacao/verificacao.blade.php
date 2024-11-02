@@ -1,57 +1,130 @@
-@include('includes.headerFarmacia')
+<!-- Tela de login com CSS embutido -->
+<div class="login-container">
+    <div class="login-box">
+        <img src="logo.png" alt="Logo" class="logo">
+        <h2>Farmácia | Login</h2>
 
-<!-- Aqui vai o forms do motivo entrada -->
+        <!-- Formulário de Login -->
+        <form id="formCadastrar" action="{{ route('verificar.email') }}" method="POST">
+            @csrf
+            <div class="input-group">
+                <label for="email"></label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" required>
+            </div>
+            <div class="input-group">
+                <label for="senha"></label>
+                <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" required>
+            </div>
+            <button type="submit" class="btn-login">LOGIN</button>
+        </form>
 
-<!-- Main content -->
-<div class="col-md-9 col-lg-10 main-content">
-    <div class="head-title">
-        <div class="left">
-            <h1>Verificação</h1>
+        <div class="links">
+            <a href="#">Não possui cadastro? ➔</a>
+            <a href="#">Não é Farmácia? ➔</a>
         </div>
     </div>
-
-    <!-- Mensagem de sucesso ou erro -->
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <!-- Formulário para entrada do email e senha -->
-    <form id="formCadastrar" action="{{ route('verificar.email') }}" method="POST">
-        @csrf
-        <div id="formEmail">
-            <label for="email">Digite seu e-mail:</label>
-            <input type="email" name="email" id="email" class="form-control" placeholder="seuemail@exemplo.com" required>
-            <button type="button" id="btnAvancar" class="btn-acao">Avançar</button>
-        </div>
-
-        <!-- Formulário para entrada da senha (oculto inicialmente) -->
-        <div id="formSenha" style="display: none; margin-top: 20px;">
-            <label for="senha">Digite sua senha:</label>
-            <input type="password" name="senha" id="senha" class="form-control" placeholder="********" required>
-            <button type="submit" id="btnCadastrar" class="btn-acao">Cadastrar</button>
-        </div>
-    </form>
 </div>
 
-@include('includes.footer')
+<!-- Estilos CSS embutidos -->
+<style>
+    /* Background */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #1D8D74, #3A9F85);
+        font-family: Arial, sans-serif;
+    }
 
-<script>
-    // Mostrar o campo de senha quando o botão "Avançar" for clicado
-    document.getElementById('btnAvancar').addEventListener('click', function() {
-        document.getElementById('formEmail').style.display = 'none'; // Esconde o formulário de email
-        document.getElementById('formSenha').style.display = 'block'; // Mostra o formulário de senha
-        this.style.display = 'none'; // Esconde o botão "Avançar"
-    });
-</script>
+    /* Container principal */
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Caixa de login */
+    .login-box {
+        background: #fff;
+        border-radius: 10px;
+        padding: 40px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    /* Logo */
+    .logo {
+        max-width: 80px;
+        margin-bottom: 20px;
+    }
+
+    /* Título */
+    .login-box h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    /* Estilos dos campos de entrada */
+    .input-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 15px;
+        font-size: 14px;
+        background: #f2f2f2;
+        border: none;
+        border-radius: 25px;
+        outline: none;
+        color: #555;
+    }
+
+    .form-control::placeholder {
+        color: #888;
+    }
+
+    /* Estilos do botão de login */
+    .btn-login {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #1D8D74;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-login:hover {
+        background-color: #166e5a;
+    }
+
+    /* Links adicionais */
+    .links {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .links a {
+        color: #555;
+        text-decoration: none;
+        display: block;
+        margin-top: 5px;
+    }
+
+    .links a:hover {
+        text-decoration: underline;
+    }
+</style>
