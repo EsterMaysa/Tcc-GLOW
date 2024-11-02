@@ -8,6 +8,10 @@
         <div class="left">
             <h1>Entrada do Medicamento</h1>
 
+
+
+            <label>Nome:</label>
+            <a href="formTipoMovimentacao" target="_blank">Castrar Tipo movimentação</a>
         </div>
     </div>
 

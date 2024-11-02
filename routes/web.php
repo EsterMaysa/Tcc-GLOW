@@ -30,6 +30,8 @@ use App\Models\ModelMotivoEntrada;
 use Illuminate\Http\Request;
 
 
+use App\Http\Controllers\TipoMovimentacaoController;
+
 //NOVAS 
 
 // TODAS DO LADO ADM 
@@ -350,6 +352,10 @@ Route::get('/TipoMovimentaçãoHome', function () {
     return view('farmacia.TipoMovimentacao.TipoMovimentacao');
 });
 
+Route::get('/formTipoMovimentacao', function () {
+    return view('farmacia.TipoMovimentacao.formTipoMovimentacao');
+});
+
 
 //verificação da senha
 
@@ -359,3 +365,9 @@ Route::get('/verificacao', function () {
 
 
 Route::post('/verificar-email', [UBSController::class, 'verificarEmail'])->name('verificar.email');
+
+
+
+//tipo movimentação
+Route::post('/insertTipoMovimentacao', [TipoMovimentacaoController::class, 'store'])->name('insertTipoMovimentacao');
+

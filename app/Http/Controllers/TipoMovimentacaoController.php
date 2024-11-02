@@ -12,17 +12,26 @@ class TipoMovimentacaoController extends Controller
         $movimentacoes = ModelTipoMovimentacao::all();
         return response()->json($movimentacoes);
     }
-
+  
     public function store(Request $request)
     {
-        $movimentacao = new ModelTipoMovimentacao();
-        $movimentacao->movimentacao = $request->movimentacao;
-        $movimentacao->situacaoTipoMovimentacao = $request->situacaoTipoMovimentacao;
-        $movimentacao->dataCadastroTipoMovimentacao = now();
-        $movimentacao->save();
+        // Validação dos dados
+       
 
-        return response()->json(['message' => 'Tipo de movimentação cadastrado com sucesso!'], 201);
+        // Cria uma nova entrada na tabela
+        $tipo = new TipoMovimentacao();
+        $tipo->movimentacao = $request->movimentacao;
+        $tipo->situacaoTipoMovimentacao = '1'; // Definido como 1
+        $tipo->dataCadastroTipoMovimentacao = now(); // Usando now()
+        $tipo->idPrescricao = $request->idPrescricao; // Caso o ID da prescrição seja fornecido
+        $tipo->save(); // Salvar o registro
+
+        
+        
+        // Redireciona com uma mensagem de sucesso
+        return redirect()->route('farmacia.TipoMovimentacao.tipoMovimentacao')->with('success', 'Tipo de movimentação cadastrado com sucesso!');
     }
+
 
     public function show($id)
     {
