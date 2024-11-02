@@ -21,6 +21,7 @@ use App\Http\Controllers\DetentorController;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\MedicamentoFarmaciaUBSController;
 use App\Http\Controllers\PrescricaoController;
+use App\Http\Controllers\FuncionarioFarmaciaUBSController;
 
 use App\Http\Controllers\EntradaMedicamentoController;
 use App\Http\Controllers\MotivoEntradaController;
@@ -35,7 +36,9 @@ use App\Http\Controllers\SaidaMedicamentoController;
 use App\Http\Controllers\MotivoSaidaController;
 
 
-//NOVAS 
+use App\Http\Controllers\TipoMovimentacaoController;
+
+
 
 // TODAS DO LADO ADM 
 Route::get('/', function () {
@@ -384,8 +387,51 @@ Route::get('/FuncionarioHome', function () {
     return view('farmacia.Funcionario.funcionario');
 });
 
+Route::get('/formFuncionario', function () {
+    return view('farmacia.Funcionario.formFuncionario');
+});
+
+Route::get('/editFuncionario', function () {
+    return view('farmacia.Funcionario.editFuncionario');
+});
+
+//cadastro do funcionario
+Route::post('/insertFuncionario', [FuncionarioFarmaciaUBSController::class, 'store'])->name('insertFuncionario');
+
+//edit do funcionario
+Route::get('/funcionarios/{idFuncionario}/edit', [FuncionarioFarmaciaUBSController::class, 'edit'])->name('funcionario.edit');
+
+Route::put('/funcionarios/{idFuncionario}', [FuncionarioFarmaciaUBSController::class, 'update'])->name('funcionario.update');
 
 
 
+Route::get('/funcionarios', [FuncionarioFarmaciaUBSController::class, 'index'])->name('funcionario.index');
+Route::post('/funcionarios/{idFuncionario}/delete', [FuncionarioFarmaciaUBSController::class, 'destroy'])->name('funcionario.destroy');
 
+
+
+//Tipo movimentação
+
+Route::get('/TipoMovimentaçãoHome', function () {
+    return view('farmacia.TipoMovimentacao.TipoMovimentacao');
+});
+
+Route::get('/formTipoMovimentacao', function () {
+    return view('farmacia.TipoMovimentacao.formTipoMovimentacao');
+});
+
+
+//verificação da senha
+
+Route::get('/verificacao', function () {
+    return view('farmacia.verificacao.verificacao');
+});
+
+
+Route::post('/verificar-email', [UBSController::class, 'verificarEmail'])->name('verificar.email');
+
+
+
+//tipo movimentação
+Route::post('/insertTipoMovimentacao', [TipoMovimentacaoController::class, 'store'])->name('insertTipoMovimentacao');
 
