@@ -19,7 +19,7 @@ class TipoMovimentacaoController extends Controller
        
 
         // Cria uma nova entrada na tabela
-        $tipo = new TipoMovimentacao();
+        $tipo = new ModelTipoMovimentacao();
         $tipo->movimentacao = $request->movimentacao;
         $tipo->situacaoTipoMovimentacao = '1'; // Definido como 1
         $tipo->dataCadastroTipoMovimentacao = now(); // Usando now()

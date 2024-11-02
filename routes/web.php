@@ -294,6 +294,9 @@ Route::get('/SaidaMed', function () {
 });
 
 
+
+
+
 //MEDICAMENTO FARMACIA
 
 Route::get('/MedicamentoHome', [MedicamentoFarmaciaUBSController::class, 'index']);

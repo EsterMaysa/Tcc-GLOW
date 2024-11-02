@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelEstoqueFarmaciaUBS;
+use App\Models\ModelMedicamentoFarmaciaUBS;
+use App\Models\ModelFuncionario;
+use App\Models\ModelTipoMovimentacao;
+
 use Illuminate\Http\Request;
 
 class EstoqueFarmaciaUBSController extends Controller
 {
     public function index()
     {
-        $estoques = ModelEstoqueFarmaciaUBS::all();
-        return response()->json($estoques);
+        $estoque = ModelEstoqueFarmaciaUBS::all();
+
+        return view('farmacia.Estoque.estoque', compact('estoque'));
     }
 
     public function store(Request $request)
