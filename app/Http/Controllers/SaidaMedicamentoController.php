@@ -2,56 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ModelSaidaMedicamento;
 use Illuminate\Http\Request;
+use App\Models\ModelSaidaMedicamento;
+use App\Models\ModelMotivoSaida;
 
 class SaidaMedicamentoController extends Controller
 {
-    public function index()
+    public function create()
     {
-        $saidas = ModelSaidaMedicamento::all();
-        return response()->json($saidas);
+        // Carregue os motivos de saída
+        $motivos = ModelMotivoSaida::all();
+
+        // Verifique se os motivos foram carregados corretamente
+        if ($motivos->isEmpty()) {
+            return redirect()->back()->with('error', 'Nenhum motivo de saída encontrado.');
+        }
+
+        return view('saidaMed', compact('motivos'));
     }
 
     public function store(Request $request)
     {
-        $saida = new ModelSaidaMedicamento();
-        $saida->dataSaida = $request->dataSaida;
-        $saida->quantidade = $request->quantidade;
-        $saida->idMotivoSaida = $request->idMotivoSaida;
-        $saida->save();
+        $request->validate([
+            'dataSaida' => 'required|date',
+            'quantidade' => 'required|integer|min:1',
+            'idMotivoSaida' => 'required|exists:tbmotivosaida,id' // Confirme se 'id' é a coluna correta
+        ]);
 
-        return response()->json(['message' => 'Saída de medicamento cadastrada com sucesso!'], 201);
-    }
+        ModelSaidaMedicamento::create([
+            'dataSaida' => $request->dataSaida,
+            'quantidade' => $request->quantidade,
+            'idMotivoSaida' => $request->idMotivoSaida
+        ]);
 
-    public function show($id)
-    {
-        $saida = ModelSaidaMedicamento::find($id);
-        if (!$saida) {
-            return response()->json(['message' => 'Saída não encontrada'], 404);
-        }
-        return response()->json($saida);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $saida = ModelSaidaMedicamento::find($id);
-        if (!$saida) {
-            return response()->json(['message' => 'Saída não encontrada'], 404);
-        }
-
-        $saida->update($request->all());
-        return response()->json($saida);
-    }
-
-    public function destroy($id)
-    {
-        $saida = ModelSaidaMedicamento::find($id);
-        if (!$saida) {
-            return response()->json(['message' => 'Saída não encontrada'], 404);
-        }
-
-        $saida->delete();
-        return response()->json(['message' => 'Saída deletada com sucesso']);
+        return redirect()->back()->with('success', 'Saída de medicamento cadastrada com sucesso!');
     }
 }

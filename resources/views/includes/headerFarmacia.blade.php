@@ -45,17 +45,26 @@
 				</a>
 			</li>
 			<li>
-				<a href="/EntradaMed">
+				<a href="/EntradaMedicamentoHome">
 					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text">Entrada Medicamentos </span>
 				</a>
 			</li>
 			<li>
-				<a href="/SaidaMed">
+				<a href="/saidaMed">
 					<i class='bx bxs-doughnut-chart'></i>
-					<span class="text">Saida Medicamentos </span>
+					<span class="text">Saida Medicamento </span>
 				</a>
 			</li>
+
+			<li>
+				<a href="/motivoSaida">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Motivo Saída</span>
+				</a>
+			</li>
+
+
 			<li>
 				<a href="/funcionarios">
 					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>

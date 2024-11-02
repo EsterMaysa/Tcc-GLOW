@@ -1,5 +1,4 @@
 <?php
-//Tabela da Farmacia
 
 namespace App\Models;
 
@@ -10,9 +9,7 @@ class ModelSaidaMedicamento extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbSaidaMedicamento';
-    protected $primaryKey = 'idSaidaMedicamento';
-    protected $connection = 'mysql2';
+    protected $table = 'tbsaidamedicamento';
 
     protected $fillable = [
         'dataSaida',
@@ -20,6 +17,9 @@ class ModelSaidaMedicamento extends Model
         'idMotivoSaida'
     ];
 
+    public $timestamps = false;
+
+    // Relacionamento com o motivo de saída
     public function motivoSaida()
     {
         return $this->belongsTo(ModelMotivoSaida::class, 'idMotivoSaida');

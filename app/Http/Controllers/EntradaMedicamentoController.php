@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelEntradaMedicamento;
-use App\Models\ModelFuncionario;
 use App\Models\ModelFuncionarioFarmaciaUBS;
 use App\Models\ModelMedicamentoFarmaciaUBS;
 use App\Models\ModelMotivoEntrada;
@@ -27,10 +26,10 @@ class EntradaMedicamentoController extends Controller
                 'tbFuncionarioFarmaciaUBS.nomeFuncionario'
             )
             ->get();
-
-        return view('farmacia.medicamento.medicamentoFarmacia', compact('medicamentos'));
+        
+        return view('farmacia.medicamento.MedicamentoEntrada', compact('medicamentos'));
     }
-
+    
     public function create()
     {
         $medicamentos = ModelMedicamentoFarmaciaUBS::all(); // Altere conforme seu modelo
@@ -39,11 +38,10 @@ class EntradaMedicamentoController extends Controller
     
         return view('farmacia.Medicamento.EntradaMedInsert', compact('medicamentos', 'motivosEntrada', 'funcionarios'));
     }
-
     public function store(Request $request)
     {
-        // Busca o medicamento pelo nome
-        $medicamento = ModelMedicamentoFarmaciaUBS::where('nomeMedicamento', $request->nomeMedicamento)->first();
+        // Busca o medicamento usando o ID selecionado
+        $medicamento = ModelMedicamentoFarmaciaUBS::find($request->idMedicamento);
         
         // Verifica se o medicamento foi encontrado
         if (!$medicamento) {
@@ -55,16 +53,12 @@ class EntradaMedicamentoController extends Controller
             ['motivoEntrada' => $request->motivoEntrada]
         );
     
-        // Busca o funcionário pelo nome, e se não existir, cria um novo
-        $funcionario = ModelFuncionarioFarmaciaUBS::firstOrCreate(
-            ['nomeFuncionario' => $request->nomeFuncionario],
-            [
-                'cpfFuncionario' => $request->cpfFuncionario ?? null,
-                'cargoFuncionario' => $request->cargoFuncionario ?? 'Indefinido',
-                'situacaoFuncionario' => 'ativo', // define um valor padrão para situação
-                'dataCadastroFuncionario' => now()
-            ]
-        );
+        // Busca o funcionário pelo ID
+        $funcionario = ModelFuncionarioFarmaciaUBS::find($request->idFuncionario);
+    
+        if (!$funcionario) {
+            return redirect()->back()->with('error', 'Funcionário não encontrado.');
+        }
     
         // Criação da entrada de medicamento
         $entrada = new ModelEntradaMedicamento();
@@ -72,7 +66,7 @@ class EntradaMedicamentoController extends Controller
         $entrada->quantidade = $request->quantidade;
         $entrada->lote = $request->lote;
         $entrada->validade = $request->validade;
-        $entrada->idFuncionario = $funcionario->idFuncionario; // Usa o ID do funcionário criado ou buscado
+        $entrada->idFuncionario = $funcionario->idFuncionario; // Usa o ID do funcionário
         $entrada->idMedicamento = $medicamento->idMedicamento; // Usa o ID do medicamento encontrado
         $entrada->idMotivoEntrada = $motivo->idMotivoEntrada; // Usa o ID do motivo criado ou buscado
     
@@ -83,29 +77,26 @@ class EntradaMedicamentoController extends Controller
         return redirect()->route('medicamentos.index')->with('success', 'Entrada de medicamento cadastrada com sucesso!');
     }
     
-    
     public function buscarMedicamento(Request $request)
     {
         $nomeMedicamento = $request->query('nomeMedicamento');
     
         $medicamento = ModelMedicamentoFarmaciaUBS::where('nomeMedicamento', $nomeMedicamento)->first();
     
-        return response()->json(['idMedicamento' => $medicamento ? $medicamento->idMedicamento : null]);
-    }    
+        // Retorna também lote e validade
+        return response()->json([
+            'idMedicamento' => $medicamento ? $medicamento->idMedicamento : null,
+            'lote' => $medicamento ? $medicamento->loteMedicamento : null, // Substitua 'loteMedicamento' pelo campo correto no seu modelo
+            'validade' => $medicamento ? $medicamento->validadeMedicamento : null // Substitua 'validadeMedicamento' pelo campo correto no seu modelo
+        ]);
+    }
+    public function showForm()
+    {
+        $medicamentos = ModelMedicamentoFarmaciaUBS::all();
+        $funcionarios = ModelFuncionarioFarmaciaUBS::all(); // Ajuste o nome do modelo conforme necessário
     
-
-    // public function buscarFuncionario(Request $request)
-    // {
-    //     $nomeFuncionario = $request->query('nomeFuncionario');
-        
-    //     // Procura o funcionário pelo nome
-    //     $funcionario = ModelFuncionarioFarmaciaUBS::where('nomeFuncionario', $nomeFuncionario)->first();
-    
-    //     // Retorna o ID do funcionário ou null se não for encontrado
-    //     return response()->json(['idFuncionario' => $funcionario ? $funcionario->idFuncionario : null]);
-    // }
-
-   
+        return view('entradaMedicamento', compact('medicamentos', 'funcionarios'));
+    }
     
     public function show($id)
     {

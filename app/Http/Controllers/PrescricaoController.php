@@ -28,37 +28,35 @@ class PrescricaoController extends Controller
         $prescricao->dataCadastroPrescricao = now();
         $prescricao->save();
 
-        return redirect('/prescricao');
+        return redirect('/prescricao')->with('success', 'Prescrição Cadastrada com sucesso!');
     }
 
-    public function show($id)
-    {
-        $prescricao = ModelPrescricao::find($id);
-        if (!$prescricao) {
-            return response()->json(['message' => 'Prescrição não encontrada'], 404);
-        }
-        return response()->json($prescricao);
-    }
+
 
     public function update(Request $request, $id)
     {
-        $prescricao = ModelPrescricao::find($id);
-        if (!$prescricao) {
-            return response()->json(['message' => 'Prescrição não encontrada'], 404);
-        }
-
-        $prescricao->update($request->all());
-        return response()->json($prescricao);
+        $prescricao = ModelPrescricao::findOrFail($id); // Encontrar a prescrição pelo ID
+    
+        // Atualiza os dados
+        $prescricao->dataPrescricao = $request->dataPrescricao;
+        $prescricao->quantPrescricao = $request->quantPrescricao;
+        $prescricao->dosagemPrescricao = $request->dosagemPrescricao;
+        $prescricao->duracaoRemedio = $request->duracaoRemedio;
+        $prescricao->idMedicamento = $request->idMedicamento;
+        $prescricao->save();
+    
+        return redirect('/prescricao')->with('success', 'Prescrição Atualizaada com sucesso!');
     }
+    
 
     public function destroy($id)
     {
-        $prescricao = ModelPrescricao::find($id);
-        if (!$prescricao) {
-            return response()->json(['message' => 'Prescrição não encontrada'], 404);
-        }
 
-        $prescricao->delete();
-        return response()->json(['message' => 'Prescrição deletada com sucesso']);
+        $prescricao = ModelPrescricao::findOrFail($id);
+        $prescricao->situacaoPrescricao = 'D'; 
+        $prescricao->save();
+    
+        return redirect('/prescricao')->with('success', 'Prescrição Desativada com sucesso!');
+
     }
 }
