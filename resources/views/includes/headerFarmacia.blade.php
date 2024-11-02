@@ -33,36 +33,51 @@
 				</a>
 			</li>
 			<li>
-				<a href="/estoque">
+				<a href="/estoqueHome">
 					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text"> Estoque </span>
 				</a>
 			</li>
 			<li>
-				<a href="/cadastros">
-					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
-					<span class="text"> Inserir Cliente </span>
+				<a href="/MedicamentoHome">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Medicamentos </span>
 				</a>
 			</li>
-			<!-- <li> FOI PARA O ADM
-				<a href="/medicamentos">
-					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
-					<span class="text"> Inserir Medicamento </span>
-				</a>
-			</li> -->
-			<!-- <li>
-				<a href="">
-					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
-					<span class="text"> Relatório </span>
-				</a>
-			</li> -->
-	
 			<li>
+				<a href="/EntradaMedicamentoHome">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Entrada Medicamentos </span>
+				</a>
+			</li>
+			<li>
+				<a href="/saidaMed">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Saida Medicamento </span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/motivoSaida">
+					<i class='bx bxs-doughnut-chart'></i>
+					<span class="text">Motivo Saída</span>
+				</a>
+			</li>
+
+
+			<li>
+				<a href="/FuncionarioHome">
+					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
+					<span class="text"> Funcionario </span>
+				</a>
+			</li>
+		
+			<!-- <li>
 				<a href="">
 					<i class='bx bxs-message-dots'></i>
 					<span class="text"> Mensagens </span>
 				</a>
-			</li>
+			</li> -->
 		</ul>
 		<ul class="boto">
     		<li>
@@ -78,13 +93,18 @@
 				</a>
     		</li>
     		<li>
-			<form action="/farmaLogout" method="POST" style="display: inline;">
+
+			<a href="/login" class="boto2">
+					<i class='bx bxs-user'></i>
+					<span class="text"> Sair </span>
+				</a>
+			<!-- <form action="/farmaLogout" method="POST" style="display: inline;">
 				@csrf 
 				<button type="submit" class="boto2"><i class='bx bxs-log-out-circle' id="logout-icon"></i>
 				<span class="text"> Sair </span></button>
 				
 
-			</form>
+			</form> -->
     		</li>
 
 			
@@ -92,19 +112,5 @@
 
 	</section>
 	
+
 	<section id="content">
-		<nav>
-			<form action="#">
-				<div class="form-input" >
-					<input type="search" placeholder="Buscar...">
-					<button type="submit" class="search-btn" style="background-color: #265C4B;"><i class='bx bx-search'></i></button>
-				</div>
-			</form>
-			<a href="" class="notification">
-				<i class='bx bxs-bell'></i>
-				<span class="num"> 4 </span>
-			</a>
-			<a href="/perfilFarmacia" class="profile">
-				<img src="{{ asset('/Image/perfilFarmVerde.png') }}">
-			</a>
-		</nav>

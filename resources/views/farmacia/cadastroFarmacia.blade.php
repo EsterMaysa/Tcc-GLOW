@@ -34,7 +34,7 @@
                         <div class="col-md-6">
                             <!-- Campo Nome -->
                             <div class="wrap-input100 validate-input" data-validate="Nome é obrigatório">
-                                <input class="input100" type="text" name="nome" placeholder="Nome da Farmácia" required>
+                                <input class="input100" type="text" name="nome" placeholder="Nome" required>
                                 <span class="focus-input100"></span>
                                 <span class="symbol-input100">
                                     <i class="fa fa-hospital-o" aria-hidden="true"></i>
@@ -135,9 +135,9 @@
                         </div>
                         <div class="col-md-6">
                             <!-- Campo Complemento -->
-                            <div class="wrap-input100 validate-input">
+                            <div class="wrap-input100 validate-input" >
                                 <input class="input100" type="text" name="complemento" placeholder="Complemento">
-                                <span class="focus-input100"></span>
+                                <span class="focus-input100" ></span>
                                 <span class="symbol-input100">
                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                                 </span>
