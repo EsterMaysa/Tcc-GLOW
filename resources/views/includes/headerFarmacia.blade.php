@@ -51,18 +51,18 @@
 				</a>
 			</li>
 			<li>
-				<a href="/saidaMed">
+				<a href="{{ route('saidaMedMotivoCadastro') }}">
 					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text">Saida Medicamento </span>
 				</a>
 			</li>
 
-			<li>
+			<!-- <li>
 				<a href="/motivoSaida">
 					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text">Motivo Saída</span>
 				</a>
-			</li>
+			</li> -->
 
 
 			<li>

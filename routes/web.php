@@ -347,6 +347,45 @@ Route::delete('/motivEntrada/{id}', [MotivoEntradaController::class, 'destroy'])
 Route::get('/saidaMed', [SaidaMedicamentoController::class, 'create'])->name('saidaMed.create');
 Route::post('/saidaMed', [SaidaMedicamentoController::class, 'store'])->name('saidaMed.store');
 
+Route::get('/saidaMedMotivo', [SaidaMedicamentoController::class, 'create'])->name('saidaMedMotivo.create');
+Route::post('/saidaMedMotivo', [SaidaMedicamentoController::class, 'store'])->name('saidaMedMotivo.store');
+
+Route::post('/saidas', [SaidaMedicamentoController::class, 'store'])->name('saidaMedMotivo.store');
+
+Route::get('/saida-med-motivo/lista', [SaidaMedicamentoController::class, 'index'])->name('saidaMedMotivo.index');
+
+Route::get('/saidaMedMotivo', [SaidaMedicamentoController::class, 'index'])->name('saidaMedMotivo.index');
+Route::get('/saidaMedMotivoCadastro', [SaidaMedicamentoController::class, 'create'])->name('saidaMedMotivoCadastro');
+
+
+Route::resource('saidaMedMotivo', SaidaMedicamentoController::class)->except(['show']);
+Route::put('saidaMedMotivo/{id}', [SaidaMedicamentoController::class, 'update'])->name('saidaMedMotivo.update');
+Route::get('saidaMedMotivo/{id}/edit', [SaidaMedicamentoController::class, 'edit'])->name('saidaMedMotivo.edit');
+Route::post('saidaMedMotivo/{id}/excluir', [SaidaMedicamentoController::class, 'excluir'])->name('saidaMedMotivo.destroy');
+
+
+
+// Rota para armazenar uma nova saída
+Route::post('/', [SaidaMedicamentoController::class, 'store'])->name('saidaMedMotivo.store'); 
+
+// Rota para mostrar o formulário de edição de uma saída específica
+
+// Rota para atualizar os dados de uma saída específica
+
+// Rota para excluir uma saída (marcando como inativa)
+
+
+
+
+// Route::get('/saida-medicamentos', [SaidaMedicamentoController::class, 'index'])->name('saidaMedMotivo.index');
+// Esta rota exibe a lista de saídas de medicamentos e motivos
+
+// Route::get('/saida-medicamento/create', [SaidaMedicamentoController::class, 'create'])->name('saidaMedMotivo.create');
+// Esta rota exibe o formulário para cadastrar uma nova saída de medicamento
+
+// Route::post('/saida-medicamento/store', [SaidaMedicamentoController::class, 'store'])->name('saidaMedMotivo.store');
+// Esta rota trata do envio do formulário para salvar a saída de medicamento e o motivo no banco de dados
+
 
 //motivSaida
 

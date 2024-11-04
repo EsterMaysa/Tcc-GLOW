@@ -9,19 +9,17 @@ class ModelSaidaMedicamento extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql2';
     protected $table = 'tbsaidamedicamento';
+    protected $primaryKey = 'idSaidaMedicamento'; // Adicione isso
+    public $incrementing = true; // Se a chave primária é auto-incrementada
+    public $timestamps = false;
 
     protected $fillable = [
         'dataSaida',
         'quantidade',
-        'idMotivoSaida'
+        'motivoSaida',
+        'situacao',
+        'idMedicamento', // Adicione aqui
     ];
-
-    public $timestamps = false;
-
-    // Relacionamento com o motivo de saída
-    public function motivoSaida()
-    {
-        return $this->belongsTo(ModelMotivoSaida::class, 'idMotivoSaida');
-    }
 }
