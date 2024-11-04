@@ -1,254 +1,212 @@
 @include('includes.headerFarmacia')
+
 <!-- PAGINA PRINCIPAL DO ESTOQUE A HOME DO ESTOQUE -->
 
+<div class="container mt-4">
 
-<!-- Main content -->
-<div class="container d-flex justify-content-center">
-    <div class="col-md-9 col-lg-10 main-content">
-        <!-- Relatórios de Estoque -->
-        <div class="card bg-light text-dark custom-card">
-            <div class="card-header custom-title">
-                Precisa Atualizar o Estoque?
+    <!-- Seção com botões e imagem -->
+    <div class="d-flex align-items-center justify-content-between mb-4 p-3 border rounded shadow-sm bg-light">
+        <div class="d-flex flex-column align-items-center me-4">
+            <a href="/EntradaMedicamentoHome" class="btn btn-success btn-lg mb-2">
+                <i class="bi bi-box-arrow-in-down me-2"></i>
+                Entrada de Medicamento
+            </a>
+            <small class="text-muted">Registrar entrada</small>
+        </div>
+
+        <div class="d-flex flex-column align-items-center me-4">
+            <a href="/saidaMed" class="btn btn-danger btn-lg mb-2">
+                <i class="bi bi-box-arrow-up me-2"></i>
+                Saída de Medicamento
+            </a>
+            <small class="text-muted">Registrar saida</small>
+        </div>
+
+        <div class="d-flex align-items-center">
+            <img src="path/to/imagem.jpg" alt="Imagem de estoque" class="img-thumbnail rounded-circle" style="width: 60px; height: 60px;">
+            <div class="ms-3">
+                <h6 class="mb-0">Estoque Atual</h6>
+                <p class="text-muted mb-0">Status: Médio</p>
             </div>
-            <div class="card-body">
-                <div class="btn-group-wrapper">
-                    <!-- Novo Remédio -->
-                    <div class="btn-group">
-                        <span>Novo Remédio</span>
-                        <button class="btn-custom btn-add" onclick="window.location.href='/motivEntrada'">
-                            +
-                        </button>
-                    </div>
+        </div>
+    </div>
 
-                    <!-- Retirada de Remédio -->
-                    <div class="btn-group">
-                        <span>Retirada Remédio</span>
-                        <button class="btn-custom btn-remove" onclick="window.location.href='/atualizarMedicamentoEstoque'">
-                            -
-                        </button>
-                    </div>
+    <!-- Tabela e status do estoque -->
+    <div class="row">
+        <div class="col-lg-9 mb-4">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Medicamento</th>
+                            <th>Funcionario</th>
+                            <th>Movimentação</th>
+                            <th>Quantidade</th>
+                            <th>Data de Validade</th>
+                            <th>Situação</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    @foreach ($estoque as $e)
+                    <tbody>
+                        <tr>
+                            <td>{{ $e->medicamento->nomeMedicamento }}</td>
+                            <td>{{ $e->funcionario->nomeFuncionario }}</td>
+                            <td>{{ $e->tipoMovimentacao->movimentacao }}</td>
+                            <td>{{ $e->quantEstoque }}</td>
+                            <td>{{ \Carbon\Carbon::parse($e->dataMovimentacao)->format('d/m/Y') }}</td>
+                            <td>{{ $e->situacaoEstoque == 'A' ? 'Ativo' : 'Inativo' }}</td>
+                            <td>
+                                <!-- Botão Editar -->
+                                @if ($e->situacaoEstoque == 'A')
 
-                    <!-- Remédio Não Tem Estoque -->
-                    <div class="btn-group">
-                        <span>Remédio Não tem Estoque?</span>
-                        <button class="btn-custom btn-cancel">
-                            ✖
-                        </button>
-                    </div>
-                </div>
+                                <button class="btn btn-primary btn-sm edit-btn"
+                                    data-id="{{ $e->idEstoque }}"
+                                    data-id-medicamento="{{ $e->medicamento->idMedicamento }}"
+                                    data-id-funcionario="{{ $e->funcionario->idFuncionario }}"
+                                    data-id-tipo-movimentacao="{{ $e->tipoMovimentacao->idTipoMovimentacao }}"
+                                    data-quant-estoque="{{ $e->quantEstoque }}"
+                                    data-data-movimentacao="{{ $e->dataMovimentacao }}">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </button>
+
+                                <!-- Botão Desativar -->
+                                <form action="{{ route('desativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desativar este estoque?');">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-danger">Desativar</button>
+                                </form>
+                                @else
+                                <!-- Botão ativar -->
+
+                                <form action="{{ route('estoque.ativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja ativar este estoque?');">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-primary">Ativar</button>
+                                </form>
+
+                                @endif
+                            </td>
+                        </tr>
+                    </tbody>
+                    @endforeach
+                </table>
             </div>
         </div>
 
-        <!-- Visão Geral do Estoque -->
-        <h1 class="text-dark text-center mt-5">Atualizações no Estoque</h1>
-        <div class="card mt-4 bg-light text-dark custom-card">
-            <div class="card-header">
-                Visão Geral do Estoque
-            </div>
-
-            <!-- Formulário para Guardar na Tabela -->
-            <div class="card mt-4 bg-light text-dark custom-card">
-                <div class="card-header">
-                    Guardar Informações na Tabela de Estoque
+        <div class="col-lg-3">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Status do Estoque</h5>
                 </div>
-
                 <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="nome-remedio">Nome do Remédio:</label>
-                            <input type="text" class="form-control rounded-input large-input" id="nome-remedio" name="nome_remedio" placeholder="Digite o nome do remédio" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="quantidade">Quantidade:</label>
-                            <input type="number" class="form-control rounded-input large-input" id="quantidade" name="quantidade" placeholder="Digite a quantidade" required>
-                        </div>
-
-                        <!-- Botões de Rádio para Tipo de Operação -->
-                        <div class="form-group">
-                            <label>Tipo de Operação:</label><br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="tipo_operacao" id="entrada" value="entrada" required>
-                                <label cxlass="form-check-label" for="entrada">Entrada</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="tipo_operacao" id="saida" value="saida" required>
-                                <label class="form-check-label" for="saida">Saída</label>
-                            </div>
-                        </div>
-
-                        <!-- Botão Salvar -->
-                        <button type="button" class="btn btn-success mt-4 rounded-button large-button" onclick="window.location.href='/estoqueFarmacia'">Salvar</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Tabela de Estoque -->
-            <div class="card mt-4 bg-light text-dark custom-card">
-                <div class="card-header">
-                    Tabela de Estoque
-                </div>
-
-                <div class="card-body">
-                    <table class="table table-bordered table-light text-center custom-table">
-                        <thead>
-                            <tr>
-                                <th>Nome do Remédio</th>
-                                <th>Quantidade</th>
-                                <th>Tipo de Operação</th>
-                                <th>Data de Atualização</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>nomeMedicamento</td>
-                                <td>quantidade</td>
-                                <td>tipoOperacao</td>
-                                <td>dataAtualizacao</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p><strong>Nível:</strong> Alto / Médio / Baixo</p>
+                    <p><strong>Última atualização:</strong> 01/11/2024</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Formulário de Movimentação do Estoque -->
+    <div class="card mt-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Registrar Movimentação no Estoque</h5>
+        </div>
+        <div class="card-body">
+            <form id="estoqueForm" action="/CadEstoque" method="POST">
+                @csrf
+                <input type="hidden" id="estoqueId" name="estoqueId">
+
+                <div class="row g-3">
+                    <!-- Campo para selecionar Medicamento -->
+                    <div class="form-group">
+                        <label for="idMedicamento" class="form-label">Nome do Medicamento</label>
+                        <select class="form-control" id="idMedicamento" name="idMedicamento" required>
+                            <option value="">Medicamentos</option>
+                            @foreach ($medicamento as $med)
+                            <option value="{{ $med->idMedicamento }}">{{ $med->nomeMedicamento }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Campo para informar o Funcionário -->
+                    <div class="form-group">
+                        <label for="idFuncionario" class="form-label">Funcionário</label>
+                        <select class="form-control" id="idFuncionario" name="idFuncionario" required>
+                            <option value="">Funcionário</option>
+                            @foreach ($funcionario as $f)
+                            <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Tipo de Movimentação (Entrada ou Saída) -->
+                    <div class="form-group">
+                        <label for="idTipoMovimentacao" class="form-label">Tipo de Movimentação</label>
+                        <select class="form-control" id="idTipoMovimentacao" name="idTipoMovimentacao" required>
+                            <option value="">Movimentação</option>
+                            @foreach ($tipoMovimentacao as $tp)
+                            <option value="{{ $tp->idTipoMovimentacao }}">{{ $tp->movimentacao }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Quantidade no Estoque -->
+                    <div class="form-group">
+                        <label for="quantEstoque" class="form-label">Quantidade Movimentada</label>
+                        <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" required>
+                    </div>
+
+                    <!-- Data da Movimentação -->
+                    <div class="form-group">
+                        <label for="dataMovimentacao" class="form-label">Data da Movimentação</label>
+                        <input type="date" class="form-control" id="dataMovimentacao" name="dataMovimentacao" required>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <!-- Botão de submissão -->
+                        <button type="submit" class="btn btn-success" id="submitBtn">Registrar Estoque</button>
+
+                        <!-- Grupo de botões para edição -->
+                        <div id="editBtnGroup" style="display: none;">
+                            <button type="submit" class="btn btn-warning">Fazer mudanças</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<script src="{{ asset('vendor/jquery/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/popper.js') }}"></script>
-<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-</body>
-</html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Quando o botão "Editar" é clicado
+        $('.edit-btn').click(function() {
+            const idEstoque = $(this).data('id');
+            const idMedicamento = $(this).data('id-medicamento');
+            const idFuncionario = $(this).data('id-funcionario');
+            const idTipoMovimentacao = $(this).data('id-tipo-movimentacao');
+            const quantEstoque = $(this).data('quant-estoque');
+            const dataMovimentacao = $(this).data('data-movimentacao');
 
-<!-- Estilos CSS adicionais -->
-<style>
-    body {
-        background-color: #ffffff; /* Fundo branco */
-        color: #343a40; /* Texto escuro */
-    }
+            // Preenche os campos do formulário com os dados do estoque
+            $('#idMedicamento').val(idMedicamento);
+            $('#idFuncionario').val(idFuncionario);
+            $('#idTipoMovimentacao').val(idTipoMovimentacao);
+            $('#quantEstoque').val(quantEstoque);
+            $('#dataMovimentacao').val(dataMovimentacao);
+            $('#estoqueId').val(idEstoque); // Armazena o ID do estoque
 
-    .custom-title {
-        font-size: 28px; /* Tamanho maior */
-        font-weight: bold;
-        color: #28a745; /* Verde */
-        text-align: center;
-        background-color: #f8f9fa; /* Fundo claro */
-        padding: 20px;
-        border-radius: 12px; /* Bordas arredondadas maiores */
-        border: 3px solid #28a745; /* Verde suave */
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 25px;
-    }
+            // Atualiza a ação do formulário para edição
+            $('#estoqueForm').attr('action', `/estoque/${idEstoque}`);
 
-    .btn-group-wrapper {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        gap: 25px; /* Espaço maior entre os botões */
-    }
+            // Esconde o botão de submissão
+            $('#submitBtn').hide();
+            $('#editBtnGroup').show();
+        });
+    });
+</script>
 
-    .btn-group {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .btn-group span {
-        margin-bottom: 10px; /* Mais espaço entre texto e botão */
-        font-weight: bold;
-        color: #343a40; /* Texto escuro */
-        font-size: 18px; /* Aumentado */
-    }
-
-    .btn-custom {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        border-radius: 50%;
-        width: 60px; /* Maior */
-        height: 60px; /* Maior */
-        font-size: 28px; /* Aumentado */
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        border: 3px solid #6c757d; /* Borda maior */
-        background-color: transparent;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .btn-add {
-        background-color: #28a745; /* Verde */
-    }
-
-    .btn-add:hover {
-        background-color: #90ee90; /* Verde claro */
-        color: white;
-    }
-
-    .btn-remove {
-        background-color: #ffc107; /* Amarelo */
-    }
-
-    .btn-remove:hover {
-        background-color: #ffdd57; /* Amarelo claro */
-        color: white;
-    }
-
-    .btn-cancel {
-        background-color: #dc3545; /* Vermelho */
-    }
-
-    .btn-cancel:hover {
-        background-color: #ff6f6f; /* Vermelho claro */
-        color: white;
-    }
-
-    .custom-card {
-        border-radius: 12px; /* Bordas arredondadas maiores */
-        border: 3px solid #28a745; /* Verde suave maior */
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
-    }
-
-    .table th, .table td {
-        padding: 15px; /* Células maiores */
-        font-size: 18px; /* Texto maior */
-        font-weight: bold;
-        color: #343a40; /* Texto escuro */
-        border-radius: 10px;
-    }
-
-    .table thead {
-        background-color: #f8f9fa; /* Fundo claro */
-    }
-
-    .custom-table {
-        border-radius: 12px; /* Bordas arredondadas na tabela */
-    }
-
-    .rounded-input {
-        border-radius: 10px; /* Inputs com bordas maiores */
-        border: 3px solid #28a745; /* Borda verde suave maior */
-        font-size: 18px; /* Texto maior nos inputs */
-        padding: 12px; /* Aumentando espaço dentro dos inputs */
-    }
-
-    .large-input {
-        width: 100%; /* Inputs ocupando toda a largura */
-    }
-
-    .rounded-button {
-        border-radius: 10px; /* Botão com bordas maiores */
-        padding: 15px 25px; /* Botão maior */
-        font-size: 20px; /* Texto maior */
-    }
-
-    .form-check-input {
-        margin-right: 10px; /* Espaço entre o círculo e o texto */
-    }
-
-    .container {
-        margin-top: 50px;
-    }
-</style>
+@include('includes.footer')
