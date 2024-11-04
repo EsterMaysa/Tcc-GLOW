@@ -4,6 +4,7 @@
 
 <div class="container mt-4">
 
+
     <!-- Seção com botões e imagem -->
     <div class="d-flex align-items-center justify-content-between mb-4 p-3 border rounded shadow-sm bg-light">
         <div class="d-flex flex-column align-items-center me-4">
