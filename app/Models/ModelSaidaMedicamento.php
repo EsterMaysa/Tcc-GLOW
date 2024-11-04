@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ModelMedicamentoFarmaciaUBS;
 
 class ModelSaidaMedicamento extends Model
 {
@@ -22,4 +23,12 @@ class ModelSaidaMedicamento extends Model
         'situacao',
         'idMedicamento', // Adicione aqui
     ];
+
+
+   // No ModelSaidaMedicamento
+    public function medicamento()
+    {
+        return $this->belongsTo(ModelMedicamentoFarmaciaUBS::class, 'idMedicamento', 'idMedicamento');
+    }
+
 }

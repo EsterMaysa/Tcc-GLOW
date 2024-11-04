@@ -28,13 +28,9 @@ class ModelMedicamentoFarmaciaUBS extends Model
         'dataCadastroMedicamento'
     ];
 
-    // public function entradas()
-    // {
-    //     return $this->hasMany(ModelEntradaMedicamento::class, 'idMedicamento');
-    // }
+    public function medicamento()
+{
+    return $this->belongsTo(ModelMedicamentoFarmaciaUBS::class, 'idMedicamento', 'idMedicamento');
+}
 
-    // public function estoques()
-    // {
-    //     return $this->hasMany(ModelEstoqueFarmaciaUBS::class, 'idMedicamento');
-    // }
 }

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Saída de Medicamento e Motivo</title>
     <style>
+        /* Estilos */
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
@@ -32,11 +33,6 @@
             margin-bottom: 20px;
         }
 
-        .form-container h4 {
-            color: #555;
-            margin-bottom: 10px;
-        }
-
         .form-group {
             margin-bottom: 15px;
         }
@@ -50,8 +46,7 @@
 
         .form-group input[type="date"],
         .form-group input[type="number"],
-        .form-group input[type="text"],
-        .form-group select {
+        .form-group input[type="text"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -60,13 +55,6 @@
             box-sizing: border-box;
             outline: none;
             transition: border-color 0.3s;
-        }
-
-        .form-group input[type="date"]:focus,
-        .form-group input[type="number"]:focus,
-        .form-group input[type="text"]:focus,
-        .form-group select:focus {
-            border-color: #4CAF50;
         }
 
         .btn-submit {
@@ -78,19 +66,7 @@
             border-radius: 4px;
             font-size: 18px;
             cursor: pointer;
-            transition: background-color 0.3s;
             margin-top: 15px;
-        }
-
-        .btn-submit:hover {
-            background-color: #45a049;
-        }
-
-        .success-message {
-            color: green;
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 16px;
         }
     </style>
 </head>
@@ -106,8 +82,6 @@
 
         <form action="{{ route('saidaMedMotivo.store') }}" method="POST">
             @csrf
-            <h4>Informações de Saída de Medicamento</h4>
-            
             <div class="form-group">
                 <label for="dataSaida">Data de Saída:</label>
                 <input type="date" id="dataSaida" name="dataSaida" required>
@@ -119,18 +93,6 @@
             </div>
 
             <div class="form-group">
-                <label for="idMedicamento">Medicamento:</label>
-                <select id="idMedicamento" name="idMedicamento" required>
-                    <option value="">Selecione um medicamento</option>
-                    @foreach ($medicamentos as $medicamento)
-                        <option value="{{ $medicamento->id }}">{{ $medicamento->nome }}</option> <!-- Substitua 'nome' pela coluna correta que você deseja exibir -->
-                    @endforeach
-                </select>
-            </div>
-
-            <h4>Cadastro do Motivo de Saída</h4>
-            
-            <div class="form-group">
                 <label for="motivoSaida">Motivo de Saída:</label>
                 <input type="text" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required>
             </div>
@@ -140,10 +102,9 @@
     </div>
 
     <div>
-        <a href="{{ route('saidaMedMotivo.index') }}" class="btn-submit" style="background-color: #2196F3; margin-top: 10px; text-align: center; display: block; width: 490px; padding: 8px 16px;">
+        <a href="{{ route('saidaMedMotivo.index') }}" class="btn-submit" style="background-color: #2196F3; margin-top: 10px; text-align: center; display: block; width: 470px; padding: 8px 16px;">
             Ver Lista de Saídas e Motivos
         </a>
     </div>
-
 </body>
 </html>

@@ -103,26 +103,28 @@
         @endif
 
         <form action="{{ route('saidaMedMotivo.update', $saida->idSaidaMedicamento) }}" method="POST">
-            @csrf
-            @method('PUT') <!-- Método para atualização -->
-            <h4>Informações de Saída de Medicamento</h4>
-            
-            <div class="form-group">
-                <label for="dataSaida">Data de Saída:</label>
-                <input type="date" id="dataSaida" name="dataSaida" value="{{ $saida->dataSaida }}" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" name="quantidade" value="{{ $saida->quantidade }}" min="1" required>
-            </div>
+    @csrf
+    @method('PUT')
+    
+    <div class="form-group">
+        <label for="dataSaida">Data de Saída:</label>
+        <input type="date" id="dataSaida" name="dataSaida" value="{{ $saida->dataSaida }}" required>
+    </div>
 
-            <div class="form-group">
-                <label for="motivoSaida">Motivo de Saída:</label>
-                <input type="text" id="motivoSaida" name="motivoSaida" value="{{ $saida->motivoSaida }}" placeholder="Descreva o motivo" required>
-            </div>
+    <div class="form-group">
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" value="{{ $saida->quantidade }}" min="1" required>
+    </div>
+<!--  -->
 
-            <button type="submit" class="btn-submit">Atualizar Saída</button>
+    <div class="form-group">
+        <label for="motivoSaida">Motivo de Saída:</label>
+        <input type="text" id="motivoSaida" name="motivoSaida" value="{{ $saida->motivoSaida }}" required>
+    </div>
+
+    <button type="submit" class="btn-submit">Atualizar Saída</button>
+
+
             <a href="{{ route('saidaMedMotivo.index') }}" class="btn-submit" style="background-color: #2196F3; margin-top: 10px; text-align: center; display: block;">
                 Voltar para Lista de Saídas e Motivos
             </a>

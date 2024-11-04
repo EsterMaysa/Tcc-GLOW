@@ -8,10 +8,9 @@
     <title>Lista de Saídas e Motivos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Estilos básicos para a tabela */
         table {
-            width: 80%; /* Diminui a largura da tabela */
-            margin: 20px auto; /* Centraliza a tabela */
+            width: 80%;
+            margin: 20px auto;
             border-collapse: collapse;
         }
         
@@ -26,24 +25,22 @@
             color: white;
         }
 
-        /* Estilos para os ícones */
         .action-icons {
             display: flex;
             justify-content: center;
-            gap: 10px; /* Espaçamento entre ícones */
+            gap: 10px;
         }
 
         .action-icons i {
             cursor: pointer;
-            font-size: 18px; /* Tamanho dos ícones */
-            color: #555; /* Cor padrão dos ícones */
+            font-size: 18px;
+            color: #555;
         }
 
         .action-icons i:hover {
-            color: #4CAF50; /* Cor ao passar o mouse */
+            color: #4CAF50;
         }
 
-        /* Estilos para o filtro */
         .filter-container {
             text-align: center;
             margin: 20px auto;
@@ -91,7 +88,7 @@
                 <th>Data de Saída</th>
                 <th>Quantidade</th>
                 <th>Motivo de Saída</th>
-                <th>Ações</th> <!-- Nova coluna para ações -->
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -101,11 +98,15 @@
                 <td>{{ $saida->quantidade }}</td>
                 <td>{{ $saida->motivoSaida }}</td>
                 <td class="action-icons">
+                    <!-- Botão de edição -->
                     <i class="fas fa-edit" title="Editar" onclick="window.location.href='{{ route('saidaMedMotivo.edit', $saida->idSaidaMedicamento) }}'"></i>
+                    
+                    <!-- Botão de exclusão -->
                     <i class="fas fa-trash-alt" title="Excluir" onclick="if(confirm('Tem certeza que deseja excluir?')) { event.preventDefault(); document.getElementById('delete-form-{{ $saida->idSaidaMedicamento }}').submit(); }"></i>
+                    
+                    <!-- Formulário de exclusão -->
                     <form id="delete-form-{{ $saida->idSaidaMedicamento }}" action="{{ route('saidaMedMotivo.destroy', $saida->idSaidaMedicamento) }}" method="POST" style="display: none;">
                         @csrf
-                        @method('POST') <!-- Se a exclusão não for através do método DELETE, mantenha POST -->
                     </form>
                 </td>
             </tr>

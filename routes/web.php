@@ -400,10 +400,10 @@ Route::get('/saidaMedMotivoCadastro', [SaidaMedicamentoController::class, 'creat
 
 
 Route::resource('saidaMedMotivo', SaidaMedicamentoController::class)->except(['show']);
-Route::put('saidaMedMotivo/{id}', [SaidaMedicamentoController::class, 'update'])->name('saidaMedMotivo.update');
-Route::get('saidaMedMotivo/{id}/edit', [SaidaMedicamentoController::class, 'edit'])->name('saidaMedMotivo.edit');
-Route::post('saidaMedMotivo/{id}/excluir', [SaidaMedicamentoController::class, 'excluir'])->name('saidaMedMotivo.destroy');
 
+Route::get('saidaMedMotivo/{id}/edit', [SaidaMedicamentoController::class, 'edit'])->name('saidaMedMotivo.edit');
+Route::put('saidaMedMotivo/{id}', [SaidaMedicamentoController::class, 'update'])->name('saidaMedMotivo.update');
+Route::post('saidaMedMotivo/{id}/excluir', [SaidaMedicamentoController::class, 'excluir'])->name('saidaMedMotivo.destroy');
 
 
 // Rota para armazenar uma nova saída
