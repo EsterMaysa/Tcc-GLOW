@@ -116,7 +116,9 @@ label {
 
 #regiao, 
 #situacao,
-#telefone {
+#telefone,
+#tipoMedicamento,
+#formaMedicamento {
     width: 100%; 
     padding: 12px; 
     margin-bottom: 20px; 
@@ -128,7 +130,9 @@ label {
 
 #regiao:focus, 
 #situacao:focus,
-#telefone:focus {
+#telefone:focus,
+#tipoMedicamento:focus,
+#formaMedicamento:focus {
     border-color: #1F2B5B;
     outline: none; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 

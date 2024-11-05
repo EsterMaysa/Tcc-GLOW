@@ -159,7 +159,7 @@ Route::get('/medicamento/edit/{idMedicamento}', [MedicamentoController::class, '
 Route::put('/medicamento/{idMedicamento}', [MedicamentoController::class, 'update'])->name('medicamento.update');
 Route::put('/medicamentos/desativar/{id}', [MedicamentoController::class, 'desativar'])->name('medicamento.desativar');
 
-Route::post('/filtro-medicamentos', [MedicamentoController::class, 'filtrar']);
+/*Route::post('/filtro-medicamentos', [MedicamentoController::class, 'filtrar']);*/
 Route::get('/medicamentos/search', [MedicamentoController::class, 'search'])->name('medicamentos.search');
 
 
