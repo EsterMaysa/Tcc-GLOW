@@ -40,7 +40,9 @@
         <div class="col-lg-9 mb-4">
             <div class="table-responsive">
                 <div class="card-header text-black">
-                    <h5 class="mb-0">Estoque</h5>
+                    <h5 class="mb-0">Relatorio do estoque</h5>
+                    <button type="submit" class="btn btn-danger">gerar pdf</button>
+
                 </div>
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark">
@@ -117,89 +119,7 @@
     </div>
 
     <!-- Formulário de Movimentação do Estoque -->
-    <div class="card mt-4">
-        <div class="card-header bg-success text-white">
-            <h5 class="mb-0">Registrar Estoque</h5>
-        </div>
-        <div class="card-body">
-            <form id="estoqueForm" action="/CadEstoque" method="POST">
-                @csrf
-                <input type="hidden" id="estoqueId" name="estoqueId">
-
-                <div class="row g-3">
-                    <!-- Campo para selecionar Medicamento -->
-                    <div class="form-group">
-                        <label for="idMedicamento" class="form-label">Nome do Medicamento</label>
-                        <select class="form-control" id="idMedicamento" name="idMedicamento" required>
-                            <option value="">Medicamentos</option>
-                            @foreach ($medicamento as $med)
-                            @if ($med->situacaoMedicamento == 'A')
-
-                            <option value="{{ $med->idMedicamento }}">{{ $med->nomeMedicamento }}</option>
-                            @endif
-
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Campo para informar o Funcionário -->
-                    <div class="form-group">
-                        <label for="idFuncionario" class="form-label">Funcionário</label>
-                        <select class="form-control" id="idFuncionario" name="idFuncionario" required>
-                            <option value="">Funcionário</option>
-                            @foreach ($funcionario as $f)
-                            @if ($f->situacaoFuncionario == 'A')
-
-                            <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
-                            @endif
-
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Tipo de Movimentação (Entrada ou Saída) -->
-                    <div class="form-group">
-                        <label for="idTipoMovimentacao" class="form-label">Tipo de Movimentação</label>
-                        <select class="form-control" id="idTipoMovimentacao" name="idTipoMovimentacao" required>
-                            <option value="">Movimentação</option>
-                            @foreach ($tipoMovimentacao as $tp)
-
-                            <option value="{{ $tp->idTipoMovimentacao }}">{{ $tp->movimentacao }}</option>
-
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Quantidade no Estoque -->
-                    <div class="form-group">
-                        <label for="quantEstoque" class="form-label">Quantidade Movimentada</label>
-                        <input type="number" class="form-control" id="quantEstoque" name="quantEstoque" required>
-                    </div>
-
-                    <!-- Data da Movimentação -->
-                    <div class="form-group">
-                        <label for="dataMovimentacao" class="form-label">Data da Movimentação</label>
-                        <input type="date" class="form-control" id="dataMovimentacao" name="dataMovimentacao" required>
-                    </div>
-                    <div class="form-group">
-                    </div>
-                    <div class="form-group">
-                        <!-- Botão de submissão -->
-                        <button type="submit" class="btn btn-success" id="submitBtn">Registrar Estoque</button>
-
-                        <!-- Grupo de botões para edição -->
-                        <div id="editBtnGroup" style="display: none;">
-                            <button type="submit" class="btn btn-warning">Fazer mudanças</button>
-                            <a href="/estoqueHome" class="btn btn-danger btn-lg mb-2">
-                                <i class="bi bi-box-arrow-up me-2"></i>
-                                Cancelar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+     
 
     <!-- Tabela de Medicamentos Registrados -->
     <div class="col-lg-12 mb-4">
@@ -239,11 +159,11 @@
                             <td>
                                 <!-- Botão Registrar Entrada -->
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#entradaModal{{ $med->idMedicamento }}">
-                                    +
+                                ↑
                                 </button>
                                 <!-- Botão Registrar Saída -->
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#saidaModal{{ $med->idMedicamento }}">
-                                    -
+                                ↓
                                 </button>
                             </td>
 
@@ -295,14 +215,38 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="POST">
+                                        <form action="{{ route('entradaMedStore') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="tipoMovimentacao" value="entrada">
-                                            <input type="hidden" name="idMedicamento" value="{{ $med->idMedicamento }}">
+
+                                            <div class="form-group">
+                                                <label for="medicamento">Medicamento:</label>
+                                                <select name="idMedicamento" class="form-control" id="medicamento" required>
+                                                    <option value="">Selecione um medicamento</option>
+                                                        <option value="{{ $med->idMedicamento }}" data-lote="{{ $med->loteMedicamento }}" data-validade="{{ $med->validadeMedicamento }}">
+                                                            {{ $med->nomeMedicamento }}
+                                                        </option>
+                                                </select>
+                                                <small id="medicamentoError" style="color: red; display: none;">Medicamento não cadastrado.</small>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="dataEntrada">Data de Entrada:</label>
+                                                <input type="date" name="dataEntrada" class="form-control" value="{{ date('Y-m-d') }}" required>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label for="quantidade">Quantidade:</label>
                                                 <input type="number" name="quantidade" class="form-control" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="lote">Lote:</label>
+                                                <input type="text" name="lote" class="form-control" required readonly id="lote">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="validade">Validade:</label>
+                                                <input type="date" name="validade" class="form-control" required readonly id="validade">
                                             </div>
 
                                             <div class="form-group">
@@ -311,7 +255,17 @@
                                                 <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada">
                                             </div>
 
-                                            <button type="submit" class="btn btn-success">Registrar Entrada</button>
+                                            <div class="form-group">
+                                                <label for="funcionario">Funcionário Responsável:</label>
+                                                <select name="idFuncionario" class="form-control" id="funcionario" required>
+                                                    <option value="">Selecione um funcionário</option>
+                                                    @foreach($funcionario as $f)
+                                                        <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Cadastrar</button>
                                         </form>
                                     </div>
                                 </div>
@@ -360,26 +314,59 @@
     </div>
 
 </div>
-
+<!-- Link para o jQuery e Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Link para o Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     $(document).ready(function() {
+        
+        // Atualiza os campos de lote e validade quando o medicamento é selecionado
+        document.getElementById('medicamento').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const lote = selectedOption.getAttribute('data-lote');
+            const validade = selectedOption.getAttribute('data-validade');
 
-        $(document).ready(function() {
-            // Função de pesquisa
-            $('#searchInput').on('keyup', function() {
-                var value = $(this).val().toLowerCase(); // Obter valor e converter para minúsculas
-                $('table tbody tr').filter(function() {
-                    // Mostrar ou ocultar a linha com base no valor pesquisado
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
+            document.getElementById('lote').value = lote || '';
+            document.getElementById('validade').value = validade || '';
+        });
+
+        // Motivo de entrada cadastra automático
+        document.getElementById('motivoEntrada').addEventListener('blur', function() {
+            const motivoEntrada = this.value;
+
+            if (motivoEntrada) {
+                fetch('/motivoEntrada/buscarOuCriar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ motivoEntrada: motivoEntrada })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.idMotivoEntrada) {
+                        document.getElementById('idMotivoEntrada').value = data.idMotivoEntrada;
+                    } else {
+                        console.error('Erro ao criar motivo de entrada:', data);
+                    }
+                })
+                .catch(error => console.error('Erro ao buscar/criar motivo de entrada:', error));
+            }
+        });
+
+        // Função de pesquisa
+        $('#searchInput').on('keyup', function() {
+            var value = $(this).val().toLowerCase(); // Obter valor e converter para minúsculas
+            $('table tbody tr').filter(function() {
+                // Mostrar ou ocultar a linha com base no valor pesquisado
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
             });
         });
 
+        // Ação de edição do modal de estoque
         $('.edit-btn').click(function() {
             const idEstoque = $(this).data('id');
             const idMedicamento = $(this).data('id-medicamento');
@@ -399,14 +386,9 @@
             // Atualiza a ação do formulário para edição
             $('#estoqueForm').attr('action', `/estoque/${idEstoque}`);
 
-            // Esconde o botão de submissão
+            // Esconde o botão de submissão e mostra o grupo de botões de edição
             $('#submitBtn').hide();
             $('#editBtnGroup').show();
-
-            // Para o modal
-            $('button[data-bs-toggle="modal"]').click(function() {
-                console.log('Botão do modal clicado');
-            });
         });
     });
 </script>
