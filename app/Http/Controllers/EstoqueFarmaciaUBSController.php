@@ -16,7 +16,7 @@ class EstoqueFarmaciaUBSController extends Controller
         $estoque = ModelEstoqueFarmaciaUBS::with(['funcionario', 'medicamento','tipoMovimentacao'])
         ->orderBy('dataCadastroEstoque', 'desc')
         ->get();
-;
+
 
         $medicamento = ModelMedicamentoFarmaciaUBS::all();
         $funcionario = ModelFuncionario::all();
@@ -24,6 +24,7 @@ class EstoqueFarmaciaUBSController extends Controller
 
         return view('farmacia.Estoque.estoque', compact('estoque','medicamento','funcionario','tipoMovimentacao'));
     }
+   
 
     public function store(Request $request)
     {

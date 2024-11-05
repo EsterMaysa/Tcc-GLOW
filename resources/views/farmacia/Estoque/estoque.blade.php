@@ -1,5 +1,6 @@
 @include('includes.headerFarmacia')
 
+
 <!-- PAGINA PRINCIPAL DO ESTOQUE A HOME DO ESTOQUE -->
 
 <div class="container mt-4">
@@ -7,6 +8,7 @@
 
     <!-- Seção com botões e imagem -->
     <div class="d-flex align-items-center justify-content-between mb-4 p-3 border rounded shadow-sm bg-light">
+
         <div class="d-flex flex-column align-items-center me-4">
             <a href="/EntradaMedicamentoHome" class="btn btn-success btn-lg mb-2">
                 <i class="bi bi-box-arrow-in-down me-2"></i>
@@ -15,7 +17,7 @@
             <small class="text-muted">Registrar entrada</small>
         </div>
 
-        <div class="d-flex flex-column align-items-center me-4">
+        <div class="d-flex flex-column align-items-center me-4 ">
             <a href="/saidaMed" class="btn btn-danger btn-lg mb-2">
                 <i class="bi bi-box-arrow-up me-2"></i>
                 Saída de Medicamento
@@ -23,19 +25,23 @@
             <small class="text-muted">Registrar saida</small>
         </div>
 
-        <div class="d-flex align-items-center">
-            <img src="path/to/imagem.jpg" alt="Imagem de estoque" class="img-thumbnail rounded-circle" style="width: 60px; height: 60px;">
-            <div class="ms-3">
-                <h6 class="mb-0">Estoque Atual</h6>
-                <p class="text-muted mb-0">Status: Médio</p>
-            </div>
+        <div class="d-flex flex-column align-items-center me-4">
+            <a href="/MedicamentoHome" class="btn btn-primary btn-lg mb-2">
+                <i class="bi bi-box-arrow-up me-2"></i>
+                Medicamento Registrados
+            </a>
+            <small class="text-muted">vizualizar todos medicamentos cadastrados</small>
         </div>
+
     </div>
 
     <!-- Tabela e status do estoque -->
     <div class="row">
         <div class="col-lg-9 mb-4">
             <div class="table-responsive">
+                <div class="card-header text-black">
+                    <h5 class="mb-0">Estoque</h5>
+                </div>
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark">
                         <tr>
@@ -50,6 +56,7 @@
                     </thead>
                     @foreach ($estoque as $e)
                     <tbody>
+
                         <tr>
                             <td>{{ $e->medicamento->nomeMedicamento }}</td>
                             <td>{{ $e->funcionario->nomeFuncionario }}</td>
@@ -101,8 +108,9 @@
                     <h5 class="mb-0">Status do Estoque</h5>
                 </div>
                 <div class="card-body">
-                    <p><strong>Nível:</strong> Alto / Médio / Baixo</p>
-                    <p><strong>Última atualização:</strong> 01/11/2024</p>
+                    <p><strong>Entrada do (nome do medicamento):</strong> visualizar</p>
+                    <p><strong>Saída do (nome do medicamento):</strong> visualizar</p>
+                    <p><strong>(nome do medicamento) está preste a acabar (quantidade) </strong> visualizar</p>
                 </div>
             </div>
         </div>
@@ -111,7 +119,7 @@
     <!-- Formulário de Movimentação do Estoque -->
     <div class="card mt-4">
         <div class="card-header bg-success text-white">
-            <h5 class="mb-0">Registrar Movimentação no Estoque</h5>
+            <h5 class="mb-0">Registrar Estoque</h5>
         </div>
         <div class="card-body">
             <form id="estoqueForm" action="/CadEstoque" method="POST">
@@ -125,7 +133,11 @@
                         <select class="form-control" id="idMedicamento" name="idMedicamento" required>
                             <option value="">Medicamentos</option>
                             @foreach ($medicamento as $med)
+                            @if ($med->situacaoMedicamento == 'A')
+
                             <option value="{{ $med->idMedicamento }}">{{ $med->nomeMedicamento }}</option>
+                            @endif
+
                             @endforeach
                         </select>
                     </div>
@@ -136,7 +148,11 @@
                         <select class="form-control" id="idFuncionario" name="idFuncionario" required>
                             <option value="">Funcionário</option>
                             @foreach ($funcionario as $f)
+                            @if ($f->situacaoFuncionario == 'A')
+
                             <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
+                            @endif
+
                             @endforeach
                         </select>
                     </div>
@@ -147,7 +163,9 @@
                         <select class="form-control" id="idTipoMovimentacao" name="idTipoMovimentacao" required>
                             <option value="">Movimentação</option>
                             @foreach ($tipoMovimentacao as $tp)
+
                             <option value="{{ $tp->idTipoMovimentacao }}">{{ $tp->movimentacao }}</option>
+
                             @endforeach
                         </select>
                     </div>
@@ -172,18 +190,196 @@
                         <!-- Grupo de botões para edição -->
                         <div id="editBtnGroup" style="display: none;">
                             <button type="submit" class="btn btn-warning">Fazer mudanças</button>
+                            <a href="/estoqueHome" class="btn btn-danger btn-lg mb-2">
+                                <i class="bi bi-box-arrow-up me-2"></i>
+                                Cancelar
+                            </a>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <!-- Tabela de Medicamentos Registrados -->
+    <div class="col-lg-12 mb-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Medicamentos Registrados</h5>
+                <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" style="margin-top: 10px;">
+
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Nome Genérico</th>
+                            <th>Código de Barras</th>
+                            <th>Lote</th>
+                            <th>Validade</th>
+                            <th>Situação</th>
+                            <th>Movimentação</th>
+                            <th>inf</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($medicamento as $med)
+                        @if ($med->situacaoMedicamento == 'A')
+
+                        <tr>
+                            <td>{{ $med->nomeMedicamento }}</td>
+                            <td>{{ $med->nomeGenericoMedicamento }}</td>
+                            <td>{{ $med->codigoDeBarrasMedicamento }}</td>
+                            <td>{{ $med->loteMedicamento }}</td>
+                            <td>{{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</td>
+                            <td>{{ $med->situacaoMedicamento == 'A' ? 'Ativo' : 'Inativo' }}</td>
+                            <td>
+                                <!-- Botão Registrar Entrada -->
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#entradaModal{{ $med->idMedicamento }}">
+                                    +
+                                </button>
+                                <!-- Botão Registrar Saída -->
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#saidaModal{{ $med->idMedicamento }}">
+                                    -
+                                </button>
+                            </td>
+
+                            <td>
+                                <!-- Botão dos detalhes-->
+
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $med->idMedicamento }}">
+                                    i
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- Modal para os detalhes do medicamento -->
+                        <div class="modal fade" id="modalDetalhes{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header  text-black">
+                                        <h5 class="modal-title" id="exampleModalLabel">Detalhes do Medicamento</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><strong>Código de Barras:</strong> {{ $med->codigoDeBarrasMedicamento }}</p>
+                                        <p><strong>Nome:</strong> {{ $med->nomeMedicamento }}</p>
+                                        <p><strong>Nome Genérico:</strong> {{ $med->nomeGenericoMedicamento }}</p>
+                                        <p><strong>Lote:</strong> {{ $med->loteMedicamento }}</p>
+                                        <p><strong>Dosagem:</strong> {{ $med->dosagemMedicamento }}</p>
+                                        <p><strong>Forma Farmacêutica:</strong> {{ $med->formaFarmaceuticaMedicamento }}</p>
+                                        <p><strong>Composição:</strong> {{ $med->composicaoMedicamento }}</p>
+                                        <p><strong>Validade:</strong> {{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</p>
+                                        <p><strong>Situação:</strong> {{ $med->situacaoMedicamento == 'A' ? 'Ativo' : 'Inativo' }}</p>
+                                        <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal para Registrar Entrada -->
+                        <div class="modal fade" id="entradaModal{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="entradaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header  text-black">
+                                        <h5 class="modal-title" id="entradaModalLabel">Registrar Entrada de Medicamento</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="tipoMovimentacao" value="entrada">
+                                            <input type="hidden" name="idMedicamento" value="{{ $med->idMedicamento }}">
+
+                                            <div class="form-group">
+                                                <label for="quantidade">Quantidade:</label>
+                                                <input type="number" name="quantidade" class="form-control" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="motivoEntrada">Motivo da Entrada:</label>
+                                                <input type="text" name="motivoEntrada" class="form-control" id="motivoEntrada" required placeholder="Digite o motivo da entrada">
+                                                <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada">
+                                            </div>
+
+                                            <button type="submit" class="btn btn-success">Registrar Entrada</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal para Registrar Saída -->
+                        <div class="modal fade" id="saidaModal{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="saidaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header text-black">
+                                        <h5 class="modal-title" id="saidaModalLabel">Registrar Saída de Medicamento</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="tipoMovimentacao" value="saida">
+                                            <input type="hidden" name="idMedicamento" value="{{ $med->idMedicamento }}">
+
+                                            <div class="form-group">
+                                                <label for="quantidade">Quantidade:</label>
+                                                <input type="number" class="form-control" id="quantidade" name="quantidade" min="1" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="motivoSaida">Motivo de Saída:</label>
+                                                <input type="text" class="form-control" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-danger">Registrar Saída</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
+                        @endforeach
+
+            </div>
+        </div>
+        </tbody>
+
+        </table>
+
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Link para o Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     $(document).ready(function() {
-        // Quando o botão "Editar" é clicado
+
+        $(document).ready(function() {
+            // Função de pesquisa
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase(); // Obter valor e converter para minúsculas
+                $('table tbody tr').filter(function() {
+                    // Mostrar ou ocultar a linha com base no valor pesquisado
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+
         $('.edit-btn').click(function() {
             const idEstoque = $(this).data('id');
             const idMedicamento = $(this).data('id-medicamento');
@@ -206,8 +402,14 @@
             // Esconde o botão de submissão
             $('#submitBtn').hide();
             $('#editBtnGroup').show();
+
+            // Para o modal
+            $('button[data-bs-toggle="modal"]').click(function() {
+                console.log('Botão do modal clicado');
+            });
         });
     });
 </script>
+
 
 @include('includes.footer')
