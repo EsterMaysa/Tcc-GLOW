@@ -73,7 +73,7 @@
 			</li>
 
 			<li>
-				<a href="/TipoMovimentaçãoHome">
+				<a href="/entrada_medicamento">
 					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
 					<span class="text"> Tipo Movimentação </span>
 				</a>

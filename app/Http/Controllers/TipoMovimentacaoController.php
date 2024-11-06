@@ -9,58 +9,80 @@ class TipoMovimentacaoController extends Controller
 {
     public function index()
     {
-        $movimentacoes = ModelTipoMovimentacao::all();
-        return response()->json($movimentacoes);
+        $movimentacoes = ModelTipoMovimentacao::all(); // Pega todos os registros
+        return view('farmacia.TipoMovimentacao.TipoMovimentacao', compact('movimentacoes'));
     }
   
     public function store(Request $request)
     {
         // Validação dos dados
-       
-
-        // Cria uma nova entrada na tabela
-        $tipo = new ModelTipoMovimentacao();
-        $tipo->movimentacao = $request->movimentacao;
-        $tipo->situacaoTipoMovimentacao = '1'; // Definido como 1
-        $tipo->dataCadastroTipoMovimentacao = now(); // Usando now()
-        $tipo->idPrescricao = $request->idPrescricao; // Caso o ID da prescrição seja fornecido
-        $tipo->save(); // Salvar o registro
-
+            $tipoMovimentacao = new ModelTipoMovimentacao();
+            $tipoMovimentacao->movimentacao = $request->movimentacao;
+            $tipoMovimentacao->situacaoTipoMovimentacao = '1';
+            $tipoMovimentacao->dataCadastroTipoMovimentacao = now();
+            $tipoMovimentacao->idPrescricao = $request->idPrescricao;
+    
+            // Salvando o registro
+            $tipoMovimentacao->save();
+    
+            return response()->json(['message' => 'Região UBS criada com sucesso!'], 201);
         
+    }
+
+
+    public function edit($id)
+    {
+        // Encontra a movimentação pelo ID
+        $movimentacao = ModelTipoMovimentacao::findOrFail($id);
+    
+        // Retorna a view de edição passando os dados da movimentação
+        return view('farmacia.TipoMovimentacao.editarTipoMovimentacao', compact('movimentacao'));
+    }
+
+    public function atualizar(Request $request, $id)
+{
+    // Validar os dados recebidos do formulário
+    $validatedData = $request->validate([
+        'movimentacao' => 'required|string|max:255',
+        'situacaoTipoMovimentacao' => 'required|integer',
+        'dataCadastroTipoMovimentacao' => 'required|date',
+        'idPrescricao' => 'required|integer',
+    ]);
+
+    try {
+        // Procurar a movimentação a ser atualizada no banco de dados
+        $movimentacao = TipoMovimentacao::findOrFail($id);
+
+        // Atualizar os campos
+        $movimentacao->movimentacao = $request->movimentacao;
+        $movimentacao->situacaoTipoMovimentacao = $request->situacaoTipoMovimentacao;
+        $movimentacao->dataCadastroTipoMovimentacao = $request->dataCadastroTipoMovimentacao;
+        $movimentacao->idPrescricao = $request->idPrescricao;
+
+        // Salvar as alterações
+        $movimentacao->save();
+
+        // Redirecionar com uma mensagem de sucesso
+        return redirect()->route('entrada_medicamento')->with('success', 'Movimentação atualizada com sucesso!');
+    } catch (\Exception $e) {
+        // Caso ocorra algum erro, exibir uma mensagem de erro
+        return back()->withErrors(['msg' => 'Erro ao atualizar movimentação: ' . $e->getMessage()]);
+    }
+}
+
+    
+    
+
+        public function destroy($id)
+        {
+            // Encontrar a movimentação pelo ID
+            $movimentacao = ModelTipoMovimentacao::findOrFail($id);
+            
+            // Atualizar a situação para 0
+            $movimentacao->situacaoTipoMovimentacao = 0; // ou o valor que você deseja para inativo
+            $movimentacao->save(); // Salva a atualização no banco de dados
         
-        // Redireciona com uma mensagem de sucesso
-        return redirect()->route('farmacia.TipoMovimentacao.tipoMovimentacao')->with('success', 'Tipo de movimentação cadastrado com sucesso!');
-    }
-
-
-    public function show($id)
-    {
-        $movimentacao = ModelTipoMovimentacao::find($id);
-        if (!$movimentacao) {
-            return response()->json(['message' => 'Movimentação não encontrada'], 404);
+            // Redireciona com uma mensagem de sucesso
+            return redirect()->route('entrada_medicamento')->with('success', 'Movimentação atualizada com sucesso para inativo!');
         }
-        return response()->json($movimentacao);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $movimentacao = ModelTipoMovimentacao::find($id);
-        if (!$movimentacao) {
-            return response()->json(['message' => 'Movimentação não encontrada'], 404);
-        }
-
-        $movimentacao->update($request->all());
-        return response()->json($movimentacao);
-    }
-
-    public function destroy($id)
-    {
-        $movimentacao = ModelTipoMovimentacao::find($id);
-        if (!$movimentacao) {
-            return response()->json(['message' => 'Movimentação não encontrada'], 404);
-        }
-
-        $movimentacao->delete();
-        return response()->json(['message' => 'Movimentação deletada com sucesso']);
-    }
 }

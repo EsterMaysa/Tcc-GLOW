@@ -489,3 +489,19 @@ Route::post('/verificar-email', [UBSController::class, 'verificarEmail'])->name(
 //tipo movimentação
 Route::post('/insertTipoMovimentacao', [TipoMovimentacaoController::class, 'store'])->name('insertTipoMovimentacao');
 
+Route::post('/tipomovimentacao/store', [TipoMovimentacaoController::class, 'store'])->name('tipomovimentacao.store');
+
+Route::get('/entrada_medicamento', [TipoMovimentacaoController::class, 'index'])->name('entrada_medicamento');
+
+
+Route::delete('/tipo-movimentacao/{id}', [TipoMovimentacaoController::class, 'destroy'])->name('excluirTipoMovimentacao');
+
+// Rota para exibir o formulário de edição
+Route::get('/editarTipoMovimentacao/{id}', [TipoMovimentacaoController::class, 'edit'])->name('editarTipoMovimentacao');
+
+// Rota para atualizar os dados da movimentação
+Route::put('/editarTipoMovimentacao/{id}', [TipoMovimentacaoController::class, 'atualizar'])->name('atualizarTipoMovimentacao');
+
+
+
+

@@ -14,6 +14,8 @@ class ModelTipoMovimentacao extends Model
     protected $primaryKey = 'idTipoMovimentacao';
     protected $connection = 'mysql2';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'movimentacao',
         'situacaoTipoMovimentacao',
