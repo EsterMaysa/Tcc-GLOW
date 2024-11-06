@@ -30,6 +30,7 @@ class UBSController extends Controller
         return view('adm.Ubs.UBS', compact('ubs'));
     }
 
+   
     public function apresentarRegiao()
     {
         $regioes = RegiaoUBSModel::all();
@@ -244,8 +245,57 @@ public function verificarEmail(Request $request)
     }
 }
 
+// Método no controlador de login (após a verificação de login)
+public function login(Request $request)
+{
+    // Busca a UBS usando o CNPJ fornecido
+    $ubs = UBSModel::where('cnpj', $request->cnpj)->first();
+
+    // Verifica se a UBS foi encontrada e a senha é válida
+    if ($ubs && Hash::check($request->senha, $ubs->senhaUBS)) {
+        // Armazena o emailUBS na sessão
+        session(['emailUBS' => $ubs->emailUBS]);
+
+        // Redireciona para a página do perfil
+        return redirect()->route('perfil');
+    } else {
+        // Se as credenciais estiverem incorretas
+        return redirect()->back()->with('error', 'Credenciais inválidas');
+    }
+}
 
 
+
+
+
+public function perfil()
+{
+    // Recupera o email da sessão
+    $emailUBS = session('emailUBS');
+
+    // Se o emailUBS não estiver na sessão, redireciona para o login
+    if (!$emailUBS) {
+        return redirect('/login')->with('error', 'Você precisa estar logado para acessar o perfil.');
+    }
+
+    // Busca a UBS no banco de dados com o email armazenado na sessão
+    $ubs = UBSModel::where('emailUBS', $emailUBS)->first();
+
+    // Se a UBS não for encontrada, redireciona para o login
+    if (!$ubs) {
+        return redirect('/login')->with('error', 'UBS não encontrada.');
+    }
+
+    // Caso a UBS seja encontrada, exibe o perfil
+    return view('farmacia.perfilFarmacia', compact('ubs'));
+}
+
+// Método de logout no controlador
+public function logout()
+{
+    session()->forget('emailUBS');
+    return redirect('/login');
+}
 
 
 

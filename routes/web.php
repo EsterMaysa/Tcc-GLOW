@@ -503,5 +503,12 @@ Route::get('/editarTipoMovimentacao/{id}', [TipoMovimentacaoController::class, '
 Route::put('/editarTipoMovimentacao/{id}', [TipoMovimentacaoController::class, 'atualizar'])->name('atualizarTipoMovimentacao');
 
 
+// Em web.php (rotas)
+Route::get('/perfilfarmacia2', [UBSController::class, 'perfil'])->name('perfilfarmacia2');
 
+
+// Defina um middleware para verificar se o usuário está autenticado
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', [UBSController::class, 'perfil'])->name('perfil');
+});
 

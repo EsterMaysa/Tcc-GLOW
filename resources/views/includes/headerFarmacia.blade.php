@@ -94,7 +94,7 @@
 				</a>
     		</li>
 			<li>
-				<a href="/perfilFarmacia" class="boto2">
+				<a href="/perfilfarmacia2" class="boto2">
 					<i class='bx bxs-user'></i>
 					<span class="text"> Perfil </span>
 				</a>
