@@ -39,12 +39,12 @@
     <div class="row">
         <div class="col-lg-9 mb-4">
             <div class="table-responsive">
-                <div class="card-header text-black">
+                <div class="card-header bg-secondary text-white">
                     <h5 class="mb-0">Relatorio do estoque</h5>
-                    <button type="submit" class="btn btn-danger">gerar pdf</button>
+                    <input type="text" id="searchInputEstoque" class="form-control" placeholder="Pesquisar por Medicamento e Funcionário" style="margin-top: 10px;">
 
                 </div>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" id="estoqueTable">
                     <thead class="table-dark">
                         <tr>
                             <th>Medicamento</th>
@@ -53,7 +53,7 @@
                             <th>Quantidade</th>
                             <th>Data de Validade</th>
                             <th>Situação</th>
-                            <th>Ações</th>
+                            <th>Detalhes</th>
                         </tr>
                     </thead>
                     @foreach ($estoque as $e)
@@ -65,10 +65,41 @@
                             <td>{{ $e->tipoMovimentacao->movimentacao }}</td>
                             <td>{{ $e->quantEstoque }}</td>
                             <td>{{ \Carbon\Carbon::parse($e->dataMovimentacao)->format('d/m/Y') }}</td>
-                            <td>{{ $e->situacaoEstoque == 'A' ? 'Ativo' : 'Inativo' }}</td>
+                            <td>{{ $e->situacaoEstoque == 'A' ||  $e->situacaoEstoque == '1' ? 'Ativo' : 'Inativo'  }}</td>
                             <td>
+
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEstoque{{ $e->idEstoque }}">
+                                    i
+                                </button>
+
+                                <!-- Modal para os detalhes do medicamento -->
+                                <div class="modal fade" id="modalEstoque{{ $e->idEstoque }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header  text-black">
+                                                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Estoque</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>Medicamento</strong> {{ $e->medicamento->nomeMedicamento }}</p>
+                                                <p><strong>Quantidade:</strong>{{ $e->quantEstoque }}</p>
+                                                <p><strong>Nome Funcionario:</strong> {{ $e->funcionario->nomeFuncionario }}</p>
+                                                <p><strong>Entradas:</strong> {{ $e->tipoMovimentacao->movimentacao }}</p>
+                                                <p><strong>Data do cadastro:</strong>{{ \Carbon\Carbon::parse($e->dataMovimentacao)->format('d/m/Y') }}</p>
+                                                <p><strong>Situação</strong> {{ $e->situacaoEstoque == 'A'  ||  $e->situacaoEstoque == '1' ? 'Ativo' : 'Inativo' }}</p>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-danger">gerar pdf</button>
+
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Botão Editar -->
-                                @if ($e->situacaoEstoque == 'A')
+                                <!-- @if ($e->situacaoEstoque == 'A')
 
                                 <button class="btn btn-primary btn-sm edit-btn"
                                     data-id="{{ $e->idEstoque }}"
@@ -78,24 +109,24 @@
                                     data-quant-estoque="{{ $e->quantEstoque }}"
                                     data-data-movimentacao="{{ $e->dataMovimentacao }}">
                                     <i class="bi bi-pencil-square"></i> Editar
-                                </button>
+                                </button> -->
 
                                 <!-- Botão Desativar -->
-                                <form action="{{ route('desativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desativar este estoque?');">
+                                <!-- <form action="{{ route('desativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desativar este estoque?');">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" class="btn btn-danger">Desativar</button>
-                                </form>
-                                @else
-                                <!-- Botão ativar -->
+                                </form> -->
+                                <!-- @else
+                                Botão ativar -->
 
-                                <form action="{{ route('estoque.ativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja ativar este estoque?');">
+                                <!-- <form action="{{ route('estoque.ativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja ativar este estoque?');">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit" class="btn btn-primary">Ativar</button>
-                                </form>
+                                </form> -->
 
-                                @endif
+                                <!-- @endif -->
                             </td>
                         </tr>
                     </tbody>
@@ -119,7 +150,7 @@
     </div>
 
     <!-- Formulário de Movimentação do Estoque -->
-     
+
 
     <!-- Tabela de Medicamentos Registrados -->
     <div class="col-lg-12 mb-4">
@@ -130,7 +161,7 @@
 
             </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" id="medicamentoTable">
                     <thead class="table-dark">
                         <tr>
                             <th>Nome</th>
@@ -147,7 +178,7 @@
                     </thead>
                     <tbody>
                         @foreach ($medicamento as $med)
-                        @if ($med->situacaoMedicamento == 'A')
+                        @if ($med->situacaoMedicamento == 'A' || $med->situacaoMedicamento == '1')
 
                         <tr>
                             <td>{{ $med->nomeMedicamento }}</td>
@@ -155,15 +186,15 @@
                             <td>{{ $med->codigoDeBarrasMedicamento }}</td>
                             <td>{{ $med->loteMedicamento }}</td>
                             <td>{{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</td>
-                            <td>{{ $med->situacaoMedicamento == 'A' ? 'Ativo' : 'Inativo' }}</td>
+                            <td>{{ $med->situacaoMedicamento == 'A'|| $med->situacaoMedicamento == '1' ? 'Ativo' : 'Inativo' }}</td>
                             <td>
                                 <!-- Botão Registrar Entrada -->
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#entradaModal{{ $med->idMedicamento }}">
-                                ↑
+                                    ↑
                                 </button>
                                 <!-- Botão Registrar Saída -->
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#saidaModal{{ $med->idMedicamento }}">
-                                ↓
+                                    ↓
                                 </button>
                             </td>
 
@@ -196,7 +227,7 @@
                                         <p><strong>Forma Farmacêutica:</strong> {{ $med->formaFarmaceuticaMedicamento }}</p>
                                         <p><strong>Composição:</strong> {{ $med->composicaoMedicamento }}</p>
                                         <p><strong>Validade:</strong> {{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</p>
-                                        <p><strong>Situação:</strong> {{ $med->situacaoMedicamento == 'A' ? 'Ativo' : 'Inativo' }}</p>
+                                        <p><strong>Situação:</strong> {{ $med->situacaoMedicamento == 'A' || $med->situacaoMedicamento == '1' ? 'Ativo' : 'Inativo' }}</p>
                                         <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</p>
                                     </div>
                                     <div class="modal-footer">
@@ -215,16 +246,15 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('entradaMedStore') }}" method="POST">
+                                        <form action="/CadEstoque" method="POST">
                                             @csrf
 
                                             <div class="form-group">
                                                 <label for="medicamento">Medicamento:</label>
                                                 <select name="idMedicamento" class="form-control" id="medicamento" required>
-                                                    <option value="">Selecione um medicamento</option>
-                                                        <option value="{{ $med->idMedicamento }}" data-lote="{{ $med->loteMedicamento }}" data-validade="{{ $med->validadeMedicamento }}">
-                                                            {{ $med->nomeMedicamento }}
-                                                        </option>
+                                                    <option value="{{ $med->idMedicamento }}" data-lote="{{ $med->loteMedicamento }}" data-validade="{{ $med->validadeMedicamento }}">
+                                                        {{ $med->nomeMedicamento }}
+                                                    </option>
                                                 </select>
                                                 <small id="medicamentoError" style="color: red; display: none;">Medicamento não cadastrado.</small>
                                             </div>
@@ -241,12 +271,12 @@
 
                                             <div class="form-group">
                                                 <label for="lote">Lote:</label>
-                                                <input type="text" name="lote" class="form-control" required readonly id="lote">
+                                                <input type="text" name="lote" class="form-control" required id="lote">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="validade">Validade:</label>
-                                                <input type="date" name="validade" class="form-control" required readonly id="validade">
+                                                <input type="date" name="validade" class="form-control" required id="validade">
                                             </div>
 
                                             <div class="form-group">
@@ -260,7 +290,7 @@
                                                 <select name="idFuncionario" class="form-control" id="funcionario" required>
                                                     <option value="">Selecione um funcionário</option>
                                                     @foreach($funcionario as $f)
-                                                        <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
+                                                    <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -321,7 +351,7 @@
 
 <script>
     $(document).ready(function() {
-        
+
         // Atualiza os campos de lote e validade quando o medicamento é selecionado
         document.getElementById('medicamento').addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
@@ -338,30 +368,41 @@
 
             if (motivoEntrada) {
                 fetch('/motivoEntrada/buscarOuCriar', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({ motivoEntrada: motivoEntrada })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.idMotivoEntrada) {
-                        document.getElementById('idMotivoEntrada').value = data.idMotivoEntrada;
-                    } else {
-                        console.error('Erro ao criar motivo de entrada:', data);
-                    }
-                })
-                .catch(error => console.error('Erro ao buscar/criar motivo de entrada:', error));
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            motivoEntrada: motivoEntrada
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.idMotivoEntrada) {
+                            document.getElementById('idMotivoEntrada').value = data.idMotivoEntrada;
+                        } else {
+                            console.error('Erro ao criar motivo de entrada:', data);
+                        }
+                    })
+                    .catch(error => console.error('Erro ao buscar/criar motivo de entrada:', error));
             }
         });
 
-        // Função de pesquisa
+        // Pesquisa para a tabela de estoque
+        $('#searchInputEstoque').on('keyup', function() {
+            var value = $(this).val().toLowerCase(); // Obter valor e converter para minúsculas
+            $('#estoqueTable tbody tr').filter(function() {
+                // Mostrar ou ocultar a linha com base no valor pesquisado na tabela de estoque
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+
+        // Pesquisa para a tabela de outra funcionalidade (ajuste o seletor da tabela de acordo com sua necessidade)
         $('#searchInput').on('keyup', function() {
             var value = $(this).val().toLowerCase(); // Obter valor e converter para minúsculas
-            $('table tbody tr').filter(function() {
-                // Mostrar ou ocultar a linha com base no valor pesquisado
+            $('#medicamentoTable tbody tr').filter(function() {
+                // Mostrar ou ocultar a linha com base no valor pesquisado na outra tabela
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
             });
         });

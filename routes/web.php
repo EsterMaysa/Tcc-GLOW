@@ -293,7 +293,8 @@ Route::get('/editarPerfilFarmacia', function () {
 //     return view('farmacia.Estoque.estoque');
 // });
 Route::get('/estoqueHome', [EstoqueFarmaciaUBSController::class, 'index']);
-Route::post('/CadEstoque', [EstoqueFarmaciaUBSController::class, 'store']);
+Route::post('/CadEstoque', [EntradaMedicamentoController::class, 'estoque']);
+
 Route::put('/Estoque/{id}', [EstoqueFarmaciaUBSController::class, 'update'])->name('estoque.update');
 Route::patch('/Estoque/{id}/desativar', [EstoqueFarmaciaUBSController::class, 'destroy'])->name('desativar');
 Route::patch('/Estoque/{id}/ativar', [EstoqueFarmaciaUBSController::class, 'ativar'])->name('estoque.ativar');
