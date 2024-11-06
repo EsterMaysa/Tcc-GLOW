@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ModelMedicamentoFarmaciaUBS;
+use App\Models\ModelFuncionarioFarmaciaUBS;
+
 
 class ModelSaidaMedicamento extends Model
 {
@@ -21,7 +23,9 @@ class ModelSaidaMedicamento extends Model
         'quantidade',
         'motivoSaida',
         'situacao',
+        'idFuncionario',
         'idMedicamento', // Adicione aqui
+
     ];
 
 
@@ -29,6 +33,11 @@ class ModelSaidaMedicamento extends Model
     public function medicamento()
     {
         return $this->belongsTo(ModelMedicamentoFarmaciaUBS::class, 'idMedicamento', 'idMedicamento');
+    }
+
+    public function funcionario()
+    {
+        return $this->belongsTo(ModelFuncionarioFarmaciaUBS::class, 'idFuncionario', 'idFuncionario');
     }
 
 }
