@@ -1,0 +1,201 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/*NAVBAR*/
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alinha logo e pesquisa em extremos opostos */
+    background-color: #1F2B5B; 
+    padding: 10px 20px;
+    height: 90px; 
+    color: white;
+}
+
+.navbar-brand {
+    margin-left: 20px; /* Margem à esquerda da logo */
+}
+
+.logo {
+    margin-left: 15%;
+    width: 33%; 
+    height: auto; 
+}
+
+/*BARRA DE PESQUISA*/
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; 
+}
+
+.search-input {
+    height: 40px;
+    width: 390px; 
+    padding: 8px;
+    border: none;
+    outline: none;
+    margin-right: 20px;
+}
+
+.search-button {
+    padding: 8px 12px;
+    background-color: #1a1a2e;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #243f8a; 
+}
+
+/*TERMINA BARRA DE PESQUISA*/
+/*TERMINA A NAVBAR*/
+
+.container-um {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 20px;
+}
+
+.jumbotron-um {
+    width: 40%;
+    background-color: #f8f9fa; 
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 10%; /* Espaçamento à direita do jumbotron */
+}
+
+.jumbotron-um h1 {
+    margin-bottom: 10px; 
+}
+
+.image-container {
+    flex: 0 0 50%; 
+    text-align: center;
+}
+
+.image-container img {
+    max-width: 40%; 
+    height: auto; 
+    border-radius: 8px;
+}
+
+/*COMEÇA O CADASTRO*/
+
+.container {
+    width: 80%;  
+    max-width: 1000px;  
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #1F2B5B; 
+    border-radius: 6px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.form-col {
+    flex: 1;
+    padding: 4px;
+    min-width: calc(25% - 8px); 
+    box-sizing: border-box;
+}
+
+/* Estilo dos inputs */
+input[type="text"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 6px;
+    margin: 4px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+select:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 3px;
+    font-size: 16px;
+    display: block;
+}
+
+i {
+    color: #1F2B5B;
+}
+
+.btn-custom {
+    width: 50%;
+    background-color:#36a044;
+    color: white;
+    padding: 12px 24px; 
+    border: none;
+    border-radius: 6px; 
+    font-size: 16px;  
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;  
+    margin: 10px auto;  
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para o campo "Complemento" (não obrigatório) */
+input[type="text"]:not([required]) {
+    background-color: #f9f9f9;
+}
+
+/* Ajustes para os inputs readonly (latitude e longitude) */
+input[readonly] {
+    background-color: #f1f1f1;
+    cursor: not-allowed;
+}
+
+select {
+    padding: 6px;
+    margin: 4px 0;
+}
+
+/* Ajustes gerais para telefone */
+#telefone, #telefone2 {
+    width: 100%;
+    padding: 6px;
+    margin: 4px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+}
+

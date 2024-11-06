@@ -1,3 +1,5 @@
+<!--CSS finalizado OK (ASS:Duda-->
+
 @include('includes.header') 
 <link rel="stylesheet" href="{{ url('css/UBS.css')}}">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,7 +17,7 @@
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>UBS</h1>
+        <h1 style="font-weight: bold;">UBS</h1>
         <p>Você pode gerenciar UBS por aqui.</p>
     </div>
     <div class="image-container">
@@ -34,8 +36,8 @@
             <a href="/formRegiao" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
         <div class="btn-card">
-            <p><i class="fas fa-pharmacy"></i> Farmacia</p>
-            <a href="/Farmacia" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
+            <p><i class="fas fa-pharmacy"></i> Farmácia</p>
+            <a href="/farmacia" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
         <div class="btn-card">
             <p><i class="fas fa-phone"></i> Telefone</p>
@@ -75,7 +77,7 @@
                 @foreach ($ubs as $unidade)
 
                 <tbody id="ubsTableBody">
-                    <tr class="ubs-row" data-situacao="{{ $unidade->situacaoUBS }}" ,style="{{ $unidade->situacaoUBS == 0 ? 'display:none;' : '' }}">
+                    <tr class="ubs-row" data-situacao="{{ $unidade->situacaoUBS }}" ,style="{{ $unidade->situacaoUBS == 0 ? 'display:none;' : '' }}" id="tabela">
                         <td>{{ $unidade->nomeUBS }}</td>
                         <td>{{ $unidade->emailUBS }}</td>
                         <td>{{ $unidade->cnpjUBS }}</td>
@@ -90,14 +92,14 @@
                         <td>
                             <form action="{{ route('changeStatus', $unidade->idUBS) }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="edit-icon" style="background: none; border: none; color: inherit;">
+                                <button type="submit" class="edit-icon-delete">
                                     <i class="fas fa-pencil-alt"></i>
                                     Excluir
                                 </button>
                             </form>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $unidade->idUBS }}">
+                            <button type="button" class="botao" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $unidade->idUBS }}">
                                 Ver mais
                             </button>
                         </td>
@@ -127,7 +129,7 @@
                                     <p><strong>Telefone 2:</strong> {{ $unidade->telefone->numeroTelefoneUBS2 ?? 'Não Cadastrdo' }}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    <button type="button" class="botaoModal" data-bs-dismiss="modal">Fechar</button>
                                 </div>
                             </div>
                         </div>

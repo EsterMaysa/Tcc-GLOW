@@ -1,9 +1,10 @@
-@include('includes.header') <!-- include -->
-
 <!-- AQUI VAI A PAGINA DESTINADA AS FUNCIONALIDADES DO MEDICAMENTO -->
 <!-- Essa pagina será para edição, portanto o formulário estará preenchido com os dados do medicamento -->
 
-<!-- MAIN -->
+<!--Aqui infelizmente não consegui mexer ainda, meu arquivo tá de brincadeira cmg nessa parte (ASS:Duda-->
+@include('includes.header') <!-- include -->
+
+
 <main>
     <div class="head-title">
         <div class="left">

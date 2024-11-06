@@ -1,4 +1,4 @@
-<!-- Inclua o header -->
+<!-- Essa ainda existe ?  -->
 @include('includes.header')
 <section class="notifications-section2">
     <div class="head-title2">

@@ -1,5 +1,6 @@
+<!--Tirado a foto do Adm (ASS:Duda-->
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 	<!--Tags Obrigátórias!-->
@@ -24,7 +25,6 @@
 	<div class="header">
 		<div class="side-nav">
 			<div class="user">
-				<img src="{{ asset('Image/adm.png')}}" alt="foto-perfil" class="user-img">
 				<div>
 					<h2> Gabrielly Vasconcelos </h2>
 					<p>Administrador(a)</p>

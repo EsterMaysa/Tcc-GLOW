@@ -96,44 +96,33 @@
 
 /*COMEÇA O CADASTRO*/
 
-
-
 .container {
-    padding: 20px;
+    max-width: 1000px;
+    margin: 20px auto; 
+    padding: 30px; 
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    border: 1px solid #192351; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .form-container {
-    max-width: 85%;
-    margin: 10px auto; 
-    border: 1px solid #192351; 
-    border-radius: 10px;
-    background-color: #fcfcfc;
-    padding: 20px;
-    margin-left: 10%;
+    margin-top: 10px;
 }
 
 .form-row {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    padding: 1px 0; 
-}
-
-.form-row:last-child {
-    border-bottom: none; 
+    justify-content: space-between; 
+    margin-bottom: 12px;
 }
 
 .form-col {
-    flex: 1;
-    margin-right: 10px;
+    flex: 1; 
+    margin-right: 10px; 
 }
 
-.form-col:last-child {
-    margin-right: 0;
-}
-
-.full-width {
-    flex: 1 1 100%;
+.form-row .form-col:last-child {
+    margin-right: 0; 
 }
 
 label {
@@ -149,8 +138,7 @@ label i {
     color: #192351;
 }
 
-input[type="text"],
-select {
+.form-control {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -158,9 +146,7 @@ select {
     box-sizing: border-box;
 }
 
-button[type="submit"],
-.add-phone-container button {
-    background-color: #5cb85c;
+.btn {
     color: white;
     padding: 10px 15px;
     border: none;
@@ -170,26 +156,17 @@ button[type="submit"],
     margin-top: 8px; 
 }
 
-.button {
+.salvar{
     background-color: #5cb85c;
     color: white;
     padding: 10px 15px;
     border: none;
-    width: 50%;
-    margin-left: 25%;
+    width: 80%;
+    margin-left: 10%;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 8px; 
+    margin-top: 15px; 
     font-size: 20px;
-}
-
-button[type="button"] {
-    background-color: #c52e28;
-    color: white;
-    padding: 5px 2px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 button:hover,
@@ -198,91 +175,26 @@ button[type="submit"]:hover {
     background-color: #384081;
 }
 
-.add-phone-container {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
+.form-check {
+    display: inline-block; /* Para permitir que fiquem lado a lado */
+    margin-left: 5%;
 }
 
-.telefone-field {
-    display: flex;
-    align-items: center;
-    margin-top: 5px;
-}
-
-.telefone-field input {
-    flex: 1;
-    margin-right: 5px;
-}
-
-.info-text {
-    margin-left: 10px;
-    font-size: 12px;
-    color: #888;
-}
-
-.remove-phone {
-    background-color: transparent;
-    color: #d9534f;
-}
-
-.remove-phone:hover {
-    opacity: 0.7; /* Efeito de hover para o botão de remoção */
-}
-
-
-/* Estilos do Modal */
-
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Fundo escuro com menos opacidade */
-    transition: opacity 0.3s ease-in-out; /* Suaviza a exibição do modal */
-}
-
-.modal.show {
-    display: block;
-    opacity: 1;
-}
-
-.modal-content {
+#composicaoMedicamento {
     background-color: #ffffff;
-    margin: 10% auto;
-    padding: 25px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 500px;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7); /* Sombra mais suave */
-    transition: transform 0.3s ease-in-out;
-    transform: translateY(-20px);
+    border: 1px solid #ccc; 
+    padding: 5px; 
+    font-size: 14px;
+    width: 100%; /* Largura */
+    height: 36px;
+    resize: vertical;
 }
 
-.modal-content.show {
-    transform: translateY(0);
+/* Cor e borda quando o campo estiver em foco */
+#composicaoMedicamento:focus {
+    border-color: #596066; 
+    outline: none; 
+    background-color: #fff;
 }
 
-.modal-content .close {
-    color: #0f143d;
-    font-size: 26px;
-    font-weight: bold;
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    transition: color 0.3s;
-}
-
-.modal-content .close:hover {
-    color: #8490ff;
-}
-
-.modal-content p {
-    font-size: 1.5rem;
-    color: #000000;
-}
 

@@ -1,3 +1,5 @@
+<!--Tudo Ok por aqui no front (ASS: Duda-->
+
 @include('includes.header') <!-- include -->
 <link rel="stylesheet" href="{{ url('css/Detentor.css')}}">
 
@@ -63,6 +65,8 @@
                     <th>Situação</th>
                     <th>Data</th>
                     <th>Ações</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -82,24 +86,27 @@
                             @endif
                         </td>
                         <td>{{ \Carbon\Carbon::parse($d->dataCadastroDetentor)->format('d/m/Y') }}</td>
+
                         <!-- Botão para abrir o modal -->
                         <td>
-                            <a href="{{ route('detentor.edit', $d->idDetentor) }}" class="btn btn-warning">Editar</a>
+                            <a href="{{ route('detentor.edit', $d->idDetentor) }}" class="btn btn-warning">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
                         </td>
                         <td>
-                            <!-- Botão para desativar -->
                             <form action="{{ route('desativarDetentor', $d->idDetentor) }}" method="POST" style="display:inline;">
                                 @csrf
-                                @method('PUT') <!-- Usando PUT para indicar a atualização -->
-                                <button type="submit" class="btn btn-danger">Desativar</button>
+                                @method('PUT')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-ban"></i> Desativar
+                                </button>
                             </form>
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $d->idDetentor }}">
-                                Ver mais
+                                <i class="fas fa-eye"></i> Ver mais
                             </button>
                         </td>
-
                     </tr>
 
                     <!-- Modal para os detalhes -->
@@ -134,14 +141,14 @@
                                     <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($d->dataCadastroDetentor)->format('d/m/Y') }}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="{{ route('detentor.edit', $d->idDetentor) }}" class="btn btn-warning">Editar</a>
+                                    <a href="{{ route('detentor.edit', $d->idDetentor) }}" class="btn btn-warning"> Editar </a>
                                     <!-- Botão para desativar -->
                                     <form action="{{ route('desativarDetentor', $d->idDetentor) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('PUT') <!-- Usando PUT para indicar a atualização -->
-                                        <button type="submit" class="btn btn-danger">Desativar</button>
+                                        <button type="submit" class="btn btn-danger"> Desativar </button>
                                     </form>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Fechar </button>
                                 </div>
                             </div>
                         </div>

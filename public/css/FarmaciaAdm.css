@@ -1,3 +1,4 @@
+
 *{
     margin: 0;
     padding: 0;
@@ -10,7 +11,7 @@
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Alinha logo e pesquisa em extremos opostos */
+    justify-content: space-between; 
     background-color: #1F2B5B; 
     padding: 10px 20px;
     height: 90px; 
@@ -18,7 +19,7 @@
 }
 
 .navbar-brand {
-    margin-left: 20px; /* Margem à esquerda da logo */
+    margin-left: 20px; 
 }
 
 .logo {
@@ -40,7 +41,7 @@
     width: 280px; 
     padding: 8px;
     border: none;
-    border-radius: 40px; 
+    border-radius: 20px; 
     outline: none;
     margin-right: 10px;
 }
@@ -88,7 +89,7 @@
 }
 
 .image-container img {
-    max-width: 40%; 
+    max-width: 30%; 
     height: auto; 
     border-radius: 8px;
 }
@@ -96,10 +97,11 @@
 /*COMEÇA O CADASTRO*/
 
 
+
 /* CONTAINER DO CADASTRO*/
 
 .cadastros-container {
-    background-color: #f2f3f3;
+    background-color: #e9f5f0;
     padding: 1rem;
     border-radius: 6px;
    margin-left: 10%;
@@ -239,7 +241,7 @@
 
 .table {
     width: 85%;
-    height: 80%;
+    height: 85%;
     border-collapse: collapse;
     margin-top: 0px;
     margin-left: 10%;
@@ -309,173 +311,90 @@
     cursor: pointer;
 }
 
-
-/* Modal de Detalhes */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    justify-content: center;
-    align-items: center;
+/* Estilo para a mensagem de sucesso */
+#successMessage {
+    background-color: #28a745; /* Cor de fundo verde */
+    color: white; /* Cor do texto */
+    padding: 15px; /* Espaçamento interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    margin-top: 20px; /* Espaçamento superior */
+    font-size: 16px; /* Tamanho da fonte */
+    text-align: center; /* Alinha o texto ao centro */
+    width: 60%; /* Ajusta a largura do alerta */
+    max-width: 400px; /* Limita a largura máxima */
+    margin-left: auto; /* Centraliza horizontalmente */
+    margin-right: auto; /* Centraliza horizontalmente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; /* Animação de transição */
 }
 
-.modal-content {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 600px;
-    margin: auto;
+/* Para quando o alerta estiver desaparecendo (opacidade para 0) */
+#successMessage.hidden {
+    opacity: 0;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+/* Adiciona uma animação para o alerta */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
-.close:hover {
-    color: #333;
-}
-
-#detailsContent p {
-    margin: 0.5rem 0;
-    font-size: 1rem;
-}
-
-/* Overlay para desfoque de fundo */
-.overlay {
-    position: fixed;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 999;
+#successMessage {
+    animation: fadeIn 1s ease-in-out;
 }
 
 
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px; 
-    padding: 20px;
-    border-top: 1px solid #dee2e6;
-    background-color: #f8f9fa;
-}
+.table .btn, .table a.btn {
 
-.modal-footer .btn {
-    padding: 10px 20px;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 6px;
-    border: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-/* Botão Editar no modal */
-.modal-footer .btn-warning {
-    color: #fff;
-    background-color: #1F2B5B;
+    margin-left: 1%;
+    display: inline-block; 
+    padding: 6px 8px;
+    border-radius: 4px; 
+    text-align: center; 
+    width: 50px;
     text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s; 
 }
 
-.modal-footer .btn-warning:hover {
-    background-color: #719ff5;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+/* Estilo para o botão de edição */
+.table .btn-warning {
+    background-color: #ffc107; 
+    color: white; 
 }
 
-/* Botão Desativar no modal */
-.modal-footer .btn-danger {
-    color: #fff;
-    background-color: #8d111d;
+.table .btn-warning:hover {
+    background-color: #e0a800;
+    transform: scale(1.05); 
 }
 
-.modal-footer .btn-danger:hover {
-    background-color: #c82333;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+/* Estilo para o botão de exclusão */
+
+.table .btn-danger {
+    background-color: #dc3545; 
+    color: white;
+    border: #dc3545 1px solid;
 }
 
-/* Botão Fechar no modal */
-.modal-footer .btn-secondary {
-    color: #ffffff;
-    background-color: #1F2B5B;
+.table .btn-danger:hover {
+    background-color: #c82333; 
+    transform: scale(1.05); 
 }
 
-.modal-footer .btn-secondary:hover {
-    background-color: #84b0dd;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+.table .btn i {
+    margin-right: 4px; 
+    font-size: 1em; 
 }
 
-
-
-
-
-/* Estilo base para os botões menores */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px; 
-    font-size: 13px;
-    font-weight: 500;
-    padding: 6px 12px; 
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-/* Botão Editar na tabela */
-.btn-warning {
-    color: #fff;
-    background-color: #e4982f;
+.table a {
     border: none;
-    text-decoration: none;
-    list-style: none;
+    color: inherit; 
 }
 
-.btn-warning:hover {
-    background-color: #fdae40;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-}
-
-/* Botão Desativar na tabela */
-.btn-danger {
-    color: #fff;
-    background-color: #a51d2a;
-    border: none;
-    text-decoration: none;
-    list-style: none;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-}
-
-/* Botão Ver mais na tabela */
-.btn-primary {
-    color: #fff;
-    background-color: #1F2B5B;
-    border: none;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-}
-
-/* Ícones dentro dos botões (tamanho reduzido) */
-.btn i {
-    font-size: 14px; /* Tamanho menor do ícone */
+.table a:focus, .table a:hover {
+    outline: none;
 }

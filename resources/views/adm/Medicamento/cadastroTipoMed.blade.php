@@ -1,3 +1,5 @@
+<!--CSS OK por aqui (ASS:Duda-->
+
 @include('includes.header')
 <link rel="stylesheet" href="{{('css/Formularios.css')}}">
 
@@ -13,8 +15,8 @@
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Tipo Medicamento</h1>
-        <p>Adicione um novo tipo de medicamento.</p>
+        <h1>Cadastro Tipo Medicamento</h1>
+        <p>cadastre um novo tipo de medicamento.</p>
     </div>
 </div>
 

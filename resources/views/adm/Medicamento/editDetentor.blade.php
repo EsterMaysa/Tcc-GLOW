@@ -1,63 +1,94 @@
-@include('includes.header') <!-- include -->
-
 <!-- AQUI VAI A PAGINA DESTINADA AS FUNCIONALIDADES DO DETENTOR -->
 <!-- Essa página será para edição, portanto o formulário estará preenchido com os dados do detentor -->
 
-<!-- MAIN -->
+<!--CSS OK (ASS:Duda-->
+
+@include('includes.header') <!-- include -->
+<link rel="stylesheet" href="{{ url('css/Formularios.css')}}">
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo"> 
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1>Editar Detentor</h1>
+    </div>
+</div>
+
 <main>
-    <div class="head-title">
-        <div class="left">
-            <h1> Editar Detentor </h1>
-        </div>
+    <form action="{{ route('detentor.update', $detentor->idDetentor) }}" method="POST" class="formulario">
+        @csrf
+            @method('PUT')
+
+            <div class="input-container">
+                <label for="nomeDetentor">
+                    <i class="fas fa-user icon"></i> 
+                    Nome do Detentor :
+                </label>
+                <input type="text" id="nomeDetentor" name="nome" value="{{ $detentor->nomeDetentor }}" required>
+            </div>
+
+    <div class="input-container">
+        <label for="cnpjDetentor">
+            <i class="fas fa-id-card icon"></i> CNPJ
+        </label>
+        <input type="text" id="cnpjDetentor" name="cnpj" value="{{ $detentor->cnpjDetentor }}" required>
     </div>
 
-    <form action="{{ route('detentor.update', $detentor->idDetentor) }}" method="POST">
-        @csrf
-        @method('PUT')
+    <div class="input-container">
+        <label for="emailDetentor">
+            <i class="fas fa-envelope icon"></i> Email
+        </label>
+        <input type="email" id="emailDetentor" name="email" value="{{ $detentor->emailDetentor }}" required>
+    </div>
 
-        <div class="form-group">
-            <label for="nomeDetentor">Nome do Detentor</label>
-            <input type="text" class="form-control" id="nomeDetentor" name="nome" value="{{ $detentor->nomeDetentor }}" required>
-        </div>
+    <div class="input-container">
+        <label for="logradouroDetentor">
+            <i class="fas fa-road icon"></i> Logradouro
+        </label>
+        <input type="text" id="logradouroDetentor" name="logradouro" value="{{ $detentor->logradouroDetentor }}" required>
+    </div>
 
-        <div class="form-group">
-            <label for="cnpjDetentor">CNPJ</label>
-            <input type="text" class="form-control" id="cnpjDetentor" name="cnpj" value="{{ $detentor->cnpjDetentor }}" required>
-        </div>
+    <div class="input-container">
+        <label for="bairroDetentor">
+            <i class="fas fa-map-marker-alt icon"></i> Bairro
+        </label>
+        <input type="text" id="bairroDetentor" name="bairro" value="{{ $detentor->bairroDetentor }}" required>
+    </div>
 
-        <div class="form-group">
-            <label for="emailDetentor">Email</label>
-            <input type="email" class="form-control" id="emailDetentor" name="email" value="{{ $detentor->emailDetentor }}" required>
-        </div>
+    <div class="input-container">
+        <label for="estadoDetentor">
+            <i class="fas fa-flag icon"></i> Estado
+        </label>
+        <input type="text" id="estadoDetentor" name="estado" value="{{ $detentor->estadoDetentor }}" required>
+    </div>
 
-        <div class="form-group">
-            <label for="logradouroDetentor">Logradouro</label>
-            <input type="text" class="form-control" id="logradouroDetentor" name="logradouro" value="{{ $detentor->logradouroDetentor }}" required>
-        </div>
+    <div class="input-container">
+        <label for="cidadeDetentor">
+            <i class="fas fa-city icon"></i> Cidade
+        </label>
+        <input type="text" id="cidadeDetentor" name="cidade" value="{{ $detentor->cidadeDetentor }}" required>
+    </div>
 
-        <div class="form-group">
-            <label for="bairroDetentor">Bairro</label>
-            <input type="text" class="form-control" id="bairroDetentor" name="bairro" value="{{ $detentor->bairroDetentor }}" required>
-        </div>
+    <div class="input-container">
+        <label for="numeroDetentor">
+            <i class="fas fa-hashtag icon"></i> Número
+        </label>
+        <input type="text" id="numeroDetentor" name="numero" value="{{ $detentor->numeroDetentor }}" required>
+    </div>
 
-        <div class="form-group">
-            <label for="estadoDetentor">Estado</label>
-            <input type="text" class="form-control" id="estadoDetentor" name="estado" value="{{ $detentor->estadoDetentor }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="cidadeDetentor">Cidade</label>
-            <input type="text" class="form-control" id="cidadeDetentor" name="cidade" value="{{ $detentor->cidadeDetentor }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="numeroDetentor">Número</label>
-            <input type="text" class="form-control" id="numeroDetentor" name="numero" value="{{ $detentor->numeroDetentor }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="ufDetentor">UF</label>
-            <select class="form-control" id="ufDetentor" name="uf" required>
+        <div class="input-conatiner">
+            <label for="ufDetentor">
+            <i class="fas fa-map icon"></i> UF
+            </label>
+            <select  id="ufDetentor" name="uf" required>
                 <option value="">Selecione a UF</option>
                 <option value="AC" {{ $detentor->ufDetentor == 'AC' ? 'selected' : '' }}>AC</option>
                 <option value="AL" {{ $detentor->ufDetentor == 'AL' ? 'selected' : '' }}>AL</option>
@@ -89,29 +120,32 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="cepDetentor">CEP</label>
-            <input type="text" class="form-control" id="cepDetentor" name="cep" value="{{ $detentor->cepDetentor }}" required>
-        </div>
+        <div class="input-container">
+        <label for="cepDetentor">
+            <i class="fas fa-location-arrow icon"></i> CEP
+        </label>
+        <input type="text" id="cepDetentor" name="cep" value="{{ $detentor->cepDetentor }}" required>
+    </div>
 
-        <div class="form-group">
-            <label for="complementoDetentor">Complemento</label>
-            <input type="text" class="form-control" id="complementoDetentor" name="complemento" value="{{ $detentor->complementoDetentor }}">
-        </div>
+    <div class="input-container">
+        <label for="complementoDetentor">
+            <i class="fas fa-plus-circle icon"></i> Complemento
+        </label>
+        <input type="text" id="complementoDetentor" name="complemento" value="{{ $detentor->complementoDetentor }}">
+    </div>
 
-        <div class="form-group">
-            <label for="situacaoDetentor">Situação</label>
-            <select class="form-control" id="situacaoDetentor" name="situacao" required>
-                <option value="A" {{ $detentor->situacaoDetentor == 'Ativo' ? 'selected' : '' }}>Ativo</option>
-                <option value="D" {{ $detentor->situacaoDetentor == 'Inativo' ? 'selected' : '' }}>Inativo</option>
-            </select>
-        </div>
+    <div class="input-container">
+        <label for="situacaoDetentor">
+            <i class="fas fa-check-circle icon"></i> Situação
+        </label>
+        <select id="situacaoDetentor" name="situacao" required>
+            <option value="A" {{ $detentor->situacaoDetentor == 'Ativo' ? 'selected' : '' }}>Ativo</option>
+            <option value="D" {{ $detentor->situacaoDetentor == 'Inativo' ? 'selected' : '' }}>Inativo</option>
+        </select>
+    </div>
 
-        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    <button type="submit" class="botaozinho">Salvar Alterações</button>
     </form>
 
-    <!-- MAIN -->
 </main>
-<!-- CONTENT -->
 
-@include('includes.footer') <!-- include -->

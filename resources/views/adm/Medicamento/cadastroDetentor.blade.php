@@ -1,4 +1,4 @@
-<!--CSS quase completo, não sei onde fica o botão editar,excluir e alterar (ASS: Duda-->
+<!--CSS OK(ASS: Duda-->
 
 @include('includes.header')
 <link rel="stylesheet" href="{{ url('css/CadastroDetentor.css')}}">

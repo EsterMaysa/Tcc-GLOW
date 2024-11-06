@@ -181,6 +181,10 @@ main {
     max-width: 1100px; 
 }
 
+#tabela {
+    background-color: #eeeeee;
+}
+
 .table-data .head {
     display: flex;
     justify-content: space-between;
@@ -193,14 +197,12 @@ main {
     font-weight: bold;
 }
 
-/* Estilo do container de ícones */
 .icon-container {
     display: flex;
     gap: 50px;
     color: #f1f1f1;
 }
 
-/* Estilo do campo de pesquisa */
 .search-container {
     margin: 20px 0;
 }
@@ -242,25 +244,62 @@ main {
     border-bottom: 1px solid #ddd;
 }
 
-.ubs-row:hover {
-    background-color: #f1f1f1;
-}
-
-
 .edit-icon {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    color: #007bff;
+    justify-content: center;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+    background-color: #e9d415;
     text-decoration: none;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 
 .edit-icon:hover {
-    color: #0056b3;
+    background-color: #a3c2e4; 
+    transform: scale(1.05);
 }
 
-.edit-icon i {
-    margin-right: 5px;
+
+.edit-icon-delete {
+    background-color: #dc3545;
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
+.edit-icon-delete:hover {
+    background-color: #c82333; 
+}
+
+/* Estilo para o botão de "Ver mais" */
+.botao {
+    font-size: 14px;
+    padding: 8px 15px;
+    background-color: #1F2B5B;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.botao:hover {
+    background-color: #a7c4e4; 
+    transform: scale(1.05);
+}
+
+/* Ajustes para a tabela */
+td {
+    vertical-align: middle; /* Centraliza o conteúdo verticalmente */
+}
+
 
 /* Estilo do modal */
 .modal-content {
@@ -269,7 +308,8 @@ main {
 
 /* Estilo do botão de filtro */
 #applyFilters {
-    background-color: #007bff;
+    background-color: #1F2B5B;
+    border: none;
     color: #fff;
 }
 
@@ -277,12 +317,8 @@ main {
     background-color: #0056b3;
 }
 
-/* Estilo dos botões */
-.btn {
-    border-radius: 4px;
-}
-
 /* Responsividade */
+
 @media (max-width: 768px) {
     .table-data {
         padding: 10px;
@@ -302,7 +338,6 @@ main {
     }
 }
 
-
 .modal {
     z-index: 1050; /* Assegura que o modal esteja acima de outros elementos */
 }
@@ -311,5 +346,79 @@ main {
     z-index: 1040; /* A camada de fundo do modal */
 }
 
+/* Estilos para o modal */
+.modal-content {
+    border-radius: 15px; /* Bordas arredondadas */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    overflow: hidden; /* Remove bordas estendidas */
+}
 
+.modal-header {
+    background-color: #1F2B5B;
+    color: white; /* Cor do texto no cabeçalho */
+    padding: 15px;
+    border-top-left-radius: 15px; /* Bordas arredondadas superiores */
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.modal-header .modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.modal-header .btn-close {
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.modal-body {
+    padding: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.modal-body p {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.modal-body img {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-footer {
+    background-color: #f9f9f9;
+    padding: 10px 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.botaoModal {
+    background-color: #1F2B5B;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botaoModal:hover {
+    background-color: #0056b3;
+}
+
+/* Ajuste no estilo dos textos em negrito */
+.modal-body p strong {
+    color: #555;
+}

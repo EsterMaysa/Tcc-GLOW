@@ -1,3 +1,5 @@
+<!--CSS OK, encontei comflito com os modais ao criar o front e um medicamento no banco, nãos sei como resolver (ASS:Duda-->
+
 @include('includes.header') <!-- include -->
 <link rel="stylesheet" href="{{ asset('css/Medicamento.css') }}">
 
