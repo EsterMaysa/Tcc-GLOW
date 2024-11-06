@@ -1,3 +1,4 @@
+
 @include('includes.headerFarmacia')
 
 <!DOCTYPE html>
@@ -7,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Saída de Medicamento e Motivo</title>
     <style>
+        /* Estilos */
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
@@ -45,8 +47,7 @@
 
         .form-group input[type="date"],
         .form-group input[type="number"],
-        .form-group input[type="text"],
-        .form-group select {
+        .form-group input[type="text"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -82,12 +83,11 @@
 
         <form action="{{ route('saidaMedMotivo.store') }}" method="POST">
             @csrf
-
             <div class="form-group">
                 <label for="dataSaida">Data de Saída:</label>
                 <input type="date" id="dataSaida" name="dataSaida" required>
             </div>
-
+            
             <div class="form-group">
                 <label for="quantidade">Quantidade:</label>
                 <input type="number" id="quantidade" name="quantidade" min="1" required>
@@ -96,26 +96,6 @@
             <div class="form-group">
                 <label for="motivoSaida">Motivo de Saída:</label>
                 <input type="text" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required>
-            </div>
-
-            <div class="form-group">
-                <label for="idFuncionario">Funcionário Responsável:</label>
-                <select id="idFuncionario" name="idFuncionario" required>
-                    <option value="">Selecione um funcionário</option>
-                    @foreach($funcionarios as $funcionario)
-                        <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="idMedicamento">Medicamento:</label>
-                <select id="idMedicamento" name="idMedicamento" required>
-                    <option value="">Selecione um medicamento</option>
-                    @foreach($medicamentos as $medicamento)
-                        <option value="{{ $medicamento->idMedicamento }}">{{ $medicamento->nomeMedicamento }}</option>
-                    @endforeach
-                </select>
             </div>
 
             <button type="submit" class="btn-submit">Cadastrar Saída e Motivo</button>
@@ -129,3 +109,4 @@
     </div>
 </body>
 </html>
+
