@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +14,10 @@
             margin: 20px auto;
             border-collapse: collapse;
         }
-        
-        table, th, td {
+
+        table,
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
@@ -69,51 +72,67 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Lista de Saídas de Medicamentos e Motivos</h2>
+    <div class="container">
+        <h2>Lista de Saídas de Medicamentos e Motivos</h2>
 
-    <div class="filter-container">
-        <form action="{{ route('saidaMedMotivo.index') }}" method="GET">
-            <input type="date" name="dataSaida" placeholder="Filtrar por Data" value="{{ request()->get('dataSaida') }}">
-            <input type="text" name="motivoSaida" placeholder="Filtrar por Motivo" value="{{ request()->get('motivoSaida') }}">
-            <button type="submit"><i class="fas fa-search"></i> Pesquisar</button>
-        </form>
+        <div class="filter-container">
+            <form action="{{ route('saidaMedMotivo.index') }}" method="GET">
+                <input type="date" name="dataSaida" placeholder="Filtrar por Data" value="{{ request()->get('dataSaida') }}">
+                <input type="text" name="motivoSaida" placeholder="Filtrar por Motivo" value="{{ request()->get('motivoSaida') }}">
+                <button type="submit"><i class="fas fa-search"></i> Pesquisar</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Medicamento</th>
+                    <th>Data de Saída</th>
+                    <th>Quantidade</th>
+                    <th>Motivo de Saída</th>
+                    <th>Lote</th>
+                    <th>Validade</th>
+                    <th>Funcionário</th>
+                    <th>Situação</th>
+
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($saidas as $saida)
+                <tr>
+                    <td>{{ $saida->medicamento->nomeMedicamento ?? 'N/A' }}</td>
+                    <td> {{ \Carbon\Carbon::parse($saida->dataSaida)->format('d/m/Y') }}</td>
+                    <td>{{ $saida->quantidade }}</td>
+                    <td>{{ $saida->motivoSaida }}</td>
+                    <td>{{ $saida->lote }}</td>
+                    <td> {{ \Carbon\Carbon::parse($saida->validade)->format('d/m/Y') }}</td>
+                    <td>{{ $saida->funcionario->nomeFuncionario ?? 'N/A' }}</td>
+                    <td>{{ $saida->situacao == 'A' ||  $saida->situacao == '1' ? 'Ativo' : 'Inativo'  }}</td>
+
+
+                    <td class="action-icons">
+                        <!-- Botão de edição -->
+                        <i class="fas fa-edit" title="Editar" onclick="window.location.href='{{ route('saidaMedMotivo.edit', $saida->idSaidaMedicamento) }}'"></i>
+
+                        <!-- Botão de exclusão -->
+                        <i class="fas fa-trash-alt" title="Desativar" onclick="if(confirm('Tem certeza que deseja desativar?')) { event.preventDefault(); document.getElementById('delete-form-{{ $saida->idSaidaMedicamento }}').submit(); }"></i>
+
+                        <!-- Formulário de desativação -->
+                        <form id="delete-form-{{ $saida->idSaidaMedicamento }}" action="{{ route('saidaMedMotivo.desativar', $saida->idSaidaMedicamento) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('PATCH')
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-    
-    <table>
-        <thead>
-            <tr>
-                <th>Data de Saída</th>
-                <th>Quantidade</th>
-                <th>Motivo de Saída</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach ($saidas as $saida)
-            <tr>
-                <td>{{ $saida->dataSaida }}</td>
-                <td>{{ $saida->quantidade }}</td>
-                <td>{{ $saida->motivoSaida }}</td>
-                <td class="action-icons">
-                    <!-- Botão de edição -->
-                    <i class="fas fa-edit" title="Editar" onclick="window.location.href='{{ route('saidaMedMotivo.edit', $saida->idSaidaMedicamento) }}'"></i>
-                    
-                    <!-- Botão de exclusão -->
-                    <i class="fas fa-trash-alt" title="Excluir" onclick="if(confirm('Tem certeza que deseja excluir?')) { event.preventDefault(); document.getElementById('delete-form-{{ $saida->idSaidaMedicamento }}').submit(); }"></i>
-                    
-                    <!-- Formulário de exclusão -->
-                    <form id="delete-form-{{ $saida->idSaidaMedicamento }}" action="{{ route('saidaMedMotivo.destroy', $saida->idSaidaMedicamento) }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-</div>
 
 </body>
+
 </html>

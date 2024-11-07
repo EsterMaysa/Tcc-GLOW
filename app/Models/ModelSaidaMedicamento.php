@@ -24,8 +24,10 @@ class ModelSaidaMedicamento extends Model
         'motivoSaida',
         'situacao',
         'idFuncionario',
-        'idMedicamento', // Adicione aqui
-
+        'idMedicamento',
+        'lote',        // Adicionado para registrar o lote do medicamento
+        'validade',    // Adicionado para registrar a validade do medicamento
+        'idMotivoSaida'  
     ];
 
 

@@ -13,43 +13,62 @@ class EstoqueFarmaciaUBSController extends Controller
 {
     public function index()
     {
-        $estoque = ModelEstoqueFarmaciaUBS::with(['funcionario', 'medicamento','tipoMovimentacao'])
-        ->orderBy('dataCadastroEstoque', 'desc')
-        ->take(5)
-        ->get();
+        $estoque = ModelEstoqueFarmaciaUBS::with(['funcionario', 'medicamento', 'tipoMovimentacao'])
+            ->orderBy('dataCadastroEstoque', 'desc')
+            ->take(5)
+            ->get();
 
 
         $medicamento = ModelMedicamentoFarmaciaUBS::take(5)->orderBy('dataCadastroMedicamento', 'desc')->get();
         $funcionario = ModelFuncionario::all();
         $tipoMovimentacao = ModelTipoMovimentacao::all();
 
-        return view('farmacia.Estoque.estoque', compact('estoque','medicamento','funcionario','tipoMovimentacao'));
+        return view('farmacia.Estoque.estoque', compact('estoque', 'medicamento', 'funcionario', 'tipoMovimentacao'));
     }
-    public function store(Request $estoqueRequest)
+
+    // public function store(Request $estoqueRequest)
+    // {
+    //     // Busca ou cria o registro de estoque pelo ID do medicamento
+    //     $estoque = ModelEstoqueFarmaciaUBS::firstOrNew([
+    //         'idMedicamento' => $estoqueRequest->idMedicamento
+    //     ]);
+
+    //     // Ajusta a quantidade com base no tipo de movimentação
+    //     // Verificação mais precisa do tipo de movimentação
+    //     $estoque->quantEstoque = ($estoque->quantEstoque ?? 0) + $estoqueRequest->quantEstoque;
+        
+
+    //     // Dados adicionais para movimentação
+    //     $estoque->dataMovimentacao = $estoqueRequest->dataMovimentacao;
+    //     $estoque->idFuncionario = $estoqueRequest->idFuncionario;
+    //     $estoque->idTipoMovimentacao = $estoqueRequest->idTipoMovimentacao;
+    //     $estoque->situacaoEstoque = "A";
+    //     $estoque->dataCadastroEstoque = $estoque->dataCadastroEstoque ?? now();
+    //     // Salva o estoque com a nova quantidade
+    //     $estoque->save();
+
+    //     // return redirect('/estoqueHome')->with('success', 'Estoque registrado com sucesso!');
+    // }
+
+    public function saida(Request $saidaRequest)
     {
         // Busca ou cria o registro de estoque pelo ID do medicamento
         $estoque = ModelEstoqueFarmaciaUBS::firstOrNew([
-            'idMedicamento' => $estoqueRequest->idMedicamento
+            'idMedicamento' => $saidaRequest->idMedicamento
         ]);
-    
-        // Ajusta a quantidade com base no tipo de movimentação
-        if ($estoqueRequest->idTipoMovimentacao == 1) { // 1 para Entrada
-            $estoque->quantEstoque = ($estoque->quantEstoque ?? 0) + $estoqueRequest->quantEstoque;
-        } else {
-            $estoque->quantEstoque = ($estoque->quantEstoque ?? 0) - $estoqueRequest->quantEstoque;
-        }
-    
-        // Dados adicionais para movimentação
-        $estoque->dataMovimentacao = $estoqueRequest->dataMovimentacao;
-        $estoque->idFuncionario = $estoqueRequest->idFuncionario;
-        $estoque->idTipoMovimentacao = $estoqueRequest->idTipoMovimentacao;
-        $estoque->situacaoEstoque = "A";
+
+        // Atualiza a quantidade de estoque com base na movimentação (subtrai a quantidade)
+        $estoque->quantEstoque = ($estoque->quantEstoque ?? 0) - $saidaRequest->quantEstoque;
+
+        // Atualiza os dados do estoque
+        $estoque->dataMovimentacao = $saidaRequest->dataMovimentacao;
+        $estoque->idFuncionario = $saidaRequest->idFuncionario;
+        $estoque->idTipoMovimentacao = $saidaRequest->idTipoMovimentacao;
+        $estoque->situacaoEstoque = $saidaRequest->situacaoEstoque;
         $estoque->dataCadastroEstoque = $estoque->dataCadastroEstoque ?? now();
-    
-        // Salva o estoque com a nova quantidade
+
+        // Salva as alterações no estoque
         $estoque->save();
-    
-        // return redirect('/estoqueHome')->with('success', 'Estoque registrado com sucesso!');
     }
 
     // public function store(Request $estoqueRequest)
@@ -89,29 +108,26 @@ class EstoqueFarmaciaUBSController extends Controller
         $estoque->save();
 
         return redirect('/estoqueHome')->with('success', 'Estoque atualizado com sucesso!');
-    
     }
 
     public function destroy($id)
     {
         $estoque = ModelEstoqueFarmaciaUBS::findOrFail($id);
 
-        $estoque->situacaoEstoque = "D"; 
+        $estoque->situacaoEstoque = "D";
 
         $estoque->save();
 
         return redirect('/estoqueHome')->with('success', 'Estoque Desativado com sucesso!');
-    
     }
     public function ativar($id)
     {
         $estoque = ModelEstoqueFarmaciaUBS::findOrFail($id);
 
-        $estoque->situacaoEstoque = "A"; 
+        $estoque->situacaoEstoque = "A";
 
         $estoque->save();
 
         return redirect('/estoqueHome')->with('success', 'Estoque ativado com sucesso!');
-    
     }
 }

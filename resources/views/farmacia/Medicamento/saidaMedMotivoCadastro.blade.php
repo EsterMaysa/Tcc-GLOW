@@ -1,4 +1,3 @@
-
 @include('includes.headerFarmacia')
 
 <!DOCTYPE html>
@@ -47,7 +46,8 @@
 
         .form-group input[type="date"],
         .form-group input[type="number"],
-        .form-group input[type="text"] {
+        .form-group input[type="text"],
+        .form-group select {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -74,20 +74,31 @@
 <body>
     <div class="form-container">
         <h2>Cadastro de Saída de Medicamento e Motivo</h2>
-        
+
         @if(session('success'))
-            <div class="success-message">
-                {{ session('success') }}
-            </div>
+        <div class="success-message">
+            {{ session('success') }}
+        </div>
         @endif
 
         <form action="{{ route('saidaMedMotivo.store') }}" method="POST">
             @csrf
             <div class="form-group">
+                <label for="idMedicamento">Medicamento:</label>
+                <select id="idMedicamento" name="idMedicamento" required>
+                    <option value="">Selecione o Medicamento</option>
+                    @foreach($medicamentos as $medicamento)
+                    <option value="{{ $medicamento->idMedicamento }}" data-lote="{{ $medicamento->lote }}" data-validade="{{ $medicamento->validade }}">
+                        {{ $medicamento->nomeMedicamento }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="dataSaida">Data de Saída:</label>
                 <input type="date" id="dataSaida" name="dataSaida" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="quantidade">Quantidade:</label>
                 <input type="number" id="quantidade" name="quantidade" min="1" required>
@@ -98,15 +109,45 @@
                 <input type="text" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required>
             </div>
 
+            <div class="form-group">
+                <label for="lote">Lote:</label>
+                <input type="text" id="lote" name="lote" maxlength="90" required>
+            </div>
+
+            <div class="form-group">
+                <label for="validade">Data de Validade:</label>
+                <input type="date" id="validade" name="validade" required>
+            </div>
+
+            <div class="form-group">
+                <label for="idFuncionario">Funcionário:</label>
+                <select id="idFuncionario" name="idFuncionario" required>
+                    <option value="">Selecione o Funcionário</option>
+                    @foreach($funcionarios as $funcionario)
+                    <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <button type="submit" class="btn-submit">Cadastrar Saída e Motivo</button>
         </form>
     </div>
 
     <div>
-        <a href="{{ route('saidaMedMotivo.index') }}" class="btn-submit" style="background-color: #2196F3; margin-top: 10px; text-align: center; display: block; width: 470px; padding: 8px 16px;">
+        <a href="/saidaLista" class="btn-submit" style="background-color: #2196F3; margin-top: 10px; text-align: center; display: block; width: 470px; padding: 8px 16px;">
             Ver Lista de Saídas e Motivos
         </a>
     </div>
+    <script>
+        // Função para atualizar lote e validade com base no medicamento selecionado
+        document.getElementById('idMedicamento').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const lote = selectedOption.getAttribute('data-lote');
+            const validade = selectedOption.getAttribute('data-validade');
+
+            document.getElementById('lote').value = lote || '';
+            document.getElementById('validade').value = validade || '';
+        });
+    </script>
 </body>
 </html>
-

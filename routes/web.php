@@ -383,11 +383,14 @@ Route::post('/motivEntrada', [MotivoEntradaController::class, 'store'])->name('m
 Route::get('/motivEntradaEdit/{id}', [MotivoEntradaController::class, 'edit'])->name('motivEntrada.edit');
 Route::put('/motivEntrada/{id}', [MotivoEntradaController::class, 'update'])->name('motivEntrada.update');
 Route::delete('/motivEntrada/{id}', [MotivoEntradaController::class, 'destroy'])->name('motivEntrada.destroy');
+
+
 //saidamed
 
 // Exibe o formulário
 Route::get('/saidaMed', [SaidaMedicamentoController::class, 'create'])->name('saidaMed.create');
 Route::post('/saidaMed', [SaidaMedicamentoController::class, 'store'])->name('saidaMed.store');
+Route::get('/saidaLista', [SaidaMedicamentoController::class, 'showview']);
 
 Route::get('/saidaMedMotivo', [SaidaMedicamentoController::class, 'create'])->name('saidaMedMotivo.create');
 Route::post('/saidaMedMotivo', [SaidaMedicamentoController::class, 'store'])->name('saidaMedMotivo.store');
@@ -404,7 +407,7 @@ Route::resource('saidaMedMotivo', SaidaMedicamentoController::class)->except(['s
 
 Route::get('saidaMedMotivo/{id}/edit', [SaidaMedicamentoController::class, 'edit'])->name('saidaMedMotivo.edit');
 Route::put('saidaMedMotivo/{id}', [SaidaMedicamentoController::class, 'update'])->name('saidaMedMotivo.update');
-Route::post('saidaMedMotivo/{id}/excluir', [SaidaMedicamentoController::class, 'excluir'])->name('saidaMedMotivo.destroy');
+Route::patch('saidaMedMotivo/{id}/desativar', [SaidaMedicamentoController::class, 'excluir'])->name('saidaMedMotivo.desativar');
 
 
 // Rota para armazenar uma nova saída
