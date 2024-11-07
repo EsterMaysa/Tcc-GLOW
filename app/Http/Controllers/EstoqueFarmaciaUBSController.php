@@ -26,51 +26,70 @@ class EstoqueFarmaciaUBSController extends Controller
         return view('farmacia.Estoque.estoque', compact('estoque', 'medicamento', 'funcionario', 'tipoMovimentacao'));
     }
 
-    // public function store(Request $estoqueRequest)
-    // {
-    //     // Busca ou cria o registro de estoque pelo ID do medicamento
-    //     $estoque = ModelEstoqueFarmaciaUBS::firstOrNew([
-    //         'idMedicamento' => $estoqueRequest->idMedicamento
-    //     ]);
-
-    //     // Ajusta a quantidade com base no tipo de movimentação
-    //     // Verificação mais precisa do tipo de movimentação
-    //     $estoque->quantEstoque = ($estoque->quantEstoque ?? 0) + $estoqueRequest->quantEstoque;
-        
-
-    //     // Dados adicionais para movimentação
-    //     $estoque->dataMovimentacao = $estoqueRequest->dataMovimentacao;
-    //     $estoque->idFuncionario = $estoqueRequest->idFuncionario;
-    //     $estoque->idTipoMovimentacao = $estoqueRequest->idTipoMovimentacao;
-    //     $estoque->situacaoEstoque = "A";
-    //     $estoque->dataCadastroEstoque = $estoque->dataCadastroEstoque ?? now();
-    //     // Salva o estoque com a nova quantidade
-    //     $estoque->save();
-
-    //     // return redirect('/estoqueHome')->with('success', 'Estoque registrado com sucesso!');
-    // }
-
-    public function saida(Request $saidaRequest)
+    public function store(Request $estoqueRequest)
     {
         // Busca ou cria o registro de estoque pelo ID do medicamento
         $estoque = ModelEstoqueFarmaciaUBS::firstOrNew([
-            'idMedicamento' => $saidaRequest->idMedicamento
+            'idMedicamento' => $estoqueRequest->idMedicamento
         ]);
 
-        // Atualiza a quantidade de estoque com base na movimentação (subtrai a quantidade)
-        $estoque->quantEstoque = ($estoque->quantEstoque ?? 0) - $saidaRequest->quantEstoque;
+        // Ajusta a quantidade com base no tipo de movimentação
+        // Verificação mais precisa do tipo de movimentação
+        $estoque->quantEstoque = ($estoque->quantEstoque ?? 0) + $estoqueRequest->quantEstoque;
+        
 
-        // Atualiza os dados do estoque
-        $estoque->dataMovimentacao = $saidaRequest->dataMovimentacao;
-        $estoque->idFuncionario = $saidaRequest->idFuncionario;
-        $estoque->idTipoMovimentacao = $saidaRequest->idTipoMovimentacao;
-        $estoque->situacaoEstoque = $saidaRequest->situacaoEstoque;
+        // Dados adicionais para movimentação
+        $estoque->dataMovimentacao = $estoqueRequest->dataMovimentacao;
+        $estoque->idFuncionario = $estoqueRequest->idFuncionario;
+        $estoque->idTipoMovimentacao = $estoqueRequest->idTipoMovimentacao;
+        $estoque->situacaoEstoque = "A";
         $estoque->dataCadastroEstoque = $estoque->dataCadastroEstoque ?? now();
-
-        // Salva as alterações no estoque
+        // Salva o estoque com a nova quantidade
         $estoque->save();
+
+        // return redirect('/estoqueHome')->with('success', 'Estoque registrado com sucesso!');
     }
 
+    public function saida(Request $request)
+    {
+        // Busca o estoque atual do medicamento selecionado
+        $estoque = ModelEstoqueFarmaciaUBS::where('idMedicamento', $request->idMedicamento)->first();
+    
+        if (!$estoque) {
+            return redirect()->back()->with('error', 'Medicamento não encontrado no estoque.');
+        }
+    
+        // Atualiza a quantidade em estoque, subtraindo a quantidade da saída
+        $estoque->quantEstoque = ($estoque->quantEstoque ?? 0) + $request->quantEstoque;
+    
+        // Verifica se o estoque está com quantidade negativa após a atualização
+        if ($estoque->quantEstoque < 0) {
+            return redirect()->back()->with('error', 'Quantidade insuficiente no estoque para realizar a saída.');
+        }
+    
+        try {
+            // Salva a nova quantidade no estoque
+            $estoque->save();
+    
+            // Cria um novo registro de movimentação de estoque para a saída
+            $novaMovimentacao = new ModelEstoqueFarmaciaUBS();
+            $novaMovimentacao->quantEstoque = $estoque->quantEstoque; // Quantidade atualizada
+            $novaMovimentacao->dataMovimentacao = $request->dataMovimentacao;
+            $novaMovimentacao->idFuncionario = $request->idFuncionario;
+            $novaMovimentacao->idMedicamento = $request->idMedicamento;
+            $novaMovimentacao->idTipoMovimentacao = $request->idTipoMovimentacao;
+            $novaMovimentacao->situacaoEstoque = $request->situacaoEstoque;
+            
+            // Salva o registro da movimentação de saída
+            $novaMovimentacao->save();
+    
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao atualizar o estoque: ' . $e->getMessage());
+        }
+    
+        return redirect()->back()->with('success', 'Saída registrada no estoque com sucesso.');
+    }
+    
     // public function store(Request $estoqueRequest)
     // {
     //     $estoque = new ModelEstoqueFarmaciaUBS();

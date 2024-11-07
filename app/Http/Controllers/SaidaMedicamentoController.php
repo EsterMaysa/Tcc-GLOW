@@ -51,18 +51,16 @@ class SaidaMedicamentoController extends Controller
     {
         // Busca o medicamento usando o ID selecionado
         $medicamento = ModelMedicamentoFarmaciaUBS::find($request->idMedicamento);
-
         if (!$medicamento) {
             return redirect()->back()->with('error', 'O medicamento não está cadastrado.');
         }
-
+    
         // Busca o funcionário pelo ID
         $funcionario = ModelFuncionarioFarmaciaUBS::find($request->idFuncionario);
-
         if (!$funcionario) {
             return redirect()->back()->with('error', 'Funcionário não encontrado.');
         }
-
+    
         // Criação da saída de medicamento
         $saida = new ModelSaidaMedicamento();
         $saida->dataSaida = $request->dataSaida;
@@ -73,15 +71,19 @@ class SaidaMedicamentoController extends Controller
         $saida->idMedicamento = $medicamento->idMedicamento;
         $saida->motivoSaida = $request->motivoSaida;
         $saida->situacao = 1;
-
-        $saida->save();
-
+    
+        try {
+            $saida->save();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao cadastrar a saída de medicamento: ' . $e->getMessage());
+        }
+    
         // Verifica o ID de movimentação para 'Saída'
         $tipoMovimentacao = ModelTipoMovimentacao::where('movimentacao', 'Saida')->first();
         if (!$tipoMovimentacao) {
             return redirect()->back()->with('error', 'Tipo de movimentação "Saída" não encontrado.');
         }
-
+    
         // Prepara dados para salvar no estoque
         $saidaRequest = new Request([
             'quantEstoque' => -$saida->quantidade, // Quantidade negativa para saída
@@ -91,13 +93,17 @@ class SaidaMedicamentoController extends Controller
             'idTipoMovimentacao' => $tipoMovimentacao->idTipoMovimentacao,
             'situacaoEstoque' => "A" // Situação ativa
         ]);
-
-        // Chama o método de estoque para salvar a movimentação
-        app(EstoqueFarmaciaUBSController::class)->saida($saidaRequest);
-
+    
+        try {
+            // Chama o método de estoque para salvar a movimentação
+            app(EstoqueFarmaciaUBSController::class)->saida($saidaRequest);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao atualizar o estoque: ' . $e->getMessage());
+        }
+    
         return redirect()->back()->with('success', 'Saída de medicamento e motivo cadastrados com sucesso!');
     }
-
+    
     public function edit($id)
     {
         // Busca a saída pelo ID e passa para a view de edição
