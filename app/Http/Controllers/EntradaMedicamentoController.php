@@ -15,24 +15,25 @@ use Illuminate\Http\Request;
 class EntradaMedicamentoController extends Controller
 {
     public function index()
-    {
-        $medicamentos = ModelEntradaMedicamento::join('tbMedicamentoFarmaciaUBS', 'tbEntradaMedicamento.idMedicamento', '=', 'tbMedicamentoFarmaciaUBS.idMedicamento')
-            ->join('tbMotivoEntrada', 'tbEntradaMedicamento.idMotivoEntrada', '=', 'tbMotivoEntrada.idMotivoEntrada')
-            ->join('tbFuncionarioFarmaciaUBS', 'tbEntradaMedicamento.idFuncionario', '=', 'tbFuncionarioFarmaciaUBS.idFuncionario')
-            ->select(
-                'tbEntradaMedicamento.idEntradaMedicamento',
-                'tbMedicamentoFarmaciaUBS.nomeMedicamento',
-                'tbEntradaMedicamento.dataEntrada',
-                'tbEntradaMedicamento.quantidade',
-                'tbEntradaMedicamento.lote',
-                'tbEntradaMedicamento.validade',
-                'tbMotivoEntrada.motivoEntrada',
-                'tbFuncionarioFarmaciaUBS.nomeFuncionario'
-            )
-            ->get();
-        
-        return view('farmacia.medicamento.MedicamentoEntrada', compact('medicamentos'));
-    }
+{
+    $medicamentos = ModelEntradaMedicamento::where('situacaoEntrada', 0)
+        ->join('tbMedicamentoFarmaciaUBS', 'tbEntradaMedicamento.idMedicamento', '=', 'tbMedicamentoFarmaciaUBS.idMedicamento')
+        ->join('tbMotivoEntrada', 'tbEntradaMedicamento.idMotivoEntrada', '=', 'tbMotivoEntrada.idMotivoEntrada')
+        ->join('tbFuncionarioFarmaciaUBS', 'tbEntradaMedicamento.idFuncionario', '=', 'tbFuncionarioFarmaciaUBS.idFuncionario')
+        ->select(
+            'tbEntradaMedicamento.idEntradaMedicamento',
+            'tbMedicamentoFarmaciaUBS.nomeMedicamento',
+            'tbEntradaMedicamento.dataEntrada',
+            'tbEntradaMedicamento.quantidade',
+            'tbEntradaMedicamento.lote',
+            'tbEntradaMedicamento.validade',
+            'tbMotivoEntrada.motivoEntrada',
+            'tbFuncionarioFarmaciaUBS.nomeFuncionario'
+        )
+        ->get();
+
+    return view('farmacia.medicamento.MedicamentoEntrada', compact('medicamentos'));
+}
     
     public function create()
     {
@@ -205,6 +206,7 @@ class EntradaMedicamentoController extends Controller
             'validade' => $medicamento ? $medicamento->validadeMedicamento : null // Substitua 'validadeMedicamento' pelo campo correto no seu modelo
         ]);
     }
+
     public function showForm()
     {
         $medicamentos = ModelMedicamentoFarmaciaUBS::all();
@@ -222,25 +224,73 @@ class EntradaMedicamentoController extends Controller
         return response()->json($entrada);
     }
 
-    public function update(Request $request, $id)
-    {
-        $entrada = ModelEntradaMedicamento::find($id);
-        if (!$entrada) {
-            return response()->json(['message' => 'Entrada não encontrada'], 404);
-        }
+      // Método para atualizar o registro no banco de dados
+     public function update(Request $request, $id)
+     {
+         $entrada = ModelEntradaMedicamento::findOrFail($id);
+     
+         $entrada->idMedicamento = $request->input('idMedicamento');
+         $entrada->dataEntrada = $request->input('dataEntrada');
+         $entrada->quantidade = $request->input('quantidade');
+         $entrada->lote = $request->input('lote');
+         $entrada->validade = $request->input('validade');
+         $entrada->idFuncionario = $request->input('idFuncionario');
+     
+         // Verifica se o motivo digitado já existe ou se é um novo motivo
+         $motivo = ModelMotivoEntrada::firstOrCreate(
+             ['motivoEntrada' => $request->input('motivoEntrada')],
+             ['situacaoMotivo' => 0]
+         );
+     
+         // Define o idMotivoEntrada atualizado no registro de entrada
+         $entrada->idMotivoEntrada = $motivo->idMotivoEntrada;
+     
+         // Salva as atualizações
+         $entrada->save();
+     
+         return redirect()->route('medicamentos.index')->with('success', 'Entrada de medicamento atualizada com sucesso.');
+     }
+      
+  
+  // Método para exibir o formulário de edição
+public function edit($id)
+{
+    // Tenta buscar a entrada de medicamento com o ID fornecido e com a situação válida
+    $entrada = ModelEntradaMedicamento::where('idEntradaMedicamento', $id)
+        ->where('situacaoEntrada', 0)
+        ->first();
 
-        $entrada->update($request->all());
-        return response()->json($entrada);
+    // Verifica se a entrada foi encontrada
+    if (!$entrada) {
+        return redirect()->route('entradaMedIndex')->with('error', 'Entrada de medicamento não encontrada ou já está desativada.');
     }
 
-    public function destroy($id)
-    {
-        $entrada = ModelEntradaMedicamento::find($id);
-        if (!$entrada) {
-            return response()->json(['message' => 'Entrada não encontrada'], 404);
-        }
+    // Busca o medicamento associado usando o idMedicamento da entrada
+    $medicamento = ModelMedicamentoFarmaciaUBS::find($entrada->idMedicamento);
 
-        $entrada->delete();
-        return response()->json(['message' => 'Entrada deletada com sucesso']);
+    // Verifica se o medicamento foi encontrado
+    if (!$medicamento) {
+        return redirect()->route('entradaMedIndex')->with('error', 'Medicamento associado não encontrado.');
     }
+
+    // Obtem a lista de medicamentos e funcionários para preencher os selects na view
+    $medicamentos = ModelMedicamentoFarmaciaUBS::all(); // Para preencher o select de medicamentos
+    $funcionarios = ModelFuncionarioFarmaciaUBS::all(); // Para preencher o select de funcionários
+
+    // Pega apenas o texto do motivo da entrada
+    $motivoEntrada = ModelMotivoEntrada::find($entrada->idMotivoEntrada)->motivoEntrada;
+
+    // Retorna a view de edição com os dados necessários
+    return view('farmacia.medicamento.EntradaMedEdit', compact('entrada', 'medicamento', 'medicamentos', 'funcionarios', 'motivoEntrada'));
+}
+
+  
+  public function destroy($id)
+{
+    $medicamento = ModelEntradaMedicamento::findOrFail($id);
+    $medicamento->situacaoEntrada = 1; // Marca como inativo
+    $medicamento->save();
+
+    return redirect()->route('medicamentos.index')->with('success', 'Entrada de medicamento ocultada com sucesso.');
+}
 }

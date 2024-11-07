@@ -340,37 +340,23 @@ Route::post('/Cadprescricao', [PrescricaoController::class, 'store']);
 Route::put('/Cadprescricao/{id}', [PrescricaoController::class, 'update'])->name('prescricao.update');
 Route::patch('/PrescricaoDel/{id}', [PrescricaoController::class, 'destroy'])->name('prescricao.desativar');
 
-
-Route::get('/editMedFarmacia', function () {
-    return view('farmacia.Medicamento.atualizarMedicamento');
-});
-
-Route::post('/CadMedFarma', [MedicamentoFarmaciaUBSController::class, 'store']);
-Route::get('/medicamentosFarma/{id}/edit', [MedicamentoFarmaciaUBSController::class, 'edit'])->name('medicamentosFarma.edit');
-
-Route::put('/medicamentosFarma/{id}', [MedicamentoFarmaciaUBSController::class, 'update'])->name('medicamentosFarma.update');
-Route::patch('/medicamentosFarmaDel/{id}', [MedicamentoFarmaciaUBSController::class, 'destroy'])->name('medicamentosFarma.desativar');
-Route::patch('/medicamentosFarmaAtiv/{id}', [MedicamentoFarmaciaUBSController::class, 'ativar'])->name('medicamentosFarma.ativar');
-
-//busca pelo codBa
-Route::get('/CodMed/{codigoDeBarras}', [MedicamentoController::class, 'buscarMedicamentoPorCodigo'])->name('CodMed');
 //filtre
 Route::get('/filtrarMedFarma', [MedicamentoFarmaciaUBSController::class, 'filtrar'])->name('medicamentos.filtrar');
-
-//Prescrição
-Route::get('/prescricao', [PrescricaoController::class, 'index']);
-Route::post('/Cadprescricao', [PrescricaoController::class, 'store']);
-Route::put('/Cadprescricao/{id}', [PrescricaoController::class, 'update'])->name('prescricao.update');
-Route::patch('/PrescricaoDel/{id}', [PrescricaoController::class, 'destroy'])->name('prescricao.desativar');
-
 
 
 
 //ENTRADA MEDICAMENTO
 Route::get('/EntradaMedicamentoHome', [EntradaMedicamentoController::class, 'index'])->name('medicamentos.index');
 
-//rota botao novo medicamento
+//rota botao novo entrada medicamento
 Route::get('/entradamedinsert', [EntradaMedicamentoController::class, 'create'])->name('entradaMedInsert');
+//rota botao edite entrada medicamento
+Route::get('/entradaMedicamento/{id}/edit', [EntradaMedicamentoController::class, 'edit'])->name('entradaMedEdit');
+Route::put('/entradaMedicamento/{id}', [EntradaMedicamentoController::class, 'update'])->name('entradaMedUpdate');
+
+Route::delete('/entradaMedicamento/{id}', [EntradaMedicamentoController::class, 'destroy'])->name('entradaMedDelete');
+
+
 // Rota para armazenar a nova entrada de medicamento
 Route::post('/entrada-medicamento/store', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
 //busca o funcionario pelo nome
