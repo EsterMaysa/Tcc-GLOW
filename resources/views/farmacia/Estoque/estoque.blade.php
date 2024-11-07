@@ -14,8 +14,8 @@
                 <div class="btn-group-wrapper">
                     <!-- Novo Remédio -->
                     <div class="btn-group">
-                        <span>Novo Remédio</span>
-                        <button class="btn-custom btn-add" onclick="window.location.href='/motivEntrada'">
+                        <span>Inserir Remédio</span>
+                        <button class="btn-custom btn-add" onclick="window.location.href='/EntradaMedicamentoHome'">
                             +
                         </button>
                     </div>

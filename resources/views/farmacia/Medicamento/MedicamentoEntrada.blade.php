@@ -27,6 +27,7 @@
                     <th>Validade</th>
                     <th>Motivo da Entrada</th>
                     <th>Funcionário Responsável</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,18 @@
                         <td>{{ $med->validade }}</td>
                         <td>{{ $med->motivoEntrada }}</td>
                         <td>{{ $med->nomeFuncionario }}</td>
+                        <td>
+                            <a href="{{ route('entradaMedEdit', $med->idEntradaMedicamento) }}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <form action="{{ route('entradaMedDelete', $med->idEntradaMedicamento) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -62,5 +75,8 @@
     }
     .table tbody tr:hover {
         background-color: #4b89f5;
+    }
+    .btn-primary i, .btn-danger i {
+        margin-right: 0;
     }
 </style>
