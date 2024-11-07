@@ -30,6 +30,7 @@ class UBSController extends Controller
         return view('adm.Ubs.UBS', compact('ubs'));
     }
 
+   
     public function apresentarRegiao()
     {
         $regioes = RegiaoUBSModel::all();
@@ -122,8 +123,8 @@ class UBSController extends Controller
 
 
     $ubs->cnpjUBS = $request->cnpj;
-    $ubs->latitudeUBS = $latitude;
-    $ubs->longitudeUBS = $longitude;
+    $ubs->latitudeUBS = $request->latitude;
+    $ubs->longitudeUBS = $request->longitude;
     $ubs->cepUBS = $request->cep;
     $ubs->logradouroUBS = $logradouro;
     $ubs->bairroUBS = $bairro;
@@ -138,7 +139,16 @@ class UBSController extends Controller
     $ubs->idTelefoneUBS = $telefoneId; // ID do telefone
     $ubs->idRegiaoUBS = $request->idRegiao; // ID da região
 
-    // $ubs->save();
+    $ubs->save();
+
+    try {
+                Mail::to('vini.va338@gmail.com')->send(new \App\Mail\UBSRegistrationSuccessMail($ubs));
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'UBS criada, mas ocorreu um erro ao enviar o e-mail: ' . $e->getMessage()], 500);
+            }
+            return response()->json(['message' => 'UBS criada com sucesso!'], 201);
+    
+    
 
     // return redirect('/selectUBS');
 
@@ -152,12 +162,12 @@ class UBSController extends Controller
     //     return response()->json(['message' => 'UBS criada com sucesso!'], 201);
     // }
 
-    try {
-        Mail::to('ubsjardimaurora70@gmail.com')->send(new UBSRegistrationSuccessMail($ubs));
-        return 'E-mail enviado com sucesso!';
-    } catch (\Exception $e) {
-        return 'Erro ao enviar e-mail: ' . $e->getMessage();
-    }
+    // try {
+    //     Mail::to('ubsjardimaurora70@gmail.com')->send(new UBSRegistrationSuccessMail($ubs));
+    //     return 'E-mail enviado com sucesso!';
+    // } catch (\Exception $e) {
+    //     return 'Erro ao enviar e-mail: ' . $e->getMessage();
+    // }
 
  
     
@@ -214,6 +224,81 @@ class UBSController extends Controller
     // Retorna a view de edição com os dados da UBS
     return view('adm.Ubs.editUBS', compact('ubs', 'telefone', 'regiao', 'regioes'));
 }
+
+
+
+public function verificarEmail(Request $request)
+{
+    // Valida os dados recebidos
+  
+    try {
+        // Busca a UBS pelo e-mail na tabela tbubs
+        $ubs = UBSModel::where('emailUBS', $request->email)->firstOrFail();
+
+        // Atualiza a senha da UBS
+        $ubs->senhaUBS = bcrypt($request->senha);
+        $ubs->save();
+
+        return redirect('/homeFarmacia')->with('success', 'Senha atualizada com sucesso!');
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return response()->json(['message' => 'UBS não encontrada.'], 404);
+    }
+}
+
+// Método no controlador de login (após a verificação de login)
+public function login(Request $request)
+{
+    // Busca a UBS usando o CNPJ fornecido
+    $ubs = UBSModel::where('cnpj', $request->cnpj)->first();
+
+    // Verifica se a UBS foi encontrada e a senha é válida
+    if ($ubs && Hash::check($request->senha, $ubs->senhaUBS)) {
+        // Armazena o emailUBS na sessão
+        session(['emailUBS' => $ubs->emailUBS]);
+
+        // Redireciona para a página do perfil
+        return redirect()->route('perfil');
+    } else {
+        // Se as credenciais estiverem incorretas
+        return redirect()->back()->with('error', 'Credenciais inválidas');
+    }
+}
+
+
+
+
+
+public function perfil()
+{
+    // Recupera o email da sessão
+    $emailUBS = session('emailUBS');
+
+    // Se o emailUBS não estiver na sessão, redireciona para o login
+    if (!$emailUBS) {
+        return redirect('/login')->with('error', 'Você precisa estar logado para acessar o perfil.');
+    }
+
+    // Busca a UBS no banco de dados com o email armazenado na sessão
+    $ubs = UBSModel::where('emailUBS', $emailUBS)->first();
+
+    // Se a UBS não for encontrada, redireciona para o login
+    if (!$ubs) {
+        return redirect('/login')->with('error', 'UBS não encontrada.');
+    }
+
+    // Caso a UBS seja encontrada, exibe o perfil
+    return view('farmacia.perfilFarmacia', compact('ubs'));
+}
+
+// Método de logout no controlador
+public function logout()
+{
+    session()->forget('emailUBS');
+    return redirect('/login');
+}
+
+
+
 
     
     

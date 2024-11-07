@@ -72,7 +72,7 @@
 					</div>
 
 					<div class="text-center p-t-24">
-						<a class="txt2" href="/loginFarmacia">
+						<a class="txt2" href="/verificacao">
 							Não é Administrador?
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
