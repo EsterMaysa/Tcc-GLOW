@@ -6,6 +6,7 @@
         @csrf
     <form action="/CadMedFarma" method="POST">
         @csrf
+        <input type="hidden" name="idUBS" value="{{ $idUBS }}">
 
         <!-- Código de Barras do Medicamento -->
         <div class="form-group">

@@ -312,9 +312,12 @@ Route::get('/SaidaMed', function () {
 
 Route::get('/MedicamentoHome', [MedicamentoFarmaciaUBSController::class, 'index']);
 
-Route::get('/FormsMed', function () {
-    return view('farmacia.Medicamento.cadMedicamento');
-});
+// Route::get('/FormsMed', function () {
+//     return view('farmacia.Medicamento.cadMedicamento');
+// });
+
+Route::get('/FormsMed', [UBSController::class, 'showFormsMed']);
+
 
 Route::get('/editMedFarmacia', function () {
     return view('farmacia.Medicamento.atualizarMedicamento');

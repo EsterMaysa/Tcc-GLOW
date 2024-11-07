@@ -250,7 +250,15 @@ class ClienteAdmController extends Controller // Corrigi o nome do controller
     return view('Adm.Cliente.Cliente', compact('clientes', 'queryInput'));
 }
 
-  
+public function indexApi()
+{
+    $cliente = ClienteAdmModel::all();
+    return response()->json([
+        'message' => 'Sucesso',
+        'code' => 200,
+        'data' => $cliente 
+    ]);
+} 
     
     
 }

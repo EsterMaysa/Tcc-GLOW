@@ -25,8 +25,11 @@ class ModelMedicamentoFarmaciaUBS extends Model
         'formaFarmaceuticaMedicamento',
         'composicaoMedicamento',
         'situacaoMedicamento',
-        'dataCadastroMedicamento'
+        'dataCadastroMedicamento',
+        'idUBS'
+
     ];
+    
 
     public function medicamento()
 {
