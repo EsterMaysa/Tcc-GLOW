@@ -24,7 +24,6 @@
 	<div class="header">
 		<div class="side-nav">
 			<div class="user">
-				<img src="{{ asset('Image/adm.png')}}" alt="foto-perfil" class="user-img">
 				<div>
 					<h2> Gabrielly Vasconcelos </h2>
 					<p>Administrador(a)</p>
@@ -35,9 +34,9 @@
 				<li><a href="/medicamento"><img src="{{ asset('Image/reports.png')}}"><p>Medicamentos</p></a></li>
 				<li><a href="/medicamentoForm"><img src="{{ asset('Image/reports.png')}}"><p> Cadastro Medicamentos</p></a></li>
 				<li><a href="/detentor"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro Detentor</p></a></li>
-				<li><a href="/selectUBS"><img src="{{ asset('Image/rewards.png')}}"><p>Unidades Básicas de Saúde</p></a></li>
+				<li><a href="/selectUBS"><img src="{{ asset('Image/reports.png')}}"><p>Unidades Básicas de Saúde</p></a></li>
 				<li><a href="/selectRegiaoForm"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro de UBS</p></a></li>
-				<li><a href="/cliente"><img src="{{ asset('Image/projects.png')}}"><p>Pacientes</p></a></li>
+				<li><a href="/cliente"><img src="{{ asset('Image/reports.png')}}"><p>Pacientes</p></a></li>
 				<li><a href="/contato"><img src="{{ asset('Image/messages.png')}}"><p>Mensagens</p></a></li>	
 			</ul>
 			<ul>
