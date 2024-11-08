@@ -25,16 +25,15 @@ class ModelMedicamentoFarmaciaUBS extends Model
         'formaFarmaceuticaMedicamento',
         'composicaoMedicamento',
         'situacaoMedicamento',
-        'dataCadastroMedicamento'
+        'dataCadastroMedicamento',
+        'idUBS'
+
     ];
+    
 
-    // public function entradas()
-    // {
-    //     return $this->hasMany(ModelEntradaMedicamento::class, 'idMedicamento');
-    // }
+    public function medicamento()
+{
+    return $this->belongsTo(ModelMedicamentoFarmaciaUBS::class, 'idMedicamento', 'idMedicamento');
+}
 
-    // public function estoques()
-    // {
-    //     return $this->hasMany(ModelEstoqueFarmaciaUBS::class, 'idMedicamento');
-    // }
 }

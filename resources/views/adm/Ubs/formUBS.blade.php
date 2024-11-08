@@ -125,14 +125,15 @@
                             <i class="fas fa-phone"></i> Telefone :
                         </label>
                         <div id="telefoneContainer">
-                            <!-- Os campos de telefone serão adicionados aqui -->
+                            <input type="text" name="telefone" id="telefone" required>
+                            <input type="text" name="telefone2" id="telefone2" required>
                         </div>
-                        <div class="add-phone-container">
+                        <!-- <div class="add-phone-container">
                             <button type="button" onclick="addPhoneField()">
                                 <i class="fas fa-plus-circle"></i> Adicionar Telefone 
                             </button>
                             <span class="info-text">Você pode adicionar apenas 2 números de telefone.</span> 
-                        </div>
+                        </div> -->
                     </div>
                     <div class="form-col">
                         <label for="latitude">

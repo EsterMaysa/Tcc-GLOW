@@ -45,7 +45,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="/EntradaMed">
+				<a href="/EntradaMedicamentoHome">
 					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text">Entrada Medicamentos </span>
 				</a>
@@ -66,9 +66,16 @@
 
 
 			<li>
-				<a href="/FuncionarioHome">
+				<a href="/funcionarios">
 					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
 					<span class="text"> Funcionario </span>
+				</a>
+			</li>
+
+			<li>
+				<a href="/entrada_medicamento">
+					<i class='bx bxs-edit bx-flip-horizontal' style='color:#3f3e3e' ></i>
+					<span class="text"> Tipo Movimentação </span>
 				</a>
 			</li>
 		
@@ -87,7 +94,7 @@
 				</a>
     		</li>
 			<li>
-				<a href="/perfilFarmacia" class="boto2">
+				<a href="/perfilfarmacia2" class="boto2">
 					<i class='bx bxs-user'></i>
 					<span class="text"> Perfil </span>
 				</a>

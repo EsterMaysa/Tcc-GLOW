@@ -41,10 +41,20 @@
     </div>
 
     <div class="form-group">
+<<<<<<< HEAD
         <label for="motivoEntrada">Motivo da Entrada:</label>
         <input type="text" name="motivoEntrada" class="form-control" id="motivoEntrada" value="{{ $entrada->motivoEntrada }}" required placeholder="Digite o motivo da entrada">
         <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada">
     </div>
+=======
+    <label for="motivoEntrada">Motivo da Entrada:</label>
+    <input type="text" name="motivoEntrada" class="form-control" id="motivoEntrada" 
+           value="{{ $motivo->motivoEntrada }}" required placeholder="Digite o motivo da entrada">
+</div>
+
+
+
+>>>>>>> ae34801ced9cf33c505834152432695ce508b469
 
     <div class="form-group">
         <label for="funcionario">Funcionário Responsável:</label>
@@ -62,3 +72,18 @@
 </form>
 
 @include('includes.footer')
+<<<<<<< HEAD
+=======
+
+<script>
+// Script para preencher automaticamente lote e validade ao selecionar o medicamento
+document.getElementById('medicamento').addEventListener('change', function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var lote = selectedOption.getAttribute('data-lote');
+    var validade = selectedOption.getAttribute('data-validade');
+
+    document.getElementById('lote').value = lote ? lote : '';
+    document.getElementById('validade').value = validade ? validade : '';
+});
+</script>
+>>>>>>> ae34801ced9cf33c505834152432695ce508b469

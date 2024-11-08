@@ -56,6 +56,24 @@ class UsuarioController extends Controller
         }
     }
 
+    public function storeapi(Request $request)
+    {
+        $usuario = new UsuarioModel();
+        
+        $usuario->nomeUsuario = $request->nome;
+        $usuario->fotoUsuario = $request->foto;
+        $usuario->cnsUsuario = $request->cns;
+        $usuario->situacaoUsuario = $request->situacao;
+        $usuario->senhaUsuario = $request->senha;
+        $usuario->dataCadastroUsuario = now(); // Converte para YYYY-MM-DD
+
+       
+        $usuario->save();  
+        return response()->json(['message' => 'Usuario criado com sucesso!'], 201);
+
+
+    }
+
     // Método para atualizar um usuário existente
     public function updateapi(Request $request, $id)
     {
@@ -97,4 +115,14 @@ class UsuarioController extends Controller
             return response()->json(['message' => 'Erro ao atualizar o usuário', 'error' => $e->getMessage()], 500);
         }
     }
+
+    public function indexApi()
+    {
+        $usuarios = UsuarioModel::all();
+        return response()->json([
+            'message' => 'Sucesso',
+            'code' => 200,
+            'data' => $usuarios 
+        ]);
+    }    
 }
