@@ -1,4 +1,3 @@
-<!--Tirado a foto do Adm (ASS:Duda-->
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,16 +34,25 @@
 				<li><a href="/medicamento"><img src="{{ asset('Image/reports.png')}}"><p>Medicamentos</p></a></li>
 				<li><a href="/medicamentoForm"><img src="{{ asset('Image/reports.png')}}"><p> Cadastro Medicamentos</p></a></li>
 				<li><a href="/detentor"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro Detentor</p></a></li>
-				<li><a href="/selectUBS"><img src="{{ asset('Image/rewards.png')}}"><p>Unidades Básicas de Saúde</p></a></li>
+				<li><a href="/selectUBS"><img src="{{ asset('Image/reports.png')}}"><p>Unidades Básicas de Saúde</p></a></li>
 				<li><a href="/selectRegiaoForm"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro de UBS</p></a></li>
-				<li><a href="/cliente"><img src="{{ asset('Image/projects.png')}}"><p>Pacientes</p></a></li>
+				<li><a href="/cliente"><img src="{{ asset('Image/reports.png')}}"><p>Pacientes</p></a></li>
 				<li><a href="/contato"><img src="{{ asset('Image/messages.png')}}"><p>Mensagens</p></a></li>	
 			</ul>
 			<ul>
 				<li><a href="/perfil"><img src="{{ asset('Image/members.png')}}"><p>Perfil</p></a></li>
 				<li><a href="/configuracoes"><img src="{{ asset('Image/setting.png')}}"><p> Configurações </p></a></li>
-				<li><a href="/logout"><img src="{{ asset('Image/logout.png')}}"><p>Sair</p></a></li>
+
+				<li>
+					<form id="logout-form" action="/logout" method="POST" style="display: none;">
+						@csrf
+					</form>
+					<a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+						<img src="{{ asset('Image/logout.png') }}">
+						<p>Sair</p>
+					</a>
+				</li>		
+
 			</ul>
 		</div>
 	</div>
-

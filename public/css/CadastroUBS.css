@@ -41,7 +41,7 @@
     width: 280px; 
     padding: 8px;
     border: none;
-    border-radius: 20px; 
+    border-radius: 20%; 
     outline: none;
     margin-right: 10px;
 }
@@ -285,4 +285,3 @@ button[type="submit"]:hover {
     font-size: 1.5rem;
     color: #000000;
 }
-

@@ -1,4 +1,4 @@
-<!--CSS OK por aqui (ASS:Duda-->
+<!--CSS OK por aqui (ASS:Duda)-->
 
 @include('includes.header')
 <link rel="stylesheet" href="{{('css/Formularios.css')}}">
@@ -23,13 +23,11 @@
 <main>
     <form action="/TipoMedicamento" method="POST" class="formulario">
         @csrf
-
             <div class="input-container">
                 <label for="tipoMedicamento">Tipo de Medicamento</label>
                 <input type="text" class="form-control" id="tipoMedicamento" name="tipo" 
                     value="{{ old('tipo') }}" required>
             </div>
-
             <div class="input-container">
                 <label for="formaMedicamento">Forma Farmacêutica</label>
                 <select class="form-control" id="formaMedicamento" name="forma" required>
@@ -44,8 +42,7 @@
                     <option value="Injeção" {{ old('forma') == 'Injeção' ? 'selected' : '' }}>Injeção</option>
                 </select>
             </div>
-
-            <button type="submit" class="botaozinho">Salvar</button>
+        <button type="submit" class="botaozinho">Salvar</button>
     </form>
 </main>
 

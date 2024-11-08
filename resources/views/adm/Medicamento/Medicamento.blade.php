@@ -1,6 +1,6 @@
-<!--CSS OK, encontei comflito com os modais ao criar o front e um medicamento no banco, nãos sei como resolver (ASS:Duda-->
+<!--CSS OK (ASS:Duda)-->
 
-@include('includes.header') <!-- include -->
+@include('includes.header') <!-- include do header -->
 <link rel="stylesheet" href="{{ asset('css/Medicamento.css') }}">
 
 <nav class="navbar">
@@ -8,7 +8,7 @@
         <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
     </div>
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
 </nav>
@@ -16,7 +16,7 @@
 <div class="container-um">
     <div class="jumbotron-um">
         <h1>Medicamentos</h1>
-        <p>Crie e consulte medicamentos.</p>
+        <p>Crie e consulte medicamentos e tipos de medicamentos.</p>
     </div>
     <div class="image-container">
         <img src="{{ asset('Image/medicamento.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
@@ -43,42 +43,39 @@
     </div>
 </div>
 
-<!-- MAIN -->
 <main>
     <div class="table-data">
         <div class="order">
             <div class="head">
-                <h5 style="font-size: 30px;">Medicamentos</h5>
+                <h5 style="font-size: 30px; font-weight: bold;">Medicamentos</h5>
                     <form action="{{ route('medicamentos.search') }}" method="GET">
                         <input type="text" name="query" id="searchInput" placeholder="Pesquisar por nome, nome genérico, código de barras e nome do Detentor..." class="search-input" style="width: 700px;" onkeyup="if(event.key === 'Enter') this.form.submit();">
                     </form>
-                    <!-- aqui tá o botão que abre o modal dos filtro (não funcionando o bck dele) -->
-                <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
+                    <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
             </div>
         </div>
     </div>
 
     <div class="form-wrapper">
-        <table class="table table-striped">
+        <table class="custom-table">
             <thead>
                 <tr>
-                    <th>Código de Barras</th>
-                    <th>Nome</th>
-                    <th>Nome Genérico</th>
-                    <th>Situação</th>
-                    <th>Data de Cadastro</th>
-                    <th>Ações</th>
+                    <th> Código de Barras </th>
+                    <th> Medicamento </th>
+                    <th> Nome Genérico </th>
+                    <th> Situação </th>
+                    <th> Data de Cadastro </th>
+                    <th> Ações </th>
                 </tr>
             </thead>
-            @foreach($medicamento as $med)
             <tbody>
+                @foreach($medicamento as $med)
                 <tr>
-                    <td style="padding: 10px;">{{ $med->codigoDeBarrasMedicamento }}</td>
+                    <td>{{ $med->codigoDeBarrasMedicamento }}</td>
                     <td>{{ $med->nomeMedicamento }}</td>
                     <td>{{ $med->nomeGenericoMedicamento }}</td>
-                    <!-- <td>{{ $med->situacaoMedicamento }}</td> -->
                     <td>
-                        @if( $med->situacaoMedicamento === 'A')
+                         @if( $med->situacaoMedicamento === 'A')
                             Ativado
                         @elseif( $med->situacaoMedicamento === 'D')
                             Desativado
@@ -87,24 +84,22 @@
                         @endif
                     </td>
                     <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
-                    @if ($med->situacaoMedicamento == 'A')
-                    <td>
-                        <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="btn btn-warning">Editar</a>
-                    </td>
-                    <td>
-                        <!-- Verifica se está ativo -->
-                        <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
-                            @csrf
+
+                    <td class="actions">
+                        @if ($med->situacaoMedicamento == 'A')
+                            <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="icon-action" title="Editar">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja desativar este medicamento?');">
+                                @csrf
                                 @method('PUT') <!-- Usar PUT para desativar -->
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja desativar este medicamento?');">
-                                    <i class="fas fa-ban"></i> Desativar
+                                <button type="submit" class="icon-action-2" title="Desativar">
+                                    <i class="fas fa-ban"></i>
                                 </button>
-                        </form>
-                    </td>
-                    @endif
-                    <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $med->idMedicamento }}">
-                            Ver mais
+                            </form>
+                        @endif
+                        <button type="button" class="botao" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $med->idMedicamento }}">
+                            <i class="fas fa-eye"></i> <!-- Ícone de olho para Ver Mais -->
                         </button>
                     </td>
                 </tr>
@@ -130,30 +125,23 @@
                                 <p><strong>Situação:</strong> {{ $med->situacaoMedicamento }}</p>
                                 <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</p>
 
-                                <!-- Área da foto -->
+                                <!-- Foto -->
                                 <div id="fotoMedicamento{{ $med->idMedicamento }}">
                                     @if($med->fotoMedicamentoOriginal)
-                                    <p><strong>Foto Original:</strong></p>
-                                    <img src="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}" alt="Foto Original" style="max-width: 100%;" id="imagemExibida{{ $med->idMedicamento }}">
+                                        <p><strong>Foto Original:</strong></p>
+                                        <img src="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}" alt="Foto Original" style="max-width: 100%;" id="imagemExibida{{ $med->idMedicamento }}">
                                     @else
-                                    <p>Sem foto original.</p>
+                                        <p>Sem foto original.</p>
                                     @endif
                                 </div>
-
-                                <!-- Botão para alternar fotos -->
-                                <button type="button" class="btn btn-info" id="alternarFoto{{ $med->idMedicamento }}"
-                                    data-foto-original="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}"
-                                    data-foto-genero="{{ asset('storage/' . $med->fotoMedicamentoGenero) }}">
-                                    Ver Foto de Gênero
-                                </button>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -167,7 +155,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Situação Checklist -->
+                    <!-- Filtros -->
                     <div class="mb-3">
                         <label class="form-label">Situação</label>
                         <div class="form-check">
@@ -180,7 +168,6 @@
                         </div>
                     </div>
 
-                    <!-- Forma Farmacêutica Checklist -->
                     <div class="mb-3">
                         <label class="form-label">Forma Farmacêutica</label>
                         <div class="form-check">
@@ -191,10 +178,8 @@
                             <input class="form-check-input" type="checkbox" value="Cápsula" id="formaCapsula" name="formaFarmaceutica[]">
                             <label class="form-check-label" for="formaCapsula">Cápsula</label>
                         </div>
-                        <!-- Adicione outros checkboxes conforme necessário -->
                     </div>
 
-                    <!-- Tipo de Medicamento -->
                     <div class="mb-3">
                         <label for="filtroTipoMedicamento" class="form-label">Tipo de Medicamento</label>
                         <select class="form-select" id="filtroTipoMedicamento" name="tipoMedicamento">
@@ -207,7 +192,6 @@
                         </select>
                     </div>
 
-                    <!-- Data de Cadastro -->
                     <div class="mb-3">
                         <label for="filtroDataCadastro" class="form-label">Data de Cadastro</label>
                         <input type="date" class="form-control" id="filtroDataCadastro" name="dataCadastro">
@@ -220,10 +204,11 @@
             </div>
         </div>
     </div>
-    @endforeach    
 </main>
 
-@include('includes.footer') <!-- include -->
+<br>
+@include('includes.footer') <!-- include do footer -->
 
 <!-- Link para o Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

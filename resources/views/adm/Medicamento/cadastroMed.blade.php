@@ -1,4 +1,4 @@
-<!--CSS OK aqui tbm (ASS:Duda-->
+<!--CSS OK (ASS:Duda)-->
 
 @include('includes.header') <!-- Include do Header -->
 <link rel="stylesheet" href="{{ url('css/CadastroMedicamento.css')}}">
@@ -23,7 +23,7 @@
     </div>
 </div>
 
-<!-- MAIN -->
+<!-- COMEÇO DA TAG MAIN -->
 <main>
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -42,23 +42,24 @@
     @endif
 
     <div class="container">
-        <div class="form-container"> 
+        <div class="form-container">
             <form action="/cadastroMed" method="POST" enctype="multipart/form-data">
                 @csrf
-
                 <div class="form-row">
                     <div class="form-col">
                         <label for="codigoDeBarrasMedicamento">
-                            <i class="fas fa-barcode"></i> Código de Barras
+                            <i class="fas fa-barcode"></i> Código de Barras :
                         </label>
                         <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras" value="{{ old('codigoDeBarras', $formData['codigoDeBarras'] ?? '') }}" required>
                     </div>
+
                     <div class="form-col">
                         <label for="nomeMedicamento">
-                            <i class="fas fa-pills"></i> Nome do Medicamento
+                            <i class="fas fa-pills"></i> Nome do Medicamento :
                         </label>
                         <input type="text" class="form-control" id="nomeMedicamento" name="nome" value="{{ old('nome', $formData['nome'] ?? '') }}" required>
                     </div>
+
                     <div class="form-col">
                         <label for="nomeGenericoMedicamento">
                             <i class="fas fa-capsules"></i> Nome Genérico
@@ -78,7 +79,7 @@
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="registroAnvisa" id="registroNao" value="Indeferido" {{ old('registroAnvisa', $formData['registroAnvisa'] ?? '') == 'Indeferido' ? 'checked' : '' }} required>
                             <label class="form-check-label" for="registroNao">Indeferido</label>
-                    </div>
+                        </div>
                     </div>
                     <div class="form-col">
                         <label for="fotoMedicamentoOriginal">
@@ -108,7 +109,7 @@
                                 @endforeach
                             </select>
                             <a href="{{ route('NewDetentor', ['formData' => old()]) }}" class="btn btn-success">
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-plus icon" style="color: #384081"></i>
                             </a>
                         </div>
                     </div>
@@ -126,7 +127,7 @@
                                 @endforeach
                             </select>
                             <a href="{{ route('TipoMedicamento', ['formData' => old()]) }}" class="btn btn-success">
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-plus" style="color: #384081"></i>
                             </a>
                         </div>
                     </div>
@@ -170,6 +171,4 @@
         </div>
     </div>
 </main>
-
 @include('includes.footer') <!-- Include do Footer -->
-

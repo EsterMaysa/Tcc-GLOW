@@ -2,9 +2,7 @@
  um modal informativo aparece dizendo que o número total já foi alcançado), Tirei o header pois ele não era necessário 
  e todos os scripts de JS estão  no final da página pois eles são internos. Creio que o front dessa já está ok (ASS: Maria Eduarda)-->
 
- <!--CSS finalizado OK (ASS:Duda-->
- 
-@include('includes.header')
+ @include('includes.header')
 <link rel="stylesheet" href="{{ url('css/CadastroUBS.css') }}"> <!--CSS PARA ESSA PÁGINA FICA APENAS NESSE ARQUIVO :)-->
 
 <nav class="navbar">
@@ -12,7 +10,7 @@
         <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo">
     </div>
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
 </nav>
@@ -39,21 +37,18 @@
                         </label>
                         <input type="text" name="ubs" id="ubs" required>
                     </div>
-
                     <div class="form-col">
                         <label for="email">
                             <i class="fas fa-envelope"></i> E-mail :
                         </label>
                         <input type="text" name="email" id="email" required>
                     </div>
-
                     <div class="form-col">
                         <label for="cnpj">
                             <i class="fas fa-id-card"></i> CNPJ :
                         </label>
                         <input type="text" name="cnpj" id="cnpj" required>
                     </div>
-
                     <div class="form-col">
                         <label for="cep">
                             <i class="fas fa-map-marker-alt"></i> CEP :
@@ -69,21 +64,18 @@
                         </label>
                         <input type="text" name="logradouro" id="logradouro" required>
                     </div>
-
                     <div class="form-col">
                         <label for="bairro">
                             <i class="fas fa-home"></i> Bairro :
                         </label>
                         <input type="text" name="bairro" id="bairro" required>
                     </div>
-
                     <div class="form-col">
                         <label for="cidade">
                             <i class="fas fa-city"></i> Cidade :
                         </label>
                         <input type="text" name="cidade" id="cidade" required>
                     </div>
-                    
                     <div class="form-col">
                         <label for="uf">
                             <i class="fas fa-globe"></i> UF :
@@ -133,14 +125,15 @@
                             <i class="fas fa-phone"></i> Telefone :
                         </label>
                         <div id="telefoneContainer">
-                            <!-- Os campos de telefone serão adicionados aqui -->
+                            <input type="text" name="telefone" id="telefone" required>
+                            <input type="text" name="telefone2" id="telefone2" required>
                         </div>
-                        <div class="add-phone-container">
+                        <!-- <div class="add-phone-container">
                             <button type="button" onclick="addPhoneField()">
                                 <i class="fas fa-plus-circle"></i> Adicionar Telefone 
                             </button>
                             <span class="info-text">Você pode adicionar apenas 2 números de telefone.</span> 
-                        </div>
+                        </div> -->
                     </div>
                     <div class="form-col">
                         <label for="latitude">

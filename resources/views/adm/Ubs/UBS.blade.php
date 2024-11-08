@@ -36,7 +36,7 @@
             <a href="/formRegiao" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
         <div class="btn-card">
-            <p><i class="fas fa-pharmacy"></i> Farmácia</p>
+            <p><i class="fas fa-pharmacy"></i> Farmacia</p>
             <a href="/farmacia" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
         <div class="btn-card">
@@ -77,7 +77,7 @@
                 @foreach ($ubs as $unidade)
 
                 <tbody id="ubsTableBody">
-                    <tr class="ubs-row" data-situacao="{{ $unidade->situacaoUBS }}" ,style="{{ $unidade->situacaoUBS == 0 ? 'display:none;' : '' }}" id="tabela">
+                    <tr class="ubs-row" data-situacao="{{ $unidade->situacaoUBS }}" ,style="{{ $unidade->situacaoUBS == 0 ? 'display:none;' : '' }}">
                         <td>{{ $unidade->nomeUBS }}</td>
                         <td>{{ $unidade->emailUBS }}</td>
                         <td>{{ $unidade->cnpjUBS }}</td>
@@ -85,31 +85,31 @@
                         <td>{{ $unidade->dataCadastroUBS }}</td>
                         <td>
                             <a href="{{ route('ubs.edit', $unidade->idUBS) }}" class="edit-icon">
-                                <i class="fas fa-pencil-alt"></i>
-                                Editar
+                                <i class="fas fa-pencil-alt"></i> Editar
                             </a>
                         </td>
                         <td>
                             <form action="{{ route('changeStatus', $unidade->idUBS) }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="edit-icon-delete">
-                                    <i class="fas fa-pencil-alt"></i>
-                                    Excluir
+                                <button type="submit" class="edit-icon">
+                                    <i class="fas fa-trash-alt"></i> Excluir
                                 </button>
                             </form>
                         </td>
                         <td>
-                            <button type="button" class="botao" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $unidade->idUBS }}">
-                                Ver mais
+                            <button type="button" class="botaozinho" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $unidade->idUBS }}">
+                                <i class="fas fa-eye"></i>
                             </button>
                         </td>
+
+
                     </tr>
                     <!-- Modal do ver mais -->
                     <div class="modal fade" id="modalDetalhes{{ $unidade->idUBS }}" tabindex="-1" aria-labelledby="modalUBSLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modalUBSLabel">Detalhes da UBS</h5>
+                                    <h5 class="modal-title" id="modalUBSLabel" >Detalhes da UBS</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -129,7 +129,7 @@
                                     <p><strong>Telefone 2:</strong> {{ $unidade->telefone->numeroTelefoneUBS2 ?? 'Não Cadastrdo' }}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="botaoModal" data-bs-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                                 </div>
                             </div>
                         </div>

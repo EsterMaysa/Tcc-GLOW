@@ -197,4 +197,63 @@ button[type="submit"]:hover {
     background-color: #fff;
 }
 
+/* CSS PARA O ALERTA */
+.alert {
+    border-radius: 8px;
+    padding: 15px 20px;
+    font-size: 16px;
+    margin: 20px auto; 
+    width: 70%; 
+    max-width: 600px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+/* Estilo para mensagens de erro */
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    font-weight: bold;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-danger ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.alert-danger li {
+    margin-bottom: 5px;
+}
+
+/* Estilo para mensagens de sucesso */
+.alert-success {
+    background-color: #d4edda; /* Cor de fundo suave para sucesso */
+    color: #155724; /* Cor do texto */
+    border: 1px solid #c3e6cb; /* Borda suave verde */
+}
+
+/* Efeito de hover para melhorar a interação */
+.alert:hover {
+    opacity: 0.9; /* Leve efeito de transparência ao passar o mouse */
+}
+
+/* Ajuste para uma versão mais compacta */
+.alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Adicionar um botão de fechar dentro da mensagem */
+.alert .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: inherit;
+    cursor: pointer;
+}
+
+.alert .close-btn:hover {
+    color: #333; /* Cor de hover para o botão de fechar */
+}

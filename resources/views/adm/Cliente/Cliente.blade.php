@@ -53,6 +53,7 @@ Arrumei o botão de cadastrar Paciente, se não for paciente me fala, que ai trc
                 </form>
             </div>
             <!-- Tabela de clientes -->
+             
             <div class="form-wrapper">
                 <table class="table table-striped">
                     <thead>

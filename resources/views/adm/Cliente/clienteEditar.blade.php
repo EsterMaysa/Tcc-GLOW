@@ -8,7 +8,7 @@
         <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
     </div>
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
 </nav>

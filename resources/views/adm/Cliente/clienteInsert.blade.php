@@ -15,7 +15,7 @@
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Cadastrar Clientes</h1>
+        <h1>Cadastrar Cliente</h1>
         <p>Crie novos clientes.</p>
     </div>
     <div class="image-container">
@@ -184,10 +184,14 @@
         </div>
     </form>
 </div>
+
 <br><br>
+
 </main>
 
 @include('includes.footer')
+
+
 
 <!-- Script para buscar endereço usando a API do ViaCEP -->
 <script>
@@ -311,4 +315,5 @@ document.getElementById('telefoneCliente').addEventListener('input', function (e
         field.parentElement.appendChild(error);
     }
 
+    
 </script>

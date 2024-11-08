@@ -438,7 +438,7 @@
 /* Botão Editar na tabela */
 .btn-warning {
     color: #fff;
-    background-color: #e4982f;
+    background-color: #f7d516;
     border: none;
     text-decoration: none;
     list-style: none;
@@ -452,7 +452,7 @@
 /* Botão Desativar na tabela */
 .btn-danger {
     color: #fff;
-    background-color: #a51d2a;
+    background-color: #db0318;
     border: none;
     text-decoration: none;
     list-style: none;

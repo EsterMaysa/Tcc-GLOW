@@ -1,22 +1,27 @@
-
 @include('includes.header')
-<!-- Página de Contatos -->
-<main>
-    <div class="head-title">
-        <div class="left">
-            <h1> CONTATO </h1>
-            <ul class="breadcrumb">
-                <li>
-                    <a href="">Home</a>
-                </li>
-                <li><i class='bx bx-chevron-right'></i></li>
-                <li>
-                    <a class="active" href="/"> Contato </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<link rel="stylesheet" href="{{('css/Mensagem.css')}}">
 
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1>Contato</h1>
+        <p>responda mensagens enviadas.</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/AdmCriando.png') }}" alt="Edição de Clientes" class="img-fluid" />
+    </div>
+</div>
+
+<main>
     <div id="mensagens-lista">
         @foreach($contatos as $c)
             <div class="mensagem" id="mensagem-{{ $c->idContato }}">

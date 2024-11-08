@@ -247,5 +247,3 @@
             }
     </script>
 @include('includes.footer')
-
-           

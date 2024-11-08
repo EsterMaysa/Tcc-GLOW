@@ -5,8 +5,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/*NAVBAR*/
-
+/* COMEÇA A NAVBAR*/
 .navbar {
     display: flex;
     align-items: center;
@@ -16,35 +15,28 @@
     height: 90px; 
     color: white;
 }
-
 .navbar-brand {
     margin-left: 20px; 
 }
-
 .logo {
-    margin-left: 15%;
+    margin-left: 19%;
     width: 33%; 
     height: auto; 
 }
-
-/*BARRA DE PESQUISA*/
-
+/*BARRA DE PESQUISA NA NAVBAR*/
 .search-container {
     display: flex;
     align-items: center;
     margin-right: 20px; 
 }
-
 .search-input {
     height: 40px;
     width: 280px; 
     padding: 8px;
     border: none;
-    border-radius: 20px; 
     outline: none;
     margin-right: 10px;
 }
-
 .search-button {
     padding: 8px 12px;
     background-color: #1a1a2e;
@@ -53,21 +45,17 @@
     color: white;
     cursor: pointer;
 }
-
 .search-button:hover {
     background-color: #243f8a; 
 }
-
-/*TERMINA BARRA DE PESQUISA*/
+/*TERMINA BARRA DE PESQUISA DA NAVBAR*/
 /*TERMINA A NAVBAR*/
-
 .container-um {
     display: flex; 
     align-items: center; 
     justify-content: space-between; 
     padding: 20px;
 }
-
 .jumbotron-um {
     width: 40%;
     background-color: #f8f9fa; 
@@ -77,33 +65,27 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-left: 10%; /* Espaçamento à direita do jumbotron */
 }
-
 .jumbotron-um h1 {
     margin-bottom: 10px; 
 }
-
 .image-container {
     flex: 0 0 50%; 
     text-align: center;
 }
-
 .image-container img {
     max-width: 40%; 
     height: auto; 
     border-radius: 8px;
 }
-
 /*COMEÇA O CADASTRO*/
-
 .cadastros-container {
-    background-color: #e9f5f0;
+    background-color: #f6f7f6;
     padding: 1rem;
     border-radius: 6px;
-   margin-left: 10%;
-    width: 85%; /* Define uma largura mais estreita */
+    margin-left: 10%;
+    width: 85%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
-
 .cadastros-container h3 {
     display: flex;
     align-items: center;
@@ -112,17 +94,13 @@
     font-weight: 600;
     margin-bottom: 0.8rem;
 }
-
 /* Lista de Cadastros */
-
 .cadastros-list {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 }
-
 /* Item de Cadastro */
-
 .cadastro-item {
     background-color: #ffffff;
     display: flex;
@@ -133,21 +111,17 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .cadastro-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
-
 .cadastro-item p {
     font-size: 1rem;
     color: #333;
     font-weight: 500;
     margin: 0;
 }
-
 /* Link de Cadastrar */
-
 .cadastrar-link {
     display: flex;
     align-items: center;
@@ -157,24 +131,19 @@
     font-size: 0.9rem;
     transition: color 0.2s ease;
 }
-
 .cadastrar-link:hover {
     color: #1366a7;
 }
-
 .cadastrar-link i {
     font-size: 2rem;
     margin-right: 0.3rem;
 }
-
 .status-busca {
     font-size: 1rem;
 }
-
 /* BARRA DE PESQUISA DOS FILTROS*/
 
 /* Estilo do Formulário de Pesquisa no Cabeçalho */
-
 .head {
     background-color: #1F2B5B; 
     padding: 1rem 1.5rem;
@@ -188,7 +157,6 @@
     width: 85%; 
     margin-left: 10%;
 }
-
 .search-container2 {
     display: flex;
     align-items: center;
@@ -196,17 +164,15 @@
     width: auto; 
     max-width: 400px;
 }
-
 .search-input2 {
-    width: 100%; 
+    width: 10%; 
     padding: 0.5rem; 
     border: none;
-    border-radius: 14px;
+    border-radius: 50%;
     font-size: 0.9rem;
     outline: none;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .search-button2 {
     background-color: #4390CC;
     color: #fff;
@@ -220,128 +186,166 @@
     font-size: 1rem;
     transition: background-color 0.2s ease;
 }
-
 .search-button2:hover {
     background-color: #1366a7;
 }
-
 .search-button2 i {
     font-size: 1rem; /* Diminuindo o ícone do botão */
 }
-
 /* COMEÇA A TABELA*/
-
-.table {
-    margin-left: 10%;
+.custom-table {
     width: 85%;
+    margin-left: 10%;
     border-collapse: collapse;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
-.table thead th {
-    background-color: #1F2B5B; 
+.custom-table thead {
+    background-color: #1F2B5B;
+    text-align: left;
+}
+.custom-table th {
+    padding: 12px 15px;
+    font-size: 18px;
     color: #ffffff;
-    padding: 10px; 
-    text-align: left; 
-    font-weight: bold; 
+    border-bottom: 2px solid #ddd;
 }
-
-
-.table tbody tr {
-    background-color: #f9f9f9; /* Cor de fundo das linhas */
+/* Corpo da tabela */
+.custom-table td {
+    padding: 10px 15px;
+    font-size: 18px;
+    color: #4e4e4e;
+    border-bottom: 1px solid #ddd;
 }
-
-.table tbody tr:hover {
-    background-color: #e0e0e0; /* Cor de fundo ao passar o mouse */
+/* Estilo para as ações na tabela */
+.actions {
+    text-align: center;
 }
-
-
-.table td {
-    padding: 12px;
-    border-bottom: 1px solid #dddddd;
-    color: #272727; 
-}
-
-/* Wrapper para alinhar os ícones na mesma linha */
-.action-icons {
-    display: flex; /* Usar flexbox para layout */
-    align-items: center; /* Alinhamento vertical */
-    gap: 10px; /* Espaço entre os ícones */
-}
-
-/* Estilo dos ícones de ação */
 .icon-action {
-    font-size: 18px; /* Tamanho dos ícones */
-    color: #333; /* Cor padrão */
-    text-decoration: none; /* Remover sublinhado */
-    transition: color 0.2s; /* Transição suave de cor */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    color: white;
+    background-color: #ffef0f;
+    font-size: 18px;
+    padding: 8px 12px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
 }
-
-/* Cores dos ícones de ação específicos */
-.icon-action .fa-edit {
-    color: #1F2B5B; /* Cor para o ícone de editar */
-}
-
-.icon-action .fa-eye {
-    color: #1F2B5B; /* Cor para o ícone de visualizar */
-}
-
-.icon-action .fa-trash {
-    color: #dc3545; /* Cor para o ícone de excluir */
-}
-
-/* Efeito de hover para ícones */
 .icon-action:hover {
-    color: #000; /* Cor ao passar o mouse */
+    background-color: #9ab8d8;
+    transform: scale(1.1); /* Leve aumento no tamanho ao passar o mouse */
 }
-
-/* Estilo do botão de exclusão sem fundo */
-.delete-form button {
-    background: none; /* Sem fundo */
-    border: none; /* Sem borda */
-    padding: 0; /* Sem preenchimento */
-    font: inherit; /* Herdar a fonte do elemento pai */
-    cursor: pointer; /* Cursor de ponteiro */
+.icon-action:active {
+    transform: scale(0.98); 
 }
-
-/* Estilo da barra de pesquisa */
-.search-input {
-    padding: 10px; /* Espaçamento interno */
-    border: 1px solid #ccc; /* Borda */
-    border-radius: 4px; /* Bordas arredondadas */
+.icon-action-2 {
+    color: white;
+    background-color: #df0202; 
+    font-size: 18px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
 }
-
-/* Estilo do botão da barra de filtros */
-.btn-info {
-    background-color: #17a2b8; /* Cor do botão */
-    color: #fff; /* Cor do texto */
+.icon-action-2:hover {
+    background-color: #9ab8d8; 
+    transform: scale(1.1); /* Leve aumento no tamanho ao passar o mouse */
 }
-
-/* Estilo do botão de fechar do modal */
-.btn-secondary {
-    background-color: #6c757d; /* Cor do botão secundário */
-    color: #fff; /* Cor do texto */
+.icon-action-2:active {
+    transform: scale(0.98); /* Efeito de "pressionar" o botão */
 }
-
-/* Estilo do modal */
-.modal-header {
-    background-color: #1F2B5B; /* Cor do cabeçalho do modal */
-    color: #ffffff; /* Cor do texto do cabeçalho */
+.botao {
+    background-color: #1F2B5B;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 33px;
 }
-
-/* Estilo do rodapé do modal */
-.modal-footer {
-    display: flex;
-    justify-content: space-between; /* Espaço entre os botões */
+.botao:hover {
+    background-color: #9ab8d8;
 }
-
-/* Adicionando responsividade */
+/* Responsividade para a tabela */
 @media (max-width: 768px) {
-    .table {
-        font-size: 14px; /* Reduzir o tamanho da fonte em telas menores */
+    .custom-table {
+        width: 100%;
     }
-
-    .search-input {
-        width: 100%; /* Tornar a barra de pesquisa responsiva */
+    
+    .custom-table th, .custom-table td {
+        font-size: 12px;
+        padding: 8px;
     }
+}
+/*MODAL*/
+.modal-content {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    padding: 20px;
+}
+.modal-header {
+    border-bottom: 2px solid #1F2B5B; /* Linha abaixo do cabeçalho */
+    padding-bottom: 15px;
+    background-color: #354379; /* Cor de fundo suave */
+}
+.modal-title {
+    font-weight: bold;
+    font-size: 28px;
+    color: #ffffff; 
+}
+.btn-close {
+    border: none;
+    font-size: 20px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.modal-body {
+    font-size: 16px;
+    color: #555;
+    padding: 15px 0;
+}
+.modal-body p {
+    margin-bottom: 12px;
+}
+#fotoMedicamento img {
+    max-width: 80%; 
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+/* Rodapé do Modal */
+.modal-footer {
+    border-top: 2px solid #1F2B5B; /* Linha acima do rodapé */
+    padding-top: 10px;
+    text-align: right;
+}
+/* Botões do Rodapé */
+.modal-footer .btn-secondary {
+    background-color: #1F2B5B;
+    border-color: #1F2B5B;
+}
+.modal-footer .btn-secondary:hover {
+    background-color: #5369c2;
+    border-color: #5369c2;
+}
+.modal-footer .btn {
+    background-color: #1F2B5B;
+    border-color: #1F2B5B;
+    border-radius: 5px; 
+    padding: 8px 20px;
+    font-size: 16px;
+}
+.modal.fade {
+    transition: opacity 0.3s ease-in-out;
 }

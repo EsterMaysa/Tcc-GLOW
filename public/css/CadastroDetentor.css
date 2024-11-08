@@ -98,7 +98,7 @@
 
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ddd;
@@ -166,4 +166,3 @@ button[type="submit"]:hover {
     opacity: 0.8; 
     background-color: #384081;
 }
-
