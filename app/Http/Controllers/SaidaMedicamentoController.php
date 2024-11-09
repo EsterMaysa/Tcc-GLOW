@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ModelSaidaMedicamento;
-<<<<<<< HEAD
-=======
 use App\Models\ModelFuncionarioFarmaciaUBS;
 use App\Models\ModelMedicamentoFarmaciaUBS;
 use App\Models\ModelTipoMovimentacao;
->>>>>>> ae34801ced9cf33c505834152432695ce508b469
 
 class SaidaMedicamentoController extends Controller
 {
@@ -28,18 +25,11 @@ class SaidaMedicamentoController extends Controller
 
         $saidas = $query->get();
 
-<<<<<<< HEAD
-        return view('saidaMedMotivoLista', compact('saidas'));
-=======
         return view('farmacia.Medicamento.saidaMedMotivoLista', compact('saidas'));
->>>>>>> ae34801ced9cf33c505834152432695ce508b469
     }
 
     public function create()
     {
-<<<<<<< HEAD
-        return view('saidaMedMotivoCadastro');
-=======
 
         $medicamentos = ModelMedicamentoFarmaciaUBS::all(); // Altere conforme seu modelo
         $funcionarios = ModelFuncionarioFarmaciaUBS::all(); // Altere conforme seu modelo
@@ -55,18 +45,10 @@ class SaidaMedicamentoController extends Controller
 
 
         return view('farmacia.Medicamento.saidaMedMotivoLista', compact('saidas'));
->>>>>>> ae34801ced9cf33c505834152432695ce508b469
     }
 
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        // Validação dos campos
-        $request->validate([
-            'dataSaida' => 'required|date',
-            'quantidade' => 'required|integer|min:1',
-            'motivoSaida' => 'nullable|string|max:255',
-=======
         // Busca o medicamento usando o ID selecionado
         $medicamento = ModelMedicamentoFarmaciaUBS::find($request->idMedicamento);
         if (!$medicamento) {
@@ -110,7 +92,6 @@ class SaidaMedicamentoController extends Controller
             'idMedicamento' => $saida->idMedicamento,
             'idTipoMovimentacao' => $tipoMovimentacao->idTipoMovimentacao,
             'situacaoEstoque' => "A" // Situação ativa
->>>>>>> ae34801ced9cf33c505834152432695ce508b469
         ]);
     
         try {
@@ -130,17 +111,6 @@ class SaidaMedicamentoController extends Controller
         return view('farmacia.Medicamento.saidaMedMotivoEdit', compact('saida'));
     }
 
-<<<<<<< HEAD
-        // Cria um novo registro de saída de medicamento
-        ModelSaidaMedicamento::create([
-            'dataSaida' => $request->dataSaida,
-            'quantidade' => $request->quantidade,
-            'motivoSaida' => $request->motivoSaida,
-            'situacao' => 1,
-        ]);
-
-        return redirect()->back()->with('success', 'Saída de medicamento e motivo cadastrados com sucesso!');
-=======
     public function update(Request $request, $id)
     {
         // Busca a saída pelo ID
@@ -175,40 +145,39 @@ class SaidaMedicamentoController extends Controller
 
 
         return redirect('/saidaLista')->with('success', 'Saída de medicamento excluída com sucesso!');
->>>>>>> ae34801ced9cf33c505834152432695ce508b469
     }
 
-    public function edit($id)
-    {
-        $saida = ModelSaidaMedicamento::findOrFail($id);
-        return view('saidaMedMotivoEdit', compact('saida'));
-    }
+    // public function edit($id)
+    // {
+    //     $saida = ModelSaidaMedicamento::findOrFail($id);
+    //     return view('saidaMedMotivoEdit', compact('saida'));
+    // }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'dataSaida' => 'required|date',
-            'quantidade' => 'required|integer|min:1',
-            'motivoSaida' => 'nullable|string|max:255',
-        ]);
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'dataSaida' => 'required|date',
+    //         'quantidade' => 'required|integer|min:1',
+    //         'motivoSaida' => 'nullable|string|max:255',
+    //     ]);
 
-        $saida = ModelSaidaMedicamento::findOrFail($id);
-        $saida->update($request->only(['dataSaida', 'quantidade', 'motivoSaida']));
+    //     $saida = ModelSaidaMedicamento::findOrFail($id);
+    //     $saida->update($request->only(['dataSaida', 'quantidade', 'motivoSaida']));
 
-        return redirect()->route('saidaMedMotivo.index')->with('success', 'Saída de medicamento atualizada com sucesso!');
-    }
+    //     return redirect()->route('saidaMedMotivo.index')->with('success', 'Saída de medicamento atualizada com sucesso!');
+    // }
 
-    public function excluir(Request $request, $id)
-    {
-        $saida = ModelSaidaMedicamento::find($id);
+    // public function excluir(Request $request, $id)
+    // {
+    //     $saida = ModelSaidaMedicamento::find($id);
 
-        if (!$saida) {
-            return redirect()->back()->with('error', 'Saída de medicamento não encontrada.');
-        }
+    //     if (!$saida) {
+    //         return redirect()->back()->with('error', 'Saída de medicamento não encontrada.');
+    //     }
 
-        $saida->situacao = 0;
-        $saida->save();
+    //     $saida->situacao = 0;
+    //     $saida->save();
 
-        return redirect()->route('saidaMedMotivo.index')->with('success', 'Saída de medicamento excluída com sucesso!');
-    }
+    //     return redirect()->route('saidaMedMotivo.index')->with('success', 'Saída de medicamento excluída com sucesso!');
+    // }
 }

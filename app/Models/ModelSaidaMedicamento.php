@@ -5,11 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ModelMedicamentoFarmaciaUBS;
-<<<<<<< HEAD
-=======
-use App\Models\ModelFuncionarioFarmaciaUBS;
-
->>>>>>> ae34801ced9cf33c505834152432695ce508b469
 
 class ModelSaidaMedicamento extends Model
 {
@@ -26,15 +21,7 @@ class ModelSaidaMedicamento extends Model
         'quantidade',
         'motivoSaida',
         'situacao',
-<<<<<<< HEAD
         'idMedicamento', // Adicione aqui
-=======
-        'idFuncionario',
-        'idMedicamento',
-        'lote',        // Adicionado para registrar o lote do medicamento
-        'validade',    // Adicionado para registrar a validade do medicamento
-        'idMotivoSaida'  
->>>>>>> ae34801ced9cf33c505834152432695ce508b469
     ];
 
 
@@ -44,13 +31,9 @@ class ModelSaidaMedicamento extends Model
         return $this->belongsTo(ModelMedicamentoFarmaciaUBS::class, 'idMedicamento', 'idMedicamento');
     }
 
-<<<<<<< HEAD
-}
-=======
     public function funcionario()
     {
         return $this->belongsTo(ModelFuncionarioFarmaciaUBS::class, 'idFuncionario', 'idFuncionario');
     }
 
 }
->>>>>>> ae34801ced9cf33c505834152432695ce508b469

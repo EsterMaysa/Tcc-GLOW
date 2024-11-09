@@ -293,26 +293,4 @@ public function edit($id)
 
     return redirect()->route('medicamentos.index')->with('success', 'Entrada de medicamento ocultada com sucesso.');
 }
-
-
-
-//PUXA OS DADOS DO BANCO PRO GGRAFICAO
-
-public function showStockOverview()
-{
-    // Dados para o gráfico de Estoque Crítico (tbSaidaMedicamentos)
-    $estoqueCritico =   ModelSaidaMedicamento::table('tbSaidaMedicamentos')
-        ->select('nomeMedicamento', ModelSaidaMedicamento::raw('SUM(quantidadeSaida) as quantidade'))
-        ->groupBy('nomeMedicamento')
-        ->get();
-
-    // Dados para o gráfico de Visão Geral do Estoque (tbEntradaMedicamento)
-    $estoqueGeral = ModelEntradaMedicamento::table('tbEntradaMedicamento')
-        ->select('nomeMedicamento', ModelEntradaMedicamento::raw('SUM(quantidadeEntrada) as quantidade'))
-        ->groupBy('nomeMedicamento')
-        ->get();
-
-    return view('Farmacia.homeFarmacia', compact('estoqueCritico', 'estoqueGeral'));
-}
-
 }
