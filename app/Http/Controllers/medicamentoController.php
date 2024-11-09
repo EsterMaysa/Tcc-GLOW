@@ -256,5 +256,19 @@ class MedicamentoController extends Controller
         // Retorna os resultados em JSON
         return response()->json($resultados);
     }
+
+    // API
+    public function indexApi()
+    {
+        // Obter todos os registros de UBS do modelo
+        $med = MedicamentoModel::all();
+
+        // Retornar a resposta JSON com os dados e uma mensagem de sucesso
+        return response()->json([
+            'message' => 'Sucesso',
+            'code' => 200,
+            'data' => $med // Inclui os dados obtidos do modelo
+        ]);
+    }
     
 }

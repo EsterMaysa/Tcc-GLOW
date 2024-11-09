@@ -4,24 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ModelMedicamentoFarmaciaUBS;
 
 class ModelSaidaMedicamento extends Model
 {
     use HasFactory;
 
+    protected $connection = 'mysql2';
     protected $table = 'tbsaidamedicamento';
+    protected $primaryKey = 'idSaidaMedicamento'; // Adicione isso
+    public $incrementing = true; // Se a chave primária é auto-incrementada
+    public $timestamps = false;
 
     protected $fillable = [
         'dataSaida',
         'quantidade',
-        'idMotivoSaida'
+        'motivoSaida',
+        'situacao',
+        'idMedicamento', // Adicione aqui
     ];
 
-    public $timestamps = false;
 
-    // Relacionamento com o motivo de saída
-    public function motivoSaida()
+   // No ModelSaidaMedicamento
+    public function medicamento()
     {
-        return $this->belongsTo(ModelMotivoSaida::class, 'idMotivoSaida');
+        return $this->belongsTo(ModelMedicamentoFarmaciaUBS::class, 'idMedicamento', 'idMedicamento');
     }
+
+    public function funcionario()
+    {
+        return $this->belongsTo(ModelFuncionarioFarmaciaUBS::class, 'idFuncionario', 'idFuncionario');
+    }
+
 }

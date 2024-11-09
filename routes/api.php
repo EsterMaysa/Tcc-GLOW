@@ -7,7 +7,13 @@ use Illuminate\Support\Facades\App;
 
 
 use App\Http\Controllers\UBSController;
+use App\Http\Controllers\MedicamentoController;
+use App\Http\Controllers\MedicamentoFarmaciaUBSController;
+
 use App\Http\Controllers\TelefoneUBSController;
+
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\ClienteAdmController;
 
 
 
@@ -43,9 +49,14 @@ Route::post('/insertUBS', 'App\Http\Controllers\UBSController@store');
 Route::post('/insertTelefone', 'App\Http\Controllers\TelefoneUBSController@store');
 
 
+//UBS
+Route::get('/selectUbsApi', 'App\Http\Controllers\UBSController@indexApi');
+// Route::get('/selectMedApi', 'App\Http\Controllers\MedicamentoController@indexApi'); //adm geral
+Route::get('/selectMedApi', 'App\Http\Controllers\MedicamentoFarmaciaUBSController@indexApi'); //med farmacia
 
+Route::get('/selectUser', 'App\Http\Controllers\UsuarioController@indexApi'); //med farmacia
 
-
+Route::get('/selectCliente', 'App\Http\Controllers\ClienteAdmController@indexApi'); //med farmacia
 
 
 

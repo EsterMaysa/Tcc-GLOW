@@ -12,6 +12,7 @@ class TipoMedicamentoModel extends Model
     protected $table = 'tbtipoMedicamento';
     protected $connection = 'mysql';
     protected $primaryKey = 'idTipoMedicamento'; // Defina a chave primária correta
+    // protected $table = 'tbTipoMovimentacao'; // Nome da tabela
 
     protected $fillable = [
         'tipoMedicamento',

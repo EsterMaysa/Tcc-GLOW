@@ -13,7 +13,7 @@ class ModelEstoqueFarmaciaUBS extends Model
     protected $table = 'tbEstoqueFarmaciaUBS';
     protected $primaryKey = 'idEstoque';
     protected $connection = 'mysql2';
-
+    public $timestamps = false;
     protected $fillable = [
         'quantEstoque',
         'dataMovimentacao',

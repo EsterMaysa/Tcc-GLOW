@@ -54,7 +54,7 @@
                     </div>
                     <div class="card-body">
                         <div id="grafico-estoque">
-                            <!-- Gráfico de Estoque vai aqui -->
+                           Grafico aqui
                         </div>
                     </div>
                 </div>
