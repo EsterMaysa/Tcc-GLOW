@@ -227,10 +227,27 @@ class UBSController extends Controller
 
 
 
+// public function verificarEmail(Request $request)
+// {
+//     // Valida os dados recebidos
+  
+//     try {
+//         // Busca a UBS pelo e-mail na tabela tbubs
+//         $ubs = UBSModel::where('emailUBS', $request->email)->firstOrFail();
+
+//         // Atualiza a senha da UBS
+//         $ubs->senhaUBS = bcrypt($request->senha);
+//         $ubs->save();
+
+//         return redirect('/homeFarmacia')->with('success', 'Senha atualizada com sucesso!');
+//     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+//         return response()->json(['message' => 'UBS não encontrada.'], 404);
+//     }
+// }
+
 public function verificarEmail(Request $request)
 {
     // Valida os dados recebidos
-  
     try {
         // Busca a UBS pelo e-mail na tabela tbubs
         $ubs = UBSModel::where('emailUBS', $request->email)->firstOrFail();
@@ -239,11 +256,28 @@ public function verificarEmail(Request $request)
         $ubs->senhaUBS = bcrypt($request->senha);
         $ubs->save();
 
+        // Armazena o id da UBS na sessão
+        session(['idUBS' => $ubs->idUBS]);
+
+        // Redireciona para a página /homeFarmacia
         return redirect('/homeFarmacia')->with('success', 'Senha atualizada com sucesso!');
     } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
         return response()->json(['message' => 'UBS não encontrada.'], 404);
     }
 }
+
+// Em algum controlador que carrega a página FormsMed
+public function showFormsMed()
+{
+    // Acessando a variável idUBS da sessão
+    $idUBS = session('idUBS');
+
+    // Aqui você pode usar o idUBS conforme necessário
+    return view('farmacia.Medicamento.cadMedicamento', compact('idUBS'));
+}
+
+
+
 
 // Método no controlador de login (após a verificação de login)
 public function login(Request $request)
@@ -361,5 +395,20 @@ public function changeStatus($idUBS)
 
     // Retorna uma resposta
     return redirect()->back()->with('success', 'Estado alterado com sucesso!');
+}
+
+
+// API
+public function indexApi()
+{
+    // Obter todos os registros de UBS do modelo
+    $ubs = UBSModel::all();
+
+    // Retornar a resposta JSON com os dados e uma mensagem de sucesso
+    return response()->json([
+        'message' => 'Sucesso',
+        'code' => 200,
+        'data' => $ubs // Inclui os dados obtidos do modelo
+    ]);
 }
 }

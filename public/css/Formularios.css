@@ -116,7 +116,25 @@ label {
 
 #regiao, 
 #situacao,
-#telefone {
+#telefone,
+#tipoMedicamento,
+#formaMedicamento,
+#nomeFamaciaUBS,
+#emailFamaciaUBS,
+#senhaFamaciaUBS,
+#tipoFamaciaUBS,
+#nomeDetentor,
+#cnpjDetentor,
+#emailDetentor,
+#logradouroDetentor,
+#bairroDetentor,
+#estadoDetentor,
+#cidadeDetentor,
+#numeroDetentor,
+#ufDetentor,
+#cepDetentor,
+#complementoDetentor,
+#situacaoDetentor{
     width: 100%; 
     padding: 12px; 
     margin-bottom: 20px; 
@@ -128,7 +146,25 @@ label {
 
 #regiao:focus, 
 #situacao:focus,
-#telefone:focus {
+#telefone:focus,
+#tipoMedicamento:focus,
+#formaMedicamento:focus,
+#nomeFamaciaUBS:focus,
+#emailFamaciaUBS:focus,
+#senhaFamaciaUBS:focus,
+#tipoFamaciaUBS:focus,
+#nomeDetentor:focus,
+#cnpjDetentor:focus,
+#emailDetentor:focus,
+#logradouroDetentor:focus,
+#bairroDetentor:focus,
+#estadoDetentor:focus,
+#cidadeDetentor:focus,
+#numeroDetentor:focus,
+#ufDetentor:focus,
+#cepDetentor:focus,
+#complementoDetentor:focus,
+#situacaoDetentor:focus {
     border-color: #1F2B5B;
     outline: none; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
@@ -154,4 +190,31 @@ label {
 .botaozinho:focus {
     outline: none; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 40%;
+    margin-bottom: 2%;
+}
+
+.btn i {
+    margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+}
+
+.btn-secondary {
+    background-color: #1F2B5B;
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #6274be;
 }

@@ -23,7 +23,7 @@
 }
 
 .logo {
-    margin-left: 15%;
+    margin-left: 19%;
     width: 33%; 
     height: auto; 
 }
@@ -240,32 +240,233 @@ main {
     text-align: left;
     border-radius: 1px;
     border-bottom: 1px solid #ddd;
-}
-
-.ubs-row:hover {
-    background-color: #f1f1f1;
+    background-color: #fcfcfc;
 }
 
 
+/* Estilo para o link de editar (com ícone) */
 .edit-icon {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    color: #007bff;
+    padding: 5px 12px;
+    margin: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
     text-decoration: none;
-}
-
-.edit-icon:hover {
-    color: #0056b3;
+    border-radius: 5px;
+    background-color: #ffd900;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .edit-icon i {
     margin-right: 5px;
+    font-size: 14px; /* Tamanho do ícone */
 }
 
-/* Estilo do modal */
-.modal-content {
-    border-radius: 8px;
+.edit-icon:hover {
+    background-color: #ffeb37;
 }
+
+/* Estilo para o botão de excluir (com ícone) */
+.edit-icon button {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    margin: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-icon button i {
+    margin-right: 5px;
+    font-size: 14px; /* Tamanho do ícone */
+}
+
+.edit-icon button:hover {
+    background-color: #c82333;
+}
+
+/* Estilo para o botão "Ver mais" */
+.botaozinho {
+    height: 28px;
+    width: 40px;
+    display: inline-flex;
+    align-items: center;
+    font-weight: bold;
+    background-color: #1F2B5B;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.botaozinho i {
+    margin-left: 10px;
+    font-size: 17px; /* Tamanho do ícone */
+}
+
+
+.botaozinho:hover {
+    background-color: #6aa3e0;
+}
+
+/* Modificando o estilo do formulário de excluir para parecer com um botão */
+form button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    margin: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button[type="submit"] i {
+    margin-right: 5px;
+    font-size: 14px; /* Tamanho do ícone */
+}
+
+form button[type="submit"]:hover {
+    background-color: #c82333;
+}
+
+
+
+
+/* Estilo geral do Modal */
+.modal-content {
+    border-radius: 10px; /* Bordas arredondadas para um visual mais moderno */
+    border: 1px solid #ddd; /* Borda suave */
+    background-color: #ffffff; /* Fundo branco para clareza */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Cabeçalho do Modal */
+.modal-header {
+    background-color: #1F2B5B; /* Cor de fundo azul */
+    color: #ffffff; /* Cor do texto branco */
+    border-top-left-radius: 10px; /* Bordas arredondadas no canto superior esquerdo */
+    border-top-right-radius: 10px; /* Bordas arredondadas no canto superior direito */
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+}
+
+.btn-close {
+    color: #fff;
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+/* Corpo do Modal */
+.modal-body {
+    padding: 20px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.modal-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* Bordas arredondadas na imagem */
+    margin-bottom: 15px;
+}
+
+/* Parágrafos do modal */
+.modal-body p {
+    margin-bottom: 10px;
+}
+
+.modal-body p strong {
+    color: #1F2B5B; /* Destacar o texto em negrito */
+}
+
+/* Rodapé do Modal */
+.modal-footer {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    text-align: right;
+}
+
+.modal-footer .btn {
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Estilo do botão "Fechar" */
+.modal-footer .btn-secondary {
+    background-color: #1F2B5B;
+    color: #ffffff;
+    border: 1px solid #ccc;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #8695d4;
+    color: #000;
+}
+
+/* Responsividade - Para telas menores */
+@media (max-width: 768px) {
+    .modal-dialog {
+        max-width: 90%; /* Modal ocupa 90% da largura da tela */
+    }
+
+    .modal-body {
+        font-size: 13px;
+        padding: 15px;
+    }
+
+    .modal-footer .btn {
+        font-size: 13px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        max-width: 95%;
+    }
+
+    .modal-header, .modal-footer {
+        padding: 10px;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+
+    .modal-footer .btn {
+        font-size: 12px;
+        padding: 7px 12px;
+    }
+}
+
 
 /* Estilo do botão de filtro */
 #applyFilters {

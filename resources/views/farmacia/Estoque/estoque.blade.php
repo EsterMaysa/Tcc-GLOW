@@ -236,6 +236,7 @@
                                 </div>
                             </div>
                         </div>
+                        @foreach($funcionario as $f)
 
                         <!-- Modal para Registrar Entrada -->
                         <div class="modal fade" id="entradaModal{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="entradaModalLabel" aria-hidden="true">
@@ -289,9 +290,7 @@
                                                 <label for="funcionario">Funcionário Responsável:</label>
                                                 <select name="idFuncionario" class="form-control" id="funcionario" required>
                                                     <option value="">Selecione um funcionário</option>
-                                                    @foreach($funcionario as $f)
                                                     <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
-                                                    @endforeach
                                                 </select>
                                             </div>
 
@@ -310,27 +309,59 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="" method="POST">
+                                        <form action="{{ route('saidaMedMotivo.store') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="tipoMovimentacao" value="saida">
-                                            <input type="hidden" name="idMedicamento" value="{{ $med->idMedicamento }}">
+                                            <div class="form-group">
+                                                <label for="idMedicamento">Medicamento:</label>
+                                                <select id="idMedicamento" name="idMedicamento" required>
+                                                    <option value="">Selecione o Medicamento</option>
+                                                    <option value="{{ $med->idMedicamento }}" data-lote="{{ $med->lote }}" data-validade="{{ $med->validade }}">
+                                                        {{ $med->nomeMedicamento }}
+                                                    </option>
+                                                
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="dataSaida">Data de Saída:</label>
+                                                <input type="date" id="dataSaida" name="dataSaida" required>
+                                            </div>
 
                                             <div class="form-group">
                                                 <label for="quantidade">Quantidade:</label>
-                                                <input type="number" class="form-control" id="quantidade" name="quantidade" min="1" required>
+                                                <input type="number" id="quantidade" name="quantidade" min="1" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="motivoSaida">Motivo de Saída:</label>
-                                                <input type="text" class="form-control" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required>
+                                                <input type="text" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required>
                                             </div>
 
-                                            <button type="submit" class="btn btn-danger">Registrar Saída</button>
+                                            <div class="form-group">
+                                                <label for="lote">Lote:</label>
+                                                <input type="text" id="lote" name="lote" maxlength="90" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="validade">Data de Validade:</label>
+                                                <input type="date" id="validade" name="validade" required>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="idFuncionario">Funcionário:</label>
+                                                <select id="idFuncionario" name="idFuncionario" required>
+                                                    <option value="">Selecione o Funcionário</option>
+                                                    <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
+                                                </select>
+                                            </div>
+
+                                            <button type="submit" class="btn-submit">Cadastrar Saída e Motivo</button>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        @endforeach
                         @endif
 
                         @endforeach

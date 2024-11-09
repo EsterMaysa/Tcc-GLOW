@@ -29,6 +29,8 @@ class MedicamentoFarmaciaUBSController extends Controller
         $medicamento->composicaoMedicamento = $request->composicaoMedicamento;
         $medicamento->situacaoMedicamento = "A";
         $medicamento->dataCadastroMedicamento = now();
+        $medicamento->idUBS = $request->idUBS;
+
         $medicamento->save();
 
         return redirect('/MedicamentoHome');
@@ -118,4 +120,16 @@ class MedicamentoFarmaciaUBSController extends Controller
         return view('farmacia.Medicamento.medicamentoFarmacia', compact('medicamentos'));
     }
     
+    public function indexApi()
+    {
+        // Obter todos os registros de UBS do modelo
+        $med = ModelMedicamentoFarmaciaUBS::all();
+
+        // Retornar a resposta JSON com os dados e uma mensagem de sucesso
+        return response()->json([
+            'message' => 'Sucesso',
+            'code' => 200,
+            'data' => $med // Inclui os dados obtidos do modelo
+        ]);
+    }
 }
