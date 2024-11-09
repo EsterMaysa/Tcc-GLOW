@@ -14,9 +14,12 @@
         </div>
     </div>
 
+    <!-- Campo de Pesquisa -->
+    <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por Nome, Lote, Funcionário ou Motivo" style="margin-top: 10px;">
+
     <!-- Tabela de Entradas de Medicamentos -->
     <div class="container mt-4">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" id="medicamentoTable"> <!-- Adicionando o ID aqui -->
             <thead>
                 <tr>
                     <th>ID</th>
@@ -80,3 +83,25 @@
         margin-right: 0;
     }
 </style>
+
+<!-- Script para o filtro -->
+<script>
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    const filter = this.value.toLowerCase();
+    const rows = document.querySelectorAll('#medicamentoTable tbody tr');
+
+    rows.forEach(row => {
+        const columns = row.getElementsByTagName('td');
+        let match = false;
+
+        for (let i = 0; i < columns.length; i++) {
+            if (columns[i].textContent.toLowerCase().includes(filter)) {
+                match = true;
+                break;
+            }
+        }
+
+        row.style.display = match ? '' : 'none'; // Exibir ou ocultar a linha
+    });
+});
+</script>

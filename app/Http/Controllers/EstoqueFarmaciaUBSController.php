@@ -47,7 +47,7 @@ class EstoqueFarmaciaUBSController extends Controller
         // Salva o estoque com a nova quantidade
         $estoque->save();
 
-        // return redirect('/estoqueHome')->with('success', 'Estoque registrado com sucesso!');
+        return redirect()->route('farmacia.medicamento.MedicamentoEntrada')->with('success', 'Entrada de medicamento e atualização de estoque realizadas com sucesso!');
     }
 
     public function saida(Request $request)

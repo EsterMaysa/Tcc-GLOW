@@ -40,11 +40,9 @@
         <input type="date" name="validade" class="form-control" value="{{ $entrada->validade }}" required readonly id="validade">
     </div>
 
-    <div class="form-group">
-    <label for="motivoEntrada">Motivo da Entrada:</label>
     <input type="text" name="motivoEntrada" class="form-control" id="motivoEntrada" 
-           value="{{ $motivo->motivoEntrada }}" required placeholder="Digite o motivo da entrada">
-</div>
+       value="{{ $motivoEntrada }}" required placeholder="Digite o motivo da entrada">
+
 
 
 
