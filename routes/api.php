@@ -58,6 +58,11 @@ Route::get('/selectUser', 'App\Http\Controllers\UsuarioController@indexApi'); //
 
 Route::get('/selectCliente', 'App\Http\Controllers\ClienteAdmController@indexApi'); //med farmacia
 
+Route::get('/medicamentos/ubs/nome/{nomeUBS}', [MedicamentoFarmaciaUBSController::class, 'getMedicamentosByNomeUBS']);
+
+Route::get('/selectMedApi/{id}', [MedicamentoFarmaciaUBSController::class, 'show']);
+
+Route::get('/usuario/cns/{cns}', [UsuarioController::class, 'getUserByCNS']);
 
 
 

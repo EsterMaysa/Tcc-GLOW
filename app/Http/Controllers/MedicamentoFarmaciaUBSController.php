@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelMedicamentoFarmaciaUBS;
+use App\Models\UBSModel;
+
+
 use Illuminate\Http\Request;
 
 class MedicamentoFarmaciaUBSController extends Controller
@@ -121,15 +124,49 @@ class MedicamentoFarmaciaUBSController extends Controller
     }
     
     public function indexApi()
-    {
-        // Obter todos os registros de UBS do modelo
-        $med = ModelMedicamentoFarmaciaUBS::all();
+{
+    // Obter todos os registros de UBS do modelo
+    $ubs = UBSModel::table('tbUBS')->select('idUBS', 'nomeUBS', 'fotoUBS')->get();  // Seleciona apenas os dados necessários
 
-        // Retornar a resposta JSON com os dados e uma mensagem de sucesso
-        return response()->json([
-            'message' => 'Sucesso',
-            'code' => 200,
-            'data' => $med // Inclui os dados obtidos do modelo
-        ]);
+    // Retornar a resposta JSON com os dados e uma mensagem de sucesso
+    return response()->json([
+        'message' => 'Sucesso',
+        'code' => 200,
+        'data' => $med  // Inclui os dados obtidos do modelo
+    ]);
+}
+
+    public function getMedicamentosByNomeUBS($nomeUBS)
+{
+    // Verificar se existe uma UBS com o nome fornecido
+    $ubs = UBSModel::where('nomeUBS', $nomeUBS)->first();
+    
+    // Se a UBS não for encontrada, retorna uma mensagem de erro
+    if (!$ubs) {
+        return response()->json(['message' => 'UBS não encontrada'], 404);
+    }
+
+    // Obter o id da UBS encontrada
+    $idUBS = $ubs->idUBS;
+
+    // Obter todos os medicamentos relacionados à UBS encontrada
+    $medicamentos = ModelMedicamentoFarmaciaUBS::where('idUBS', $idUBS)->get();
+
+    // Retornar os dados da UBS e a lista completa de medicamentos relacionados
+    return response()->json([
+        'ubs' => $ubs,
+        'medicamentos' => $medicamentos
+    ]);
+}
+    public function show($id)
+    {
+        // Buscando o medicamento pelo ID
+        $medicamento = ModelMedicamentoFarmaciaUBS::find($id);
+
+        if ($medicamento) {
+            return response()->json($medicamento, 200); // Retorna os dados do medicamento
+        } else {
+            return response()->json(['message' => 'Medicamento não encontrado'], 404);
+        }
     }
 }

@@ -36,4 +36,8 @@ class ModelMedicamentoFarmaciaUBS extends Model
     return $this->belongsTo(ModelMedicamentoFarmaciaUBS::class, 'idMedicamento', 'idMedicamento');
 }
 
+    public function ubs()
+    {
+        return $this->belongsTo(UBSModel::class, 'idUBS');
+    }
 }
