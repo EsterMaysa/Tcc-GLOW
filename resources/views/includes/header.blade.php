@@ -1,6 +1,6 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
 	<!--Tags Obrigátórias!-->
 	<meta charset="UTF-8">
@@ -14,34 +14,54 @@
 
 	<!--CSS-->
 	<link rel="stylesheet" href="{{ url('css/header.css')}}">
-	
+
 	<!--Título e favicon da página-->
 	<title>Dashboard FarmaSUS</title>
 	<link rel="shortcut icon" href="{{ asset('Image/favicon.ico')}}" type="image/x-icon">
 </head>
+
 <body>
 
 	<div class="header">
 		<div class="side-nav">
 			<div class="user">
 				<div>
-					<h2> Gabrielly Vasconcelos </h2>
+					@if(Auth::check()) <!-- Verifica se o usuário está logado -->
+					<h2>{{ Auth::user()->nomeAdministrador }}</h2> <!-- Exibe o nome do administrador logado -->
 					<p>Administrador(a)</p>
+					@else
+					<p>Olá Administrador!</p>
+					@endif
 				</div>
 			</div>
 			<ul>
-				<li><a href="/"><img src="{{ asset('Image/dashboard.png')}}"><p>Painel</p></a></li>
-				<li><a href="/medicamento"><img src="{{ asset('Image/reports.png')}}"><p>Medicamentos</p></a></li>
-				<li><a href="/medicamentoForm"><img src="{{ asset('Image/reports.png')}}"><p> Cadastro Medicamentos</p></a></li>
-				<li><a href="/detentor"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro Detentor</p></a></li>
-				<li><a href="/selectUBS"><img src="{{ asset('Image/reports.png')}}"><p>Unidades Básicas de Saúde</p></a></li>
-				<li><a href="/selectRegiaoForm"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro de UBS</p></a></li>
-				<li><a href="/cliente"><img src="{{ asset('Image/reports.png')}}"><p>Pacientes</p></a></li>
-				<li><a href="/contato"><img src="{{ asset('Image/messages.png')}}"><p>Mensagens</p></a></li>	
+				<li><a href="/"><img src="{{ asset('Image/dashboard.png')}}">
+						<p>Painel</p>
+					</a></li>
+				<li><a href="/medicamento"><img src="{{ asset('Image/reports.png')}}">
+						<p>Medicamentos</p>
+					</a></li>
+				<li><a href="/medicamentoForm"><img src="{{ asset('Image/reports.png')}}">
+						<p> Cadastro Medicamentos</p>
+					</a></li>
+				<li><a href="/detentor"><img src="{{ asset('Image/reports.png')}}">
+						<p>Cadastro Detentor</p>
+					</a></li>
+				<li><a href="/selectUBS"><img src="{{ asset('Image/reports.png')}}">
+						<p>Unidades Básicas de Saúde</p>
+					</a></li>
+				<li><a href="/selectRegiaoForm"><img src="{{ asset('Image/reports.png')}}">
+						<p>Cadastro de UBS</p>
+					</a></li>
+				<li><a href="/cliente"><img src="{{ asset('Image/reports.png')}}">
+						<p>Pacientes</p>
+					</a></li>
+				<li><a href="/contato"><img src="{{ asset('Image/messages.png')}}">
+						<p>Mensagens</p>
+					</a></li>
 			</ul>
 			<ul>
-				<li><a href="/perfil"><img src="{{ asset('Image/members.png')}}"><p>Perfil</p></a></li>
-				<li><a href="/configuracoes"><img src="{{ asset('Image/setting.png')}}"><p> Configurações </p></a></li>
+		
 
 				<li>
 					<form id="logout-form" action="/logout" method="POST" style="display: none;">
@@ -51,9 +71,8 @@
 						<img src="{{ asset('Image/logout.png') }}">
 						<p>Sair</p>
 					</a>
-				</li>		
+				</li>
 
 			</ul>
 		</div>
 	</div>
-

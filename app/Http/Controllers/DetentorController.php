@@ -18,6 +18,33 @@ class DetentorController extends Controller
 
     public function NewDetentor(Request $request)
     {
+
+        
+        // Limpa o CEP e realiza a requisição na API ViaCEP
+        $cep = preg_replace('/\D/', '', $request->cep); // Remove caracteres não numéricos
+
+        $viacepResponse = Http::get("https://viacep.com.br/ws/{$cep}/json/");
+
+        // Se a requisição falhar, retorna erro ao usuário
+        if ($viacepResponse->failed()) {
+            return response()->json(['message' => 'CEP inválido ou ViaCEP indisponível.'], 400);
+        }
+
+        $endereco = $viacepResponse->json();
+
+        // Preenche os dados de endereço caso o CEP seja encontrado
+        $logradouro = $endereco['logradouro'] ?? '';
+        $bairro = $endereco['bairro'] ?? '';
+        $cidade = $endereco['localidade'] ?? '';
+        $uf = $endereco['uf'] ?? '';
+
+        // Completa o request com os dados do endereço
+        $request->merge([
+            'logradouro' => $logradouro,
+            'bairro' => $bairro,
+            'cidade' => $cidade,
+            'estado' => $uf,
+        ]);
         $detentor = new DetentorModel();
         $detentor->nomeDetentor = $request->nome;
         $detentor->cnpjDetentor = $request->cnpj;
@@ -27,7 +54,7 @@ class DetentorController extends Controller
         $detentor->estadoDetentor = $request->estado;
         $detentor->cidadeDetentor = $request->cidade;
         $detentor->numeroDetentor = $request->numero;
-        $detentor->ufDetentor = $request->uf;
+        $detentor->ufDetentor = $request->estado;
         $detentor->cepDetentor = $request->cep;
         $detentor->complementoDetentor = $request->complemento;
         $detentor->situacaoDetentor = "A";

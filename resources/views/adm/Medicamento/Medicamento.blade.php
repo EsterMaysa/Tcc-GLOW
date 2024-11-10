@@ -5,7 +5,7 @@
 
 <nav class="navbar">
     <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
+        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo">
     </div>
     <div class="search-container">
         <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
@@ -27,14 +27,14 @@
     <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Cadastrar</h3>
     <div class="cadastros-list">
         <div class="cadastro-item">
-            <p>Cadastrar Medicamento</p> 
+            <p>Cadastrar Medicamento</p>
             <a href="/medicamentoForm" class="cadastrar-link">
                 <i class="fas fa-plus"></i>
                 <span class="status-busca"> Cadastrar </span>
             </a>
         </div>
         <div class="cadastro-item">
-            <p>Cadastrar Tipo Medicamento</p> 
+            <p>Cadastrar Tipo Medicamento</p>
             <a href="/TipoMedicamento" class="cadastrar-link">
                 <i class="fas fa-plus"></i>
                 <span class="status-busca"> Cadastrar </span>
@@ -48,10 +48,10 @@
         <div class="order">
             <div class="head">
                 <h5 style="font-size: 30px; font-weight: bold;">Medicamentos</h5>
-                    <form action="{{ route('medicamentos.search') }}" method="GET">
-                        <input type="text" name="query" id="searchInput" placeholder="Pesquisar por nome, nome genérico, código de barras e nome do Detentor..." class="search-input" style="width: 700px;" onkeyup="if(event.key === 'Enter') this.form.submit();">
-                    </form>
-                    <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
+                <form action="{{ route('medicamentos.search') }}" method="GET">
+                    <input type="text" name="query" id="searchInput" placeholder="Pesquisar por nome, nome genérico, código de barras e nome do Detentor..." class="search-input" style="width: 700px;" onkeyup="if(event.key === 'Enter') this.form.submit();">
+                </form>
+                <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
             </div>
         </div>
     </div>
@@ -75,28 +75,28 @@
                     <td>{{ $med->nomeMedicamento }}</td>
                     <td>{{ $med->nomeGenericoMedicamento }}</td>
                     <td>
-                         @if( $med->situacaoMedicamento === 'A')
-                            Ativado
+                        @if( $med->situacaoMedicamento === 'A')
+                        Ativado
                         @elseif( $med->situacaoMedicamento === 'D')
-                            Desativado
+                        Desativado
                         @else
-                            Indefinido
+                        Indefinido
                         @endif
                     </td>
                     <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
 
                     <td class="actions">
                         @if ($med->situacaoMedicamento == 'A')
-                            <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="icon-action" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja desativar este medicamento?');">
-                                @csrf
-                                @method('PUT') <!-- Usar PUT para desativar -->
-                                <button type="submit" class="icon-action-2" title="Desativar">
-                                    <i class="fas fa-ban"></i>
-                                </button>
-                            </form>
+                        <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="icon-action" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja desativar este medicamento?');">
+                            @csrf
+                            @method('PUT') <!-- Usar PUT para desativar -->
+                            <button type="submit" class="icon-action-2" title="Desativar">
+                                <i class="fas fa-ban"></i>
+                            </button>
+                        </form>
                         @endif
                         <button type="button" class="botao" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $med->idMedicamento }}">
                             <i class="fas fa-eye"></i> <!-- Ícone de olho para Ver Mais -->
@@ -128,10 +128,10 @@
                                 <!-- Foto -->
                                 <div id="fotoMedicamento{{ $med->idMedicamento }}">
                                     @if($med->fotoMedicamentoOriginal)
-                                        <p><strong>Foto Original:</strong></p>
-                                        <img src="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}" alt="Foto Original" style="max-width: 100%;" id="imagemExibida{{ $med->idMedicamento }}">
+                                    <p><strong>Foto Original:</strong></p>
+                                    <img src="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}" alt="Foto Original" style="max-width: 100%;" id="imagemExibida{{ $med->idMedicamento }}">
                                     @else
-                                        <p>Sem foto original.</p>
+                                    <p>Sem foto original.</p>
                                     @endif
                                 </div>
                             </div>
@@ -156,59 +156,68 @@
                 </div>
                 <div class="modal-body">
                     <!-- Filtros -->
-                    <div class="mb-3">
-                        <label class="form-label">Situação</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="A" id="situacaoAtivo" name="situacao[]">
-                            <label class="form-check-label" for="situacaoAtivo">Ativo</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="D" id="situacaoInativo" name="situacao[]">
-                            <label class="form-check-label" for="situacaoInativo">Inativo</label>
-                        </div>
-                    </div>
+                    <form action="/medicamentosfilter" method="GET">
 
-                    <div class="mb-3">
-                        <label class="form-label">Forma Farmacêutica</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Comprimido" id="formaComprimido" name="formaFarmaceutica[]">
-                            <label class="form-check-label" for="formaComprimido">Comprimido</label>
+                        <div class="mb-3">
+                            <label class="form-label">Situação</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="A" id="situacaoAtivo" name="situacao[]">
+                                <label class="form-check-label" for="situacaoAtivo">Ativo</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="D" id="situacaoInativo" name="situacao[]">
+                                <label class="form-check-label" for="situacaoInativo">Inativo</label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Cápsula" id="formaCapsula" name="formaFarmaceutica[]">
-                            <label class="form-check-label" for="formaCapsula">Cápsula</label>
+
+                        <div class="mb-3">
+                            <label class="form-label">Forma Farmacêutica</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Comprimido" id="formaComprimido" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaComprimido">Comprimido</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Cápsula" id="formaCapsula" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaCapsula">Cápsula</label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="filtroTipoMedicamento" class="form-label">Tipo de Medicamento</label>
-                        <select class="form-select" id="filtroTipoMedicamento" name="tipoMedicamento">
-                            <option value="">Todos os tipos de medicamento</option>
-                            @foreach($tiposMedicamento as $t)
-                            <option value="{{ $t->idTipoMedicamento }}">
-                                {{ $t->tipoMedicamento }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <div class="mb-3">
+                            <label for="filtroTipoMedicamento" class="form-label">Tipo de Medicamento</label>
+                            <select class="form-select" id="filtroTipoMedicamento" name="tipoMedicamento">
+                                <option value="">Todos os tipos de medicamento</option>
+                                @foreach($tiposMedicamento as $t)
+                                <option value="{{ $t->idTipoMedicamento }}">
+                                    {{ $t->tipoMedicamento }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="filtroDataCadastro" class="form-label">Data de Cadastro</label>
-                        <input type="date" class="form-control" id="filtroDataCadastro" name="dataCadastro">
-                    </div>
+                        <div class="mb-3">
+                            <label for="filtroDataCadastro" class="form-label">Data de Cadastro</label>
+                            <input type="date" class="form-control" id="filtroDataCadastro" name="dataCadastro">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="applyFilters">Aplicar Filtros</button>
+                           
+                            <form action="/medicamento" method="GET">
+                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                            </form>
+
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="applyFilters">Aplicar Filtros</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
+
             </div>
         </div>
     </div>
+
+    <!-- Link para o Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 </main>
 
 <br>
 @include('includes.footer') <!-- include do footer -->
-
-<!-- Link para o Bootstrap -->
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

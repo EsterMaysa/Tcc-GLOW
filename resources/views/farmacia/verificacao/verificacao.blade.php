@@ -19,8 +19,7 @@
         </form>
 
         <div class="links">
-            <a href="#">Não possui cadastro? ➔</a>
-            <a href="#">Não é Farmácia? ➔</a>
+            <a href="/login">Não é Farmácia? ➔</a>
         </div>
     </div>
 </div>

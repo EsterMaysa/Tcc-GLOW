@@ -31,7 +31,7 @@ class MedicamentoController extends Controller
 
         return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento'));
     }
-
+   
     public function search(Request $request)
     {
 
@@ -215,47 +215,39 @@ class MedicamentoController extends Controller
         return response()->json(null);
     }
 
-    public function filtrar(Request $request)
-    {
-        // Inicia a consulta base para a tabela Medicamento
-        $query = MedicamentoModel::query();
-    
-        // Filtro para Registro ANVISA
-        if ($request->filled('registroAnvisa')) {
-            $query->whereIn('registroAnvisaMedicamento', $request->registroAnvisa);
-        }
-    
-        // Filtro para Forma Farmacêutica
-        if ($request->filled('formaFarmaceutica')) {
-            $query->whereIn('formaFarmaceuticaMedicamento', $request->formaFarmaceutica);
-        }
-    
-        // Filtro para Situação
-        if ($request->filled('situacao')) {
-            $query->whereIn('situacaoMedicamento', $request->situacao);
-        }
-    
-        // Filtro para Detentor (caso seja uma seleção única)
-        if ($request->filled('detentor')) {
-            $query->where('idDetentor', $request->detentor);
-        }
-    
-        // Filtro para Tipo de Medicamento (caso seja uma seleção única)
-        if ($request->filled('tipoMedicamento')) {
-            $query->where('idTipoMedicamento', $request->tipoMedicamento);
-        }
-    
-        // Filtro para Data de Cadastro
-        if ($request->filled('dataCadastro')) {
-            $query->whereDate('created_at', $request->dataCadastro);
-        }
-    
-        // Executa a consulta com os filtros aplicados
-        $resultados = $query->get();
-    
-        // Retorna os resultados em JSON
-        return response()->json($resultados);
+public function applyFilters(Request $request)
+{
+    $detentores = DetentorModel::all();
+    $tiposMedicamento = TipoMedicamentoModel::all();
+
+    $query = MedicamentoModel::query();
+
+    // Filtrar por Situação
+    if ($request->has('situacao') && !empty($request->situacao)) {
+        $query->whereIn('situacaoMedicamento', $request->situacao);
     }
+
+    // Filtrar por Forma Farmacêutica
+    if ($request->has('formaFarmaceutica') && !empty($request->formaFarmaceutica)) {
+        $query->whereIn('formaFarmaceuticaMedicamento', $request->formaFarmaceutica);
+    }
+
+    // Filtrar por Tipo de Medicamento
+    if ($request->has('tipoMedicamento') && $request->tipoMedicamento != '') {
+        $query->where('idTipoMedicamento', $request->tipoMedicamento);
+    }
+
+    // Filtrar por Data de Cadastro
+    if ($request->has('dataCadastro') && $request->dataCadastro != '') {
+        $query->whereDate('dataCadastroMedicamento', '=', $request->dataCadastro);
+    }
+
+    // Obter os resultados filtrados
+    $medicamento = $query->get();
+
+    return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento'));
+}
+
 
     // API
     public function indexApi()

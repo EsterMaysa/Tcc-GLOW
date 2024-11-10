@@ -8,6 +8,7 @@ use App\Models\UBSModel;
 use App\Models\RegiaoUBSModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
 
 
 use App\Mail\UBSRegistrationSuccessMail;
@@ -276,9 +277,6 @@ public function showFormsMed()
     return view('farmacia.Medicamento.cadMedicamento', compact('idUBS'));
 }
 
-
-
-
 // Método no controlador de login (após a verificação de login)
 public function login(Request $request)
 {
@@ -332,11 +330,6 @@ public function logout()
 }
 
 
-
-
-    
-    
-        
 public function update(Request $request, $id)
 {
     // Validação dos dados
