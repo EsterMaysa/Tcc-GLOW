@@ -51,7 +51,7 @@ class TipoMovimentacaoController extends Controller
 
     try {
         // Procurar a movimentação a ser atualizada no banco de dados
-        $movimentacao = TipoMovimentacao::findOrFail($id);
+        $movimentacao = ModelTipoMovimentacao::findOrFail($id);
 
         // Atualizar os campos
         $movimentacao->movimentacao = $request->movimentacao;

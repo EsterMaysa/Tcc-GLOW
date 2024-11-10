@@ -46,5 +46,9 @@ class UBSModel extends Model
     }
     public $timestamps = false;
 
+    public function medicamentos()
+    {
+        return $this->hasMany(ModelMedicamentoFarmaciaUBS::class, 'idUBS');
+    }
    
 }
