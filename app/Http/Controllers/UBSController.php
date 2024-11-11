@@ -43,7 +43,7 @@ class UBSController extends Controller
     // Validação dos dados de entrada
     $validator = Validator::make($request->all(), [
         'ubs' => 'required|string|max:255',
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        'fotoUBS' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         'cnpj' => 'required|string|max:14',
         'cep' => 'required|string|max:10',
         'numero' => 'required|string|max:10',

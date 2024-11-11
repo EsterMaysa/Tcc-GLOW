@@ -22,7 +22,7 @@
 </div>
 
 <main>
-    <div id="mensagens-lista">
+    <div id="mensagens-lista" >
         @foreach($contatos as $c)
             <div class="mensagem" id="mensagem-{{ $c->idContato }}">
                 <p><strong>De:</strong> <span class="remetente">{{ $c->usuario->nomeUsuario ?? 'Usuário não encontrado' }}</span></p>

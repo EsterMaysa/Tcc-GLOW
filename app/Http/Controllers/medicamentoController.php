@@ -14,8 +14,9 @@ class MedicamentoController extends Controller
     {
         $detentores = DetentorModel::all();
         $tiposMedicamento = TipoMedicamentoModel::all();
+        
         // Verifica se há dados na sessão para preencher o formulário
-        $formData = session()->getOldInput(); // Obter dados antigos do input
+        $formData = session()->get('formData', []);
 
         return view('adm.Medicamento.cadastroMed', compact('detentores', 'tiposMedicamento', 'formData'));
     }

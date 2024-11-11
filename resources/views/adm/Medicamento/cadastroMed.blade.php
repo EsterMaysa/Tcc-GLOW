@@ -50,37 +50,43 @@
                         <label for="codigoDeBarrasMedicamento">
                             <i class="fas fa-barcode"></i> Código de Barras :
                         </label>
-                        <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras" value="{{ old('codigoDeBarras', $formData['codigoDeBarras'] ?? '') }}" required>
-                    </div>
+                            <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras" value="{{ old('codigoDeBarras', $formData['codigoDeBarras'] ?? '') }}" required>
+                        </div>
 
                     <div class="form-col">
                         <label for="nomeMedicamento">
                             <i class="fas fa-pills"></i> Nome do Medicamento :
                         </label>
-                        <input type="text" class="form-control" id="nomeMedicamento" name="nome" value="{{ old('nome', $formData['nome'] ?? '') }}" required>
+                        <input type="text" class="form-control" id="nomeMedicamento" name="nome" required value="{{ old('nome', $formData['nome'] ?? '') }}" >
                     </div>
 
                     <div class="form-col">
                         <label for="nomeGenericoMedicamento">
                             <i class="fas fa-capsules"></i> Nome Genérico
                         </label>
-                        <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenerico" value="{{ old('nomeGenerico', $formData['nomeGenerico'] ?? '') }}" required>
+                        <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenerico" required value="{{ old('nomeGenerico', $formData['nomeGenerico'] ?? '') }}">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-col">
-                        <label for="registroAnvisaMedicamento">
-                            <i class="fas fa-file-medical-alt"></i> Registro ANVISA
-                        </label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroSim" value="Deferido" {{ old('registroAnvisa', $formData['registroAnvisa'] ?? '') == 'Deferido' ? 'checked' : '' }} required>
-                            <label class="form-check-label" for="registroSim">Deferido</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroNao" value="Indeferido" {{ old('registroAnvisa', $formData['registroAnvisa'] ?? '') == 'Indeferido' ? 'checked' : '' }} required>
-                            <label class="form-check-label" for="registroNao">Indeferido</label>
+                        <label for="idTipoMedicamento">
+                            <i class="fas fa-pump-medical"></i> Tipo de Medicamento
+                        </label>
+                        <div class="input-group">
+                            <select class="form-control" id="idTipoMedicamento" name="idTipo" required>
+                                <option value="">Selecione o Tipo de Medicamento</option>
+                                @foreach($tiposMedicamento as $t)
+                                <option value="{{ $t->idTipoMedicamento }}" {{ old('idTipo', $formData['idTipo'] ?? '') == $t->idTipoMedicamento ? 'selected' : '' }}>
+                                    {{ $t->tipoMedicamento }}
+                                </option>
+                                @endforeach
+                            </select>
+                            <a href="{{ route('TipoMedicamento', ['formData' => old()]) }}" class="btn btn-success" onclick="salvarDados()">
+                                <i class="fas fa-plus" style="color: #384081"></i>
+                            </a>
                         </div>
                     </div>
+                    
                     <div class="form-col">
                         <label for="fotoMedicamentoOriginal">
                             <i class="fas fa-image"></i> Foto Medicamento Original
@@ -113,39 +119,36 @@
                             </a>
                         </div>
                     </div>
-                    <div class="form-col">
-                        <label for="idTipoMedicamento">
-                            <i class="fas fa-pump-medical"></i> Tipo de Medicamento
-                        </label>
-                        <div class="input-group">
-                            <select class="form-control" id="idTipoMedicamento" name="idTipo" required>
-                                <option value="">Selecione o Tipo de Medicamento</option>
-                                @foreach($tiposMedicamento as $t)
-                                <option value="{{ $t->idTipoMedicamento }}" {{ old('idTipo', $formData['idTipo'] ?? '') == $t->idTipoMedicamento ? 'selected' : '' }}>
-                                    {{ $t->tipoMedicamento }}
-                                </option>
-                                @endforeach
-                            </select>
-                            <a href="{{ route('TipoMedicamento', ['formData' => old()]) }}" class="btn btn-success">
-                                <i class="fas fa-plus" style="color: #384081"></i>
-                            </a>
-                        </div>
-                    </div>
+                    
+                   
                     <div class="form-col">
                         <label for="formaFarmaceuticaMedicamento">
                             <i class="fas fa-prescription-bottle-alt"></i> Forma Farmacêutica
                         </label>
                         <select class="form-control" id="formaFarmaceuticaMedicamento" name="formaFarmaceutica" required>
                             <option value="">Selecione a Forma Farmacêutica</option>
-                            <option value="Comprimido" {{ old('formaFarmaceutica', $formData['formaFarmaceutica'] ?? '') == 'Comprimido' ? 'selected' : '' }}>Comprimido</option>
-                            <option value="Cápsula" {{ old('formaFarmaceutica', $formData['formaFarmaceutica'] ?? '') == 'Cápsula' ? 'selected' : '' }}>Cápsula</option>
-                            <option value="Pomada" {{ old('formaFarmaceutica', $formData['formaFarmaceutica'] ?? '') == 'Pomada' ? 'selected' : '' }}>Pomada</option>
-                            <option value="Solução" {{ old('formaFarmaceutica', $formData['formaFarmaceutica'] ?? '') == 'Solução' ? 'selected' : '' }}>Solução</option>
-                            <option value="Suspensão" {{ old('formaFarmaceutica', $formData['formaFarmaceutica'] ?? '') == 'Suspensão' ? 'selected' : '' }}>Suspensão</option>
-                            <option value="Creme" {{ old('formaFarmaceutica', $formData['formaFarmaceutica'] ?? '') == 'Creme' ? 'selected' : '' }}>Creme</option>
-                            <option value="Gel" {{ old('formaFarmaceutica', $formData['formaFarmaceutica'] ?? '') == 'Gel' ? 'selected' : '' }}>Gel</option>
-                            <option value="Injeção" {{ old('formaFarmaceutica', $formData['formaFarmaceutica'] ?? '') == 'Injeção' ? 'selected' : '' }}>Injeção</option>
+                            <option value="Comprimido" >Comprimido</option>
+                            <option value="Cápsula">Cápsula</option>
+                            <option value="Pomada" >Pomada</option>
+                            <option value="Solução">Solução</option>
+                            <option value="Suspensão" >Suspensão</option>
+                            <option value="Creme" >Creme</option>
+                            <option value="Gel">Gel</option>
+                            <option value="Injeção">Injeção</option>
                         </select>
+                    </div>
+                    <div class="form-col">
+                        <label for="registroAnvisaMedicamento">
+                            <i class="fas fa-file-medical-alt"></i> Registro ANVISA
+                        </label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroSim"  required>
+                            <label class="form-check-label" for="registroSim">Deferido</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroNao"  required>
+                            <label class="form-check-label" for="registroNao">Indeferido</label>
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
@@ -153,13 +156,13 @@
                         <label for="concentracaoMedicamento">
                             <i class="fas fa-vial"></i> Concentração
                         </label>
-                        <input type="text" class="form-control" id="concentracaoMedicamento" name="concentracao" value="{{ old('concentracao', $formData['concentracao'] ?? '') }}" required>
+                        <input type="text" class="form-control" id="concentracaoMedicamento" name="concentracao" required>
                     </div>
                     <div class="form-col">
                         <label for="composicaoMedicamento">
                             <i class="fas fa-clipboard-list"></i> Composição
                         </label>
-                        <textarea class="form-control" id="composicaoMedicamento" name="composicao" required>{{ old('composicao', $formData['composicao'] ?? '') }}</textarea>
+                        <textarea class="form-control" id="composicaoMedicamento" name="composicao" required></textarea>
                     </div>
                     <div class="form-col">
                         <button type="submit" class="salvar">
@@ -171,4 +174,33 @@
         </div>
     </div>
 </main>
+<script>
+    // Função para salvar os dados do formulário no localStorage
+    function salvarDados() {
+        document.querySelectorAll('#medicamentoForm input, #medicamentoForm select, #medicamentoForm textarea').forEach(field => {
+            localStorage.setItem(field.id, field.value);
+        });
+    }
+
+    // Função para carregar os dados do localStorage nos campos do formulário
+    function carregarDados() {
+        document.querySelectorAll('#medicamentoForm input, #medicamentoForm select, #medicamentoForm textarea').forEach(field => {
+            const valorSalvo = localStorage.getItem(field.id);
+            if (valorSalvo) {
+                field.value = valorSalvo;
+            }
+        });
+    }
+
+    // Chama carregarDados ao carregar a página
+    window.onload = carregarDados;
+
+    // Salva os dados sempre que um campo for alterado
+    document.getElementById('medicamentoForm').addEventListener('input', salvarDados);
+
+    // Adiciona o salvamento ao clicar nos botões de redirecionamento
+    document.querySelectorAll('.btn.btn-success').forEach(button => {
+        button.addEventListener('click', salvarDados);
+    });
+</script>
 @include('includes.footer') <!-- Include do Footer -->

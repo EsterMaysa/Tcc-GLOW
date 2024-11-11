@@ -126,7 +126,7 @@ class MedicamentoFarmaciaUBSController extends Controller
     public function indexApi()
 {
     // Obter todos os registros de UBS do modelo
-    $ubs = UBSModel::table('tbUBS')->select('idUBS', 'nomeUBS', 'fotoUBS')->get();  // Seleciona apenas os dados necessários
+    $med = UBSModel::table('tbUBS')->select('idUBS', 'nomeUBS', 'fotoUBS')->get();  // Seleciona apenas os dados necessários
 
     // Retornar a resposta JSON com os dados e uma mensagem de sucesso
     return response()->json([

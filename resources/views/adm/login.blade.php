@@ -27,12 +27,9 @@
 @endif
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{{ asset('Image/logoAdm.png')}}" alt="IMG" style=" width: 350% ; margin-top: -30%">
-				</div>
+			<div class="wrap-login100" style="width: 45%;">
 
-				<form class="login100-form validate-form" style="font-size: 20px; margin-top: -12% " action="/admLogin" method="post">
+				<form class="login100-form validate-form" style="font-size: 20px; margin-top: -16% ;margin-left: 18%" action="/admLogin" method="post">
 					@csrf
 					<span class="login100-form-title">Administrador | Login </span>
 

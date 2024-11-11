@@ -1,7 +1,6 @@
 <!-- Tela de login com CSS embutido -->
 <div class="login-container">
     <div class="login-box">
-        <img src="logo.png" alt="Logo" class="logo">
         <h2>Farmácia | Login</h2>
 
         <!-- Formulário de Login -->

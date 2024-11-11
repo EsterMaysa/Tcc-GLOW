@@ -69,7 +69,7 @@
     </div>
 
     <div class="container-quatro">
-    <div class="chart-card" style="width: 600px; margin: auto;height:400px"> <!-- Tamanho levemente aumentado e centralizado -->
+    <div class="chart-card" style="width: 500px; margin: auto;height:400px"> <!-- Tamanho levemente aumentado e centralizado -->
         <h3>Medicamentos Cadastrados por Tipo</h3>
         <canvas id="medicamentosChart" class="grafico"></canvas>
     </div>
