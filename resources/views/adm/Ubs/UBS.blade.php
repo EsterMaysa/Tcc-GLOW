@@ -1,3 +1,5 @@
+<!--CSS finalizado OK (ASS:Duda-->
+
 @include('includes.header') 
 <link rel="stylesheet" href="{{ url('css/UBS.css')}}">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,7 +17,7 @@
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>UBS</h1>
+        <h1 style="font-weight: bold;">UBS</h1>
         <p>Você pode gerenciar UBS por aqui.</p>
     </div>
     <div class="image-container">
@@ -35,7 +37,7 @@
         </div>
         <div class="btn-card">
             <p><i class="fas fa-pharmacy"></i> Farmacia</p>
-            <a href="/Farmacia" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
+            <a href="/farmacia" class="btn-acao"><i class="fas fa-plus"></i> Criar</a>
         </div>
         <div class="btn-card">
             <p><i class="fas fa-phone"></i> Telefone</p>
@@ -83,31 +85,31 @@
                         <td>{{ $unidade->dataCadastroUBS }}</td>
                         <td>
                             <a href="{{ route('ubs.edit', $unidade->idUBS) }}" class="edit-icon">
-                                <i class="fas fa-pencil-alt"></i>
-                                Editar
+                                <i class="fas fa-pencil-alt"></i> Editar
                             </a>
                         </td>
                         <td>
                             <form action="{{ route('changeStatus', $unidade->idUBS) }}" method="POST" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="edit-icon" style="background: none; border: none; color: inherit;">
-                                    <i class="fas fa-pencil-alt"></i>
-                                    Excluir
+                                <button type="submit" class="edit-icon">
+                                    <i class="fas fa-trash-alt"></i> Excluir
                                 </button>
                             </form>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $unidade->idUBS }}">
-                                Ver mais
+                            <button type="button" class="botaozinho" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $unidade->idUBS }}">
+                                <i class="fas fa-eye"></i>
                             </button>
                         </td>
+
+
                     </tr>
                     <!-- Modal do ver mais -->
                     <div class="modal fade" id="modalDetalhes{{ $unidade->idUBS }}" tabindex="-1" aria-labelledby="modalUBSLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="modalUBSLabel">Detalhes da UBS</h5>
+                                    <h5 class="modal-title" id="modalUBSLabel" >Detalhes da UBS</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">

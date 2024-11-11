@@ -8,6 +8,7 @@ use App\Models\UBSModel;
 use App\Models\RegiaoUBSModel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
 
 
 use App\Mail\UBSRegistrationSuccessMail;
@@ -42,7 +43,7 @@ class UBSController extends Controller
     // Validação dos dados de entrada
     $validator = Validator::make($request->all(), [
         'ubs' => 'required|string|max:255',
-        'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        'fotoUBS' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         'cnpj' => 'required|string|max:14',
         'cep' => 'required|string|max:10',
         'numero' => 'required|string|max:10',
@@ -276,9 +277,6 @@ public function showFormsMed()
     return view('farmacia.Medicamento.cadMedicamento', compact('idUBS'));
 }
 
-
-
-
 // Método no controlador de login (após a verificação de login)
 public function login(Request $request)
 {
@@ -332,11 +330,6 @@ public function logout()
 }
 
 
-
-
-    
-    
-        
 public function update(Request $request, $id)
 {
     // Validação dos dados

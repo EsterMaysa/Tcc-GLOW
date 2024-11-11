@@ -146,4 +146,38 @@ class SaidaMedicamentoController extends Controller
 
         return redirect('/saidaLista')->with('success', 'Saída de medicamento excluída com sucesso!');
     }
+
+    // public function edit($id)
+    // {
+    //     $saida = ModelSaidaMedicamento::findOrFail($id);
+    //     return view('saidaMedMotivoEdit', compact('saida'));
+    // }
+
+    // public function update(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'dataSaida' => 'required|date',
+    //         'quantidade' => 'required|integer|min:1',
+    //         'motivoSaida' => 'nullable|string|max:255',
+    //     ]);
+
+    //     $saida = ModelSaidaMedicamento::findOrFail($id);
+    //     $saida->update($request->only(['dataSaida', 'quantidade', 'motivoSaida']));
+
+    //     return redirect()->route('saidaMedMotivo.index')->with('success', 'Saída de medicamento atualizada com sucesso!');
+    // }
+
+    // public function excluir(Request $request, $id)
+    // {
+    //     $saida = ModelSaidaMedicamento::find($id);
+
+    //     if (!$saida) {
+    //         return redirect()->back()->with('error', 'Saída de medicamento não encontrada.');
+    //     }
+
+    //     $saida->situacao = 0;
+    //     $saida->save();
+
+    //     return redirect()->route('saidaMedMotivo.index')->with('success', 'Saída de medicamento excluída com sucesso!');
+    // }
 }

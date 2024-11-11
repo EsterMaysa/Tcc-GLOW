@@ -10,7 +10,7 @@
         <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo">
     </div>
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
 </nav>
@@ -150,7 +150,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-col full-width">
+                    <div class="form-col ">
                         <label for="regiao">
                             <i class="fas fa-globe-americas"></i> Selecione a região :
                         </label>
@@ -160,6 +160,12 @@
                                 <option value="{{ $r->idRegiaoUBS }}">{{ $r->nomeRegiaoUBS }}</option>
                             @endforeach           
                         </select>
+                    </div>
+                    <div class="form-col" style="margin-left: 20px;">
+                        <label for="fotoUbs">
+                            <i class="fas fa-image"></i> Foto da UBS
+                        </label>
+                        <input type="file" class="form-control" id="fotoUBS" name="fotoUBS" required>
                     </div>
                 </div>
 

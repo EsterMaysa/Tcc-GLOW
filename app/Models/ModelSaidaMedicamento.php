@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ModelMedicamentoFarmaciaUBS;
-use App\Models\ModelFuncionarioFarmaciaUBS;
-
 
 class ModelSaidaMedicamento extends Model
 {
@@ -23,11 +21,7 @@ class ModelSaidaMedicamento extends Model
         'quantidade',
         'motivoSaida',
         'situacao',
-        'idFuncionario',
-        'idMedicamento',
-        'lote',        // Adicionado para registrar o lote do medicamento
-        'validade',    // Adicionado para registrar a validade do medicamento
-        'idMotivoSaida'  
+        'idMedicamento', // Adicione aqui
     ];
 
 

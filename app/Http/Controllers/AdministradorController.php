@@ -41,18 +41,20 @@ class AdministradorController extends Controller
     public function logout()
     {
         Auth::logout(); // Desloga o usuário
-        
+        // session()->forget('user_id'); // Remove o ID do usuário da sessão
+
         session()->flash('message', 'Você foi deslogado com sucesso.'); // Armazena a mensagem na sessão
 
-        return view('adm.login'); // Redireciona para a página de login
+        return redirect('/login'); // Redireciona para a página de login
     }
+
 
     public function login(Request $request)
     {
         // Validar o input
         $request->validate([
             'email' => 'required|email',
-            'senha' => 'required|',
+            'senha' => 'required',
         ]);
 
         // Encontrar o usuário pelo email no banco correto
@@ -61,7 +63,8 @@ class AdministradorController extends Controller
         // Verificar se a senha está correta
         if ($user && Hash::check($request->senha, $user->senhaAdministrador)) {
 
-            Auth::login($user);
+            // Logar o administrador com o guard 'admin'
+            Auth::guard('admin')->login($user);
 
             session()->flash('message', 'Bem-vindo administrador, ' . $user->nomeAdministrador . '! Pronta(o) para fazer um check-up?');
 
@@ -71,7 +74,19 @@ class AdministradorController extends Controller
             session()->flash('error', 'Email ou senha incorretos.');
             return redirect()->back();    
         }
+    }   
+
+    public function getAuthIdentifierName()
+    {
+        return 'idAdministrador'; // Nome do campo de ID no banco
     }
+    
+    public function getAuthIdentifier()
+    {
+        return $this->getKey(); // Retorna a chave primária
+    }
+    
+    
     public function showProfile()
     {
         $admin = Auth::user(); // Obtém o administrador logado
@@ -100,7 +115,7 @@ class AdministradorController extends Controller
         // Redirecionar ou retornar uma resposta
         return redirect('/')->with('success', 'Administrador cadastrado com sucesso!');
     }
-    
+
 
 
     /**

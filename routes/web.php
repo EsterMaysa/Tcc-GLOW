@@ -26,6 +26,8 @@ use App\Http\Controllers\FuncionarioFarmaciaUBSController;
 use App\Http\Controllers\EntradaMedicamentoController;
 use App\Http\Controllers\MotivoEntradaController;
 use App\Http\Controllers\EstoqueFarmaciaUBSController;
+use App\Http\Controllers\SaidaMedicamentoController;
+use App\Http\Controllers\HomeAdmController;
 
 use App\Models\ModelMotivoEntrada;
 
@@ -35,7 +37,7 @@ use Illuminate\Http\Request;
 
 //controllers farmacia
 
-use App\Http\Controllers\SaidaMedicamentoController;
+
 use App\Http\Controllers\MotivoSaidaController;
 
 
@@ -180,6 +182,7 @@ Route::put('/medicamentos/desativar/{id}', [MedicamentoController::class, 'desat
 // Route::post('/filtro-medicamentos', [MedicamentoController::class, 'filtrar']);
 Route::get('/medicamentos/search', [MedicamentoController::class, 'search'])->name('medicamentos.search');
 
+Route::get('/medicamentosfilter', [MedicamentoController::class, 'applyFilters']);
 
 //TIPO MEDICAMENTO 
 
@@ -225,14 +228,16 @@ Route::get('/contato', [ContatoController::class, 'index'])->name('contato.index
 //Peerfil
 Route::get('/perfilADM', [AdministradorController::class, 'perfil'])->name('perfil');
 
-//ADM
-Route::get('/', function () {
-    return view('welcome');
-});
 
-// Route::get('/login', function () {
-//     return view('adm.login');
+
+//Home ADM
+Route::get('/', [HomeAdmController::class, 'index']);
+
+// Route::get('/', function () {
+//     return view('welcome');
 // });
+
+// 
 Route::get('/formsAdm', function () {
     return view('adm.cadastroAdm');
 });
@@ -253,6 +258,12 @@ Route::get('/login', function () {
 Route::get('/cadastroAdm', function () {
     return view('adm.cadastroAdm');
 });
+
+
+
+
+
+
 
 
 // TODAS DO LADO FARMACIA 
@@ -312,12 +323,9 @@ Route::get('/SaidaMed', function () {
 
 Route::get('/MedicamentoHome', [MedicamentoFarmaciaUBSController::class, 'index']);
 
-// Route::get('/FormsMed', function () {
-//     return view('farmacia.Medicamento.cadMedicamento');
-// });
-
-Route::get('/FormsMed', [UBSController::class, 'showFormsMed']);
-
+Route::get('/FormsMed', function () {
+    return view('farmacia.Medicamento.cadMedicamento');
+});
 
 Route::get('/editMedFarmacia', function () {
     return view('farmacia.Medicamento.atualizarMedicamento');

@@ -8,8 +8,7 @@ use App\Models\ModelMedicamentoFarmaciaUBS;
 use App\Models\ModelMotivoEntrada;
 use App\Models\ModelTipoMovimentacao;
 use App\Models\ModelEstoqueFarmaciaUBS;
-
-
+use App\Models\ModelSaidaMedicamento;
 use Illuminate\Http\Request;
 
 class EntradaMedicamentoController extends Controller
@@ -112,6 +111,7 @@ class EntradaMedicamentoController extends Controller
         $entrada->idFuncionario = $funcionario->idFuncionario;
         $entrada->idMedicamento = $medicamento->idMedicamento;
         $entrada->idMotivoEntrada = $motivo->idMotivoEntrada;
+        $entrada->situacaoEntrada = "A";
         $entrada->save();
     
         // Verifica o ID de movimentação para 'Entrada'
@@ -134,7 +134,7 @@ class EntradaMedicamentoController extends Controller
         // Chama o método de estoque para salvar a movimentação
         app(EstoqueFarmaciaUBSController::class)->store($estoqueRequest);
     
-        return redirect()->route('medicamentos.index')->with('success', 'Entrada de medicamento e atualização de estoque realizadas com sucesso!');
+        return redirect()->route('farmacia.medicamento.MedicamentoEntrada')->with('success', 'Entrada de medicamento e atualização de estoque realizadas com sucesso!');
     }
     
     public function estoque(Request $request)
@@ -257,7 +257,7 @@ public function edit($id)
 {
     // Tenta buscar a entrada de medicamento com o ID fornecido e com a situação válida
     $entrada = ModelEntradaMedicamento::where('idEntradaMedicamento', $id)
-        ->where('situacaoEntrada', 0)
+        ->where('situacaoEntrada', 'A')
         ->first();
 
     // Verifica se a entrada foi encontrada

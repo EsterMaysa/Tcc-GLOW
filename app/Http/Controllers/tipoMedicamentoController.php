@@ -22,10 +22,14 @@ class TipoMedicamentoController extends Controller
         $tipo->dataCadastroTipoMedicamento = now();
 
         $tipo->save();
+        // Recupera e armazena os dados do formulário na sessão
+        session()->put('formData', session('formData', []));
 
-        return redirect('/medicamentoForm')
-        ->with('TipoMedicamento', $tipo->idTipoMedicamento) // Preserva o ID do novo tipo
-        ->withInput();    
+        // Redireciona de volta ao formulário de medicamentos sem o uso de compact()
+        return redirect()->route('medicamentoForm'); // Substitua 'medicamentoForm' pelo nome correto da sua rota
+
+            
+
     }
 
     public function updateapi(Request $request, $id)

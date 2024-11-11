@@ -1,23 +1,13 @@
 @include('includes.header')
-<link rel="stylesheet" href="{{ url('css/DashboardAdm.css')}}"> <!--CSS DESSA PÁGINA É SOMENTE ESSE-->
-
-<!-- @if (session('message'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('message') }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-@endif -->
+<link rel="stylesheet" href="{{ url('css/DashboardAdm.css')}}">
 
 @if (session('message'))
     <script>
         alert("{{ session('message') }}");
     </script>
 @endif
+
 <body>
-
-
     <nav class="navbar">
         <div class="navbar-brand">
             <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo">
@@ -35,27 +25,26 @@
         </div>
     </div>
 
-
     <div class="container-dois">
         <div class="stat-card">
-            <span class="icon"><i class="fas fa-pills"></i></span> 
+            <span class="icon"><i class="fas fa-pills"></i></span>
             <h3>Novos Medicamentos</h3>
-            <p>10</p>
+            <p>{{ $medicamentosHoje }}</p>
         </div>
         <div class="stat-card">
-            <span class="icon"><i class="fas fa-file-alt"></i></span> 
+            <span class="icon"><i class="fas fa-file-alt"></i></span>
             <h3>Medicamentos Cadastrados</h3>
-            <p>150</p>
+            <p>{{ $totalMedicamentos }}</p>
         </div>
         <div class="stat-card">
-            <span class="icon"><i class="fas fa-hospital"></i></span> 
+            <span class="icon"><i class="fas fa-hospital"></i></span>
             <h3>Unidades Básicas de Saúde</h3>
-            <p>5</p>
+            <p>{{ $totalUbs }}</p>
         </div>
         <div class="stat-card">
             <span class="icon"><i class="fas fa-users"></i></span>
             <h3>Usuários Registrados</h3>
-            <p>200</p>
+            <p>{{ $totalUser }}</p>
         </div>
     </div>
 
@@ -73,40 +62,42 @@
             <div class="card-content">
                 <h3>Consultar Usuários</h3>
                 <p>Veja e gerencie os usuários cadastrados no sistema.</p>
-                <a href="#" class="card-button">Consultar</a>
+                <a href="/Cliente" class="card-button">Consultar</a>
             </div>
             <img src="{{ asset('Image/admAlterandoSemFundo.png')}}" alt="Imagem de Usuários">
         </div>
     </div>
 
     <div class="container-quatro">
-    <!-- Gráfico de Medicamentos -->
-    <div class="chart-card">
+    <div class="chart-card" style="width: 500px; margin: auto;height:400px"> <!-- Tamanho levemente aumentado e centralizado -->
         <h3>Medicamentos Cadastrados por Tipo</h3>
         <canvas id="medicamentosChart" class="grafico"></canvas>
     </div>
 
-    <!-- Gráfico de Clientes -->
     <div class="chart-card">
         <h3>Quantidade de Usuários Cadastrados</h3>
         <canvas id="clientesChart" class="grafico"></canvas>
     </div>
 </div>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Gráfico de Barras - Medicamentos Cadastrados por Tipo
+    // Dados dinâmicos para o gráfico de medicamentos
+    var medicamentosData = @json($medicamentosPorTipo->pluck('medicamentos_count'));
+    var medicamentosLabels = @json($medicamentosPorTipo->pluck('tipoMedicamento'));
+    var totalClientes = @json($totalUser);
+
+    // Gráfico de Pizza - Medicamentos por Tipo com tons de azul e tamanho levemente aumentado
     var ctxMedicamentos = document.getElementById('medicamentosChart').getContext('2d');
     var medicamentosChart = new Chart(ctxMedicamentos, {
-        type: 'bar', // Tipo de gráfico
+        type: 'pie',  // Tipo de gráfico: Pizza
         data: {
-            labels: ['Antialérgico', 'Antibiótico', 'Analgésico'], // Tipos de medicamentos
+            labels: medicamentosLabels,
             datasets: [{
-                label: 'Quantidade de Medicamentos', // Legenda
-                data: [15, 25, 40], // Quantidade de medicamentos cadastrados por tipo
-                backgroundColor: ['#1F2B5B', '#243f8a', '#46b2e0'], // Cores das barras
+                label: 'Quantidade de Medicamentos',
+                data: medicamentosData,
+                backgroundColor: ['#1E3A5F', '#3C6D99', '#5C92CC', '#A1C0E8', '#B9D9F4'], // Tons de azul
+                hoverBackgroundColor: ['#16304A', '#2F5473', '#487CB3', '#7CA7D3', '#A8CAE6']
             }]
         },
         options: {
@@ -115,21 +106,24 @@
                 title: {
                     display: true,
                     text: 'Medicamentos Cadastrados por Tipo'
+                },
+                legend: {
+                    position: 'right'
                 }
             }
         }
     });
 
-    // Gráfico de Barras - Quantidade Total de Clientes Cadastrados
+    // Gráfico de Barras - Quantidade Total de Clientes
     var ctxClientes = document.getElementById('clientesChart').getContext('2d');
     var clientesChart = new Chart(ctxClientes, {
-        type: 'bar', // Tipo de gráfico
+        type: 'bar',
         data: {
-            labels: ['Total de Usuários'], // Apenas uma barra
+            labels: ['Total de Usuários'],
             datasets: [{
-                label: 'Quantidade de Usuários Cadastrados', // Legenda
-                data: [120], // Quantidade total de clientes cadastrados
-                backgroundColor: '#46b2e0', // Cor da barra
+                label: 'Quantidade de Usuários Cadastrados',
+                data: [totalClientes],
+                backgroundColor: '#1F2B5B'
             }]
         },
         options: {
@@ -145,7 +139,4 @@
 </script>
 
 
-
-
-
-@include('includes.footer') 
+@include('includes.footer')
