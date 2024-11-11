@@ -124,5 +124,26 @@ class UsuarioController extends Controller
             'code' => 200,
             'data' => $usuarios 
         ]);
-    }    
+    }  
+
+    public function getUserByCNS($cns)
+{
+    // Verificar se existe um usuário com o CNS fornecido
+    $user = UsuarioModel::where('cnsUsuario', $cns)->first();
+    
+    // Se o usuário não for encontrado, retorna uma mensagem de erro
+    if (!$user) {
+        return response()->json(['message' => 'Usuário não encontrado'], 404);
+    }
+
+    // Retorna os dados do usuário
+    return response()->json([
+        'id' => $user->idUsuario,
+        'nome_usuario' => $user->nomeUsuario,
+        'cns' => $user->cnsUsuario,
+        'foto' => $user->fotoUsuario,
+    ]);
+}
+
+  
 }
