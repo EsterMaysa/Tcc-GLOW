@@ -134,7 +134,7 @@ class EntradaMedicamentoController extends Controller
         // Chama o método de estoque para salvar a movimentação
         app(EstoqueFarmaciaUBSController::class)->store($estoqueRequest);
     
-        return redirect()->route('farmacia.medicamento.MedicamentoEntrada')->with('success', 'Entrada de medicamento e atualização de estoque realizadas com sucesso!');
+        return redirect('/EntradaMedicamentoHome')->with('success', 'Entrada de medicamento e atualização de estoque realizadas com sucesso!');
     }
     
     public function estoque(Request $request)

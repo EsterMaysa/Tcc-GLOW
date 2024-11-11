@@ -326,6 +326,7 @@ Route::get('/MedicamentoHome', [MedicamentoFarmaciaUBSController::class, 'index'
 Route::get('/FormsMed', function () {
     return view('farmacia.Medicamento.cadMedicamento');
 });
+Route::get('/FormsMed', [UBSController::class, 'showFormsMed']);
 
 Route::get('/editMedFarmacia', function () {
     return view('farmacia.Medicamento.atualizarMedicamento');
@@ -369,7 +370,7 @@ Route::delete('/entradaMedicamento/{id}', [EntradaMedicamentoController::class, 
 
 
 // Rota para armazenar a nova entrada de medicamento
-Route::post('/entrada-medicamento/store', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
+Route::post('/entrada-medicamento', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
 //busca o funcionario pelo nome
 Route::get('/funcionario/buscar', [EntradaMedicamentoController::class, 'buscarFuncionario'])->name('buscarFuncionario');
 //cria o motivo automatico
