@@ -1,21 +1,48 @@
-@include('includes.headerFarmacia')
-<link rel="stylesheet" href="{{('css/Farmacia-CSS/')}}">
+<!--CSS OK(ASS:Duda)-->
 
-<div class="col-md-9 col-lg-10 main-content">
-    <div class="head-title">
-        <div class="left">
-            <h1>Entrada do Medicamento</h1>
-        </div>
-        <div class="right">
-            <a href="{{ route('entradaMedInsert') }}" class="btn btn-primary">+ Entrada de Medicamento</a>
+@include('includes.headerFarmacia')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/EntradaMedicamento.css')}}">
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;"> Entrada De Medicamentos </h1>
+        <p>gerencie a entrada de medicamentos.</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/medi.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+    </div>
+</div>
+
+<div class="cadastros-container">
+    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Acessar </h3>
+    <div class="cadastros-list">
+        <div class="cadastro-item">
+            <p>Entrada Medicamento</p>
+            <a href="{{ route('entradaMedInsert') }}" class="cadastrar-link">
+                <i class="fas fa-inbox"></i> 
+            </a>
         </div>
     </div>
+</div>
 
-    <!-- Campo de Pesquisa -->
-    <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por Nome, Lote, Funcionário ou Motivo" style="margin-top: 10px;">
+<main>
+    <div class="pesquisa">
+        <p class="titulo-pesquisa">Buscar registros</p>
+        <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por Nome, Lote, Funcionário ou Motivo">
+    </div>
 
-    <!-- Tabela de Entradas de Medicamentos -->
-    <div class="container mt-4">
+    <div class="container">
         <table class="table table-bordered table-striped" id="medicamentoTable"> <!-- Adicionando o ID aqui -->
             <thead>
                 <tr>
@@ -57,8 +84,7 @@
             </tbody>
         </table>
     </div>
-</div>
-
+</main>
 @include('includes.footer')
 
 <!-- Script para o filtro -->
@@ -82,21 +108,3 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
     });
 });
 </script>
-<!-- Estilos para a tabela -->
-<style>
-    .table {
-        margin: 20px 0;
-        width: 100%;
-        background-color: #14213D;
-        color: #fff;
-    }
-    .table thead {
-        background-color: #57b8ff;
-    }
-    .table tbody tr:hover {
-        background-color: #4b89f5;
-    }
-    .btn-primary i, .btn-danger i {
-        margin-right: 0;
-    }
-</style>
