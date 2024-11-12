@@ -9,11 +9,6 @@
         <div class="right">
             <a href="{{ route('entradaMedInsert') }}" class="btn btn-primary">+ Entrada de Medicamento</a>
         </div>
-        <div class="right">
-            <a href="/prescricao" class="btn btn-primary">
-                Cadastrar Prescrição
-            </a>
-        </div>
     </div>
 
     <!-- Campo de Pesquisa -->
@@ -24,7 +19,6 @@
         <table class="table table-bordered table-striped" id="medicamentoTable"> <!-- Adicionando o ID aqui -->
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nome do Medicamento</th>
                     <th>Data de Entrada</th>
                     <th>Quantidade</th>
@@ -38,7 +32,7 @@
             <tbody>
                 @foreach($medicamentos as $med)
                     <tr>
-                        <td>{{ $med->idEntradaMedicamento }}</td>
+                        <!-- <td>{{ $med->idEntradaMedicamento }}</td> -->
                         <td>{{ $med->nomeMedicamento }}</td>
                         <td>{{ $med->dataEntrada }}</td>
                         <td>{{ $med->quantidade }}</td>

@@ -47,7 +47,7 @@
                 <!-- Formulário de Pesquisa para quando tiver -->
                 <form action="" method="GET">
                     <div class="search-container2">
-                        <input type="text" name="query" placeholder="Nome, CPF, CNS ou UF" aria-label="Pesquisar Detentores" value="{{ request('query') }}" class="search-input2">
+                        <input type="text" name="query" placeholder="Nome, CNPJ, CNS ou UF" aria-label="Pesquisar Detentores" value="{{ request('query') }}" class="search-input2">
                         <button class="search-button2" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                 </form>

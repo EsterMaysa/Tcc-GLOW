@@ -143,11 +143,13 @@ class UBSController extends Controller
     $ubs->save();
 
     try {
-                Mail::to('vini.va338@gmail.com')->send(new \App\Mail\UBSRegistrationSuccessMail($ubs));
-            } catch (\Exception $e) {
-                return response()->json(['message' => 'UBS criada, mas ocorreu um erro ao enviar o e-mail: ' . $e->getMessage()], 500);
-            }
-            return response()->json(['message' => 'UBS criada com sucesso!'], 201);
+        Mail::to('vini.va338@gmail.com')->send(new \App\Mail\UBSRegistrationSuccessMail($ubs));
+    } catch (\Exception $e) {
+        return redirect('/selectUBS')->with('error', 'UBS criada, mas ocorreu um erro ao enviar o e-mail: ' . $e->getMessage());
+    }
+    
+    // Redireciona para a página /selectUBS com uma mensagem de sucesso
+    return redirect('/selectUBS')->with('success', 'UBS cadastrada com sucesso! Confira sua caixa de entrada do e-mail.');
     
     
 

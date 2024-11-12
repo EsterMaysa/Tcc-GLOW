@@ -38,7 +38,7 @@
 				<li><a href="/estoqueHome"><img src="{{ asset('Image/reports.png')}}"><p>Estoque</p></a></li>
 				<li><a href="/MedicamentoHome"><img src="{{ asset('Image/reports.png')}}"><p> Medicamentos </p></a></li>
 				<li><a href="/EntradaMedicamentoHome"><img src="{{ asset('Image/reports.png')}}"><p>Entrada Medicamentos</p></a></li>
-				<li><a href="{{ route('saidaMedMotivoCadastro') }}"><img src="{{ asset('Image/reports.png')}}"><p>Saída Medicamentos</p></a></li>
+				<li><a href="/saidaLista"><img src="{{ asset('Image/reports.png')}}"><p>Saída Medicamentos</p></a></li>
 				<li><a href="/funcionarios"><img src="{{ asset('Image/reports.png')}}"><p> Funcionário </p></a></li>
 				<li><a href="/entrada_medicamento"><img src="{{ asset('Image/reports.png')}}"><p> Tipo Movimentação </p></a></li>
 			</ul>

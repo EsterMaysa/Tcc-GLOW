@@ -180,7 +180,64 @@
                                 <input class="form-check-input" type="checkbox" value="Cápsula" id="formaCapsula" name="formaFarmaceutica[]">
                                 <label class="form-check-label" for="formaCapsula">Cápsula</label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Xarope" id="formaXarope" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaXarope">Xarope</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Suspensão" id="formaSuspensao" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaSuspensao">Suspensão</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Pomada" id="formaPomada" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaPomada">Pomada</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Creme" id="formaCreme" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaCreme">Creme</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Gel" id="formaGel" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaGel">Gel</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Loção" id="formaLocao" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaLocao">Loção</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Solução" id="formaSolucao" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaSolucao">Solução</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Supositório" id="formaSupositorio" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaSupositorio">Supositório</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Pó" id="formaPo" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaPo">Pó</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Adesivo Transdérmico" id="formaAdesivoTransdermico" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaAdesivoTransdermico">Adesivo Transdérmico</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Injeção" id="formaInjecao" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaInjecao">Injeção</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Inalante" id="formaInalante" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaInalante">Inalante</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Emulsão" id="formaEmulsao" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaEmulsao">Emulsão</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Spray" id="formaSpray" name="formaFarmaceutica[]">
+                                <label class="form-check-label" for="formaSpray">Spray</label>
+                            </div>
                         </div>
+
 
                         <div class="mb-3">
                             <label for="filtroTipoMedicamento" class="form-label">Tipo de Medicamento</label>
@@ -200,7 +257,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary" id="applyFilters">Aplicar Filtros</button>
-                           
+
                             <form action="/medicamento" method="GET">
                                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
                             </form>

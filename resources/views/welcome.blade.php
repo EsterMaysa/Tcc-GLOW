@@ -69,14 +69,14 @@
     </div>
 
     <div class="container-quatro">
-    <div class="chart-card" style="width: 500px; margin: auto;height:400px"> <!-- Tamanho levemente aumentado e centralizado -->
+    <div class="chart-card" style="width: 500px; margin: auto;height:400px">
         <h3>Medicamentos Cadastrados por Tipo</h3>
         <canvas id="medicamentosChart" class="grafico"></canvas>
     </div>
 
     <div class="chart-card">
-        <h3>Quantidade de Usuários Cadastrados</h3>
-        <canvas id="clientesChart" class="grafico"></canvas>
+        <h3>Usuários Cadastrados por Dia</h3>
+        <canvas id="usuariosPorDiaChart" class="grafico"></canvas>
     </div>
 </div>
 
@@ -87,16 +87,16 @@
     var medicamentosLabels = @json($medicamentosPorTipo->pluck('tipoMedicamento'));
     var totalClientes = @json($totalUser);
 
-    // Gráfico de Pizza - Medicamentos por Tipo com tons de azul e tamanho levemente aumentado
+    // Gráfico de Pizza - Medicamentos por Tipo com tons de azul
     var ctxMedicamentos = document.getElementById('medicamentosChart').getContext('2d');
     var medicamentosChart = new Chart(ctxMedicamentos, {
-        type: 'pie',  // Tipo de gráfico: Pizza
+        type: 'pie',  
         data: {
             labels: medicamentosLabels,
             datasets: [{
                 label: 'Quantidade de Medicamentos',
                 data: medicamentosData,
-                backgroundColor: ['#1E3A5F', '#3C6D99', '#5C92CC', '#A1C0E8', '#B9D9F4'], // Tons de azul
+                backgroundColor: ['#1E3A5F', '#3C6D99', '#5C92CC', '#A1C0E8', '#B9D9F4'],
                 hoverBackgroundColor: ['#16304A', '#2F5473', '#487CB3', '#7CA7D3', '#A8CAE6']
             }]
         },
@@ -114,16 +114,21 @@
         }
     });
 
-    // Gráfico de Barras - Quantidade Total de Clientes
-    var ctxClientes = document.getElementById('clientesChart').getContext('2d');
-    var clientesChart = new Chart(ctxClientes, {
-        type: 'bar',
+    // Gráfico de Barras - Usuários Cadastrados por Dia
+    var usuariosPorDiaData = @json($usuariosPorDia->pluck('usuarios_count'));
+    var usuariosPorDiaLabels = @json($usuariosPorDia->pluck('dia'));
+    
+    var ctxUsuariosPorDia = document.getElementById('usuariosPorDiaChart').getContext('2d');
+    var usuariosPorDiaChart = new Chart(ctxUsuariosPorDia, {
+        type: 'line',  // Usando gráfico de linha para mostrar a tendência diária
         data: {
-            labels: ['Total de Usuários'],
+            labels: usuariosPorDiaLabels,
             datasets: [{
-                label: 'Quantidade de Usuários Cadastrados',
-                data: [totalClientes],
-                backgroundColor: '#1F2B5B'
+                label: 'Usuários Cadastrados por Dia',
+                data: usuariosPorDiaData,
+                borderColor: '#1F2B5B',
+                backgroundColor: 'rgba(31, 43, 91, 0.2)',                
+                fill: true
             }]
         },
         options: {
@@ -131,12 +136,11 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Quantidade Total de Usuários Cadastrados'
+                    text: 'Usuários Cadastrados por Dia'
                 }
             }
         }
     });
 </script>
-
 
 @include('includes.footer')
