@@ -159,8 +159,12 @@
     background-color: #265c4b;
     color: white; 
     padding: 15px;
-    width: 100%;
+    width: 95%;
     margin-top: 1%;
+    margin-left: 3%;
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente */
+    justify-content: space-between; /* Define o espaçamento horizontal */
 }
 
 /* Personalizar o título do cabeçalho */
@@ -189,7 +193,9 @@
 
 /*TABELA*/
 .table {
-    width: 30%;
+    width: 95%;
+    margin-top: -1,3%;
+    margin-left: 3%;
 }
 
 /* Estilos para o cabeçalho da tabela */
@@ -237,7 +243,7 @@
 
 /* Estilos para os modais */
 .modal-header {
-    background-color: #265c4b;
+    background-color: #388e3c;
     color: white; 
 }
 
@@ -249,6 +255,60 @@
     font-size: 1rem;
 }
 
+.actions {
+    text-align: center;
+   
+}
+.icon-action {
+    color: white;
+    background-color: #ffef0f;
+    font-size: 18px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+.icon-action:hover {
+    background-color: #9ab8d8;
+    transform: scale(1.1); /* Leve aumento no tamanho ao passar o mouse */
+}
+.icon-action:active {
+    transform: scale(0.98); 
+}
+
+.icon-action-2 {
+    color: white;
+    background-color: #df0202; 
+    font-size: 18px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+.icon-action-2:hover {
+    background-color: #9ab8d8; 
+    transform: scale(1.1); /* Leve aumento no tamanho ao passar o mouse */
+}
+.icon-action-2:active {
+    transform: scale(0.98); /* Efeito de "pressionar" o botão */
+}
+
+
+
+
+
 
 /* Estilo para o cabeçalho do cartão */
 .card-header.card-dois {
@@ -259,11 +319,13 @@
     align-items: center; 
 
 }
+
 .card-header.card-dois i {
     margin-right: 15px;
     font-size: 1.2rem;
 
 }
+
 /* Estilo para o corpo do cartão */
 .card-body.body {
     padding: 10px;
@@ -271,20 +333,24 @@
     line-height: 1.4;
 
 }
+
 /* Estilo para os parágrafos no corpo */
 .card-body.body p {
     margin-bottom: 8px;
 }
+
 /* Estilo para os ícones nos parágrafos */
 .card-body.body i {
     font-size: 1rem;
     color: #072e22;
 }
+
 /* Estilo para a largura do cartão */
 .card {
     margin: 1%; 
     margin-right: 30%;
 }
+
 .texto {
     font-size: 1.2rem; /* Tamanho da fonte */
     font-weight: bold; /* Deixa o texto em negrito */
@@ -292,18 +358,24 @@
     text-align: center; /* Centraliza o texto */
     text-transform: uppercase; /* Transforma o texto em maiúsculas */
     letter-spacing: 2px; /* Espaçamento entre as letras */
-    margin-bottom: 1px; 
-    font-family: 'Arial', sans-serif; 
+    margin-bottom: 1px; /* Espaço abaixo do título */
+    font-family: 'Arial', sans-serif; /* Define a fonte */
 }
+
+
+
+
+
 .outro-container {
     padding: 20px;
 }
+
 /* Estilo da tabela */
 .tabela-resposiva {
-    width: 100%; 
-    margin-left: 1%; 
+    width: 90%; 
+    margin-left: 10%; 
     overflow-x: auto;
-    margin-top: -1.7%;
+    margin-top: -2%;
 }
 .tabela-stripada {
     width: 90%;
@@ -321,10 +393,11 @@
     font-weight: bold; /* Texto em negrito */
     text-align: left; 
     padding: 10px; 
-    margin-bottom: 18%;
+    margin-bottom: 20%;
     border: none;  
     color: #ffffff; 
 }
+
 .tabela-dois th:first-child {
     border-left: none; /* Remove a borda à esquerda do primeiro cabeçalho */
 }
@@ -332,6 +405,7 @@
 .tabela-dois th:last-child {
     border-right: none; /* Remove a borda à direita do último cabeçalho */
 }
+
 .tabela-stripada tr:nth-child(even) {
     background-color: #f2f2f2;
 }
@@ -346,8 +420,8 @@
     padding: 15px;
     color: white;
     margin-bottom: 20px;
-    width: 90%;
-    margin-left: 1%;
+    width: 81%;
+    margin-left: 10%;
 }
 .texto-medicamento {
     font-size: 1.6em;
@@ -374,6 +448,21 @@
     transition: background-color 0.3s;
 }
 
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
 .btn:hover {
     opacity: 0.8;
 }
@@ -382,8 +471,9 @@
 .modal-dialog {
     max-width: 600px;
 }
+
 .modal-header {
-    background-color: #265c4b;
+    background-color: #007bff;
     color: white;
 }
 
@@ -431,7 +521,7 @@
 }
 
 .modal-footer button:hover {
-    background-color: #265c4b;
+    background-color: #0056b3;
     color: white;
 }
 

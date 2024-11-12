@@ -28,6 +28,8 @@ use App\Http\Controllers\MotivoEntradaController;
 use App\Http\Controllers\EstoqueFarmaciaUBSController;
 use App\Http\Controllers\SaidaMedicamentoController;
 use App\Http\Controllers\HomeAdmController;
+use App\Http\Controllers\HomeFarmaciaController;
+
 
 use App\Models\ModelMotivoEntrada;
 
@@ -270,9 +272,10 @@ Route::get('/cadastroAdm', function () {
 
 /* Páginas  farmacia*/
 
-Route::get('/homeFarmacia', function () {
-    return view('farmacia.homeFarmacia');
-});
+// Route::get('/homeFarmacia', function () {
+//     return view('farmacia.homeFarmacia');
+// });
+Route::get('/homeFarmacia', [HomeFarmaciaController::class, 'index']);
 
 Route::get('/loginFarmacia', function () {
     return view('farmacia.loginFarmacia');
