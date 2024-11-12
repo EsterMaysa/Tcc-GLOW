@@ -51,7 +51,7 @@
 				</a>
 			</li>
 			<li>
-				<a href="{{ route('saidaMedMotivoCadastro') }}">
+				<a href="/saidaLista">
 					<i class='bx bxs-doughnut-chart'></i>
 					<span class="text">Saida Medicamento </span>
 				</a>

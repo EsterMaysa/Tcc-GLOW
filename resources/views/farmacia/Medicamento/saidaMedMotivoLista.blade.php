@@ -80,6 +80,12 @@
 
         <div class="filter-container">
             <form action="{{ route('saidaMedMotivo.index') }}" method="GET">
+                    <a href="/prescricao" class="btn btn-primary">
+                        Cadastrar Prescrição
+                    </a>
+                    <a href="/saidaMedMotivoCadastro" class="btn btn-primary">
+                        Cadastrar saida
+                    </a>
                 <input type="date" name="dataSaida" placeholder="Filtrar por Data" value="{{ request()->get('dataSaida') }}">
                 <input type="text" name="motivoSaida" placeholder="Filtrar por Motivo" value="{{ request()->get('motivoSaida') }}">
                 <button type="submit"><i class="fas fa-search"></i> Pesquisar</button>

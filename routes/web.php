@@ -305,6 +305,7 @@ Route::get('/editarPerfilFarmacia', function () {
 // });
 Route::get('/estoqueHome', [EstoqueFarmaciaUBSController::class, 'index']);
 Route::post('/CadEstoque', [EntradaMedicamentoController::class, 'estoque']);
+Route::post('/CadEstoqueSaida', [SaidaMedicamentoController::class, 'estoque']);
 
 Route::put('/Estoque/{id}', [EstoqueFarmaciaUBSController::class, 'update'])->name('estoque.update');
 Route::patch('/Estoque/{id}/desativar', [EstoqueFarmaciaUBSController::class, 'destroy'])->name('desativar');
@@ -406,6 +407,9 @@ Route::resource('saidaMedMotivo', SaidaMedicamentoController::class)->except(['s
 Route::get('saidaMedMotivo/{id}/edit', [SaidaMedicamentoController::class, 'edit'])->name('saidaMedMotivo.edit');
 Route::put('saidaMedMotivo/{id}', [SaidaMedicamentoController::class, 'update'])->name('saidaMedMotivo.update');
 Route::patch('saidaMedMotivo/{id}/desativar', [SaidaMedicamentoController::class, 'excluir'])->name('saidaMedMotivo.desativar');
+
+//pega os dados
+Route::get('/getMedicamentoDetails/{id}', [SaidaMedicamentoController::class, 'getDetails']);
 
 
 // Rota para armazenar uma nova saída

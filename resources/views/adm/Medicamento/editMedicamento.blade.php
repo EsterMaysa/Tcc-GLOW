@@ -67,12 +67,12 @@
                     <div class="form-col">
                         <label for="registroAnvisaMedicamento">Registro ANVISA</label><br>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroSim" value="Deferido" {{ $medicamento->registroAnvisaMedicamento == 'Deferido' ? 'checked' : '' }}>
+                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroSim" value="Deferido" {{ $medicamento->registroAnvisaMedicamento == 'D' ||  $medicamento->registroAnvisaMedicamento == 'on' ? 'checked' : '' }}>
                             <label class="form-check-label" for="registroSim">Deferido</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroNao" value="Indeferido" {{ $medicamento->registroAnvisaMedicamento == 'Indeferido' ? 'checked' : '' }}>
+                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroNao" value="Indeferido" {{ $medicamento->registroAnvisaMedicamento == 'I' ||  $medicamento->registroAnvisaMedicamento == 'off'? 'checked' : '' }}>
                             <label class="form-check-label" for="registroNao">Indeferido</label>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                         <select class="form-control" id="idDetentor" name="idDetentor" required>
                             <option value="">Selecione o Detentor</option>
                             @foreach($detentor as $d)
-                                <option value="{{ $d->idFDetentor }}" {{ $medicamento->idDetentor == $d->idFDetentor ? 'selected' : '' }}>
+                                <option value="{{ $d->idDetentor }}" {{ $medicamento->idDetentor == $d->idDetentor ? 'selected' : '' }}>
                                     {{ $d->nomeDetentor }}
                                 </option>
                             @endforeach

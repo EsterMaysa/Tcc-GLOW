@@ -160,10 +160,10 @@ class EntradaMedicamentoController extends Controller
     
         // Criação da entrada de medicamento
         $entrada = new ModelEntradaMedicamento();
-        $entrada->dataEntrada = $request->dataEntrada;
+        $entrada->dataEntrada = now();
         $entrada->quantidade = $request->quantidade;
-        $entrada->lote = $request->lote;
-        $entrada->validade = $request->validade;
+        $entrada->lote = $medicamento->loteMedicamento;  
+        $entrada->validade = $medicamento->validadeMedicamento;
         $entrada->idFuncionario = $funcionario->idFuncionario;
         $entrada->idMedicamento = $medicamento->idMedicamento;
         $entrada->idMotivoEntrada = $motivo->idMotivoEntrada;

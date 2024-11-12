@@ -30,7 +30,15 @@ class HomeAdmController extends Controller
         ->withCount('medicamentos')
         ->get();
 
-    return view('welcome', compact('medicamentosHoje', 'totalMedicamentos', 'totalUbs', 'totalUser', 'medicamentosPorTipo'));
+         // Obter o número de usuários cadastrados por dia nos últimos 7 dias
+         $usuariosPorDia = UsuarioModel::selectRaw('DATE(dataCadastroUsuario) as dia, count(*) as usuarios_count')
+         ->groupBy('dia')
+         ->orderBy('dia', 'asc')
+         ->take(7)  // Limita para os últimos 7 dias
+         ->get();
+     
+
+    return view('welcome', compact('medicamentosHoje', 'totalMedicamentos', 'totalUbs', 'totalUser', 'medicamentosPorTipo','usuariosPorDia'));
 
 }
     
