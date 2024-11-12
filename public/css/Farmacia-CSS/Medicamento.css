@@ -1,0 +1,531 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+/*NAVBAR*/
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Alinha logo e pesquisa em extremos opostos */
+    background-color: #265c4b; 
+    padding: 10px 20px;
+    height: 90px; 
+    color: white;
+}
+.navbar-brand {
+    margin-left: 20px; /* Margem à esquerda da logo */
+}
+.logo {
+    margin-left: 20%;
+    width: 33%; 
+    height: 20%; 
+    margin-bottom: 40%;
+}
+/*BARRA DE PESQUISA*/
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; 
+    margin-bottom: 14%;
+}
+.search-input {
+    height: 40px;
+    width: 280px; 
+    padding: 8px;
+    border: none;
+    border-radius: 20px; 
+    outline: none;
+    margin-right: 10px;
+}
+.search-button {
+    padding: 8px 12px;
+    background-color: #072e22;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+}
+.search-button:hover {
+    background-color: #8fc1b5; 
+}
+/*TERMINA BARRA DE PESQUISA*/
+/*TERMINA A NAVBAR*/
+.container-um {
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    padding: 20px;
+}
+.jumbotron-um {
+    width: 40%;
+    background-color: #f8f9fa; 
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 10%; /* Espaçamento à direita do jumbotron */
+}
+.jumbotron-um h1 {
+    margin-bottom: 10px; 
+}
+.image-container {
+    flex: 0 0 50%; 
+    text-align: center;
+}
+.image-container img {
+    max-width: 40%; 
+    height: auto; 
+    border-radius: 8px;
+}
+/*COMEÇA O CADASTRO*/
+
+/*COMEÇA O CADASTRO*/
+.cadastros-container {
+    background-color: #f6f7f6;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-left: 10%;
+    width: 85%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.cadastros-container h3 {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+/* Lista de Cadastros */
+.cadastros-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+/* Item de Cadastro */
+.cadastro-item {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cadastro-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+.cadastro-item p {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
+    margin: 0;
+}
+/* Link de Cadastrar */
+.cadastrar-link {
+    display: flex;
+    align-items: center;
+    color: #265c4b;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+.cadastrar-link:hover {
+    color: #8fc1b5;
+}
+.cadastrar-link i {
+    font-size: 2rem;
+    margin-right: 0.3rem;
+}
+.status-busca {
+    font-size: 1rem;
+}
+
+
+/*MAIN*/
+.container-tabelaestoque {
+    margin-top: 30px;
+    margin-left: 9%;
+    overflow: hidden;
+}
+
+/* Personalizar o cabeçalho do card */
+.card-header-1 {
+    background-color: #265c4b;
+    color: white; 
+    padding: 15px;
+    width: 95%;
+    margin-top: 1%;
+    margin-left: 3%;
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente */
+    justify-content: space-between; /* Define o espaçamento horizontal */
+}
+
+/* Personalizar o título do cabeçalho */
+.card-header h5 {
+    font-size: 30px;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+/* Personalizar o campo de busca */
+#searchInputEstoque {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #444444;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* Foco no campo de busca */
+#searchInputEstoque:focus {
+    border-color: #3faa45; /* Mudar a borda para verde quando o campo estiver em foco */
+    box-shadow: 0 0 5px rgba(56, 142, 60, 0.5); 
+}
+
+
+
+/*TABELA*/
+.table {
+    width: 95%;
+    margin-top: -1,3%;
+    margin-left: 3%;
+}
+
+/* Estilos para o cabeçalho da tabela */
+.table thead.table-cabe {
+    background-color: #265c4b;
+    color: white; 
+
+}
+
+.table thead.table-cabe th {
+    padding: 10px;
+    text-align: left;
+    font-size: 1.1rem;
+    border: none; 
+    margin-bottom: 2%;
+}
+
+/* Estilos para as células da tabela */
+.table tbody tr td {
+    padding: 10px;
+    vertical-align: middle;
+    border: 1px solid #ddd; /
+}
+
+/* Estilos para as linhas alternadas da tabela */
+.table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; 
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #ffffff; 
+}
+
+/* Estilos para a borda da tabela */
+.table-bordered {
+    border: 1px solid #ddd; 
+}
+
+/* Estilos para o botão de detalhes */
+.table .btn {
+    font-size: 1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* Estilos para os modais */
+.modal-header {
+    background-color: #388e3c;
+    color: white; 
+}
+
+.modal-footer {
+    text-align: center;
+}
+
+.modal-body {
+    font-size: 1rem;
+}
+
+.actions {
+    text-align: center;
+   
+}
+.icon-action {
+    color: white;
+    background-color: #ffef0f;
+    font-size: 18px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+.icon-action:hover {
+    background-color: #9ab8d8;
+    transform: scale(1.1); /* Leve aumento no tamanho ao passar o mouse */
+}
+.icon-action:active {
+    transform: scale(0.98); 
+}
+
+.icon-action-2 {
+    color: white;
+    background-color: #df0202; 
+    font-size: 18px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+.icon-action-2:hover {
+    background-color: #9ab8d8; 
+    transform: scale(1.1); /* Leve aumento no tamanho ao passar o mouse */
+}
+.icon-action-2:active {
+    transform: scale(0.98); /* Efeito de "pressionar" o botão */
+}
+
+
+
+
+
+
+/* Estilo para o cabeçalho do cartão */
+.card-header.card-dois {
+    background-color: #265c4b;
+    color: white; 
+    padding: 10px 15px;
+    display: flex; 
+    align-items: center; 
+
+}
+
+.card-header.card-dois i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+
+}
+
+/* Estilo para o corpo do cartão */
+.card-body.body {
+    padding: 10px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+
+}
+
+/* Estilo para os parágrafos no corpo */
+.card-body.body p {
+    margin-bottom: 8px;
+}
+
+/* Estilo para os ícones nos parágrafos */
+.card-body.body i {
+    font-size: 1rem;
+    color: #072e22;
+}
+
+/* Estilo para a largura do cartão */
+.card {
+    margin: 1%; 
+    margin-right: 30%;
+}
+
+.texto {
+    font-size: 1.2rem; /* Tamanho da fonte */
+    font-weight: bold; /* Deixa o texto em negrito */
+    color: #ffffff; /* Cor verde */
+    text-align: center; /* Centraliza o texto */
+    text-transform: uppercase; /* Transforma o texto em maiúsculas */
+    letter-spacing: 2px; /* Espaçamento entre as letras */
+    margin-bottom: 1px; /* Espaço abaixo do título */
+    font-family: 'Arial', sans-serif; /* Define a fonte */
+}
+
+
+
+
+
+.outro-container {
+    padding: 20px;
+}
+
+/* Estilo da tabela */
+.tabela-resposiva {
+    width: 90%; 
+    margin-left: 10%; 
+    overflow-x: auto;
+    margin-top: -2%;
+}
+.tabela-stripada {
+    width: 90%;
+    margin-top: -1%;
+}
+.tabela-stripada th,
+.tabela-stripada td {
+    padding: 8px 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+/* Estilo do cabeçalho da tabela */
+.tabela-dois th {
+    background-color: #265c4b; /* Cor de fundo suave */
+    font-weight: bold; /* Texto em negrito */
+    text-align: left; 
+    padding: 10px; 
+    margin-bottom: 20%;
+    border: none;  
+    color: #ffffff; 
+}
+
+.tabela-dois th:first-child {
+    border-left: none; /* Remove a borda à esquerda do primeiro cabeçalho */
+}
+
+.tabela-dois th:last-child {
+    border-right: none; /* Remove a borda à direita do último cabeçalho */
+}
+
+.tabela-stripada tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+.tabela-stripada tr:hover {
+    background-color: #ddd;
+}
+.card-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #265c4b;
+    padding: 15px;
+    color: white;
+    margin-bottom: 20px;
+    width: 81%;
+    margin-left: 10%;
+}
+.texto-medicamento {
+    font-size: 1.6em;
+    margin: 0;
+    font-weight: bold;
+}
+/* Estilo dos inputs de busca */
+#searchInput {
+    width: 350px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 2%;
+}
+
+/* Estilo dos botões */
+.btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+/* Estilo do modal */
+.modal-dialog {
+    max-width: 600px;
+}
+
+.modal-header {
+    background-color: #007bff;
+    color: white;
+}
+
+.modal-body {
+    background-color: #ffffff;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+}
+
+/* Formulário do modal */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Estilo para os modais de entrada e saída */
+.modal-header h5 {
+    font-size: 1.25em;
+}
+
+.modal-footer button {
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.modal-footer button:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Estilos extras para os ícones */
+.fas {
+    font-size: 18px;
+} 
