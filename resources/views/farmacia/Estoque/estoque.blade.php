@@ -52,10 +52,10 @@
 <main>
     <div class="container-tabelaestoque">
         <div class="row">
-            <div class="col-lg-9 mb-4">
+            <div class="col-9">
                 <div class="table-responsive">
                     <div class="card-header-1">
-                        <h5 class="mb-0">Relatório do estoque</h5>
+                        <h5 style="font-weight: bold; font-size: 30px;">Relatório do estoque</h5>
                         <input type="text" id="searchInputEstoque" class="form-control" placeholder="Pesquisar por Medicamento e Funcionário" style="margin-top: 10px;">
                     </div>
                     <table class="table table-bordered table-striped" id="estoqueTable">
@@ -90,8 +90,8 @@
                                     <div class="modal fade" id="modalEstoque{{ $e->idEstoque }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <div class="modal-header  text-black">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Detalhes do Estoque</h5>
+                                                <div class="modal-header  text-white">
+                                                    <h5 class="modal-title" id="exampleModalLabel" style="font-weight:bold;">Detalhes do Estoque</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
@@ -104,43 +104,11 @@
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-danger">gerar pdf</button>
-
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!-- Botão Editar -->
-                                    <!-- @if ($e->situacaoEstoque == 'A')
-
-                                    <button class="btn btn-primary btn-sm edit-btn"
-                                        data-id="{{ $e->idEstoque }}"
-                                        data-id-medicamento="{{ $e->medicamento->idMedicamento }}"
-                                        data-id-funcionario="{{ $e->funcionario->idFuncionario }}"
-                                        data-id-tipo-movimentacao="{{ $e->tipoMovimentacao->idTipoMovimentacao }}"
-                                        data-quant-estoque="{{ $e->quantEstoque }}"
-                                        data-data-movimentacao="{{ $e->dataMovimentacao }}">
-                                        <i class="bi bi-pencil-square"></i> Editar
-                                    </button> -->
-
-                                    <!-- Botão Desativar -->
-                                    <!-- <form action="{{ route('desativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desativar este estoque?');">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-danger">Desativar</button>
-                                    </form> -->
-                                    <!-- @else
-                                    Botão ativar -->
-
-                                    <!-- <form action="{{ route('estoque.ativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja ativar este estoque?');">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit" class="btn btn-primary">Ativar</button>
-                                    </form> -->
-
-                                    <!-- @endif -->
                                 </td>
                             </tr>
                         </tbody>
@@ -242,8 +210,8 @@
                             <div class="modal fade" id="modalDetalhes{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <div class="modal-header  text-black">
-                                            <h5 class="modal-title" id="exampleModalLabel">Detalhes do Medicamento</h5>
+                                        <div class="modal-header  text-white">
+                                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight:bold;">Detalhes do Medicamento</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
