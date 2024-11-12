@@ -1,110 +1,119 @@
 @include('includes.headerFarmacia')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Adiciona Font Awesome -->
+<link rel="stylesheet" href="{{asset('css/Farmacia-CSS/TipoMovimentacao.css')}}">
 
-<!-- Main content -->
-<div class="col-md-9 col-lg-10 main-content">
-    <div class="head-title d-flex justify-content-between align-items-center mb-4">
-        <h1 class="text-primary">Tipo Movimentação</h1>
-        <a href="formTipoMovimentacao" target="_blank" class="btn btn-success">Cadastrar Tipo de Movimentação</a>
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
     </div>
-
-    <!-- Filtro de Situação -->
-    <div class="mb-3">
-        <button class="btn btn-info" onclick="filtrarMovimentacoes(1)">Ativos</button>
-        <button class="btn btn-warning" onclick="filtrarMovimentacoes(0)">Inativos</button>
-        <button class="btn btn-secondary" onclick="filtrarMovimentacoes()">Todos</button>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input" id="searchInput" onkeyup="filterTable()">
+        <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
+</nav>
 
-    <!-- Tabela de Movimentações -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover" id="tabelaMovimentacoes">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Movimentação</th>
-                    <th>Situação</th>
-                    <th>Data de Cadastro</th>
-                    <th>ID Prescrição</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($movimentacoes as $movimentacao)
-                    <tr class="movimentacao-row" data-situacao="{{ $movimentacao->situacaoTipoMovimentacao }}">
-                        <td>{{ $movimentacao->idTipoMovimentacao }}</td>
-                        <td>{{ $movimentacao->movimentacao }}</td>
-                        <td>
-                            <span class="badge {{ $movimentacao->situacaoTipoMovimentacao == 1 ? 'badge-success' : 'badge-warning' }}">
-                                {{ $movimentacao->situacaoTipoMovimentacao == 1 ? 'Ativo' : 'Inativo' }}
-                            </span>
-                        </td>
-                        <td>{{ \Carbon\Carbon::parse($movimentacao->dataCadastroTipoMovimentacao)->format('d/m/Y') }}</td>
-                        <td>{{ $movimentacao->idPrescricao }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('editarTipoMovimentacao', $movimentacao->idTipoMovimentacao) }}" class="btn btn-warning btn-sm">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            <form action="{{ route('excluirTipoMovimentacao', $movimentacao->idTipoMovimentacao) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este item?')">
-                                    <i class="fas fa-trash-alt"></i> Excluir
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;">Tipo de Movimentação</h1>
+        <p>Gerencie os tipos de movimentações nesta página.</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/estoque.png') }}" alt="Movimentações" class="img-fluid" />
     </div>
 </div>
 
-@include('includes.footer')
+<div class="cadastros-container">
+    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Acessar </h3>
+    <div class="cadastros-list">
+        <div class="cadastro-item">
+            <p>Cadastrar Tipo de Movimentação</p>
+            <a href="/formTipoMovimentacao" class="cadastrar-link">
+                <i class="fas fa-inbox"></i> 
+            </a>
+        </div>
+    </div>
+</div>
 
-<!-- Adicionando Font Awesome para ícones -->
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<div class="filter-search-container">
+    <div class="filter-buttons">
+        <button class="filter-btn" onclick="filterByStatus('1')">Ativos</button>
+        <button class="filter-btn" onclick="filterByStatus('0')">Inativos</button>
+        <button class="filter-btn" onclick="resetFilter()">Todos</button>
+    </div>
+</div>
 
-<!-- Estilos adicionais -->
-<style>
-    .main-content {
-        background-color: #f8f9fa;
-        padding: 30px;
-        border-radius: 8px;
-    }
-    .head-title h1 {
-        font-size: 32px;
-        font-weight: bold;
-    }
-    .btn {
-        font-size: 14px;
-        padding: 8px 12px;
-        border-radius: 4px;
-        font-weight: bold;
-    }
-    .table th, .table td {
-        vertical-align: middle;
-    }
-    .table th {
-        background-color: #343a40;
-        color: white;
-    }
-    .table td {
-        text-align: center;
-    }
-</style>
+<table id="tabelaMovimentacoes" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Movimentação</th>
+            <th>Situação</th>
+            <th>Data de Cadastro</th>
+            <th>ID Prescrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($movimentacoes as $movimentacao)
+            <tr data-status="{{ $movimentacao->situacaoTipoMovimentacao }}">
+                <td>{{ $movimentacao->idTipoMovimentacao }}</td>
+                <td>{{ $movimentacao->movimentacao }}</td>
+                <td>
+                    <span class="badge {{ $movimentacao->situacaoTipoMovimentacao == 1 ? 'bg-success' : 'bg-warning' }}">
+                        {{ $movimentacao->situacaoTipoMovimentacao == 1 ? 'Ativo' : 'Inativo' }}
+                    </span>
+                </td>
+                <td>{{ \Carbon\Carbon::parse($movimentacao->dataCadastroTipoMovimentacao)->format('d/m/Y') }}</td>
+                <td>{{ $movimentacao->idPrescricao }}</td>
+                <td class="text-center">
+                    <a href="{{ route('editarTipoMovimentacao', $movimentacao->idTipoMovimentacao) }}" class="btn btn-primary btn-acao">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <form action="{{ route('excluirTipoMovimentacao', $movimentacao->idTipoMovimentacao) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-acao" onclick="return confirm('Tem certeza que deseja excluir este item?')">
+                            <i class="fas fa-trash-alt"></i> Excluir
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
 
-<!-- Script para filtro -->
 <script>
-    function filtrarMovimentacoes(situacao = '') {
-        const rows = document.querySelectorAll('.movimentacao-row');
-        
+    function filterTable() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const rows = document.querySelectorAll('#tabelaMovimentacoes tbody tr');
+
         rows.forEach(row => {
-            const rowSituacao = row.getAttribute('data-situacao');
-            
-            if (situacao === '' || rowSituacao == situacao) {
-                row.style.display = ''; // Mostra a linha
-            } else {
-                row.style.display = 'none'; // Esconde a linha
-            }
+            const movimentacao = row.cells[1].textContent.toLowerCase();
+            row.style.display = movimentacao.includes(input) ? '' : 'none';
         });
     }
+
+    function filterByStatus(status) {
+        const rows = document.querySelectorAll('#tabelaMovimentacoes tbody tr');
+
+        rows.forEach(row => {
+            const rowStatus = row.getAttribute('data-status');
+            row.style.display = (status === '' || rowStatus === status) ? '' : 'none';
+        });
+
+        document.getElementById('searchInput').value = '';
+    }
+
+    function resetFilter() {
+        const rows = document.querySelectorAll('#tabelaMovimentacoes tbody tr');
+
+        rows.forEach(row => {
+            row.style.display = '';
+        });
+
+        document.getElementById('searchInput').value = '';
+    }
 </script>
+
+@include('includes.footer')

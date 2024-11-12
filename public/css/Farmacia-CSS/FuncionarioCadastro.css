@@ -127,7 +127,11 @@ label {
 
 #nomeFuncionario,
 #cpfFuncionario,
-#cargoFuncionario{
+#cargoFuncionario,
+#movimentacao,
+#situacaoTipoMovimentacao,
+#dataCadastroTipoMovimentacao,
+#idPrescricao{
     width: 100%; 
     padding: 12px; 
     margin-bottom: 20px; 
@@ -141,7 +145,11 @@ label {
  
 #nomeFuncionario,
 #cpfFuncionario,
-#cargoFuncionario{
+#cargoFuncionario,
+#movimentacao,
+#situacaoTipoMovimentacao,
+#dataCadastroTipoMovimentacao,
+#idPrescricao{
     border-color: #8fc1b5; 
     outline: none; 
     box-shadow: 0 0 5px rgba(0, 255, 170, 0.5); 

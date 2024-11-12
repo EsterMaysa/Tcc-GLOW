@@ -83,6 +83,6 @@ class TipoMovimentacaoController extends Controller
             $movimentacao->save(); // Salva a atualização no banco de dados
         
             // Redireciona com uma mensagem de sucesso
-            return redirect()->route('entrada_medicamento')->with('success', 'Movimentação atualizada com sucesso para inativo!');
+            return redirect()->route('entrada_medicamento')->with('success', 'Movimentação Desativada com sucesso para inativo!');
         }
 }
