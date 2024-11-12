@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #265c4b;
+    padding: 10px 20px;
+    height: 90px;
+    color: white;
+}
+.navbar-brand {
+    margin-left: 20px;
+}
+.logo {
+    width: 50px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+.search-input {
+    height: 40px;
+    width: 280px;
+    padding: 8px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    margin-right: 10px;
+}
+.search-button {
+    padding: 8px 12px;
+    background-color: #072e22;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+}
+.search-button:hover {
+    background-color: #8fc1b5;
+}
+
+/* Main container */
+.container-um {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+   
+}
+.jumbotron-um {
+    width: 40%;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 15%;
+}
+.jumbotron-um h1 {
+    margin-bottom: 10px;
+}
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Cadastro section */
+.cadastros-container {
+    background-color: #f6f7f6;
+    padding: 1rem;
+    border-radius: 6px;
+    width: 85%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+}
+.cadastros-container h3 {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+.cadastros-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.cadastro-item {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cadastro-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+.cadastrar-link {
+    display: flex;
+    align-items: center;
+    color: #265c4b;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.cadastrar-link:hover {
+    color: #8fc1b5;
+}
+.cadastrar-link i {
+    font-size: 2rem;
+    margin-right: 0.3rem;
+}
+
+/* Tabela de movimentacao */
+#tabelaMovimentacoes {
+    width: 85%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+#tabelaMovimentacoes th,
+#tabelaMovimentacoes td {
+    padding: 1rem;
+    text-align: left;
+    font-size: 1rem;
+    color: #333;
+}
+#tabelaMovimentacoes th {
+    background-color: #265c4b;
+    color: white;
+    font-weight: 600;
+}
+#tabelaMovimentacoes td {
+    background-color: #ffffff;
+    border-top: 1px solid #ccc;
+}
+
+/* Filtro e Barra de Pesquisa */
+.filter-search-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 20px;
+    padding: 0.5rem;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.filter-buttons {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem;
+    background-color: #f6f7f6;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+.filter-buttons .filter-btn {
+    background-color: #265c4b;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.filter-buttons .filter-btn:hover {
+    background-color: #8fc1b5;
+    transform: translateY(-2px);
+}
+.search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+.search-bar input {
+    width: 100%;
+    padding: 0.8rem 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f6f7f6;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+.search-bar input:focus {
+    border-color: #265c4b;
+    box-shadow: 0 2px 6px rgba(38, 92, 75, 0.3);
+}

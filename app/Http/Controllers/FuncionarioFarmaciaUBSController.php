@@ -20,11 +20,11 @@ class FuncionarioFarmaciaUBSController extends Controller
         $funcionario->nomeFuncionario = $request->nomeFuncionario;
         $funcionario->cpfFuncionario = $request->cpfFuncionario;
         $funcionario->cargoFuncionario = $request->cargoFuncionario;
-        $funcionario->situacaoFuncionario = '1';
+        $funcionario->situacaoFuncionario = 'A';
         $funcionario->dataCadastroFuncionario = now();
         $funcionario->save();
 
-        return redirect('/funcionarios')->with('message', 'Funcionário cadastrado com sucesso!');
+        return redirect('farmacia.Funcionario.funcionario')->with('message', 'Funcionário cadastrado com sucesso!');
     }
 
     public function edit($idFuncionario)
@@ -68,14 +68,14 @@ public function destroy($id)
 {
     $funcionario = ModelFuncionario::find($id);
     if (!$funcionario) {
-        return response()->json(['message' => 'Funcionário não encontrado'], 404);
+        return redirect()->route('funcionario.index')->with('success', 'Funcionário não encontrado!');
     }
 
     // Atualiza a situação para 0 (deletado)
-    $funcionario->situacaoFuncionario = '0';
+    $funcionario->situacaoFuncionario = 'I';
     $funcionario->save();
 
-    return response()->json(['message' => 'Funcionário excluído com sucesso']);
+    return redirect()->route('funcionario.index')->with('success', 'Funcionário desativado com sucesso!');
 }
 
     // public function show($id)

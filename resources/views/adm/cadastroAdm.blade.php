@@ -20,7 +20,7 @@
         <div class="container-login100">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="{{ asset('Image/logoAdm.png') }}" alt="IMG" style=" width: 350% ; margin-top: -30%">
+                    <img src="{{ asset('Image/4.png') }}" alt="IMG" style=" width: 350% ; margin-top: -30%">
                 </div>
 
                 <form class="login100-form validate-form" action="/cadastroAdm" method="post">
