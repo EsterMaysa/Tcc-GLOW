@@ -1,3 +1,5 @@
+<!--css ok Gaby-->
+
 @include('includes.headerFarmacia')<!-- include do header -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/CadMedicamento.css')}}">
@@ -17,7 +19,7 @@
         <p>Você pode Editar o Medicamento nessa página.</p>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/medicamento.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/medi.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
     </div>
 </div>
 
@@ -85,18 +87,12 @@
                     </div>
                 </div>
                 <div class="form-row" style="margin-left: 100px;">
-                    <div class="form-col" style="margin-left: 200px;">
+                    <div class="form-col" style="margin-left: 30%;">
                         <button type="submit" class="btn btn-success">Salvar</button>
 
                     </div>
-                    <div class="form-col" style="margin-right: 200px;">
-                        <a href="/MedicamentoHome" class="btn btn-secondary">Cancelar</a>
-
-                    </div>
                 </div>
-
             </form>
-
         </div>
     </div>
 </main>

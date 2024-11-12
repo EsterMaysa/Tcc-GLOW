@@ -5,7 +5,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Para garantir que as regras se apliquem somente dentro da side-nav */
 .side-nav * {
     margin: 0;
     padding: 0;
@@ -15,7 +14,7 @@
 
 .side-nav{
     width: 110px;
-    height: 110%;
+    height: 100vh; 
     position: fixed;
     top: 0;
     left: 0;
@@ -26,21 +25,21 @@
     justify-content: space-between;
     flex-direction: column;
     transition: width 0.5s;
-    z-index: 10; /* Certifique-se que o sidebar tenha um z-index mais alto */
+    z-index: 10;
 }
 
 .side-nav .user{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 60px;
-    font-size: 12px;
-    padding: 10px;
-    margin-bottom: 10%; 
+    font-size: 14px;
+    padding: 14px;
+    font-weight: bold;
     border-radius: 8px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 20px; 
     overflow: hidden;
+    margin-top: 30%;
 }
 
 .side-nav .user div{
@@ -56,7 +55,7 @@
 .side-nav ul{
     list-style: none;
     padding: 0 10px;
-    padding-bottom: 70%; /* Ajuste este valor para controlar o deslocamento para cima */
+    margin-top: 20px; 
 }
 
 .side-nav ul li a {
@@ -94,12 +93,10 @@
 
 .side-nav:hover .user{
     width: 100%;
-    background: rgba(5, 32, 153, 0.5);
+    background: #1f2b5b;
     backdrop-filter: blur(5px);
-}
-
-.side-nav:hover .user{
-    margin: 0;
+    margin-top: 30%;
+    color: #fff;
 }
 
 .side-nav:hover ul li p{
@@ -111,7 +108,7 @@
 }
 
 .side-nav ul li a:hover {
-    color: #6373bb;
+    color: #7d8cc9;
 }
 
 .side-nav:hover ul li{

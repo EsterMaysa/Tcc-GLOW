@@ -1,65 +1,105 @@
-@include('includes.headerFarmacia')
+<!--CSS OK (ASS:Duda)-->
 
-<div class="container" style="margin: 10px;">
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
+@include('includes.headerFarmacia')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/Prescricao.css')}}">
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
     </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;"> Cadastro de Prescrição </h1>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/lista.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+    </div>
+</div>
+
+<main>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
     @endif
 
     @if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
     @endif
-    <div class="row">
-        <div class="col-md-4">
-            <div class="head-title">
-                <h3>Cadastrar </h3>
-            </div>
 
-            <form id="prescricaoForm" action="/Cadprescricao" method="POST">
-                @csrf
-                <!-- A ação e o método do formulário serão atualizados via JavaScript -->
-                <input type="hidden" id="prescricaoId" name="prescricaoId">
+    <div class="form-wrapper">
+        <form id="prescricaoForm" action="/Cadprescricao" method="POST" class="styled-form">
+            @csrf
+            <input type="hidden" id="prescricaoId" name="prescricaoId">
 
+            <div class="form-row">
                 <div class="form-group">
                     <label for="dataPrescricao">Data da Prescrição</label>
-                    <input type="date" class="form-control" id="dataPrescricao" name="dataPrescricao" required>
+                    <div class="input-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" class="form-control" id="dataPrescricao" name="dataPrescricao" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="quantPrescricao">Quantidade</label>
-                    <input type="number" class="form-control" id="quantPrescricao" name="quantPrescricao" required>
+                    <div class="input-icon">
+                        <i class="fas fa-sort-numeric-up"></i>
+                        <input type="number" class="form-control" id="quantPrescricao" name="quantPrescricao" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="dosagemPrescricao">Dosagem</label>
-                    <input type="text" class="form-control" id="dosagemPrescricao" name="dosagemPrescricao" required>
+                    <div class="input-icon">
+                        <i class="fas fa-prescription-bottle-alt"></i>
+                        <input type="text" class="form-control" id="dosagemPrescricao" name="dosagemPrescricao" required>
+                    </div>
                 </div>
+            </div>
 
+            <div class="form-row">
                 <div class="form-group">
                     <label for="duracaoRemedio">Duração (em dias)</label>
-                    <input type="number" class="form-control" id="duracaoRemedio" name="duracaoRemedio" required>
+                    <div class="input-icon">
+                        <i class="fas fa-clock"></i>
+                        <input type="number" class="form-control" id="duracaoRemedio" name="duracaoRemedio" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label for="idMedicamento">Medicamento</label>
-                    <select class="form-control" id="idMedicamento" name="idMedicamento" required>
-                        <option value="">Selecione um medicamento</option>
-                        @foreach ($medicamento as $med)
-                        <option value="{{ $med->idMedicamento }}">{{ $med->nomeMedicamento }}</option>
-                        @endforeach
-                    </select>
+                    <div class="input-icon">
+                        <select class="form-control" id="idMedicamento" name="idMedicamento" required>
+                            <option value="">Selecione um medicamento</option>
+                            @foreach ($medicamento as $med)
+                            <option value="{{ $med->idMedicamento }}">{{ $med->nomeMedicamento }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
+            </div>
+            
+            <!-- Botões de Ação com Ícones -->
+            <button type="submit" class="submit-btn" id="submitBtn" style="margin-left: 25%;">
+                <i class="fas fa-save"></i> Cadastrar Prescrição
+            </button>
+            <button type="button" class="submit" id="saveChangesBtn" style="display: none;">
+                <i class="fas fa-edit"></i> Salvar Alterações
+            </button>
+        </form>
+    </div>
 
-                <!-- Botões de Ação -->
-                <button type="submit" class="btn btn-primary" id="submitBtn">Cadastrar Prescrição</button>
-                <button type="button" class="btn btn-success" id="saveChangesBtn" style="display: none;">Salvar Alterações</button>
-            </form>
-        </div>
-
-        <div class="col-md-8">
+    <div class="col-md-8">
             <div class="head-title">
                 <h4>Prescrições</h4>
             </div>
@@ -113,9 +153,9 @@
             </table>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+</main>
+@include('includes.footer')
+<script>
         $(document).ready(function() {
             // Quando o botão "Editar" é clicado
             $('.edit-btn').click(function() {
@@ -148,6 +188,4 @@
             });
         });
     </script>
-
-    @include('includes.footer')
-</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

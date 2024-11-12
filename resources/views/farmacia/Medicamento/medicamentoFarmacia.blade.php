@@ -1,3 +1,5 @@
+<!--CSS OK ASS: GABY-->
+
 @include('includes.headerFarmacia')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/Medicamento.css')}}">
@@ -16,15 +18,15 @@
 <div class="container-um">
     <div class="jumbotron-um">
         <h1 style="font-weight: bold;">Medicamento</h1>
-        <p>Você pode gerenciar o estoque nessa página.</p>
+        <p>Você pode gerenciar o medicamento nessa página.</p>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/medicamento.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/medi.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
     </div>
 </div>
 
 <div class="cadastros-container">
-    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Acessar </h3>
+    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Cadastrar </h3>
     <div class="cadastros-list">
         <div class="cadastro-item">
             <p>Cadastrar Medicamento</p>
@@ -85,7 +87,7 @@
         </div>
     </div>
 
-    <div class="fclass="custom-table"r>
+    <div class="custom-table">
         <div class="custom-table">
             <div class="card-header-1">
                 <h5>Medicamentos</h5>
@@ -124,22 +126,24 @@
                         <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
                         <td class="actions">
                             @if ($med->situacaoMedicamento == 'A')
-                            <a href="{{ route('medicamentosFarma.edit', $med->idMedicamento) }}" class="icon-action" title="Editar">
-                            <i class="fas fa-edit"></i>
-                            <form action="{{ route('medicamentosFarma.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit"class="icon-action-2"title="Desativar">
-                                <i class="fas fa-ban"></i>
-                             </form>
-                            @else
-                            <form action="{{ route('medicamentosFarma.ativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="icon-action-2" title="Ativar">
-                                    <i class="fas fa-check"></i>
-                                </button>
-                            </form>
+                                <a href="{{ route('medicamentosFarma.edit', $med->idMedicamento) }}" class="icon-action" title="Editar" style="color: #f7d516;">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="{{ route('medicamentosFarma.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="icon-action-2" title="Desativar" style="color: red;">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
+                                </form>
+                                @else
+                                <form action="{{ route('medicamentosFarma.ativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="icon-action-2" title="Ativar">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
                             @endif
                         </td>
                     </tr>

@@ -40,8 +40,6 @@
 				<li><a href="/selectRegiaoForm"><img src="{{ asset('Image/reports.png')}}"><p>Cadastro de UBS</p></a></li>
 				<li><a href="/cliente"><img src="{{ asset('Image/reports.png')}}"><p>Pacientes</p></a></li>
 				<li><a href="/contato"><img src="{{ asset('Image/messages.png')}}"><p>Mensagens</p></a></li>
-			</ul>
-			<ul style="margin-bottom: 40%;">
 				<li>
 					<form id="logout-form" action="/logout" method="POST" style="display: none;">
 						@csrf
