@@ -21,7 +21,7 @@
         <p>Você pode gerenciar o estoque nessa página.</p>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/estoque.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/estoqmedicamentoue.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
     </div>
 </div>
 
@@ -31,8 +31,8 @@
         <div class="cadastro-item">
             <p>Entrada Medicamento</p>
             <a href="/EntradaMedicamentoHome" class="cadastrar-link">
-                <i class="fas fa-inbox"></i> 
-            </a>
+                <i class="fa-solid fa-pen-to-square"></i>            
+             </a>
         </div>
         <div class="cadastro-item">
             <p>Saída Medicamento</p>
@@ -104,7 +104,6 @@
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-danger">gerar pdf</button>
 
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                                                 </div>
