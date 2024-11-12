@@ -1,4 +1,6 @@
 @include('includes.headerFarmacia')
+<link rel="stylesheet" href="{{('css/Farmacia-CSS/')}}">
+
 <div class="col-md-9 col-lg-10 main-content">
     <div class="head-title">
         <div class="left">
@@ -65,25 +67,6 @@
 
 @include('includes.footer')
 
-<!-- Estilos para a tabela -->
-<style>
-    .table {
-        margin: 20px 0;
-        width: 100%;
-        background-color: #14213D;
-        color: #fff;
-    }
-    .table thead {
-        background-color: #57b8ff;
-    }
-    .table tbody tr:hover {
-        background-color: #4b89f5;
-    }
-    .btn-primary i, .btn-danger i {
-        margin-right: 0;
-    }
-</style>
-
 <!-- Script para o filtro -->
 <script>
 document.getElementById('searchInput').addEventListener('keyup', function() {
@@ -105,3 +88,21 @@ document.getElementById('searchInput').addEventListener('keyup', function() {
     });
 });
 </script>
+<!-- Estilos para a tabela -->
+<style>
+    .table {
+        margin: 20px 0;
+        width: 100%;
+        background-color: #14213D;
+        color: #fff;
+    }
+    .table thead {
+        background-color: #57b8ff;
+    }
+    .table tbody tr:hover {
+        background-color: #4b89f5;
+    }
+    .btn-primary i, .btn-danger i {
+        margin-right: 0;
+    }
+</style>

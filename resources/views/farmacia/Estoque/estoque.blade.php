@@ -1,168 +1,179 @@
-@include('includes.headerFarmacia')
-
-
+<!--CSS OK (ASS:Duda)-->
 <!-- PAGINA PRINCIPAL DO ESTOQUE A HOME DO ESTOQUE -->
 
-<div class="container mt-4">
+@include('includes.headerFarmacia')<!-- include do header -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/Estoque.css')}}">
 
-
-    <!-- Seção com botões e imagem -->
-    <div class="d-flex align-items-center justify-content-between mb-4 p-3 border rounded shadow-sm bg-light">
-
-        <div class="d-flex flex-column align-items-center me-4">
-            <a href="/EntradaMedicamentoHome" class="btn btn-success btn-lg mb-2">
-                <i class="bi bi-box-arrow-in-down me-2"></i>
-                Entrada de Medicamento
-            </a>
-            <small class="text-muted">Registrar entrada</small>
-        </div>
-
-        <div class="d-flex flex-column align-items-center me-4 ">
-            <a href="/saidaMed" class="btn btn-danger btn-lg mb-2">
-                <i class="bi bi-box-arrow-up me-2"></i>
-                Saída de Medicamento
-            </a>
-            <small class="text-muted">Registrar saida</small>
-        </div>
-
-        <div class="d-flex flex-column align-items-center me-4">
-            <a href="/MedicamentoHome" class="btn btn-primary btn-lg mb-2">
-                <i class="bi bi-box-arrow-up me-2"></i>
-                Medicamento Registrados
-            </a>
-            <small class="text-muted">vizualizar todos medicamentos cadastrados</small>
-        </div>
-
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
     </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
 
-    <!-- Tabela e status do estoque -->
-    <div class="row">
-        <div class="col-lg-9 mb-4">
-            <div class="table-responsive">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0">Relatorio do estoque</h5>
-                    <input type="text" id="searchInputEstoque" class="form-control" placeholder="Pesquisar por Medicamento e Funcionário" style="margin-top: 10px;">
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;">Estoque</h1>
+        <p>Você pode gerenciar o estoque nessa página.</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/estoque.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+    </div>
+</div>
 
-                </div>
-                <table class="table table-bordered table-striped" id="estoqueTable">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Medicamento</th>
-                            <th>Funcionario</th>
-                            <th>Movimentação</th>
-                            <th>Quantidade</th>
-                            <th>Data de Validade</th>
-                            <th>Situação</th>
-                            <th>Detalhes</th>
-                        </tr>
-                    </thead>
-                    @foreach ($estoque as $e)
-                    <tbody>
+<div class="cadastros-container">
+    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Acessar </h3>
+    <div class="cadastros-list">
+        <div class="cadastro-item">
+            <p>Entrada Medicamento</p>
+            <a href="/EntradaMedicamentoHome" class="cadastrar-link">
+                <i class="fas fa-inbox"></i> 
+            </a>
+        </div>
+        <div class="cadastro-item">
+            <p>Saída Medicamento</p>
+            <a href="/saidaMed" class="cadastrar-link">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
+        </div>
+        <div class="cadastro-item">
+            <p>Medicamentos Registrados</p>
+            <a href="/MedicamentoHome" class="cadastrar-link">
+                <i class="fas fa-clipboard-list"></i> 
+            </a>
+        </div>
+    </div>
+</div>
 
-                        <tr>
-                            <td>{{ $e->medicamento->nomeMedicamento }}</td>
-                            <td>{{ $e->funcionario->nomeFuncionario }}</td>
-                            <td>{{ $e->tipoMovimentacao->movimentacao }}</td>
-                            <td>{{ $e->quantEstoque }}</td>
-                            <td>{{ \Carbon\Carbon::parse($e->dataMovimentacao)->format('d/m/Y') }}</td>
-                            <td>{{ $e->situacaoEstoque == 'A' ||  $e->situacaoEstoque == '1' ? 'Ativo' : 'Inativo'  }}</td>
-                            <td>
+<main>
+    <div class="container-tabelaestoque">
+        <div class="row">
+            <div class="col-lg-9 mb-4">
+                <div class="table-responsive">
+                    <div class="card-header-1">
+                        <h5 class="mb-0">Relatório do estoque</h5>
+                        <input type="text" id="searchInputEstoque" class="form-control" placeholder="Pesquisar por Medicamento e Funcionário" style="margin-top: 10px;">
+                    </div>
+                    <table class="table table-bordered table-striped" id="estoqueTable">
+                        <thead class="table-cabe">
+                            <tr>
+                                <th>Medicamento</th>
+                                <th>Funcionario</th>
+                                <th>Movimentação</th>
+                                <th>Quantidade</th>
+                                <th>Data de Validade</th>
+                                <th>Situação</th>
+                                <th>Detalhes</th>
+                            </tr>
+                        </thead>
+                        @foreach ($estoque as $e)
+                        <tbody>
 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEstoque{{ $e->idEstoque }}">
-                                    i
-                                </button>
+                            <tr>
+                                <td>{{ $e->medicamento->nomeMedicamento }}</td>
+                                <td>{{ $e->funcionario->nomeFuncionario }}</td>
+                                <td>{{ $e->tipoMovimentacao->movimentacao }}</td>
+                                <td>{{ $e->quantEstoque }}</td>
+                                <td>{{ \Carbon\Carbon::parse($e->dataMovimentacao)->format('d/m/Y') }}</td>
+                                <td>{{ $e->situacaoEstoque == 'A' ||  $e->situacaoEstoque == '1' ? 'Ativo' : 'Inativo'  }}</td>
+                                <td>
 
-                                <!-- Modal para os detalhes do medicamento -->
-                                <div class="modal fade" id="modalEstoque{{ $e->idEstoque }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header  text-black">
-                                                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Estoque</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p><strong>Medicamento</strong> {{ $e->medicamento->nomeMedicamento }}</p>
-                                                <p><strong>Quantidade:</strong>{{ $e->quantEstoque }}</p>
-                                                <p><strong>Nome Funcionario:</strong> {{ $e->funcionario->nomeFuncionario }}</p>
-                                                <p><strong>Entradas:</strong> {{ $e->tipoMovimentacao->movimentacao }}</p>
-                                                <p><strong>Data do cadastro:</strong>{{ \Carbon\Carbon::parse($e->dataMovimentacao)->format('d/m/Y') }}</p>
-                                                <p><strong>Situação</strong> {{ $e->situacaoEstoque == 'A'  ||  $e->situacaoEstoque == '1' ? 'Ativo' : 'Inativo' }}</p>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEstoque{{ $e->idEstoque }}">
+                                        i
+                                    </button>
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-danger">gerar pdf</button>
+                                    <!-- Modal para os detalhes do medicamento -->
+                                    <div class="modal fade" id="modalEstoque{{ $e->idEstoque }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header  text-black">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Detalhes do Estoque</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><strong>Medicamento</strong> {{ $e->medicamento->nomeMedicamento }}</p>
+                                                    <p><strong>Quantidade:</strong>{{ $e->quantEstoque }}</p>
+                                                    <p><strong>Nome Funcionario:</strong> {{ $e->funcionario->nomeFuncionario }}</p>
+                                                    <p><strong>Entradas:</strong> {{ $e->tipoMovimentacao->movimentacao }}</p>
+                                                    <p><strong>Data do cadastro:</strong>{{ \Carbon\Carbon::parse($e->dataMovimentacao)->format('d/m/Y') }}</p>
+                                                    <p><strong>Situação</strong> {{ $e->situacaoEstoque == 'A'  ||  $e->situacaoEstoque == '1' ? 'Ativo' : 'Inativo' }}</p>
 
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-danger">gerar pdf</button>
+
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Botão Editar -->
-                                <!-- @if ($e->situacaoEstoque == 'A')
+                                    <!-- Botão Editar -->
+                                    <!-- @if ($e->situacaoEstoque == 'A')
 
-                                <button class="btn btn-primary btn-sm edit-btn"
-                                    data-id="{{ $e->idEstoque }}"
-                                    data-id-medicamento="{{ $e->medicamento->idMedicamento }}"
-                                    data-id-funcionario="{{ $e->funcionario->idFuncionario }}"
-                                    data-id-tipo-movimentacao="{{ $e->tipoMovimentacao->idTipoMovimentacao }}"
-                                    data-quant-estoque="{{ $e->quantEstoque }}"
-                                    data-data-movimentacao="{{ $e->dataMovimentacao }}">
-                                    <i class="bi bi-pencil-square"></i> Editar
-                                </button> -->
+                                    <button class="btn btn-primary btn-sm edit-btn"
+                                        data-id="{{ $e->idEstoque }}"
+                                        data-id-medicamento="{{ $e->medicamento->idMedicamento }}"
+                                        data-id-funcionario="{{ $e->funcionario->idFuncionario }}"
+                                        data-id-tipo-movimentacao="{{ $e->tipoMovimentacao->idTipoMovimentacao }}"
+                                        data-quant-estoque="{{ $e->quantEstoque }}"
+                                        data-data-movimentacao="{{ $e->dataMovimentacao }}">
+                                        <i class="bi bi-pencil-square"></i> Editar
+                                    </button> -->
 
-                                <!-- Botão Desativar -->
-                                <!-- <form action="{{ route('desativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desativar este estoque?');">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-danger">Desativar</button>
-                                </form> -->
-                                <!-- @else
-                                Botão ativar -->
+                                    <!-- Botão Desativar -->
+                                    <!-- <form action="{{ route('desativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja desativar este estoque?');">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-danger">Desativar</button>
+                                    </form> -->
+                                    <!-- @else
+                                    Botão ativar -->
 
-                                <!-- <form action="{{ route('estoque.ativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja ativar este estoque?');">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-primary">Ativar</button>
-                                </form> -->
+                                    <!-- <form action="{{ route('estoque.ativar', $e->idEstoque) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja ativar este estoque?');">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit" class="btn btn-primary">Ativar</button>
+                                    </form> -->
 
-                                <!-- @endif -->
-                            </td>
-                        </tr>
-                    </tbody>
-                    @endforeach
-                </table>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="card">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Status do Estoque</h5>
+                                    <!-- @endif -->
+                                </td>
+                            </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
                 </div>
-                <div class="card-body">
-                    <p><strong>Entrada do (nome do medicamento):</strong> visualizar</p>
-                    <p><strong>Saída do (nome do medicamento):</strong> visualizar</p>
-                    <p><strong>(nome do medicamento) está preste a acabar (quantidade) </strong> visualizar</p>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header card-dois">
+                        <i class="fas fa-boxes"></i>
+                        <h3 class="texto">Status do Estoque</h3>
+                    </div>
+                    <div class="card-body body">
+                        <p><i class="fas fa-arrow-right"></i> <strong>Entrada do (nome do medicamento):</strong> visualizar</p>
+                        <p><i class="fas fa-arrow-left"></i> <strong>Saída do (nome do medicamento):</strong> visualizar</p>
+                        <p><i class="fas fa-exclamation-circle"></i> <strong>(nome do medicamento) está prestes a acabar (quantidade)</strong> visualizar</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Formulário de Movimentação do Estoque -->
-
-
-    <!-- Tabela de Medicamentos Registrados -->
-    <div class="col-lg-12 mb-4">
-        <div class="card">
-            <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">Medicamentos Registrados</h5>
+    <div class="outro-container">
+        <div class="container-tres">
+            <div class="card-cabecalho">
+                <h5 class="texto-medicamento">Medicamentos Registrados</h5>
                 <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" style="margin-top: 10px;">
-
             </div>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="medicamentoTable">
-                    <thead class="table-dark">
+            <div class="tabela-resposiva">
+                <table class="tabela-stripada" id="medicamentoTable">
+                    <thead class="tabela-dois">
                         <tr>
                             <th>Nome</th>
                             <th>Nome Genérico</th>
@@ -172,213 +183,176 @@
                             <th>Situação</th>
                             <th>Movimentação</th>
                             <th>inf</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($medicamento as $med)
-                        @if ($med->situacaoMedicamento == 'A' || $med->situacaoMedicamento == '1')
+                            @if ($med->situacaoMedicamento == 'A' || $med->situacaoMedicamento == '1')
+                                <tr>
+                                    <td>{{ $med->nomeMedicamento }}</td>
+                                    <td>{{ $med->nomeGenericoMedicamento }}</td>
+                                    <td>{{ $med->codigoDeBarrasMedicamento }}</td>
+                                    <td>{{ $med->loteMedicamento }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</td>
+                                    <td>{{ $med->situacaoMedicamento == 'A' || $med->situacaoMedicamento == '1' ? 'Ativo' : 'Inativo' }}</td>
+                                    <td>
+                                        <!-- Botão Registrar Entrada com ícone -->
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#entradaModal{{ $med->idMedicamento }}">
+                                            <i class="fas fa-arrow-up"></i> <!-- Ícone de seta para cima -->
+                                        </button>
+                                        <!-- Botão Registrar Saída com ícone -->
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#saidaModal{{ $med->idMedicamento }}">
+                                            <i class="fas fa-arrow-down"></i> <!-- Ícone de seta para baixo -->
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <!-- Botão dos detalhes com ícone -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $med->idMedicamento }}">
+                                            <i class="fas fa-info-circle"></i> <!-- Ícone de informações -->
+                                        </button>
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>{{ $med->nomeMedicamento }}</td>
-                            <td>{{ $med->nomeGenericoMedicamento }}</td>
-                            <td>{{ $med->codigoDeBarrasMedicamento }}</td>
-                            <td>{{ $med->loteMedicamento }}</td>
-                            <td>{{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</td>
-                            <td>{{ $med->situacaoMedicamento == 'A'|| $med->situacaoMedicamento == '1' ? 'Ativo' : 'Inativo' }}</td>
-                            <td>
-                                <!-- Botão Registrar Entrada -->
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#entradaModal{{ $med->idMedicamento }}">
-                                    ↑
-                                </button>
-                                <!-- Botão Registrar Saída -->
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#saidaModal{{ $med->idMedicamento }}">
-                                    ↓
-                                </button>
-                            </td>
-
-                            <td>
-                                <!-- Botão dos detalhes-->
-
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDetalhes{{ $med->idMedicamento }}">
-                                    i
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <!-- Modal para os detalhes do medicamento -->
-                        <div class="modal fade" id="modalDetalhes{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header  text-black">
-                                        <h5 class="modal-title" id="exampleModalLabel">Detalhes do Medicamento</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p><strong>Código de Barras:</strong> {{ $med->codigoDeBarrasMedicamento }}</p>
-                                        <p><strong>Nome:</strong> {{ $med->nomeMedicamento }}</p>
-                                        <p><strong>Nome Genérico:</strong> {{ $med->nomeGenericoMedicamento }}</p>
-                                        <p><strong>Lote:</strong> {{ $med->loteMedicamento }}</p>
-                                        <p><strong>Dosagem:</strong> {{ $med->dosagemMedicamento }}</p>
-                                        <p><strong>Forma Farmacêutica:</strong> {{ $med->formaFarmaceuticaMedicamento }}</p>
-                                        <p><strong>Composição:</strong> {{ $med->composicaoMedicamento }}</p>
-                                        <p><strong>Validade:</strong> {{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</p>
-                                        <p><strong>Situação:</strong> {{ $med->situacaoMedicamento == 'A' || $med->situacaoMedicamento == '1' ? 'Ativo' : 'Inativo' }}</p>
-                                        <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <!-- Modal para os detalhes do medicamento -->
+                                <div class="modal fade" id="modalDetalhes{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-black">
+                                                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Medicamento</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><strong>Código de Barras:</strong> {{ $med->codigoDeBarrasMedicamento }}</p>
+                                                <p><strong>Nome:</strong> {{ $med->nomeMedicamento }}</p>
+                                                <p><strong>Nome Genérico:</strong> {{ $med->nomeGenericoMedicamento }}</p>
+                                                <p><strong>Lote:</strong> {{ $med->loteMedicamento }}</p>
+                                                <p><strong>Dosagem:</strong> {{ $med->dosagemMedicamento }}</p>
+                                                <p><strong>Forma Farmacêutica:</strong> {{ $med->formaFarmaceuticaMedicamento }}</p>
+                                                <p><strong>Composição:</strong> {{ $med->composicaoMedicamento }}</p>
+                                                <p><strong>Validade:</strong> {{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</p>
+                                                <p><strong>Situação:</strong> {{ $med->situacaoMedicamento == 'A' || $med->situacaoMedicamento == '1' ? 'Ativo' : 'Inativo' }}</p>
+                                                <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        @foreach($funcionario as $f)
 
-                        <!-- Modal para Registrar Entrada -->
-                        <div class="modal fade" id="entradaModal{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="entradaModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header  text-black">
-                                        <h5 class="modal-title" id="entradaModalLabel">Registrar Entrada de Medicamento</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                @foreach($funcionario as $f)
+                                    <!-- Modal para Registrar Entrada -->
+                                    <div class="modal fade" id="entradaModal{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="entradaModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-black">
+                                                    <h5 class="modal-title" id="entradaModalLabel">Registrar Entrada de Medicamento</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/CadEstoque" method="POST">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label for="medicamento">Medicamento:</label>
+                                                            <select name="idMedicamento" class="form-control" id="medicamento" required>
+                                                                <option value="{{ $med->idMedicamento }}" data-lote="{{ $med->loteMedicamento }}" data-validade="{{ $med->validadeMedicamento }}">
+                                                                    {{ $med->nomeMedicamento }}
+                                                                </option>
+                                                            </select>
+                                                            <small id="medicamentoError" style="color: red; display: none;">Medicamento não cadastrado.</small>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="dataEntrada">Data de Entrada:</label>
+                                                            <input type="date" name="dataEntrada" class="form-control" value="{{ date('Y-m-d') }}" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="quantidade">Quantidade:</label>
+                                                            <input type="number" name="quantidade" class="form-control" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="lote">Lote:</label>
+                                                            <input type="text" name="lote" class="form-control" required id="lote">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="validade">Validade:</label>
+                                                            <input type="date" name="validade" class="form-control" required id="validade">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="motivoEntrada">Motivo da Entrada:</label>
+                                                            <input type="text" name="motivoEntrada" class="form-control" id="motivoEntrada" required placeholder="Digite o motivo da entrada">
+                                                            <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="funcionario">Funcionário Responsável:</label>
+                                                            <select name="idFuncionario" class="form-control" id="funcionario" required>
+                                                                <option value="">Selecione um funcionário</option>
+                                                                <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <form action="/CadEstoque" method="POST">
-                                            @csrf
 
-                                            <div class="form-group">
-                                                <label for="medicamento">Medicamento:</label>
-                                                <select name="idMedicamento" class="form-control" id="medicamento" required>
-                                                    <option value="{{ $med->idMedicamento }}" data-lote="{{ $med->loteMedicamento }}" data-validade="{{ $med->validadeMedicamento }}">
-                                                        {{ $med->nomeMedicamento }}
-                                                    </option>
-                                                </select>
-                                                <small id="medicamentoError" style="color: red; display: none;">Medicamento não cadastrado.</small>
+                                    <!-- Modal para Registrar Saída -->
+                                    <div class="modal fade" id="saidaModal{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="saidaModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header text-black">
+                                                    <h5 class="modal-title" id="saidaModalLabel">Registrar Saída de Medicamento</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{{ route('saidaMedMotivo.store') }}" method="POST">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label for="idMedicamento">Medicamento:</label>
+                                                            <select id="idMedicamento" name="idMedicamento" required>
+                                                                <option value="">Selecione o Medicamento</option>
+                                                                <option value="{{ $med->idMedicamento }}" data-lote="{{ $med->lote }}" data-validade="{{ $med->validade }}">
+                                                                    {{ $med->nomeMedicamento }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="dataSaida">Data de Saída:</label>
+                                                            <input type="date" name="dataSaida" class="form-control" value="{{ date('Y-m-d') }}" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="quantidadeSaida">Quantidade:</label>
+                                                            <input type="number" name="quantidadeSaida" class="form-control" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="motivo">Motivo:</label>
+                                                            <select name="motivo" id="motivo" class="form-control">
+                                                                <option value="Venda">Venda</option>
+                                                                <option value="Devolução">Devolução</option>
+                                                                <option value="Outro">Outro</option>
+                                                            </select>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                                    </form>
+                                                </div>
                                             </div>
-
-                                            <div class="form-group">
-                                                <label for="dataEntrada">Data de Entrada:</label>
-                                                <input type="date" name="dataEntrada" class="form-control" value="{{ date('Y-m-d') }}" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="quantidade">Quantidade:</label>
-                                                <input type="number" name="quantidade" class="form-control" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="lote">Lote:</label>
-                                                <input type="text" name="lote" class="form-control" required id="lote">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="validade">Validade:</label>
-                                                <input type="date" name="validade" class="form-control" required id="validade">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="motivoEntrada">Motivo da Entrada:</label>
-                                                <input type="text" name="motivoEntrada" class="form-control" id="motivoEntrada" required placeholder="Digite o motivo da entrada">
-                                                <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="funcionario">Funcionário Responsável:</label>
-                                                <select name="idFuncionario" class="form-control" id="funcionario" required>
-                                                    <option value="">Selecione um funcionário</option>
-                                                    <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
-                                                </select>
-                                            </div>
-
-                                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                                        </form>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal para Registrar Saída -->
-                        <div class="modal fade" id="saidaModal{{ $med->idMedicamento }}" tabindex="-1" aria-labelledby="saidaModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header text-black">
-                                        <h5 class="modal-title" id="saidaModalLabel">Registrar Saída de Medicamento</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="{{ route('saidaMedMotivo.store') }}" method="POST">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label for="idMedicamento">Medicamento:</label>
-                                                <select id="idMedicamento" name="idMedicamento" required>
-                                                    <option value="">Selecione o Medicamento</option>
-                                                    <option value="{{ $med->idMedicamento }}" data-lote="{{ $med->lote }}" data-validade="{{ $med->validade }}">
-                                                        {{ $med->nomeMedicamento }}
-                                                    </option>
-                                                
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="dataSaida">Data de Saída:</label>
-                                                <input type="date" id="dataSaida" name="dataSaida" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="quantidade">Quantidade:</label>
-                                                <input type="number" id="quantidade" name="quantidade" min="1" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="motivoSaida">Motivo de Saída:</label>
-                                                <input type="text" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="lote">Lote:</label>
-                                                <input type="text" id="lote" name="lote" maxlength="90" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="validade">Data de Validade:</label>
-                                                <input type="date" id="validade" name="validade" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="idFuncionario">Funcionário:</label>
-                                                <select id="idFuncionario" name="idFuncionario" required>
-                                                    <option value="">Selecione o Funcionário</option>
-                                                    <option value="{{ $f->idFuncionario }}">{{ $f->nomeFuncionario }}</option>
-                                                </select>
-                                            </div>
-
-                                            <button type="submit" class="btn-submit">Cadastrar Saída e Motivo</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+                                @endforeach
+                            @endif
                         @endforeach
-                        @endif
-
-                        @endforeach
-
+                    </tbody>
+                </table>
             </div>
         </div>
-        </tbody>
-
-        </table>
-
     </div>
-
-</div>
-<!-- Link para o jQuery e Bootstrap -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</main>
 
 <script>
     $(document).ready(function() {
@@ -464,6 +438,8 @@
         });
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 
 @include('includes.footer')
