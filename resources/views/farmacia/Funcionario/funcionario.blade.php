@@ -1,121 +1,49 @@
 @include('includes.headerFarmacia')
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{asset('css/Farmacia-CSS/Funcionario.css')}}">
+
+<nav class="navbar">
+    <div class="navbar-brand">
+        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
+    </div>
+    <div class="search-container">
+        <input type="text" placeholder="Buscar..." class="search-input">
+        <button class="search-button"><i class="fas fa-search"></i></button>
+    </div>
+</nav>
+
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;">Funcionário</h1>
+        <p>Você pode gerenciar os funcionários nessa página.</p>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/estoque.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+    </div>
+</div>
+
+<div class="cadastros-container">
+    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Acessar </h3>
+    <div class="cadastros-list">
+        <div class="cadastro-item">
+            <p>Cadastro do Funcionário</p>
+            <a href="/formFuncionario" class="cadastrar-link">
+                <i class="fas fa-inbox"></i> 
+            </a>
+        </div>
+    </div>
+</div>
 <!-- ESTÁ PAGINA É AGORA DO FUNCIONARIO MUDE OS CAMPOS CONFORME A TABELA (ANTIGA PAGINA DO CLIENTE) -->
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
-        margin: 0;
-        padding: 20px;
-    }
-
-    .main-content {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .page-title {
-        font-size: 24px;
-        color: #333;
-        margin-bottom: 20px;
-    }
-
-    .btn-acao {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 15px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 10px 0;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .btn-acao:hover {
-        background-color: #0056b3;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-
-    table, th, td {
-        border: 1px solid #dee2e6;
-    }
-
-    th, td {
-        padding: 12px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #007bff;
-        color: white;
-    }
-
-    td {
-        background-color: #f9f9f9;
-    }
-
-    tr:hover td {
-        background-color: #e9ecef;
-    }
-
-    .form-wrapper {
-        margin-top: 30px;
-    }
-
-    /* Estilos para a barra de pesquisa */
-    .search-bar {
-        margin-bottom: 20px;
-    }
-
-    .search-bar input {
-        padding: 10px;
-        width: 100%;
-        border: 1px solid #ced4da;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-
-    /* Estilos para os botões de filtro */
-    .filter-btn {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 15px;
-        margin-right: 10px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .filter-btn:hover {
-        background-color: #0056b3;
-    }
-</style>
-
 <!-- Main content -->
-<div class="col-md-9 col-lg-10 main-content">
-    <h1 class="page-title">Cadastro do Funcionário</h1>
 
-    <p>Cadastrar Funcionário</p>
-    <a href="/formFuncionario">
-        <button class="btn-acao"><i class="fas fa-plus"></i> Cadastrar Funcionário</button>
-    </a>
-
-    <!-- Botões de filtro -->
-    <div class="filter-buttons" style="margin-bottom: 20px;">
-        <button class="filter-btn" onclick="filterByStatus(1)">Ativos</button>
-        <button class="filter-btn" onclick="filterByStatus(0)">Inativos</button>
+<!-- Contêiner para os Botões de Filtro e a Barra de Pesquisa -->
+<div class="filter-search-container">
+    <!-- Botões de Filtro -->
+    <div class="filter-buttons">
+        <button class="filter-btn" onclick="filterByStatus('A')">Ativos</button>
+        <button class="filter-btn" onclick="filterByStatus('I')">Inativos</button>
         <button class="filter-btn" onclick="resetFilter()">Todos</button>
     </div>
 
@@ -123,33 +51,46 @@
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Digite o nome ou CPF do funcionário" onkeyup="filterTable()">
     </div>
+</div>
 
-    <table id="funcionarioTable">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Cargo</th>
-                <th>Ações</th>
+
+<!-- Tabela de Funcionários -->
+<table id="funcionarioTable">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Cargo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($funcionarios as $funcionario)
+            <tr data-status="{{ $funcionario->situacaoFuncionario }}">
+                <td>{{ $funcionario->nomeFuncionario }}</td>
+                <td>{{ $funcionario->cpfFuncionario }}</td>
+                <td>{{ $funcionario->cargoFuncionario }}</td>
+
+                <td class="text-center">
+                    <a href="{{ route('funcionario.edit', $funcionario->idFuncionario) }}" class="btn btn-primary btn-acao">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+
+                    <form action="{{ route('funcionario.destroy', $funcionario->idFuncionario) }}" method="POST" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-acao" onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                            <i class="fas fa-trash-alt"></i> Excluir
+                        </button>
+                    </form>
+                </td>
+
+
+
             </tr>
-        </thead>
-        <tbody>
-            @foreach ($funcionarios as $funcionario)
-                <tr data-status="{{ $funcionario->situacaoFuncionario }}">
-                    <td>{{ $funcionario->nomeFuncionario }}</td>
-                    <td>{{ $funcionario->cpfFuncionario }}</td>
-                    <td>{{ $funcionario->cargoFuncionario }}</td>
-                    <td>
-                        <a href="{{ route('funcionario.edit', $funcionario->idFuncionario) }}" class="btn-acao"><i class="fas fa-edit"></i> Editar</a>
-                        <form action="{{ route('funcionario.destroy', $funcionario->idFuncionario) }}" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" class="btn-acao" onclick="return confirm('Tem certeza que deseja excluir este funcionário?');"><i class="fas fa-trash-alt"></i> Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        @endforeach
+    </tbody>
+</table>
+
 
     <!-- Formulário para criar um cliente e seu telefone -->
     <div class="form-wrapper">
