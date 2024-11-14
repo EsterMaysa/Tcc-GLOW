@@ -7,7 +7,8 @@ use App\Models\MedicamentoModel;
 use App\Models\DetentorModel; //model detentor
 use Illuminate\Support\Facades\DB;
 use App\Models\TipoMedicamentoModel; //model tipo medicamento
-
+use App\Models\ModelUbsMed;
+// use Illuminate\Support\Facades\DB;  // Importando a facade DB
 
 class MedicamentoController extends Controller
 {
@@ -265,7 +266,7 @@ public function applyFilters(Request $request)
             'data' => $med // Inclui os dados obtidos do modelo
         ]);
     }
- 
+
  
 
     public function showByNome($medicamentoNome)
@@ -273,16 +274,46 @@ public function applyFilters(Request $request)
     $medicamento = MedicamentoModel::where('nomeMedicamento', 'like', '%' . $medicamentoNome . '%')->get();
     return response()->json($medicamento);
 }
-    
-    
 
-    
-    
-    
-    
-    
+    public function getUBSByMedicamentoNome($nomeMedicamento)
+{
+    // Verificar se existe o medicamento pelo nome
+    $medicamento = MedicamentoModel::where('nomeMedicamento', $nomeMedicamento)->first();
 
+    // Se o medicamento não for encontrado, retorna uma mensagem de erro
+    if (!$medicamento) {
+        return response()->json(['message' => 'Medicamento não encontrado'], 404);
+    }
+
+    // Obter o id do medicamento
+    $idMedicamento = $medicamento->idMedicamento;
+
+    // Buscar as UBSs associadas ao medicamento
+    $ubsComMedicamento = DB::table('tbubsmed')
+        ->join('tbUBS', 'tbubsmed.idUBS', '=', 'tbUBS.idUBS')
+        ->where('tbubsmed.idMedicamento', $idMedicamento)
+        ->select('tbUBS.*') // Seleciona todos os dados da UBS
+        ->get();
+
+    // Retorna as UBSs que possuem o medicamento
+    return response()->json([
+        'medicamento' => $medicamento,
+        'ubs' => $ubsComMedicamento
+    ]);
+}
     
 
 }
+    
+    
+
+    
+    
+    
+
+    
+
+    
+
+
 
