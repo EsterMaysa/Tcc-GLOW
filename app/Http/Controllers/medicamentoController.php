@@ -256,15 +256,16 @@ public function applyFilters(Request $request)
     // API
     public function indexApi()
     {
-        // Obter todos os registros de UBS do modelo
-        $med = MedicamentoModel::all();
+       // Obter apenas os medicamentos ativados
+    $med = MedicamentoModel::where('situacaoMedicamento', 'A')->get();
 
-        // Retornar a resposta JSON com os dados e uma mensagem de sucesso
-        return response()->json([
-            'message' => 'Sucesso',
-            'code' => 200,
-            'data' => $med // Inclui os dados obtidos do modelo
-        ]);
+    // Retornar a resposta JSON com os dados e uma mensagem de sucesso
+    return response()->json([
+        'message' => 'Sucesso',
+        'code' => 200,
+        'data' => $med // Inclui os dados obtidos do modelo
+    ]);
+
     }
 
  
