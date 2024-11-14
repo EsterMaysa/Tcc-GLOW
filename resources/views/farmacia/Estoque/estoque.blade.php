@@ -255,12 +255,14 @@
                                                         </option>
                                                     </select>
                                                     <small id="medicamentoError" style="color: red; display: none;">Medicamento não cadastrado.</small>
-                                                </div
+</div>
 
-                                                    <div class="form-group">
+                                                <div class="form-group">
                                                 <label for="quantidade">Quantidade:</label>
                                                 <input type="number" name="quantidade" class="form-control" required>
-                                        </div>
+                                                </div>
+
+                                            </div>
 
                                         <div class="form-group">
                                             <label for="motivoEntrada">Motivo da Entrada:</label>

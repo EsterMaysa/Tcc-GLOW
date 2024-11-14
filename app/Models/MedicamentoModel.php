@@ -9,7 +9,10 @@ class MedicamentoModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'tbMedicamento';
+    // protected $table = 'tbMedicamento';
+
+    protected $table = 'tbmedicamento'; // Mudando para minúsculas
+    
     protected $connection = 'mysql';
 
     protected $fillable = [

@@ -37,146 +37,116 @@ class UBSController extends Controller
         $regioes = RegiaoUBSModel::all();
         return view('adm.Ubs.formUBS', compact('regioes')); // Passa os dados para a view
     }
-
     public function store(Request $request)
-{
-    // Validação dos dados de entrada
-    $validator = Validator::make($request->all(), [
-        'ubs' => 'required|string|max:255',
-        'fotoUBS' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-        'cnpj' => 'required|string|max:14',
-        'cep' => 'required|string|max:10',
-        'numero' => 'required|string|max:10',
-        'complemento' => 'nullable|string|max:255',
-        'idRegiao' => 'required|integer',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()], 422);
-    }
-
-    // Busca o endereço usando ViaCEP
-    $cep = $request->cep;
-    $viacepResponse = Http::get("https://viacep.com.br/ws/{$cep}/json/");
-
-    if ($viacepResponse->failed()) {
-        return response()->json(['message' => 'CEP inválido ou ViaCEP indisponível.'], 400);
-    }
-
-    $endereco = $viacepResponse->json();
-
-    // Se o CEP foi encontrado, obtem o logradouro, bairro, cidade e uf
-    $logradouro = $endereco['logradouro'] ?? '';
-    $bairro = $endereco['bairro'] ?? '';
-    $cidade = $endereco['localidade'] ?? '';
-    $uf = $endereco['uf'] ?? '';
-
-    // Obtém as coordenadas geográficas usando Nominatim
-    $query = urlencode("{$logradouro}, {$bairro}, {$cidade}, {$uf}");
-    $nominatimResponse = Http::get("https://nominatim.openstreetmap.org/search?q={$query}&format=json");
-
-    $latitude = null;
-    $longitude = null;
-
-    if ($nominatimResponse->successful() && count($nominatimResponse->json()) > 0) {
-        $location = $nominatimResponse->json()[0];
-        $latitude = $location['lat'];
-        $longitude = $location['lon'];
-    }
-
-    // Cadastrar o telefone primeiro
-    $telefone = new TelefoneUBSModel();
-    $telefone->numeroTelefoneUBS = $request->telefone;
-    $telefone->numeroTelefoneUBS2 = $request->telefone2;
-    $telefone->situacaoTelefoneUBS = $request->situacaoTelefone ?? '1'; // Define 1 se não for passado
-    $telefone->dataCadastroTelefoneUBS = now();
-    $telefone->save();
-
-    $telefoneId = $telefone->idTelefoneUBS;
-
-    // Lidar com a foto se foi enviada
-    // $fotoPath = null;
-    // if ($request->hasFile('foto')) {
-    //     $fotoPath = $request->file('foto')->store('ubs_fotos', 'public');
-    // }
-
-    if ($request->filled('telefone2')) {
+    {
+        // Defina a URL base do ngrok aqui
+        $ngrokUrl = "https://1cf2-2804-7f0-b900-986f-3522-7a-7a17-3c7d.ngrok-free.app";
+    
+        // Validação dos dados de entrada
+        $validator = Validator::make($request->all(), [
+            'ubs' => 'required|string|max:255',
+            'fotoUBS' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'cnpj' => 'required|string|max:14',
+            'cep' => 'required|string|max:10',
+            'numero' => 'required|string|max:10',
+            'complemento' => 'nullable|string|max:255',
+            'idRegiao' => 'required|integer',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
+        // Busca o endereço usando ViaCEP
+        $cep = $request->cep;
+        $viacepResponse = Http::get("https://viacep.com.br/ws/{$cep}/json/");
+    
+        if ($viacepResponse->failed()) {
+            return response()->json(['message' => 'CEP inválido ou ViaCEP indisponível.'], 400);
+        }
+    
+        $endereco = $viacepResponse->json();
+    
+        // Se o CEP foi encontrado, obtem o logradouro, bairro, cidade e uf
+        $logradouro = $endereco['logradouro'] ?? '';
+        $bairro = $endereco['bairro'] ?? '';
+        $cidade = $endereco['localidade'] ?? '';
+        $uf = $endereco['uf'] ?? '';
+    
+        // Obtém as coordenadas geográficas usando Nominatim
+        $query = urlencode("{$logradouro}, {$bairro}, {$cidade}, {$uf}");
+        $nominatimResponse = Http::get("https://nominatim.openstreetmap.org/search?q={$query}&format=json");
+    
+        $latitude = null;
+        $longitude = null;
+    
+        if ($nominatimResponse->successful() && count($nominatimResponse->json()) > 0) {
+            $location = $nominatimResponse->json()[0];
+            $latitude = $location['lat'];
+            $longitude = $location['lon'];
+        }
+    
+        // Cadastrar o telefone primeiro
+        $telefone = new TelefoneUBSModel();
+        $telefone->numeroTelefoneUBS = $request->telefone;
         $telefone->numeroTelefoneUBS2 = $request->telefone2;
+        $telefone->situacaoTelefoneUBS = $request->situacaoTelefone ?? '1'; // Define 1 se não for passado
+        $telefone->dataCadastroTelefoneUBS = now();
         $telefone->save();
+    
+        $telefoneId = $telefone->idTelefoneUBS;
+    
+        if ($request->filled('telefone2')) {
+            $telefone->numeroTelefoneUBS2 = $request->telefone2;
+            $telefone->save();
+        }
+    
+        // Formatar o CNPJ
+        $cnpjFormatado = $this->formatarCnpj($request->cnpj);
+    
+        // Cadastrar a UBS
+        $ubs = new UBSModel();
+        $ubs->nomeUBS = $request->ubs;
+        $ubs->emailUBS = $request->email;
+    
+        // Salvar a imagem da UBS e gerar URL acessível com o domínio do ngrok
+        if ($request->hasFile('fotoUBS')) {
+            $fileUbs = $request->file('fotoUBS');
+            $pathUbs = $fileUbs->store('ubs_fotos', 'public'); // Armazena no disco 'public'
+            $ubs->fotoUBS = "{$ngrokUrl}/storage/{$pathUbs}"; // Salva a URL com o domínio do ngrok
+        }
+    
+        $ubs->cnpjUBS = $cnpjFormatado;
+        $ubs->latitudeUBS = $request->latitude;
+        $ubs->longitudeUBS = $request->longitude;
+        $ubs->cepUBS = $request->cep;
+        $ubs->logradouroUBS = $logradouro;
+        $ubs->bairroUBS = $bairro;
+        $ubs->estadoUBS = $uf;
+        $ubs->cidadeUBS = $cidade;
+        $ubs->numeroUBS = $request->numero;
+        $ubs->ufUBS = $uf;
+        $ubs->complementoUBS = $request->complemento;
+        $ubs->senhaUBS = bcrypt($request->senha); // Criptografando a senha
+        $ubs->situacaoUBS = '1'; // Definindo a situação automaticamente como 1
+        $ubs->dataCadastroUBS = now();
+        $ubs->idTelefoneUBS = $telefoneId; // ID do telefone
+        $ubs->idRegiaoUBS = $request->idRegiao; // ID da região
+    
+        $ubs->save();
+    
+        try {
+            Mail::to('vini.va338@gmail.com')->send(new \App\Mail\UBSRegistrationSuccessMail($ubs));
+        } catch (\Exception $e) {
+            return redirect('/selectUBS')->with('error', 'UBS criada, mas ocorreu um erro ao enviar o e-mail: ' . $e->getMessage());
+        }
+        
+        // Redireciona para a página /selectUBS com uma mensagem de sucesso
+        return redirect('/selectUBS')->with('success', 'UBS cadastrada com sucesso! Confira sua caixa de entrada do e-mail.');
     }
-
-    // Formatar o CNPJ
-    $cnpjFormatado = $this->formatarCnpj($request->cnpj);
-
-    // Cadastrar a UBS
-    $ubs = new UBSModel();
-    $ubs->nomeUBS = $request->ubs;
-    $ubs->emailUBS = $request->email;
-
-    //foto
-    if ($request->hasFile('fotoUBS')) {
-        $fileUbs = $request->file('fotoUBS');
-        $pathUbs = $fileUbs->store('ubs_fotos', 'public');
-        $ubs->fotoUBS = $pathUbs;
-    }
-
-    // $ubs->fotoUBS = $request->foto; // Caminho da foto salvo no banco
-
-
-    $ubs->cnpjUBS = $request->cnpj;
-    $ubs->latitudeUBS = $request->latitude;
-    $ubs->longitudeUBS = $request->longitude;
-    $ubs->cepUBS = $request->cep;
-    $ubs->logradouroUBS = $logradouro;
-    $ubs->bairroUBS = $bairro;
-    $ubs->estadoUBS = $uf;
-    $ubs->cidadeUBS = $cidade;
-    $ubs->numeroUBS = $request->numero;
-    $ubs->ufUBS = $uf;
-    $ubs->complementoUBS = $request->complemento;
-    $ubs->senhaUBS = bcrypt($request->senha); // Criptografando a senha
-    $ubs->situacaoUBS = '1'; // Definindo a situação automaticamente como 1
-    $ubs->dataCadastroUBS = now();
-    $ubs->idTelefoneUBS = $telefoneId; // ID do telefone
-    $ubs->idRegiaoUBS = $request->idRegiao; // ID da região
-
-    $ubs->save();
-
-    try {
-        Mail::to('vini.va338@gmail.com')->send(new \App\Mail\UBSRegistrationSuccessMail($ubs));
-    } catch (\Exception $e) {
-        return redirect('/selectUBS')->with('error', 'UBS criada, mas ocorreu um erro ao enviar o e-mail: ' . $e->getMessage());
-    }
-    
-    // Redireciona para a página /selectUBS com uma mensagem de sucesso
-    return redirect('/selectUBS')->with('success', 'UBS cadastrada com sucesso! Confira sua caixa de entrada do e-mail.');
-    
     
 
-    // return redirect('/selectUBS');
-
-    // if ($ubs->save()) {
-    //     // Envio do e-mail aqui
-    //     try {
-    //         Mail::to('vini.va338@gmail.com')->send(new \App\Mail\UBSRegistrationSuccessMail($ubs));
-    //     } catch (\Exception $e) {
-    //         return response()->json(['message' => 'UBS criada, mas ocorreu um erro ao enviar o e-mail: ' . $e->getMessage()], 500);
-    //     }
-    //     return response()->json(['message' => 'UBS criada com sucesso!'], 201);
-    // }
-
-    // try {
-    //     Mail::to('ubsjardimaurora70@gmail.com')->send(new UBSRegistrationSuccessMail($ubs));
-    //     return 'E-mail enviado com sucesso!';
-    // } catch (\Exception $e) {
-    //     return 'Erro ao enviar e-mail: ' . $e->getMessage();
-    // }
-
- 
     
-}
-
-
     public function updateapi(Request $request, $id)
     {
         UBSModel::where('idUBS', $id)->update([

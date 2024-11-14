@@ -66,6 +66,11 @@ Route::get('/usuario/cns/{cns}', [UsuarioController::class, 'getUserByCNS']);
 
 
 
+Route::get('/medicamentos/nome/{medicamentoNome}', [MedicamentoController::class, 'showByNome']);
+
+
+
+
 
 
 
