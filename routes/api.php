@@ -64,6 +64,7 @@ Route::get('/selectMedApi/{id}', [MedicamentoFarmaciaUBSController::class, 'show
 
 Route::get('/usuario/cns/{cns}', [UsuarioController::class, 'getUserByCNS']);
 
+Route::get('/ubs/medicamento/nome/{nomeMedicamento}', [MedicamentoController::class, 'getUBSByMedicamentoNome']);
 
 
 

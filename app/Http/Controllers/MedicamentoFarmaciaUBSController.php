@@ -169,4 +169,29 @@ class MedicamentoFarmaciaUBSController extends Controller
             return response()->json(['message' => 'Medicamento não encontrado'], 404);
         }
     }
+
+//     public function getUBSByNomeMedicamento($nomeMedicamento)
+// {
+//     // Verificar se existe um medicamento com o nome fornecido
+//     $medicamentos = ModelMedicamentoFarmaciaUBS::where('nomeMedicamento', $nomeMedicamento)->get();
+
+//     // Se nenhum medicamento for encontrado, retorna uma mensagem de erro
+//     if ($medicamentos->isEmpty()) {
+//         return response()->json(['message' => 'Medicamento não encontrado'], 404);
+//     }
+
+//     // Obter as UBS associadas aos medicamentos encontrados
+//     $ubsList = $medicamentos->map(function ($medicamento) {
+//         return $medicamento->ubs;
+//     })->unique();
+
+//     // Retornar os dados formatados
+//     return response()->json([
+//         'medicamento' => $nomeMedicamento,
+//         'ubs' => $ubsList
+//     ]);
+// }
+
+
+
 }
