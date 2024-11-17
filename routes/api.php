@@ -54,6 +54,8 @@ Route::get('/selectUbsApi', 'App\Http\Controllers\UBSController@indexApi');
 // Route::get('/selectMedApi', 'App\Http\Controllers\MedicamentoController@indexApi'); //adm geral
 Route::get('/selectMedApi', 'App\Http\Controllers\MedicamentoFarmaciaUBSController@indexApi'); //med farmacia
 
+Route::get('/medicamentos', 'App\Http\Controllers\MedicamentoController@indexApi'); //med farmacia
+
 Route::get('/selectUser', 'App\Http\Controllers\UsuarioController@indexApi'); //med farmacia
 
 Route::get('/selectCliente', 'App\Http\Controllers\ClienteAdmController@indexApi'); //med farmacia
