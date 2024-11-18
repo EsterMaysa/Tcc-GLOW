@@ -123,7 +123,7 @@ body{
     max-width: 950px; /* Reduz a largura máxima do formulário */
     margin: 0 auto;
     padding: 2rem;
-    height: 750px;
+    height: 455px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -199,6 +199,7 @@ select:focus {
     width: 550px;
     margin-top: 2rem;
     display: block;
+    margin-right: 60%;
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
@@ -219,5 +220,116 @@ select:focus {
     .submit-btn {
         width: 100%;
         max-width: 100%;
+    }
+}
+
+/* Estilos gerais para a tabela de prescrições */
+.col-md-8 {
+    width: 1500px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    margin-left: 26%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.head-title h4 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilo da tabela */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table-striped {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #3d7e66;
+    color: #fff;
+    font-weight: bold;
+}
+
+.table td {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Botões de ação (Editar e Desativar) */
+.btn {
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-sm {
+    font-size: 12px;
+}
+
+.edit-btn {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Alinhamento do formulário de desativação */
+form {
+    margin-bottom: 0;
+}
+
+form button {
+    width: 100%;
+    font-size: 14px;
+}
+
+/* Estilo de confirmação de desativação */
+.form-inline .btn-danger {
+    width: auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .edit-btn, .btn-danger {
+        font-size: 12px;
+        padding: 4px 8px;
     }
 }
