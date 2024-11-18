@@ -43,6 +43,11 @@
             </thead>
             <tbody>
                 <tr>
+                    <td><label for="codigo">Código De Barras:</label></td>
+                    <td><input type="text" id="codigo" name="codigoDeBarras" required></td>
+                </tr>
+
+                <tr>
                     <td><label for="idMedicamento">Medicamento:</label></td>
                     <td>
                         <select id="idMedicamento" name="idMedicamento" required>

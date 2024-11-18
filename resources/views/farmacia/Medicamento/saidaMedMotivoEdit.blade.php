@@ -41,6 +41,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                <tr>
+                    <td><label for="codigo">Código De Barras:</label></td>
+                    <td><input type="text" id="codigo" name="codigoDeBarras" required></td>
+                </tr>
 
                     <tr>
                         <td><label for="dataSaida">Data de Saída:</label></td>

@@ -33,6 +33,11 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td><label for="codigo">Código De Barras:</label></td>
+                    <td><input type="text" name="codigobarras" id="codigodebarras" placeholder="00000000000000"></td>
+                </tr>
+
                 <!-- Medicamento -->
                 <tr>
                     <td><label for="medicamento">Medicamento:</label></td>
