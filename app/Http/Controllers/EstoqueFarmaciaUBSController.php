@@ -61,11 +61,11 @@ class EstoqueFarmaciaUBSController extends Controller
     
         return view('farmacia.Estoque.estoque', compact('movimentacoes', 'medicamento', 'funcionario', 'tipoMovimentacao', 'estoque'));
     }
-    
 
 
     public function store(Request $estoqueRequest)
     {
+
         // Busca ou cria o registro de estoque pelo ID do medicamento
         $estoque = ModelEstoqueFarmaciaUBS::firstOrNew([
             'idMedicamento' => $estoqueRequest->idMedicamento

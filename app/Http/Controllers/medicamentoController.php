@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MedicamentoModel;
 use App\Models\DetentorModel; //model detentor
+use Illuminate\Support\Facades\DB;
 use App\Models\TipoMedicamentoModel; //model tipo medicamento
-
+use App\Models\ModelUbsMed;
+// use Illuminate\Support\Facades\DB;  // Importando a facade DB
 
 class MedicamentoController extends Controller
 {
@@ -58,64 +60,65 @@ class MedicamentoController extends Controller
     
     
     public function store(Request $request)
-    {
+{
+    // Defina a URL base do ngrok aqui
+    $ngrokUrl = "https://1cf2-2804-7f0-b900-986f-3522-7a-7a17-3c7d.ngrok-free.app";
 
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'nomeGenerico' => 'nullable|string|max:255',
+        'codigoDeBarras' => 'required|string|max:200', // Verifica se o código de barras é único
+        'registroAnvisa' => 'nullable|string|max:50',
+        'concentracao' => 'nullable|string|max:50',
+        'formaFarmaceutica' => 'nullable|string|max:50',
+        'composicao' => 'nullable|string|max:255',
+        'fotoOriginal' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Limite de 2MB
+        'fotoGenero' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Limite de 2MB
+        'idDetentor' => 'required|exists:tbDetentor,idDetentor', // Verifica se o detentor existe
+        'idTipo' => 'required|exists:tbTipoMedicamento,idTipoMedicamento', // Verifica se o tipo de medicamento existe
+    ]);
 
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'nomeGenerico' => 'nullable|string|max:255',
-            'codigoDeBarras' => 'required|string|max:200', // Verifica se o código de barras é único
-            'registroAnvisa' => 'nullable|string|max:50',
-            'concentracao' => 'nullable|string|max:50',
-            'formaFarmaceutica' => 'nullable|string|max:50',
-            'composicao' => 'nullable|string|max:255',
-            'fotoOriginal' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Limite de 2MB
-            'fotoGenero' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Limite de 2MB
-            'idDetentor' => 'required|exists:tbDetentor,idDetentor', // Verifica se o detentor existe
-            'idTipo' => 'required|exists:tbTipoMedicamento,idTipoMedicamento', // Verifica se o tipo de medicamento existe
-        ]);
+    $existingMedicamento = MedicamentoModel::where('codigoDeBarrasMedicamento', $request->codigoDeBarras)
+        ->where('situacaoMedicamento', 'A') // A significa Ativo
+        ->first();
 
-        $existingMedicamento = MedicamentoModel::where('codigoDeBarrasMedicamento', $request->codigoDeBarras)
-            ->where('situacaoMedicamento', 'A') // A significa Ativo
-            ->first();
-
-        if ($existingMedicamento) {
-            return redirect()->back()->withErrors(['codigoDeBarras' => 'Já existe um medicamento ativo com este código de barras.'])->withInput();
-        }
-
-        $medicamento = new MedicamentoModel();
-        $medicamento->nomeMedicamento = $request->nome;
-        $medicamento->nomeGenericoMedicamento = $request->nomeGenerico;
-        $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarras;
-        $medicamento->registroAnvisaMedicamento = $request->registroAnvisa;
-        $medicamento->concentracaoMedicamento = $request->concentracao;
-        $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceutica;
-        $medicamento->composicaoMedicamento = $request->composicao;
-
-        if ($request->hasFile('fotoOriginal')) {
-            $fileOriginal = $request->file('fotoOriginal');
-            $pathOriginal = $fileOriginal->store('fotos_medicamentos', 'public');
-            $medicamento->fotoMedicamentoOriginal = $pathOriginal;
-        }
-
-        if ($request->hasFile('fotoGenero')) {
-            $fileGenero = $request->file('fotoGenero');
-            $pathGenero = $fileGenero->store('fotos_medicamentos', 'public');
-            $medicamento->fotoMedicamentoGenero = $pathGenero;
-        }
-
-
-        $medicamento->idDetentor = $request->idDetentor;
-        $medicamento->idTipoMedicamento = $request->idTipo;
-
-
-        $medicamento->situacaoMedicamento = "A";
-        $medicamento->dataCadastroMedicamento = now();
-
-        $medicamento->save();
-
-        return redirect('/medicamento');
+    if ($existingMedicamento) {
+        return redirect()->back()->withErrors(['codigoDeBarras' => 'Já existe um medicamento ativo com este código de barras.'])->withInput();
     }
+
+    $medicamento = new MedicamentoModel();
+    $medicamento->nomeMedicamento = $request->nome;
+    $medicamento->nomeGenericoMedicamento = $request->nomeGenerico;
+    $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarras;
+    $medicamento->registroAnvisaMedicamento = $request->registroAnvisa;
+    $medicamento->concentracaoMedicamento = $request->concentracao;
+    $medicamento->formaFarmaceuticaMedicamento = $request->formaFarmaceutica;
+    $medicamento->composicaoMedicamento = $request->composicao;
+
+    // Lógica para salvar a foto original
+    if ($request->hasFile('fotoOriginal')) {
+        $fileOriginal = $request->file('fotoOriginal');
+        $pathOriginal = $fileOriginal->store('fotos_medicamentos', 'public');
+        $medicamento->fotoMedicamentoOriginal = "{$ngrokUrl}/storage/{$pathOriginal}"; // Salva a URL com o domínio do ngrok
+    }
+
+    // Lógica para salvar a foto do gênero
+    if ($request->hasFile('fotoGenero')) {
+        $fileGenero = $request->file('fotoGenero');
+        $pathGenero = $fileGenero->store('fotos_medicamentos', 'public');
+        $medicamento->fotoMedicamentoGenero = "{$ngrokUrl}/storage/{$pathGenero}"; // Salva a URL com o domínio do ngrok
+    }
+
+    $medicamento->idDetentor = $request->idDetentor;
+    $medicamento->idTipoMedicamento = $request->idTipo;
+
+    $medicamento->situacaoMedicamento = "A";
+    $medicamento->dataCadastroMedicamento = now();
+
+    $medicamento->save();
+
+    return redirect('/medicamento');
+}
 
     // Função para exibir o formulário de edição
     public function edit($idMedicamento)
@@ -253,15 +256,65 @@ public function applyFilters(Request $request)
     // API
     public function indexApi()
     {
-        // Obter todos os registros de UBS do modelo
-        $med = MedicamentoModel::all();
+       // Obter apenas os medicamentos ativados
+    $med = MedicamentoModel::where('situacaoMedicamento', 'A')->get();
 
-        // Retornar a resposta JSON com os dados e uma mensagem de sucesso
-        return response()->json([
-            'message' => 'Sucesso',
-            'code' => 200,
-            'data' => $med // Inclui os dados obtidos do modelo
-        ]);
+    // Retornar a resposta JSON com os dados e uma mensagem de sucesso
+    return response()->json([
+        'message' => 'Sucesso',
+        'code' => 200,
+        'data' => $med // Inclui os dados obtidos do modelo
+    ]);
+
     }
-    
+
+ 
+
+    public function showByNome($medicamentoNome)
+{
+    $medicamento = MedicamentoModel::where('nomeMedicamento', 'like', '%' . $medicamentoNome . '%')->get();
+    return response()->json($medicamento);
 }
+
+    public function getUBSByMedicamentoNome($nomeMedicamento)
+{
+    // Verificar se existe o medicamento pelo nome
+    $medicamento = MedicamentoModel::where('nomeMedicamento', $nomeMedicamento)->first();
+
+    // Se o medicamento não for encontrado, retorna uma mensagem de erro
+    if (!$medicamento) {
+        return response()->json(['message' => 'Medicamento não encontrado'], 404);
+    }
+
+    // Obter o id do medicamento
+    $idMedicamento = $medicamento->idMedicamento;
+
+    // Buscar as UBSs associadas ao medicamento
+    $ubsComMedicamento = DB::table('tbubsmed')
+        ->join('tbUBS', 'tbubsmed.idUBS', '=', 'tbUBS.idUBS')
+        ->where('tbubsmed.idMedicamento', $idMedicamento)
+        ->select('tbUBS.*') // Seleciona todos os dados da UBS
+        ->get();
+
+    // Retorna as UBSs que possuem o medicamento
+    return response()->json([
+        'medicamento' => $medicamento,
+        'ubs' => $ubsComMedicamento
+    ]);
+}
+    
+
+}
+    
+    
+
+    
+    
+    
+
+    
+
+    
+
+
+

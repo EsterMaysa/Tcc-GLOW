@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ModelMedicamentoFarmaciaUBS;
+use App\Models\MedicamentoModel;
 use App\Models\UBSModel;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\ModelUbsMed;
 
 use Illuminate\Http\Request;
 
@@ -18,27 +20,63 @@ class MedicamentoFarmaciaUBSController extends Controller
         return view('farmacia.Medicamento.medicamentoFarmacia', compact('medicamentos'));
     }
 
+    // public function store(Request $request)
+    // {
+    //     $medicamento = new ModelMedicamentoFarmaciaUBS();
+
+    //     $medicamento->nomeMedicamento = $request->nomeMedicamento;
+    //     $medicamento->nomeGenericoMedicamento = $request->nomeGenericoMedicamento;
+    //     $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarrasMedicamento;
+    //     $medicamento->validadeMedicamento = $request->validadeMedicamento;
+    //     $medicamento->loteMedicamento = $request->loteMedicamento;
+    //     $medicamento->dosagemMedicamento = $request->dosagemMedicamento;
+    //     $medicamento->formaFarmaceuticaMedicamento = $request->forma;
+    //     $medicamento->composicaoMedicamento = $request->composicaoMedicamento;
+    //     $medicamento->situacaoMedicamento = "A";
+    //     $medicamento->dataCadastroMedicamento = now();
+    //     $medicamento->idUBS = $request->idUBS;
+
+    //     $medicamento->save();
+
+    //     return redirect('/MedicamentoHome');
+    // }
     public function store(Request $request)
     {
-        $medicamento = new ModelMedicamentoFarmaciaUBS();
-
-        $medicamento->nomeMedicamento = $request->nomeMedicamento;
-        $medicamento->nomeGenericoMedicamento = $request->nomeGenericoMedicamento;
-        $medicamento->codigoDeBarrasMedicamento = $request->codigoDeBarrasMedicamento;
-        $medicamento->validadeMedicamento = $request->validadeMedicamento;
-        $medicamento->loteMedicamento = $request->loteMedicamento;
-        $medicamento->dosagemMedicamento = $request->dosagemMedicamento;
-        $medicamento->formaFarmaceuticaMedicamento = $request->forma;
-        $medicamento->composicaoMedicamento = $request->composicaoMedicamento;
-        $medicamento->situacaoMedicamento = "A";
-        $medicamento->dataCadastroMedicamento = now();
-        $medicamento->idUBS = $request->idUBS;
-
-        $medicamento->save();
-
-        return redirect('/MedicamentoHome');
+        // Conexão com o banco bdAdminGeral e busca pelo medicamento no cadastro geral
+        // Buscar o medicamento no banco bdAdminGeral pelo código de barras
+       $medicamentoGeral = MedicamentoModel::where('codigoDeBarrasMedicamento', $request->codigoDeBarrasMedicamento)->first();
+   
+       if (!$medicamentoGeral) {
+           return redirect()->back()->with('error', 'Medicamento não encontrado no sistema geral.');
+       }
+    
+        // Prosseguir com o cadastro do medicamento na farmácia
+        $medicamentoFarmacia = new ModelMedicamentoFarmaciaUBS();
+    
+        $medicamentoFarmacia->nomeMedicamento = $medicamentoGeral->nomeMedicamento;
+        $medicamentoFarmacia->nomeGenericoMedicamento = $medicamentoGeral->nomeGenericoMedicamento;
+        $medicamentoFarmacia->codigoDeBarrasMedicamento = $medicamentoGeral->codigoDeBarrasMedicamento;
+        $medicamentoFarmacia->validadeMedicamento = $request->validadeMedicamento;
+        $medicamentoFarmacia->loteMedicamento = $request->loteMedicamento;
+        $medicamentoFarmacia->dosagemMedicamento = $request->dosagemMedicamento;
+        $medicamentoFarmacia->formaFarmaceuticaMedicamento = $request->forma;
+        $medicamentoFarmacia->composicaoMedicamento = $medicamentoGeral->composicaoMedicamento;
+        $medicamentoFarmacia->situacaoMedicamento = "A";
+        $medicamentoFarmacia->dataCadastroMedicamento = now();
+        $medicamentoFarmacia->idUBS = $request->idUBS;
+    
+        $medicamentoFarmacia->save();
+    
+        // Criar o vínculo entre medicamento e UBS na tabela tbubsmed
+        ModelUbsMed::create([
+            'idMedicamento' => $medicamentoGeral->idMedicamento, // ID do medicamento do banco geral
+            'idUBS' => $request->idUBS,                         // ID da UBS fornecida no formulário
+        ]);
+    
+        return redirect('/MedicamentoHome')->with('success', 'Medicamento cadastrado com sucesso!');
     }
-
+    
+    
 
     public function edit($id)
     {
@@ -169,4 +207,29 @@ class MedicamentoFarmaciaUBSController extends Controller
             return response()->json(['message' => 'Medicamento não encontrado'], 404);
         }
     }
+
+//     public function getUBSByNomeMedicamento($nomeMedicamento)
+// {
+//     // Verificar se existe um medicamento com o nome fornecido
+//     $medicamentos = ModelMedicamentoFarmaciaUBS::where('nomeMedicamento', $nomeMedicamento)->get();
+
+//     // Se nenhum medicamento for encontrado, retorna uma mensagem de erro
+//     if ($medicamentos->isEmpty()) {
+//         return response()->json(['message' => 'Medicamento não encontrado'], 404);
+//     }
+
+//     // Obter as UBS associadas aos medicamentos encontrados
+//     $ubsList = $medicamentos->map(function ($medicamento) {
+//         return $medicamento->ubs;
+//     })->unique();
+
+//     // Retornar os dados formatados
+//     return response()->json([
+//         'medicamento' => $nomeMedicamento,
+//         'ubs' => $ubsList
+//     ]);
+// }
+
+
+
 }
