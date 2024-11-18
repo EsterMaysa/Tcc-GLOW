@@ -1,72 +1,67 @@
-<!--CSS OK ASS: GABY-->
+<!--CSS OK, ASS:DUDA-->
+@include('includes.headerFarmacia')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/MotivoCadastro.css')}}">
 
-@include('includes.headerFarmacia')<!-- include do header -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/CadMedicamento.css')}}">
-
-
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
-    </div>
-</nav>
-<div class="container-um">
-    <div class="jumbotron-um">
-        <h1 style="font-weight: bold;"> Cadastrar Medicamento</h1>
-        <p>Você pode gerenciar o medicamento nessa página.</p>
-    </div>
-    <div class="image-container">
-        <img src="{{ asset('Image/medi.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
     </div>
 </div>
 
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;"> Cadastrar Medicamentos </h1>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/medi.png') }}" alt="Saída De Medicamentos" class="img-fluid">
+    </div>
+</div>
+
+
 <main>
-    <div class="container">
-        <div class="form-container">
+<div class="form-wrapper">
+    <form action="/CadMedFarma" method="POST">
+        @csrf
+        <input type="hidden" name="idUBS" value="{{ $idUBS }}">
 
-            <form action="/CadMedFarma" method="POST">
-                @csrf
-                <input type="hidden" name="idUBS" value="{{ $idUBS }}">
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Cadastro de Medicamento</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                <div class="form-row">
+                <tr>
+                    <td><label for="codigoDeBarrasMedicamento">Código de Barras:</label></td>
+                    <td><input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarrasMedicamento" value="{{ old('codigoDeBarrasMedicamento') }}" required onblur="buscarMedicamento()"></td>
+                </tr>
 
-                    <div class="form-col">
-                        <label for="codigoDeBarrasMedicamento">Código de Barras</label>
-                        <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarrasMedicamento" value="{{ old('codigoDeBarrasMedicamento') }}" required onblur="buscarMedicamento()">
-                    </div>
+                <tr>
+                    <td><label for="nomeMedicamento">Nome do Medicamento:</label></td>
+                    <td><input type="text" class="form-control" id="nomeMedicamento" name="nomeMedicamento" value="{{ old('nomeMedicamento') }}" required></td>
+                </tr>
 
-                    <!-- Nome do Medicamento -->
-                    <div class="form-col">
-                        <label for="nomeMedicamento">Nome do Medicamento</label>
-                        <input type="text" class="form-control" id="nomeMedicamento" name="nomeMedicamento" value="{{ old('nomeMedicamento') }}" required>
-                    </div>
+                <tr>
+                    <td><label for="nomeGenericoMedicamento">Nome Genérico do Medicamento:</label></td>
+                    <td><input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenericoMedicamento" value="{{ old('nomeGenericoMedicamento') }}" required></td>
+                </tr>
 
-                    <!-- Nome Genérico do Medicamento -->
-                    <div class="form-col">
-                        <label for="nomeGenericoMedicamento">Nome Genérico do Medicamento</label>
-                        <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenericoMedicamento" value="{{ old('nomeGenericoMedicamento') }}" required>
-                    </div>
+                <tr>
+                    <td><label for="validadeMedicamento">Data de Validade:</label></td>
+                    <td><input type="date" class="form-control" id="validadeMedicamento" name="validadeMedicamento" required></td>
+                </tr>
 
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="validadeMedicamento">Data de Validade</label>
-                        <input type="date" class="form-control" id="validadeMedicamento" name="validadeMedicamento" required>
-                    </div>
+                <tr>
+                    <td><label for="loteMedicamento">Lote:</label></td>
+                    <td><input type="text" class="form-control" id="loteMedicamento" name="loteMedicamento" required></td>
+                </tr>
 
-                    <!-- Lote do Medicamento -->
-                    <div class="form-col">
-                        <label for="loteMedicamento">Lote</label>
-                        <input type="text" class="form-control" id="loteMedicamento" name="loteMedicamento" required>
-                    </div>
-
-                    <!-- Forma Farmacêutica do Medicamento -->
-                    <div class="form-col">
-                        <label for="formaMedicamento">Forma Farmacêutica</label>
+                <tr>
+                    <td><label for="formaMedicamento">Forma Farmacêutica:</label></td>
+                    <td>
                         <select class="form-control" id="formaMedicamento" name="forma" required>
                             <option value="">Selecione a Forma Farmacêutica</option>
                             <option value="Comprimido">Comprimido</option>
@@ -78,39 +73,26 @@
                             <option value="Gel">Gel</option>
                             <option value="Injeção">Injeção</option>
                         </select>
-                    </div>
-                </div>
-                <!-- Código de Barras do Medicamento -->
+                    </td>
+                </tr>
 
-                <div class="form-row">
+                <tr>
+                    <td><label for="dosagemMedicamento">Dosagem:</label></td>
+                    <td><input type="text" class="form-control" id="dosagemMedicamento" name="dosagemMedicamento" required></td>
+                </tr>
 
-                    <!-- Dosagem do Medicamento -->
-                    <div class="form-col">
-                        <label for="dosagemMedicamento">Dosagem</label>
-                        <input type="text" class="form-control" id="dosagemMedicamento" name="dosagemMedicamento" required>
-                    </div>
+                <tr>
+                    <td><label for="composicaoMedicamento">Composição:</label></td>
+                    <td><textarea class="form-control" id="composicaoMedicamento" name="composicaoMedicamento" required></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="submit-btn"> Salvar Medicamento</button>
+    </form>
+</div>
 
-                    <!-- Composição do Medicamento -->
-                    <div class="form-col">
-                        <label for="composicaoMedicamento">Composição</label>
-                        <textarea class="form-control" id="composicaoMedicamento" name="composicaoMedicamento" required></textarea>
-                    </div>
-                    <div class="form-col" style="margin-top: 15px ;">
-                        <button type="submit" class="salvar">        
-                            <i class="fas fa-save"></i> Salvar Medicamento
-                        </button>
-
-                    </div>
-                </div>
-                <!-- Botão de Enviar -->
-            </form>
-        </div>
-    </div>
 </main>
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<br>
 <script>
     function buscarMedicamento() {
         const codigoDeBarras = $('#codigoDeBarrasMedicamento').val();
@@ -139,5 +121,5 @@
         }
     }
 </script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @include('includes.footer')

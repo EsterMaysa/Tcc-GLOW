@@ -1,21 +1,19 @@
-@include('includes.headerFarmacia')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/FuncionarioCadastro.css') }}">
+<!-- CSS OK, (ASS:DUDA)-->
+@include('includes.headerFarmacia') 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{asset('css/Farmacia-CSS/EditarMovimentacao.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
         <h1>Editar Funcionário</h1>
-        <p>Atualize os dados do funcionário.</p>
+        <p>Atualize os dados dos funcionários.</p>
     </div>
 </div>
 

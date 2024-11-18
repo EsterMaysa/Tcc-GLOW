@@ -1,34 +1,30 @@
 <!--CSS OK(ASS:Duda)-->
 
 @include('includes.headerFarmacia')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{('css/Farmacia-CSS/MotivoCadastro.css')}}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/CadastrarSaida.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
-    </div>
-</nav>
-
-<div class="container-um">
-    <div class="jumbotron-um">
-        <h1 style="font-weight: bold;"> Cadastro de Saídas de Medicamentos e Motivos </h1>
-        <div>
-            <a href="/saidaLista" class="saida">
-                Ver Lista de Saídas e Motivos
-            </a>
-        </div>
-    </div>
-    <div class="image-container">
-        <img src="{{ asset('Image/lista.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
     </div>
 </div>
 
-<main>
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;"> Cadastrar Saída De Medicamentos </h1>
+        <a href="/saidaLista" class="lista">
+            Ver Saídas de Medicamentos
+        </a>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/saidaMed.png') }}" alt="Saída De Medicamentos" class="img-fluid">
+    </div>
+</div>
+
+
+<main style="margin-top: 3%;">
     @if(session('success'))
         <div class="success-message">
             {{ session('success') }}
@@ -36,62 +32,73 @@
     @endif
 
     <div class="form-wrapper">
-        <form action="{{ route('saidaMedMotivo.store') }}" method="POST" class="styled-form">
-            @csrf
+    <form action="{{ route('saidaMedMotivo.store') }}" method="POST" class="styled-form">
+        @csrf
+        <!-- Tabela de Formulário -->
+        <table class="form-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Cadastro de Saída e Motivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label for="idMedicamento">Medicamento:</label></td>
+                    <td>
+                        <select id="idMedicamento" name="idMedicamento" required>
+                            <option value="">Selecione o Medicamento</option>
+                            @foreach($medicamentos as $medicamento)
+                            <option value="{{ $medicamento->idMedicamento }}">
+                                {{ $medicamento->nomeMedicamento }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="idMedicamento">Medicamento:</label>
-                    <select id="idMedicamento" name="idMedicamento" required>
-                        <option value="">Selecione o Medicamento</option>
-                        @foreach($medicamentos as $medicamento)
-                        <option value="{{ $medicamento->idMedicamento }}">
-                            {{ $medicamento->nomeMedicamento }}
-                        </option>
-                        @endforeach
-                    </select>
-                </div>
+                <tr>
+                    <td><label for="dataSaida">Data de Saída:</label></td>
+                    <td><input type="date" id="dataSaida" name="dataSaida" required></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="dataSaida">Data de Saída:</label>
-                    <input type="date" id="dataSaida" name="dataSaida" required>
-                </div>
+                <tr>
+                    <td><label for="quantidade">Quantidade:</label></td>
+                    <td><input type="number" id="quantidade" name="quantidade" min="1" required></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="quantidade">Quantidade:</label>
-                    <input type="number" id="quantidade" class="form-control" name="quantidade" min="1" required>
-                </div>
-            </div>
+                <tr>
+                    <td><label for="motivoSaida">Motivo de Saída:</label></td>
+                    <td><input type="text" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required></td>
+                </tr>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="motivoSaida">Motivo de Saída:</label>
-                    <input type="text" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required>
-                </div>
+                <tr>
+                    <td><label for="lote">Lote:</label></td>
+                    <td><input type="text" id="lote" name="lote" maxlength="90" required></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="lote">Lote:</label>
-                    <input type="text" id="lote" name="lote" maxlength="90" required>
-                </div>
+                <tr>
+                    <td><label for="validade">Data de Validade:</label></td>
+                    <td><input type="date" id="validade" name="validade" required></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="validade">Data de Validade:</label>
-                    <input type="date" id="validade" name="validade" required>
-                </div>
+                <tr>
+                    <td><label for="idFuncionario">Funcionário:</label></td>
+                    <td>
+                        <select id="idFuncionario" name="idFuncionario" required>
+                            <option value="">Selecione o Funcionário</option>
+                            @foreach($funcionarios as $funcionario)
+                            <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-                <div class="form-group">
-                    <label for="idFuncionario">Funcionário:</label>
-                    <select id="idFuncionario" name="idFuncionario" required>
-                        <option value="">Selecione o Funcionário</option>
-                        @foreach($funcionarios as $funcionario)
-                        <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <button type="submit" class="submit-btn">Cadastrar Saída e Motivo</button>
-        </form>
-    </div>
+        <button type="submit" class="submit-btn">Cadastrar Saída e Motivo</button>
+    </form>
+</div>
+<br>
 </main>
 @include('includes.footer')
     <script>
