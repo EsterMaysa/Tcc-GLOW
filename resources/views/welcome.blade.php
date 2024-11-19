@@ -1,146 +1,134 @@
+<!--CSS OK, ASS:DUDA-->
 @include('includes.header')
-<link rel="stylesheet" href="{{ url('css/DashboardAdm.css')}}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/DashboardAdm.css')}}">
 
-@if (session('message'))
-    <script>
-        alert("{{ session('message') }}");
-    </script>
-@endif
-
-<body>
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo">
-        </div>
-        <div class="search-container">
-            <input type="text" placeholder="Buscar..." class="search-input">
-            <button class="search-button"><i class="fas fa-search"></i></button>
-        </div>
-    </nav>
-
-    <div class="container-um">
-        <div class="jumbotron-um">
-            <h1>Bem-vindo, Administrador!</h1>
-            <p>Estamos felizes em tê-lo aqui. Você pode gerenciar usuários, visualizar relatórios e muito mais.</p>
-        </div>
+<div class="navbar">
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
+        <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-
-    <div class="container-dois">
-        <div class="stat-card">
-            <span class="icon"><i class="fas fa-pills"></i></span>
-            <h3>Novos Medicamentos</h3>
-            <p>{{ $medicamentosHoje }}</p>
-        </div>
-        <div class="stat-card">
-            <span class="icon"><i class="fas fa-file-alt"></i></span>
-            <h3>Medicamentos Cadastrados</h3>
-            <p>{{ $totalMedicamentos }}</p>
-        </div>
-        <div class="stat-card">
-            <span class="icon"><i class="fas fa-hospital"></i></span>
-            <h3>Unidades Básicas de Saúde</h3>
-            <p>{{ $totalUbs }}</p>
-        </div>
-        <div class="stat-card">
-            <span class="icon"><i class="fas fa-users"></i></span>
-            <h3>Usuários Registrados</h3>
-            <p>{{ $totalUser }}</p>
-        </div>
-    </div>
-
-    <div class="container-tres">
-        <div class="card">
-            <div class="card-content">
-                <h3>Cadastrar Medicamento</h3>
-                <p>Gerencie o cadastro de novos medicamentos no sistema.</p>
-                <a href="/medicamentoForm" class="card-button">Cadastrar</a>
-            </div>
-            <img src="{{ asset('Image/medicamento.png')}}" alt="Imagem de Medicamento">
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <h3>Consultar Usuários</h3>
-                <p>Veja e gerencie os usuários cadastrados no sistema.</p>
-                <a href="/Cliente" class="card-button">Consultar</a>
-            </div>
-            <img src="{{ asset('Image/admAlterandoSemFundo.png')}}" alt="Imagem de Usuários">
-        </div>
-    </div>
-
-    <div class="container-quatro">
-    <div class="chart-card" style="width: 500px; margin: auto;height:400px">
-        <h3>Medicamentos Cadastrados por Tipo</h3>
-        <canvas id="medicamentosChart" class="grafico"></canvas>
-    </div>
-
-    <div class="chart-card">
-        <h3>Usuários Cadastrados por Dia</h3>
-        <canvas id="usuariosPorDiaChart" class="grafico"></canvas>
+    
+    <div class="welcome-message">
+        <p><i class="fas fa-user-shield"></i> Bem-vindo, <span class="farmacia-name">Administrador XYZ</span>!</p> <!--AQUI VEM O BACK PUXANDO O NOME DO LOGIN (ASS: DUDA)-->
     </div>
 </div>
 
+<div class="stats-cards">
+    <div class="card">
+        <h3>Unidades de Saúde (UBS)</h3>
+        <i class="fas fa-hospital fa-3x"></i>
+        <a href="/selectUBS" class="btn btn-info">Ver UBS</a> 
+    </div>
+    <div class="card">
+        <h3>Gestão de Pacientes</h3>
+        <i class="fas fa-users fa-3x"></i>
+        <a href="/cliente" class="btn btn-info">Ver Pacientes</a> 
+    </div>
+    <div class="card">
+        <h3>Detentores de Medicamentos</h3>
+        <i class="fas fa-user-tag fa-3x"></i>
+        <a href="/detentor" class="btn btn-info">Ver Detentores</a>
+    </div>
+    <div class="card">
+        <h3>Medicamentos</h3>
+        <i class="fas fa-capsules fa-3x"></i>
+        <a href="/medicamento" class="btn btn-info">Ver Medicamentos</a>
+    </div>
+</div>
+
+<main>
+    <div class="card-atividades"> <!--aqui vai back-end-->
+        <h3>Últimas Atividades</h3>
+        <i class="fas fa-history fa-3x"></i>
+        <ul>
+            <li>Cadastro de novo paciente - 10 minutos atrás</li>
+            <li>Alteração no estoque de medicamentos - 1 hora atrás</li>
+            <li>Adição de nova UBS - 2 horas atrás</li>
+        </ul>
+    </div>
+
+    <div class="container-graficos">
+        <div class="row">
+            <!-- Gráfico de Pacientes Cadastrados -->
+            <div class="col-md-6">
+                <h4>Pacientes Cadastrados</h4>
+                <canvas id="patientsChart" width="400" height="200"></canvas>
+            </div>
+
+            <!-- Gráfico de UBS Cadastradas -->
+            <div class="col-md-6">
+                <h4>UBS Cadastradas</h4>
+                <canvas id="ubsChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="quick-actions">
+        <h3>Ações Rápidas</h3>
+        <ul>
+            <li><a href="/selectUBS">Registrar UBS</a></li>
+            <li><a href="/detentor">Verificar Detentores</a></li>
+            <li><a href="/medicamentoForm">Adicionar Novo Medicamento</a></li>
+        </ul>
+    </div>
+</main>
+<br>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Dados dinâmicos para o gráfico de medicamentos
-    var medicamentosData = @json($medicamentosPorTipo->pluck('medicamentos_count'));
-    var medicamentosLabels = @json($medicamentosPorTipo->pluck('tipoMedicamento'));
-    var totalClientes = @json($totalUser);
-
-    // Gráfico de Pizza - Medicamentos por Tipo com tons de azul
-    var ctxMedicamentos = document.getElementById('medicamentosChart').getContext('2d');
-    var medicamentosChart = new Chart(ctxMedicamentos, {
-        type: 'pie',  
+    // Gráfico de Pacientes Cadastrados
+    var ctx1 = document.getElementById('patientsChart').getContext('2d');
+    var patientsChart = new Chart(ctx1, {
+        type: 'bar',  // Tipo de gráfico: barra
         data: {
-            labels: medicamentosLabels,
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [{
-                label: 'Quantidade de Medicamentos',
-                data: medicamentosData,
-                backgroundColor: ['#1E3A5F', '#3C6D99', '#5C92CC', '#A1C0E8', '#B9D9F4'],
-                hoverBackgroundColor: ['#16304A', '#2F5473', '#487CB3', '#7CA7D3', '#A8CAE6']
+                label: 'Pacientes Cadastrados',
+                data: [120, 150, 170, 180, 220, 250, 270, 300, 320, 340, 360, 400],  // Dados estáticos
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Cor de fundo das barras
+                borderColor: 'rgba(75, 192, 192, 1)',  // Cor da borda
+                borderWidth: 1
             }]
         },
         options: {
             responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Medicamentos Cadastrados por Tipo'
-                },
-                legend: {
-                    position: 'right'
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 50
+                    }
                 }
             }
         }
     });
 
-    // Gráfico de Barras - Usuários Cadastrados por Dia
-    var usuariosPorDiaData = @json($usuariosPorDia->pluck('usuarios_count'));
-    var usuariosPorDiaLabels = @json($usuariosPorDia->pluck('dia'));
-    
-    var ctxUsuariosPorDia = document.getElementById('usuariosPorDiaChart').getContext('2d');
-    var usuariosPorDiaChart = new Chart(ctxUsuariosPorDia, {
-        type: 'line',  // Usando gráfico de linha para mostrar a tendência diária
+    // Gráfico de UBS Cadastradas
+    var ctx2 = document.getElementById('ubsChart').getContext('2d');
+    var ubsChart = new Chart(ctx2, {
+        type: 'line',  // Tipo de gráfico: linha
         data: {
-            labels: usuariosPorDiaLabels,
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [{
-                label: 'Usuários Cadastrados por Dia',
-                data: usuariosPorDiaData,
-                borderColor: '#1F2B5B',
-                backgroundColor: 'rgba(31, 43, 91, 0.2)',                
-                fill: true
+                label: 'UBS Cadastradas',
+                data: [10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 35],  // Dados estáticos
+                fill: false,
+                borderColor: 'rgba(153, 102, 255, 1)',  // Cor da linha
+                tension: 0.1,  // Suavização da linha
+                borderWidth: 2
             }]
         },
         options: {
             responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Usuários Cadastrados por Dia'
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 2
+                    }
                 }
             }
         }
     });
 </script>
 
-@include('includes.footer')

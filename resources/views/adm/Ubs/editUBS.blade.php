@@ -1,165 +1,136 @@
 <!--CSS finalizado OK (ASS:Duda-->
+@include('includes.header')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/EditarUBS.css')}}">    
 
-@include('includes.header') <!-- include -->
-<link rel="stylesheet" href="{{ url('css/EditarUBS.css')}}">    
-
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 40px; margin-right: 10px; ">
-        <button class="search-button"><i class="fas fa-search" style="color: #fff;"></i></button>
+        <input type="text" class="search-input" placeholder="Pesquisar...">
+        <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1 style="font-weight: bold;">Editar UBS</h1>
-        <p>edite UBS já existentes.</p>
+        <h1 style="font-weight: bold;"> Editar UBS </h1>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/AdmTrabalhandoSemFundo.png')}}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/AdmTrabalhandoSemFundo.png') }}" alt="Saída De Medicamentos" class="img-fluid">
     </div>
 </div>
 
 
-<body>
-    <div class="container">
-        <div class="form-container">
-            <form action="{{ route('ubs.update', $ubs->idUBS) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                    @method('PUT')
+<main>
+<div class="form-wrapper">
+    <form action="{{ route('ubs.update', $ubs->idUBS) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="nomeUBS">
-                                <i class="fas fa-building"></i> Nome UBS:
-                            </label>
-                            <input type="text" name="nomeUBS" value="{{ $ubs->nomeUBS }}" required>
-                        </div>
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Edição da UBS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Nome UBS -->
+                <tr>
+                    <td><label for="nomeUBS">Nome UBS:</label></td>
+                    <td><input type="text" class="form-control" id="nomeUBS" name="nomeUBS" value="{{ old('nomeUBS', $ubs->nomeUBS) }}" required></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="emailUBS">
-                                <i class="fas fa-envelope"></i> E-mail:
-                            </label>
-                            <input type="email" name="emailUBS" value="{{ $ubs->emailUBS }}" required>
-                        </div>
+                <!-- E-mail -->
+                <tr>
+                    <td><label for="emailUBS">E-mail:</label></td>
+                    <td><input type="email" class="form-control" id="emailUBS" name="emailUBS" value="{{ old('emailUBS', $ubs->emailUBS) }}" required></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="fotoUBS">
-                                <i class="fas fa-camera"></i> Foto:
-                            </label>
-                            <input type="text" name="fotoUBS" value="{{ $ubs->fotoUBS }}" required>
-                        </div>
+                <!-- CNPJ -->
+                <tr>
+                    <td><label for="cnpjUBS">CNPJ:</label></td>
+                    <td><input type="text" class="form-control" id="cnpjUBS" name="cnpjUBS" value="{{ old('cnpjUBS', $ubs->cnpjUBS) }}" required></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="cnpjUBS">
-                                <i class="fas fa-id-card"></i> CNPJ:
-                            </label>
-                            <input type="text" name="cnpjUBS" value="{{ $ubs->cnpjUBS }}" required>
-                        </div>
-                    </div>
+                <!-- CEP -->
+                <tr>
+                    <td><label for="cepUBS">CEP:</label></td>
+                    <td><input type="text" class="form-control" id="cepUBS" name="cepUBS" value="{{ old('cepUBS', $ubs->cepUBS) }}" required onblur="buscaCep()"></td>
+                </tr>
 
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="cepUBS">
-                                <i class="fas fa-map-pin"></i> CEP:
-                            </label>
-                            <input type="text" name="cepUBS" id="cepUBS" value="{{ $ubs->cepUBS }}" required onblur="buscaCep()">
-                        </div>
+                <!-- Logradouro -->
+                <tr>
+                    <td><label for="logradouroUBS">Logradouro:</label></td>
+                    <td><input type="text" class="form-control" id="logradouroUBS" name="logradouroUBS" value="{{ old('logradouroUBS', $ubs->logradouroUBS) }}" required></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="logradouroUBS">
-                                <i class="fas fa-road"></i> Logradouro:
-                            </label>
-                            <input type="text" name="logradouroUBS" id="logradouroUBS" value="{{ $ubs->logradouroUBS }}" required>
-                        </div>
+                <!-- Bairro -->
+                <tr>
+                    <td><label for="bairroUBS">Bairro:</label></td>
+                    <td><input type="text" class="form-control" id="bairroUBS" name="bairroUBS" value="{{ old('bairroUBS', $ubs->bairroUBS) }}" required></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="bairroUBS">
-                                <i class="fas fa-home"></i> Bairro:
-                            </label>
-                            <input type="text" name="bairroUBS" id="bairroUBS" value="{{ $ubs->bairroUBS }}" required>
-                        </div>
+                <!-- Cidade -->
+                <tr>
+                    <td><label for="cidadeUBS">Cidade:</label></td>
+                    <td><input type="text" class="form-control" id="cidadeUBS" name="cidadeUBS" value="{{ old('cidadeUBS', $ubs->cidadeUBS) }}" required></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="cidadeUBS">
-                                <i class="fas fa-city"></i> Cidade:
-                            </label>
-                            <input type="text" name="cidadeUBS" id="cidadeUBS" value="{{ $ubs->cidadeUBS }}" required>
-                        </div>
-                    </div>
+                <!-- Estado -->
+                <tr>
+                    <td><label for="estadoUBS">Estado:</label></td>
+                    <td><input type="text" class="form-control" id="estadoUBS" name="estadoUBS" value="{{ old('estadoUBS', $ubs->estadoUBS) }}" required></td>
+                </tr>
 
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="ufUBS">
-                                <i class="fas fa-flag"></i> UF:
-                            </label>
-                            <input type="text" name="ufUBS" id="ufUBS" value="{{ $ubs->ufUBS }}" required>
-                        </div>
+                <!-- Região -->
+                <tr>
+                    <td><label for="idRegiao">Região:</label></td>
+                    <td>
+                        <select class="form-control" id="idRegiao" name="idRegiao" required>
+                            <option value="">Selecione a Região</option>
+                            @foreach($regioes as $r)
+                                <option value="{{ $r->idRegiaoUBS }}" {{ old('idRegiao', $ubs->idRegiaoUBS) == $r->idRegiaoUBS ? 'selected' : '' }}>{{ $r->nomeRegiaoUBS }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="latitudeUBS">
-                                <i class="fas fa-map-marker-alt"></i> Latitude:
-                            </label>
-                            <input type="text" name="latitudeUBS" id="latitudeUBS" value="{{ $ubs->latitudeUBS }}" required readonly>
-                        </div>
+                <!-- Complemento -->
+                <tr>
+                    <td><label for="complementoUBS">Complemento:</label></td>
+                    <td><input type="text" class="form-control" id="complementoUBS" name="complementoUBS" value="{{ old('complementoUBS', $ubs->complementoUBS) }}"></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="longitudeUBS">
-                                <i class="fas fa-map-marker-alt"></i> Longitude:
-                            </label>
-                            <input type="text" name="longitudeUBS" id="longitudeUBS" value="{{ $ubs->longitudeUBS }}" required readonly>
-                        </div>
+                <!-- Latitude -->
+                <tr>
+                    <td><label for="latitudeUBS">Latitude:</label></td>
+                    <td><input type="text" class="form-control" id="latitudeUBS" name="latitudeUBS" value="{{ old('latitudeUBS', $ubs->latitudeUBS) }}" required readonly></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="numeroUBS">
-                                <i class="fas fa-hashtag"></i> Número:
-                            </label>
-                            <input type="text" name="numeroUBS" value="{{ $ubs->numeroUBS }}" required>
-                        </div>
-                    </div>
+                <!-- Longitude -->
+                <tr>
+                    <td><label for="longitudeUBS">Longitude:</label></td>
+                    <td><input type="text" class="form-control" id="longitudeUBS" name="longitudeUBS" value="{{ old('longitudeUBS', $ubs->longitudeUBS) }}" required readonly></td>
+                </tr>
 
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label for="complementoUBS">
-                                <i class="fas fa-plus"></i> Complemento:
-                            </label>
-                            <input type="text" name="complementoUBS" value="{{ $ubs->complementoUBS }}">
-                        </div>
+                <!-- Telefone -->
+                <tr>
+                    <td><label for="telefone">Telefone:</label></td>
+                    <td><input type="text" class="form-control" id="telefone" name="telefone" value="{{ old('telefone', $telefone->numeroTelefoneUBS ?? '') }}" required></td>
+                </tr>
 
-                        <div class="form-col">
-                            <label for="telefone">
-                                <i class="fas fa-phone"></i> Telefone:
-                            </label>
-                            <input type="text" name="telefone" id="telefone" value="{{ $telefone->numeroTelefoneUBS }}" required>
-                        </div>
+                <!-- Telefone 2 -->
+                <tr>
+                    <td><label for="telefone2">Telefone 2:</label></td>
+                    <td><input type="text" class="form-control" id="telefone2" name="telefone2" value="{{ old('telefone2', $telefone->numeroTelefoneUBS2 ?? '') }}"></td>
+                </tr>
+            </tbody>
+        </table>
 
-                        <div class="form-col">
-                            <label for="telefone2">
-                                <i class="fas fa-phone"></i> Telefone 2:
-                            </label>
-                            <input type="text" name="telefone2" id="telefone2" value="{{ $telefone->numeroTelefoneUBS2 }}" required>
-                        </div>
-                    </div>
-
-                    <label for="idRegiao">
-                        <i class="fas fa-clipboard-list"></i> Selecione a região:
-                    </label>
-                    <select id="idRegiao" name="idRegiao" required>
-                        <option value="">Selecione a região</option>
-                        @foreach($regioes as $r)
-                            <option value="{{ $r->idRegiaoUBS }}" {{ $r->idRegiaoUBS == $ubs->idRegiaoUBS ? 'selected' : '' }}>
-                                {{ $r->nomeRegiaoUBS }}
-                            </option>
-                        @endforeach
-                    </select>
-                <button type="submit" class="btn btn-custom"><i class="fas fa-sync-alt" style="color: #fff;"></i> Atualizar</button>
-            </form>
-        </div>
-    </div>
-</body>
+        <button type="submit" class="submit-btn"> Atualizar</button>
+    </form>
+</div>
+</main>
+<br>
     <script>
         function buscaCep() {
             const cep = document.getElementById('cepUBS').value.replace(/\D/g, ''); // Remove caracteres não numéricos

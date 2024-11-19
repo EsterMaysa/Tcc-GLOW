@@ -1,25 +1,21 @@
 <!--CSS OK (ASS:Duda)-->
+@include('includes.header')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/Medicamento.css') }}">
 
-@include('includes.header') <!-- include do header -->
-<link rel="stylesheet" href="{{ asset('css/Medicamento.css') }}">
-
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo">
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Medicamentos</h1>
-        <p>Crie e consulte medicamentos e tipos de medicamentos.</p>
+        <h1 style="font-weight: bold;">Medicamentos</h1>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/medicamento.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/medicamento.png') }}" alt="Saída De Medicamentos" class="img-fluid">
     </div>
 </div>
 
@@ -269,12 +265,90 @@
             </div>
         </div>
     </div>
+    <div class="table-data">
+    <div class="order">
+        <div class="head">
+            <h5 style="font-size: 30px; font-weight: bold;">Medicamento Desativado</h5>
+            <form action="#" method="GET">
+                <input type="text" name="query" id="searchInput" placeholder="Pesquisar por nome, nome genérico, código de barras..." class="search-input" style="width: 700px;" onkeyup="if(event.key === 'Enter') this.form.submit();">
+            </form>
+            <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
+        </div>
+    </div>
+</div>
 
-    <!-- Link para o Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<div class="form-wrapper">
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th> Código de Barras </th>
+                <th> Medicamento </th>
+                <th> Nome Genérico </th>
+                <th> Situação </th>
+                <th> Data de Cadastro </th>
+                <th> Ações </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Medicamento Desativado -->
+            <tr>
+                <td>1234567890123</td>
+                <td>Paracetamol</td>
+                <td>Paracetamol</td>
+                <td>Desativado</td>
+                <td>12/08/2023</td>
+                <td class="actions">
+                    <!-- Botão de Editar -->
+                    <a href="#" class="icon-action" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </a>
 
+                    <!-- Botão para Ativar o Medicamento -->
+                    <form action="#" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja ativar este medicamento?');">
+                        <button type="submit" class="icon-action-2" title="Ativar">
+                            <i class="fas fa-check-circle"></i>
+                        </button>
+                    </form>
+
+                    <!-- Botão para ver mais detalhes -->
+                    <button type="button" class="botao" data-bs-toggle="modal" data-bs-target="#modalDetalhes">
+                        <i class="fas fa-eye"></i> <!-- Ícone de olho para Ver Mais -->
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal para os detalhes do medicamento -->
+<div class="modal fade" id="modalDetalhes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: 520px;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Medicamento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height: 400px;">
+                <p><strong>Código de Barras:</strong> 1234567890123</p>
+                <p><strong>Nome:</strong> Paracetamol</p>
+                <p><strong>Nome Genérico:</strong> Paracetamol</p>
+                <p><strong>Registro ANVISA:</strong> 12345</p>
+                <p><strong>Forma Farmacêutica:</strong> Comprimido</p>
+                <p><strong>Concentração:</strong> 500mg</p>
+                <p><strong>Composição:</strong> Paracetamol</p>
+                <p><strong>Detentor:</strong> Laboratório XYZ</p>
+                <p><strong>Tipo Medicamento:</strong> Analgésico</p>
+                <p><strong>Situação:</strong> Desativado</p>
+                <p><strong>Data de Cadastro:</strong> 12/08/2023</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+ 
 </main>
-
 <br>
-@include('includes.footer') <!-- include do footer -->
+@include('includes.footer')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
