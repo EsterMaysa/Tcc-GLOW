@@ -7,8 +7,9 @@ use App\Models\ModelEstoqueFarmaciaUBS;
 use App\Models\ModelMedicamentoFarmaciaUBS;
 use App\Models\ModelEntradaMedicamento;
 use App\Models\ModelSaidaMedicamento;
-
 use App\Models\TipoMedicamentoModel;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeFarmaciaController extends Controller
 {
@@ -17,53 +18,113 @@ class HomeFarmaciaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
-        $estoque = ModelEstoqueFarmaciaUBS::with('medicamento')  // Relacionando com a tabela de medicamentos
-            ->select('idMedicamento', \DB::raw('SUM(quantEstoque) as totalEstoque'))  // Soma das quantidades
-            ->groupBy('idMedicamento')  // Agrupar por id do medicamento
+        // Número total de medicamentos em estoque
+        $totalMedicamentos = ModelEstoqueFarmaciaUBS::sum('quantEstoque');
+
+        // Total de saídas por semana
+        $totalSaidas = ModelSaidaMedicamento::where('dataSaida', '>=', now()->subWeek())
+            ->sum('quantidade');
+
+        // Medicamentos em baixa (estoque menor que 10)
+        $medicamentosEmBaixa = ModelEstoqueFarmaciaUBS::where('quantEstoque', '<', 10)
+            ->count();
+
+        // Última movimentação (entrada ou saída mais recente)
+        $ultimaMovimentacao = ModelEntradaMedicamento::latest('dataEntrada')->first();
+        if (!$ultimaMovimentacao) {
+            $ultimaMovimentacao = ModelSaidaMedicamento::latest('dataSaida')->first();
+        }
+
+        // Garantir que estamos lidando com objetos Carbon
+        $ultimaMovimentacaoData = null;
+        $ultimaMovimentacaoTipo = null;
+        if ($ultimaMovimentacao) {
+            if ($ultimaMovimentacao instanceof ModelEntradaMedicamento) {
+                $ultimaMovimentacaoData = Carbon::parse($ultimaMovimentacao->dataEntrada);  // Converte para Carbon
+                $ultimaMovimentacaoTipo = 'Entrada';
+            } else {
+                $ultimaMovimentacaoData = Carbon::parse($ultimaMovimentacao->dataSaida);  // Converte para Carbon
+                $ultimaMovimentacaoTipo = 'Saída';
+            }
+        }
+
+        // Consultar estoque agrupado por medicamento
+        $estoque = ModelEstoqueFarmaciaUBS::with('medicamento')
+            ->select('idMedicamento', DB::raw('SUM(quantEstoque) as totalEstoque'))
+            ->groupBy('idMedicamento')
             ->get();
 
-        $entradas = ModelEntradaMedicamento::select(\DB::raw('DATE(dataEntrada) as data, SUM(quantidade) as totalEntradas'))
-            ->groupBy(\DB::raw('DATE(dataEntrada)'))
-            ->get();
+        // Consultar entradas e saídas agrupadas por data
+        $entradas = ModelEntradaMedicamento::with('medicamento', 'funcionario')  // Relacionando com medicamento e funcionário
+            ->select('dataEntrada as data', 'quantidade', 'idMedicamento', 'idFuncionario')
+            ->orderBy('dataEntrada', 'desc')
+            ->take(4) // Últimas 4 entradas
+            ->get()
+            ->map(function ($entrada) {
+                return [
+                    'data' => Carbon::parse($entrada->data)->format('d/m/Y'),
+                    'descricao' => "Entrada de " . $entrada->medicamento->nomeMedicamento . " - Responsável: " . $entrada->funcionario->nomeFuncionario
+                ];
+            });
 
-        // Saídas por dia
-        $saidas = ModelSaidaMedicamento::select(\DB::raw('DATE(dataSaida) as data, SUM(quantidade) as totalSaidas'))
-            ->groupBy(\DB::raw('DATE(dataSaida)'))
-            ->get();
+        $saidas = ModelSaidaMedicamento::with('medicamento', 'funcionario')  // Relacionando com medicamento e funcionário
+            ->select('dataSaida as data', 'quantidade', 'idMedicamento', 'idFuncionario')
+            ->orderBy('dataSaida', 'desc')
+            ->take(4) // Últimas 4 saídas
+            ->get()
+            ->map(function ($saida) {
+                return [
+                    'data' => Carbon::parse($saida->data)->format('d/m/Y'),
+                    'descricao' => "Saída de " . $saida->medicamento->nomeMedicamento . " - Responsável: " . $saida->funcionario->nomeFuncionario
+                ];
+            });
+
+        $atividadesRecentes = $entradas->merge($saidas)->sortByDesc('data')->take(4); // Pegar as 4 mais recentes e ordenar
 
         // Organizar os dados para o gráfico
         $datas = $entradas->merge($saidas)->pluck('data')->unique()->sort()->values(); // Unir as datas e remover duplicatas
+
         $quantidadeEntradas = [];
         $quantidadeSaidas = [];
 
         foreach ($datas as $data) {
-            $quantidadeEntradas[] = $entradas->firstWhere('data', $data)->totalEntradas ?? 0; // Se não tiver entrada, atribui 0
-            $quantidadeSaidas[] = $saidas->firstWhere('data', $data)->totalSaidas ?? 0; // Se não tiver saída, atribui 0
+            // Calcula a quantidade total de entradas para a data
+            $quantidadeEntradas[] = ModelEntradaMedicamento::whereDate('dataEntrada', $data)->sum('quantidade') ?? 0; // Soma as quantidades de entradas para o dia
+
+            // Calcula a quantidade total de saídas para a data
+            $quantidadeSaidas[] = ModelSaidaMedicamento::whereDate('dataSaida', $data)->sum('quantidade') ?? 0; // Soma as quantidades de saídas para o dia
         }
-        // Extrair os dados de nome e quantidade para passar para o gráfico
-        $nomes = $estoque->map(function ($item) {
-            return $item->medicamento->nomeMedicamento; // Nome do medicamento
-        });
+        // Contagem de medicamentos ativos e inativos
+        $ativos = ModelMedicamentoFarmaciaUBS::where('situacaoMedicamento', 'A')->count();
+        $inativos = ModelMedicamentoFarmaciaUBS::where('situacaoMedicamento', 'D')->count();
 
-        $quantidades = $estoque->map(function ($item) {
-            return $item->totalEstoque; // Quantidade total em estoque
-        });
-
-        $estoquetabela = ModelEstoqueFarmaciaUBS::all();
-        $medicamento = ModelMedicamentoFarmaciaUBS::orderBy('dataCadastroMedicamento', 'desc')->take(5)->get();
         // Passar os dados para a view
         return view('farmacia.homeFarmacia', [
-            'nomes' => $nomes,
-            'quantidades' => $quantidades,
-            'estoquetabela' => $estoquetabela,
-            'medicamento' => $medicamento,
+            'nomes' => $estoque->map(fn($item) => $item->medicamento->nomeMedicamento),
+            'quantidades' => $estoque->map(fn($item) => $item->totalEstoque),
+            'estoquetabela' => ModelEstoqueFarmaciaUBS::all(),
+            'medicamento' => ModelMedicamentoFarmaciaUBS::orderBy('dataCadastroMedicamento', 'desc')->take(5)->get(),
             'datas' => $datas,
             'quantidadeEntradas' => $quantidadeEntradas,
             'quantidadeSaidas' => $quantidadeSaidas,
+            'datas' => $datas,
+            'totalMedicamentos' => $totalMedicamentos,
+            'totalSaidas' => $totalSaidas,
+            'medicamentosEmBaixa' => $medicamentosEmBaixa,
+            'ultimaMovimentacaoData' => $ultimaMovimentacaoData,
+            'ultimaMovimentacaoTipo' => $ultimaMovimentacaoTipo,
+            'atividadesRecentes' => $atividadesRecentes,
+            'ativos' => $ativos,
+            'inativos' => $inativos,
         ]);
     }
+
+
+
 
 
     /**
