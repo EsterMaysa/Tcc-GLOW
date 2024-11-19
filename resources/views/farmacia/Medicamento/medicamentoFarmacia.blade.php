@@ -1,27 +1,22 @@
-<!--CSS OK ASS: GABY-->
-
+<!--CSS OK ASS:DUDA-->
 @include('includes.headerFarmacia')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/Medicamento.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
-
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1 style="font-weight: bold;">Medicamento</h1>
-        <p>Você pode gerenciar o medicamento nessa página.</p>
+        <h1 style="font-weight: bold;"> Medicamentos </h1>
+        <p>gerencie os medicamentos.</p>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/medi.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/medi.png') }}" alt="Entrada De Medicamentos" class="img-fluid">
     </div>
 </div>
 
@@ -37,50 +32,51 @@
     </div>
 </div>
 
-<main style="padding-right: 20px;">
+<main>
     <!-- Modal de Filtros -->
-    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true" >
-        <div class="modal-dialog">
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="filterModalLabel">Filtros de Medicamentos</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <form action="/filtrarMedFarma" method="GET">
-                        <!-- Forma Farmacêutica -->
                         <div class="mb-3">
                             <label>Forma Farmacêutica</label>
+                            <br>
                             @php
                             $formasFarmaceuticas = ['Comprimido', 'Cápsula', 'Pomada', 'Solução', 'Suspensão', 'Creme', 'Gel', 'Injeção'];
                             @endphp
                             @foreach ($formasFarmaceuticas as $forma)
-                            <div class="mb-3">
-                                <input class="form-check-input" type="checkbox" name="formaFarmaceutica[]" value="{{ $forma }}" id="forma{{ $forma }}">
-                                <label class="form-label" for="forma{{ $forma }}">{{ $forma }}</label>
-                            </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="formaFarmaceutica[]" value="{{ $forma }}" id="forma{{ $forma }}">
+                                    <label class="form-check-label" for="forma{{ $forma }}">{{ $forma }}</label>
+                                </div>
                             @endforeach
                         </div>
 
-                        <!-- Validade do Medicamento -->
                         <div class="mb-3">
                             <label for="filtroValidadeInicio">Validade</label>
-                            <p style="margin-top: 7px;">De:</p>
-
-                            <div>
-                                <input type="date" class="form-control" id="filtroValidadeInicio" name="filtroValidadeInicio">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <label for="filtroValidadeInicio">De:</label>
+                                    <input type="date" class="form-control" id="filtroValidadeInicio" name="filtroValidadeInicio">
+                                </div>
+                                <div>
+                                    <label for="filtroValidadeFim">Até:</label>
+                                    <input type="date" class="form-control" id="filtroValidadeFim" name="filtroValidadeFim">
+                                </div>
                             </div>
-                            <p style="margin-top: 7px;">Até:</p>
-                            <div>
-
-                            <input type="date" class="form-control" id="filtroValidadeFim" name="filtroValidadeFim">
-                            </div>
-
                         </div>
 
-                        <!-- Botão de Aplicar Filtros -->
-                        <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
-                        <a href="/MedicamentoHome" class="btn btn-secondary">Cancelar Filtros</a>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="aplicar">Aplicar Filtros</button>
+                            <a href="/MedicamentoHome" class="cancelar">Cancelar Filtros</a>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -88,44 +84,51 @@
     </div>
 
     <div class="custom-table">
-        <div class="custom-table">
-            <div class="card-header-1">
-                <h5>Medicamentos</h5>
-                <input type="text" id="searchInput" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" class="form-control" style="margin-top: 10px;margin-left: 600px;">
-                <i class='bx bx-filter' data-toggle="modal" data-target="#filterModal"></i>
-            </div>
+        <div class="card-header-1 d-flex justify-content-between align-items-center">
+            <h5>Medicamentos</h5>
 
-            <table class="table table-bordered table-striped" id="medicamentoTable">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Nome Genérico</th>
-                        <th>Código de Barras</th>
-                        <th>Lote</th>
-                        <th>Dosagem</th>
-                        <th>Forma Farmacêutica</th>
-                        <th>Validade</th>
-                        <th>Composição</th>
-                        <th>Situação</th>
-                        <th>Data de Cadastro</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($medicamentos as $med)
-                    <tr>
-                        <td>{{ $med->nomeMedicamento }}</td>
-                        <td>{{ $med->nomeGenericoMedicamento }}</td>
-                        <td>{{ $med->codigoDeBarrasMedicamento }}</td>
-                        <td>{{ $med->loteMedicamento }}</td>
-                        <td>{{ $med->dosagemMedicamento }}</td>
-                        <td>{{ $med->formaFarmaceuticaMedicamento }}</td>
-                        <td>{{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</td>
-                        <td>{{ $med->composicaoMedicamento }}</td>
-                        <td>{{ $med->situacaoMedicamento == 'A' ? 'Ativo' : 'Inativo' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
-                        <td class="actions">
-                            @if ($med->situacaoMedicamento == 'A')
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" class="form-control">
+            </div>
+            <!-- Botão de Filtro -->
+            <button class="botãoInfo" data-toggle="modal" data-target="#filterModal">
+                <i class="fas fa-filter"></i> Filtros
+            </button>
+        </div>
+
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Nome Genérico</th>
+                            <th>Código de Barras</th>
+                            <th>Lote</th>
+                            <th>Dosagem</th>
+                            <th>Forma Farmacêutica</th>
+                            <th>Validade</th>
+                            <th>Composição</th>
+                            <th>Situação</th>
+                            <th>Data de Cadastro</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($medicamentos as $med)
+                        <tr>
+                            <td>{{ $med->nomeMedicamento }}</td>
+                            <td>{{ $med->nomeGenericoMedicamento }}</td>
+                            <td>{{ $med->codigoDeBarrasMedicamento }}</td>
+                            <td>{{ $med->loteMedicamento }}</td>
+                            <td>{{ $med->dosagemMedicamento }}</td>
+                            <td>{{ $med->formaFarmaceuticaMedicamento }}</td>
+                            <td>{{ \Carbon\Carbon::parse($med->validadeMedicamento)->format('d/m/Y') }}</td>
+                            <td>{{ $med->composicaoMedicamento }}</td>
+                            <td>{{ $med->situacaoMedicamento == 'A' ? 'Ativo' : 'Inativo' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
+                            <td class="actions">
+                                @if ($med->situacaoMedicamento == 'A')
                                 <a href="{{ route('medicamentosFarma.edit', $med->idMedicamento) }}" class="icon-action" title="Editar" style="color: #f7d516;">
                                     <i class="fas fa-edit"></i>
                                 </a>
@@ -144,20 +147,17 @@
                                         <i class="fas fa-check"></i>
                                     </button>
                                 </form>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </main>
 
-<!-- jQuery e Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script> -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
     // Função para filtrar a tabela de medicamentos
@@ -180,5 +180,7 @@
         });
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 @include('includes.footer')

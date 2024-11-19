@@ -1,131 +1,116 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-
-/*NAVBAR*/
-
+body{
+    background-color: rgb(235, 235, 235);
+}
 .navbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-between; /* Alinha logo e pesquisa em extremos opostos */
-    background-color: #1F2B5B; 
-    padding: 10px 20px;
-    height: 90px; 
+    position: fixed; 
+    top: 0; 
+    margin-left: 15%; 
+    background-color: #1f2b5b;
+    width: 90%; 
+    padding: 10px 5%; 
+    z-index: 800; 
     color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
-
-.navbar-brand {
-    margin-left: 20px; /* Margem à esquerda da logo */
-}
-
-.logo {
-    margin-left: 15%;
-    width: 33%; 
-    height: auto; 
-}
-
-/*BARRA DE PESQUISA*/
-
 .search-container {
     display: flex;
     align-items: center;
-    margin-right: 20px; 
-}
-
-.search-input {
+    border-radius: 30px; 
+    overflow: hidden;
+    width: 400px;
     height: 40px;
-    width: 280px; 
-    padding: 8px;
+    margin-left: 4%;
+    background-color: #4a54aa;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); 
+    transition: transform 0.3s ease;
+}
+.search-container:hover {
+    transform: scale(1.02); 
+}
+.search-input {
+    width: 150%;
+    padding: 10px 20px;
     border: none;
-    border-radius: 40px; 
+    border-radius: 30px;
+    font-size: 14px;
+    color: #333;
     outline: none;
-    margin-right: 10px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
 }
-
+.search-input:focus {
+    background-color: #e0e0e0; 
+}
 .search-button {
-    padding: 8px 12px;
-    background-color: #1a1a2e;
-    border: none;
-    border-radius: 20px;
+    background-color: transparent;
     color: white;
+    border: none;
+    width: 70%;
+    border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
-.search-button:hover {
-    background-color: #243f8a; 
+.search-button i {
+    font-size: 18px;
 }
-
-/*TERMINA BARRA DE PESQUISA*/
-/*TERMINA A NAVBAR*/
-
+/* CONTAINER UM COMEÇA AQUI */
 .container-um {
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
+    margin-top: 6%;
+    margin-left: 20%;
 }
-
 .jumbotron-um {
-    width: 40%;
-    background-color: #f8f9fa; 
+    width: 60%;
+    height: 60%;
+    background-color: #f8f9fa;
     border-radius: 8px;
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-left: 10%; /* Espaçamento à direita do jumbotron */
+    margin-left: 15%;
 }
-
 .jumbotron-um h1 {
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
-
-.image-container {
-    flex: 0 0 50%; 
-    text-align: center;
-}
-
 .image-container img {
-    max-width: 40%; 
-    height: auto; 
+    max-width: 45%;
+    height: auto;
+    margin-left: 14%;
     border-radius: 8px;
 }
-
 /*COMEÇA O CADASTRO*/
-
-
-/* CONTAINER DO CADASTRO*/
-
 .cadastros-container {
-    background-color: #f2f3f3;
+    background-color: #f6f7f6;
     padding: 1rem;
     border-radius: 6px;
-   margin-left: 10%;
-    width: 85%; /* Define uma largura mais estreita */
+    width: 74%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+    margin-left: 23%; 
 }
-
 .cadastros-container h3 {
-    display: flex;
-    align-items: center;
     font-size: 1.2rem;
     color: #333;
     font-weight: 600;
     margin-bottom: 0.8rem;
 }
-
-/* Lista de Cadastros */
-
 .cadastros-list {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 }
-
-/* Item de Cadastro */
-
 .cadastro-item {
     background-color: #ffffff;
     display: flex;
@@ -136,47 +121,28 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .cadastro-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
-
-.cadastro-item p {
-    font-size: 1rem;
-    color: #333;
-    font-weight: 500;
-    margin: 0;
-}
-
-/* Link de Cadastrar */
-
 .cadastrar-link {
     display: flex;
     align-items: center;
-    color: #4390CC;
+    color: #1F2B5B;
     font-weight: 600;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.2s ease;
 }
-
 .cadastrar-link:hover {
-    color: #1366a7;
+    color: #354379;
+    text-decoration: none;
 }
-
 .cadastrar-link i {
     font-size: 2rem;
     margin-right: 0.3rem;
 }
+/* ACABA O CADASTRO */
 
-.status-busca {
-    font-size: 1rem;
-}
-
-/* BARRA DE PESQUISA DOS FILTROS*/
-
-/* Estilo do Formulário de Pesquisa no Cabeçalho */
 
 .head {
     background-color: #1F2B5B; 
@@ -188,8 +154,8 @@
     align-items: center;
     color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    width: 85%; 
-    margin-left: 10%;
+    width: 75%; 
+    margin-left: 23%;
 }
 
 .search-container2 {
@@ -238,11 +204,11 @@
 /* COMEÇA A TABELA*/
 
 .table {
-    width: 85%;
+    width: 75%;
     height: 80%;
     border-collapse: collapse;
     margin-top: 0px;
-    margin-left: 10%;
+    margin-left: 23%;
 }
 
 .table thead th {
@@ -310,116 +276,6 @@
 }
 
 
-/* Modal de Detalhes */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 600px;
-    margin: auto;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover {
-    color: #333;
-}
-
-#detailsContent p {
-    margin: 0.5rem 0;
-    font-size: 1rem;
-}
-
-/* Overlay para desfoque de fundo */
-.overlay {
-    position: fixed;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 999;
-}
-
-
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px; 
-    padding: 20px;
-    border-top: 1px solid #dee2e6;
-    background-color: #f8f9fa;
-}
-
-.modal-footer .btn {
-    padding: 10px 20px;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 6px;
-    border: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-/* Botão Editar no modal */
-.modal-footer .btn-warning {
-    color: #fff;
-    background-color: #1F2B5B;
-    text-decoration: none;
-}
-
-.modal-footer .btn-warning:hover {
-    background-color: #719ff5;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Botão Desativar no modal */
-.modal-footer .btn-danger {
-    color: #fff;
-    background-color: #8d111d;
-}
-
-.modal-footer .btn-danger:hover {
-    background-color: #c82333;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Botão Fechar no modal */
-.modal-footer .btn-secondary {
-    color: #ffffff;
-    background-color: #1F2B5B;
-}
-
-.modal-footer .btn-secondary:hover {
-    background-color: #84b0dd;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-
-
 
 
 /* Estilo base para os botões menores */
@@ -478,4 +334,134 @@
 /* Ícones dentro dos botões (tamanho reduzido) */
 .btn i {
     font-size: 14px; /* Tamanho menor do ícone */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Modal Geral */
+.modal-dialog {
+    max-width: 400px; /* Ajusta a largura do modal */
+    margin: 1.75rem auto; /* Centraliza o modal na tela */
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 10px 15px; /* Menos espaço ao redor do título */
+    border-bottom: 1px solid #dee2e6;
+    background-color: #1F2B5B;
+}
+
+.modal-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 15px; /* Ajuste do padding do conteúdo */
+    font-size: 14px; /* Texto do corpo mais compacto */
+    line-height: 1.5; /* Aumento na altura da linha para melhorar a legibilidade */
+    color: #333; /* Cor do texto mais suave */
+}
+
+.modal-body p {
+    margin-bottom: 8px; /* Reduzimos o espaço entre os parágrafos */
+}
+
+/* Modal Footer (Botões) */
+.modal-footer {
+    padding: 8px 10px; /* Menos espaçamento ao redor dos botões */
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    gap: 10px; /* Espaçamento controlado entre os botões */
+    border-top: 1px solid #dee2e6; /* Linha fina acima dos botões */
+}
+
+/* Estilo dos botões */
+.modal-footer .btn {
+    font-size: 14px; /* Fonte menor para botões */
+    padding: 5px 10px; /* Botões mais compactos */
+    border-radius: 4px; /* Bordas arredondadas */
+    transition: background-color 0.3s ease; /* Efeito suave na cor de fundo */
+}
+
+.modal-footer .btn-sm {
+    font-size: 13px; /* Botões pequenos */
+    padding: 5px 10px; /* Ajusta o tamanho do botão */
+}
+
+/* Botão de Editar */
+.modal-footer .btn-warning {
+    width: 90%;
+    margin-left: 60%;
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #fff;
+}
+
+.modal-footer .btn-warning:hover,
+.modal-footer .btn-warning:focus {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+/* Botão de Desativar */
+.modal-footer .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.modal-footer .btn-danger:hover,
+.modal-footer .btn-danger:focus {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Botão Fechar */
+.modal-footer .btn-secondary {
+    width: 70%;
+    background-color: #1F2B5B;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.modal-footer .btn-secondary:hover,
+.modal-footer .btn-secondary:focus {
+    background-color: #1F2B5B;
+    border-color: #1F2B5B;
+}
+
+/* Ajuste da linha de fechamento do modal */
+.btn-close {
+    padding: 0.5rem 1rem; /* Tamanho do botão de fechar */
+    background: transparent; /* Botão de fechar transparente */
+    border: none;
+    color: #6c757d; /* Cor do X */
 }

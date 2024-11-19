@@ -4,61 +4,79 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+body{
+    background-color: beige;
+}
 
-/* Navbar */
 .navbar {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background-color: #265c4b;
-    padding: 10px 20px;
-    height: 90px;
+    align-items: center;
+    position: fixed; 
+    top: 0; 
+    margin-left: 15%; 
+    background-color: #3d7e66;
+    width: 90%; 
+    padding: 10px 5%; 
+    z-index: 800; 
     color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
-.navbar-brand {
-    margin-left: 20px;
-}
-.logo {
-    width: 50px;
-    height: auto;
-    margin-bottom: 10px;
-}
+
 .search-container {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    border-radius: 30px; 
+    overflow: hidden;
+    width: 400px;
+    height: 40px;
+    margin-left: 4%;
+    background-color: #4aaa87;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); 
+    transition: transform 0.3s ease;
+}
+.search-container:hover {
+    transform: scale(1.02); 
 }
 .search-input {
-    height: 40px;
-    width: 280px;
-    padding: 8px;
+    width: 150%;
+    padding: 10px 20px;
     border: none;
-    border-radius: 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    color: #333;
     outline: none;
-    margin-right: 10px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+.search-input:focus {
+    background-color: #e0e0e0; 
 }
 .search-button {
-    padding: 8px 12px;
-    background-color: #072e22;
-    border: none;
-    border-radius: 20px;
+    background-color: transparent;
     color: white;
+    border: none;
+    width: 70%;
+    border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
-.search-button:hover {
-    background-color: #8fc1b5;
+.search-button i {
+    font-size: 18px;
 }
 
-/* Main container */
+/* CONTAINER UM COMEÇA AQUI */
 .container-um {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-   
+    margin-top: 6%;
+    margin-left: 20%;
 }
 .jumbotron-um {
-    width: 40%;
+    width: 60%;
+    height: 60%;
     background-color: #f8f9fa;
     border-radius: 8px;
     padding: 20px;
@@ -66,23 +84,25 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-left: 15%;
 }
+
 .jumbotron-um h1 {
     margin-bottom: 10px;
 }
 .image-container img {
-    max-width: 100%;
+    max-width: 45%;
     height: auto;
+    margin-left: 14%;
     border-radius: 8px;
 }
-
-/* Cadastro section */
+/* CONTAINER UM TERMINA AQUI */
 .cadastros-container {
     background-color: #f6f7f6;
     padding: 1rem;
     border-radius: 6px;
-    width: 85%;
+    width: 74%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     margin: 20px auto;
+    margin-left: 23%; 
 }
 .cadastros-container h3 {
     font-size: 1.2rem;
@@ -125,80 +145,120 @@
     margin-right: 0.3rem;
 }
 
-/* Tabela de movimentacao */
-#tabelaMovimentacoes {
-    width: 85%;
-    border-collapse: collapse;
-    margin: 20px auto;
-}
-#tabelaMovimentacoes th,
-#tabelaMovimentacoes td {
-    padding: 1rem;
-    text-align: left;
-    font-size: 1rem;
-    color: #333;
-}
-#tabelaMovimentacoes th {
-    background-color: #265c4b;
-    color: white;
-    font-weight: 600;
-}
-#tabelaMovimentacoes td {
-    background-color: #ffffff;
-    border-top: 1px solid #ccc;
-}
-
-/* Filtro e Barra de Pesquisa */
+/* Container para os botões de filtro */
 .filter-search-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    margin-bottom: 20px;
-    padding: 0.5rem;
-    width: 85%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 74%;
+    background-color: #3d7e66; 
+    margin-top: 4%;
+    margin-left: 23%;
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px; 
+    border-radius: 8px; 
+    color: #fff; 
 }
 .filter-buttons {
     display: flex;
-    gap: 1rem;
-    padding: 0.5rem;
-    background-color: #f6f7f6;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-.filter-buttons .filter-btn {
-    background-color: #265c4b;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.filter-buttons .filter-btn:hover {
-    background-color: #8fc1b5;
-    transform: translateY(-2px);
-}
-.search-bar {
-    flex: 1;
-    display: flex;
     align-items: center;
+    justify-content: flex-end; 
 }
-.search-bar input {
-    width: 100%;
-    padding: 0.8rem 0.5rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    color: #333;
-    background-color: #f6f7f6;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    transition: border 0.3s ease, box-shadow 0.3s ease;
+.filter-buttons p {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    margin-right: auto; 
 }
-.search-bar input:focus {
-    border-color: #265c4b;
-    box-shadow: 0 2px 6px rgba(38, 92, 75, 0.3);
+.filter-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #265c4b;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px; 
+}
+.filter-btn:hover {
+    background-color: #8fc1b5;
+}
+.filter-btn:active {
+    background-color: #1a6b51;
+}
+
+
+/* Estilo da tabela */
+#tabelaMovimentacoes {
+    width: 74%;
+    max-width: 1200px;
+    border-radius: 6px;
+    margin-left: 23%;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#tabelaMovimentacoes th,
+#tabelaMovimentacoes td {
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+}
+
+#tabelaMovimentacoes thead th {
+    background-color: #3d7e66;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+}
+
+#tabelaMovimentacoes tbody tr {
+    background-color: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+
+/* Badge para o status */
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.bg-success {
+    background-color: #28a745;
+}
+
+.bg-warning {
+    background-color: #ffc107;
+}
+
+/* Botões de ação */
+.btn-acao {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    color: #fff;
+    margin: 2px;
+}
+
+.btn-primary {
+    background-color: #ffc107;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #ffd350;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
 }

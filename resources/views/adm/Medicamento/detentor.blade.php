@@ -1,25 +1,21 @@
 <!--Tudo Ok por aqui no front (ASS: Duda-->
+@include('includes.header')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/Detentor.css')}}">
 
-@include('includes.header') <!-- include -->
-<link rel="stylesheet" href="{{ url('css/Detentor.css')}}">
-
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Detentores</h1>
-        <p>Crie novos e consulte detentores</p>
+        <h1 style="font-weight: bold;"> Detentores </h1>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/geren.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/geren.png') }}" alt="Detentores" class="img-fluid">
     </div>
 </div>
 
@@ -110,55 +106,54 @@
                     </tr>
 
                     <!-- Modal para os detalhes -->
-                    <div class="modal fade" id="modalDetalhes{{ $d->idDetentor }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Detalhes do Detentor</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p><strong>Nome:</strong> {{ $d->nomeDetentor }}</p>
-                                    <p><strong>CNPJ:</strong> {{ $d->cnpjDetentor }}</p>
-                                    <p><strong>Email:</strong> {{ $d->emailDetentor }}</p>
-                                    <p><strong>Logradouro:</strong> {{ $d->logradouroDetentor }}</p>
-                                    <p><strong>Bairro:</strong> {{ $d->bairroDetentor }}</p>
-                                    <p><strong>Cidade:</strong> {{ $d->cidadeDetentor }}</p>
-                                    <p><strong>Estado:</strong> {{ $d->estadoDetentor }}</p>
-                                    <p><strong>UF:</strong> {{ $d->ufDetentor }}</p>
-                                    <p><strong>CEP:</strong> {{ $d->cepDetentor }}</p>
-                                    <p><strong>Número:</strong> {{ $d->numeroDetentor }}</p>
-                                    <p><strong>Complemento:</strong> {{ $d->complementoDetentor }}</p>
-                                    <p><strong>Situação:</strong> 
-                                    @if( $d->situacaoDetentor === 'A')
-                                        Ativado
-                                    @elseif( $d->situacaoDetentor === 'D')
-                                        Desativado
-                                    @else
-                                        Indefinido
-                                    @endif
-                                    </p>
-                                    <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($d->dataCadastroDetentor)->format('d/m/Y') }}</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{ route('detentor.edit', $d->idDetentor) }}" class="btn btn-warning"> Editar </a>
-                                    <!-- Botão para desativar -->
-                                    <form action="{{ route('desativarDetentor', $d->idDetentor) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('PUT') <!-- Usando PUT para indicar a atualização -->
-                                        <button type="submit" class="btn btn-danger"> Desativar </button>
-                                    </form>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Fechar </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Modal para os detalhes -->
+<div class="modal fade" id="modalDetalhes{{ $d->idDetentor }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detalhes do Detentor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Nome:</strong> {{ $d->nomeDetentor }}</p>
+                <p><strong>CNPJ:</strong> {{ $d->cnpjDetentor }}</p>
+                <p><strong>Email:</strong> {{ $d->emailDetentor }}</p>
+                <p><strong>Logradouro:</strong> {{ $d->logradouroDetentor }}</p>
+                <p><strong>Bairro:</strong> {{ $d->bairroDetentor }}</p>
+                <p><strong>Cidade:</strong> {{ $d->cidadeDetentor }}</p>
+                <p><strong>Estado:</strong> {{ $d->estadoDetentor }}</p>
+                <p><strong>UF:</strong> {{ $d->ufDetentor }}</p>
+                <p><strong>CEP:</strong> {{ $d->cepDetentor }}</p>
+                <p><strong>Número:</strong> {{ $d->numeroDetentor }}</p>
+                <p><strong>Complemento:</strong> {{ $d->complementoDetentor }}</p>
+                <p><strong>Situação:</strong> 
+                    @if( $d->situacaoDetentor === 'A') Ativado
+                    @elseif( $d->situacaoDetentor === 'D') Desativado
+                    @else Indefinido
+                    @endif
+                </p>
+                <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($d->dataCadastroDetentor)->format('d/m/Y') }}</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('detentor.edit', $d->idDetentor) }}" class="btn btn-warning btn-sm">Editar</a>
+                <!-- Botão para desativar -->
+                <form action="{{ route('desativarDetentor', $d->idDetentor) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('PUT') <!-- Usando PUT para indicar a atualização -->
+                    <button type="submit" class="btn btn-danger btn-sm">Desativar</button>
+                </form>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                 @endforeach
             </tbody>
         </table>
     </div>
 </main>
-
+<br>
 
 @include('includes.footer') <!-- include -->
 

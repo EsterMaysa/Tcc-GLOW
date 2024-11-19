@@ -1,30 +1,27 @@
+<!--CSS OK, COM BACK-END (ASS:DUDA)-->
 @include('includes.headerFarmacia')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Adiciona Font Awesome -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="{{asset('css/Farmacia-CSS/TipoMovimentacao.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input" id="searchInput" onkeyup="filterTable()">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1 style="font-weight: bold;">Tipo de Movimentação</h1>
-        <p>Gerencie os tipos de movimentações nesta página.</p>
+        <h1 style="font-weight: bold;">Tipos de Movimentação</h1>
+        <p>gerencie os tipos de movimentação</p>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/estoque.png') }}" alt="Movimentações" class="img-fluid" />
+        <img src="{{ asset('Image/saidaEEntrada.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
     </div>
 </div>
 
 <div class="cadastros-container">
-    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Acessar </h3>
+    <h3><i class='bx bx-plus-circle' style="margin-right: 6px; color:#000;"></i> Cadastrar </h3>
     <div class="cadastros-list">
         <div class="cadastro-item">
             <p>Cadastrar Tipo de Movimentação</p>
@@ -35,15 +32,17 @@
     </div>
 </div>
 
-<div class="filter-search-container">
-    <div class="filter-buttons">
-        <button class="filter-btn" onclick="filterByStatus('1')">Ativos</button>
-        <button class="filter-btn" onclick="filterByStatus('0')">Inativos</button>
-        <button class="filter-btn" onclick="resetFilter()">Todos</button>
-    </div>
-</div>
-
+<main>
 <table id="tabelaMovimentacoes" class="table table-bordered table-striped table-hover">
+    <div class="filter-search-container">
+        <div class="filter-buttons">
+            <p>Filtros</p>
+            <button class="filter-btn" onclick="filterByStatus('1')">Ativos</button>
+            <button class="filter-btn" onclick="filterByStatus('0')">Inativos</button>
+            <button class="filter-btn" onclick="resetFilter()">Todos</button>
+        </div>
+    </div>
+    
     <thead>
         <tr>
             <th>ID</th>
@@ -54,6 +53,7 @@
             <th>Ações</th>
         </tr>
     </thead>
+    
     <tbody>
         @foreach ($movimentacoes as $movimentacao)
             <tr data-status="{{ $movimentacao->situacaoTipoMovimentacao }}">
@@ -82,6 +82,8 @@
         @endforeach
     </tbody>
 </table>
+
+</main>
 
 <script>
     function filterTable() {

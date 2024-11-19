@@ -1,25 +1,22 @@
 <!--CSS finalizado OK (ASS:Duda-->
 
 @include('includes.header')
-<link rel="stylesheet" href="{{ url('css/FarmaciaAdm.css')}}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/FarmaciaAdm.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Farmácias</h1>
-        <p>Você pode gerenciar farmácias por aqui.</p>
+        <h1 style="font-weight: bold;"> Farmácias </h1>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/AdmTrabalhandoSemFundo.png')}}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/AdmTrabalhandoSemFundo.png') }}" alt="UBS" class="img-fluid">
     </div>
 </div>
 
@@ -36,7 +33,7 @@
     </div>
 </div>
 
-<br><br><br><br>
+<br>
 
 <main>
 

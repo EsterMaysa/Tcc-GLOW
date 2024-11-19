@@ -1,34 +1,30 @@
 <!--CSS OK(ASS:Duda)-->
-
 @include('includes.headerFarmacia')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/EntradaMedicamento.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
         <h1 style="font-weight: bold;"> Entrada De Medicamentos </h1>
-        <p>gerencie a entrada de medicamentos.</p>
+        <p>gerencie as entradas.</p>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/medi.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/saidaMed.png') }}" alt="Entrada De Medicamentos" class="img-fluid">
     </div>
 </div>
 
 <div class="cadastros-container">
-    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Acessar </h3>
+    <h3><i class='bx bx-plus-circle' style="margin-right: 6px;"></i> Cadastrar </h3>
     <div class="cadastros-list">
         <div class="cadastro-item">
-            <p>Entrada Medicamento</p>
+            <p> Cadastrar Entrada Medicamento</p>
             <a href="{{ route('entradaMedInsert') }}" class="cadastrar-link">
                 <i class="fas fa-inbox"></i> 
             </a>
@@ -38,7 +34,7 @@
 
 <main>
     <div class="pesquisa">
-        <p class="titulo-pesquisa">Buscar registros</p>
+        <p class="titulo-pesquisa">Buscar Entradas</p>
         <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por Nome, Lote, Funcionário ou Motivo">
     </div>
 

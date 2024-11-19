@@ -1,109 +1,120 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-/*NAVBAR*/
+body{
+    background-color: beige;
+}
+
 .navbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-between; /* Alinha logo e pesquisa em extremos opostos */
-    background-color: #265c4b; 
-    padding: 10px 20px;
-    height: 90px; 
+    position: fixed; 
+    top: 0; 
+    margin-left: 15%; 
+    background-color: #3d7e66;
+    width: 90%; 
+    padding: 10px 5%; 
+    z-index: 800; 
     color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
-.navbar-brand {
-    margin-left: 20px; /* Margem à esquerda da logo */
-}
-.logo {
-    margin-left: 20%;
-    width: 33%; 
-    height: 20%; 
-    margin-bottom: 40%;
-}
-/*BARRA DE PESQUISA*/
+
 .search-container {
     display: flex;
     align-items: center;
-    margin-right: 20px; 
-    margin-bottom: 14%;
+    border-radius: 30px; 
+    overflow: hidden;
+    width: 400px;
+    height: 40px;
+    margin-left: 4%;
+    background-color: #4aaa87;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); 
+    transition: transform 0.3s ease;
+}
+.search-container:hover {
+    transform: scale(1.02); 
 }
 .search-input {
-    height: 40px;
-    width: 280px; 
-    padding: 8px;
+    width: 150%;
+    padding: 10px 20px;
     border: none;
-    border-radius: 20px; 
+    border-radius: 30px;
+    font-size: 14px;
+    color: #333;
     outline: none;
-    margin-right: 10px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+.search-input:focus {
+    background-color: #e0e0e0; 
 }
 .search-button {
-    padding: 8px 12px;
-    background-color: #072e22;
-    border: none;
-    border-radius: 20px;
+    background-color: transparent;
     color: white;
+    border: none;
+    width: 70%;
+    border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
-.search-button:hover {
-    background-color: #8fc1b5; 
+.search-button i {
+    font-size: 18px;
 }
-/*TERMINA BARRA DE PESQUISA*/
-/*TERMINA A NAVBAR*/
+
+/* CONTAINER UM COMEÇA AQUI */
 .container-um {
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
+    margin-top: 6%;
+    margin-left: 20%;
 }
 .jumbotron-um {
-    width: 40%;
-    background-color: #f8f9fa; 
+    width: 60%;
+    height: 60%;
+    background-color: #f8f9fa;
     border-radius: 8px;
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-left: 10%; /* Espaçamento à direita do jumbotron */
+    margin-left: 15%;
 }
+
 .jumbotron-um h1 {
-    margin-bottom: 10px; 
-}
-.image-container {
-    flex: 0 0 50%; 
-    text-align: center;
+    margin-bottom: 10px;
 }
 .image-container img {
-    max-width: 40%; 
-    height: auto; 
+    max-width: 45%;
+    height: auto;
+    margin-left: 14%;
     border-radius: 8px;
-}
-    
-/* /COMEÇA O CADASTRO/ */
+}  
+/* CONTAINER UM TERMINA AQUI */
 .cadastros-container {
     background-color: #f6f7f6;
     padding: 1rem;
     border-radius: 6px;
-    margin-left: 10%;
-    width: 85%;
+    width: 74%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+    margin-left: 23%; 
 }
 .cadastros-container h3 {
-    display: flex;
-    align-items: center;
     font-size: 1.2rem;
     color: #333;
     font-weight: 600;
     margin-bottom: 0.8rem;
 }
-/* Lista de Cadastros */
 .cadastros-list {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 }
-/* Item de Cadastro */
 .cadastro-item {
     background-color: #ffffff;
     display: flex;
@@ -118,13 +129,6 @@
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
-.cadastro-item p {
-    font-size: 1rem;
-    color: #333;
-    font-weight: 500;
-    margin: 0;
-}
-/* Link de Cadastrar */
 .cadastrar-link {
     display: flex;
     align-items: center;
@@ -132,10 +136,11 @@
     font-weight: 600;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.2s ease;
 }
 .cadastrar-link:hover {
     color: #8fc1b5;
+    list-style: none;
+    text-decoration: none;
 }
 .cadastrar-link i {
     font-size: 2rem;
@@ -145,108 +150,161 @@
     font-size: 1rem;
 }
 
-
-/* Estilo para a Tabela */
+/* Estilos gerais para a tabela */
 #funcionarioTable {
-    width: 85%;
-    border-collapse: collapse;
+    width: 74%;
     margin-top: 20px;
-    margin-left: 10%;
+    margin-left: 23%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#funcionarioTable th,
-#funcionarioTable td {
-    padding: 1rem;
+/* Estilo para as células da tabela */
+#funcionarioTable th, #funcionarioTable td {
+    padding: 12px;
     text-align: left;
-    font-size: 1rem;
-    color: #333;
+    border: 1px solid #ddd;
 }
+
 
 #funcionarioTable th {
-    background-color: #265c4b;
-    color: white;
-    font-weight: 600;
+    background-color: #3d7e66;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    
 }
 
 #funcionarioTable td {
-    background-color: #ffffff;
-    border-top: 1px solid #ccc;
+    background-color: #fff;
+    border: none;
+}
+
+/* Cores para o header da tabela */
+thead {
+    background-color: #3d7e66;
+    color: white;
 }
 
 
-
-
-
-
-/* Contêiner para os botões de filtro e a barra de pesquisa */
+/* Estilo para a linha de filtros e barra de pesquisa */
 .filter-search-container {
     display: flex;
-    justify-content: space-between;
-    gap: 2rem;  /* Aumenta o espaçamento entre os elementos */
-    margin-bottom: 20px;
-    padding: 0.5rem;
-    margin-left: 10%;
+    justify-content: flex-start; /* Deixa os itens alinhados à esquerda */
+    align-items: center;
+    margin-bottom: 15px; 
+    gap: 20px; /* Espaçamento entre os itens */
 }
 
-/* Container de Botões de Filtro */
+/* Botões de Filtro */
 .filter-buttons {
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;  /* Aumenta o espaçamento entre os botões */
-    padding: 0.5rem;
-    background-color: #f6f7f6;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    flex: 0.5;  /* Ajusta o tamanho dos botões para que ocupem menos espaço */
+    align-items: center;
+    margin-left: 37%;
+    gap: 10px; /* Espaçamento entre os botões */
 }
 
-/* Estilo dos Botões de Filtro */
-.filter-buttons .filter-btn {
-    background-color: #265c4b;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
+/* Texto do filtro */
+.filter-buttons .p {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    margin-right: auto; 
+}
+
+/* Estilo para os botões de filtro */
+.filter-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color:#265c4b; /* Verde para ativos */
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    flex: 1;
+    transition: background-color 0.3s ease;
 }
 
-.filter-buttons .filter-btn:hover {
-    background-color: #8fc1b5;
-    transform: translateY(-2px);
+.filter-btn:hover {
+    background-color: #8fc1b5; /* Verde mais escuro no hover */
 }
 
-.filter-buttons .filter-btn:focus {
-    outline: none;
+.filter-btn:nth-child(2) {
+    background-color: #265c4b; /* Vermelho para inativos */
+}
+
+.filter-btn:nth-child(2):hover {
+    background-color: #8fc1b5; /* Vermelho mais escuro no hover */
+}
+
+.filter-btn:nth-child(3) {
+    background-color: #265c4b; /* Azul para todos */
+}
+
+.filter-btn:nth-child(3):hover {
+    background-color: #8fc1b5; /* Azul mais escuro no hover */
 }
 
 /* Barra de Pesquisa */
 .search-bar {
-    flex: 1; /* A barra de pesquisa ocupa o espaço restante */
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    margin-left: 2rem;  /* Aumenta a margem à esquerda da barra de pesquisa */
+    gap: 10px;
 }
-
 .search-bar input {
-    width: 80%;
-    max-width: 750px;
-    padding: 0.8rem 0.2rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    padding: 8px;
     font-size: 1rem;
-    color: #333;
-    background-color: #f6f7f6;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    transition: border 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 2%;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 250px;
+    transition: border-color 0.3s ease;
 }
 
 .search-bar input:focus {
+    border-color: #265c4b; 
     outline: none;
-    border-color: #265c4b;
-    box-shadow: 0 2px 6px rgba(38, 92, 75, 0.3);
+}
+
+/* Estilos para as ações de editar e excluir */
+.btn-acao {
+    padding: 5px 10px; 
+    font-size: 0.875rem; 
+    width: auto; 
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+.btn-acao i {
+    margin-right: 5px;
+}
+
+/* Botão de Editar - Azul */
+.btn-primary {
+    background-color: #ffc508;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #8fc1b5;
+}
+
+/* Botão de Excluir - Vermelho */
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #8fc1b5;
+}
+
+/* Adicionando estilos gerais de hover */
+.btn-acao:hover {
+    opacity: 0.8;
 }

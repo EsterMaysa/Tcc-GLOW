@@ -1,152 +1,156 @@
 <!--CSS OK (ASS:Duda)-->
+@include('includes.header') 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/CadastroMedicamento.css') }}">
 
-<!-- AQUI VAI A PAGINA DESTINADA AS FUNCIONALIDADES DO MEDICAMENTO -->
-<!-- Essa pagina será para edição, portanto o formulário estará preenchido com os dados do medicamento -->
-
-@include('includes.header') <!-- include do header -->
-<link rel="stylesheet" href="{{ url('css/CadastroMedicamento.css') }}">
-
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo">
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
-    </div>
-</nav>
-
-<div class="container-um">
-    <div class="jumbotron-um">
-        <h1>Editar Medicamento</h1>
     </div>
 </div>
 
-<!-- MAIN -->
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;"> Editar Medicamentos </h1>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/medi.png') }}" alt="Saída De Medicamentos" class="img-fluid">
+    </div>
+</div>
+
 <main>
-    <div class="container">
-        <div class="form-container">
-            <form action="{{ route('medicamento.update', $medicamento->idMedicamento) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
+    <div class="form-wrapper">
+        <form action="{{ route('medicamento.update', $medicamento->idMedicamento) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-                <!-- Primeira linha de campos -->
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="codigoDeBarrasMedicamento">
-                            <i class="fas fa-barcode"></i> Código de Barras
-                        </label>
-                        <input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras" value="{{ $medicamento->codigoDeBarrasMedicamento }}" readonly required>
-                    </div>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Detalhes do Medicamento</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                    <div class="form-col">
-                        <label for="nomeMedicamento">Nome do Medicamento</label>
-                        <input type="text" class="form-control" id="nomeMedicamento" name="nome" value="{{ $medicamento->nomeMedicamento }}" required>
-                    </div>
+                    <tr>
+                        <td><label for="nomeMedicamento">Nome do Medicamento:</label></td>
+                        <td><input type="text" class="form-control" id="nomeMedicamento" name="nome" value="{{ $medicamento->nomeMedicamento }}" required></td>
+                    </tr>
 
-                    <div class="form-col">
-                        <label for="nomeGenericoMedicamento">Nome Genérico</label>
-                        <input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenerico" value="{{ $medicamento->nomeGenericoMedicamento }}" required>
-                    </div>
-                </div>
+                    <tr>
+                        <td><label for="nomeGenericoMedicamento">Nome Genérico:</label></td>
+                        <td><input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenerico" value="{{ $medicamento->nomeGenericoMedicamento }}" required></td>
+                    </tr>
 
-                <!-- Segunda linha de campos -->
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="fotoMedicamentoOriginal">Foto Medicamento Original</label><br>
-                        <img id="imgPreviewOriginal" src="{{ asset('storage/' . $medicamento->fotoMedicamentoOriginal) }}" alt="Foto do Medicamento Original" style="max-width: 150px; cursor: pointer;" onclick="document.getElementById('fotoOriginal').click();">
-                        <input type="file" id="fotoOriginalMedicamento" name="fotoOriginalMedicamento" style="display: none;" onchange="previewImage(event, 'imgPreviewOriginal')">
-                    </div>
+                    <tr>
+                        <td><label for="codigoDeBarrasMedicamento">Código de Barras:</label></td>
+                        <td><input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarras" value="{{ $medicamento->codigoDeBarrasMedicamento }}" readonly required></td>
+                    </tr>
 
-                    <div class="form-col">
-                        <label for="fotoMedicamentoGenero">Foto Medicamento Genérico</label><br>
-                        <img id="imgPreviewGenero" src="{{ asset('storage/' . $medicamento->fotoMedicamentoGenero) }}" alt="Foto do Medicamento Genérico" style="max-width: 150px; cursor: pointer;" onclick="document.getElementById('fotoGenero').click();">
-                        <input type="file" id="fotoGenericoMedicamento" name="fotoGenericoMedicamento" style="display: none;" onchange="previewImage(event, 'imgPreviewGenero')">
-                    </div>
+                    <tr>
+                        <td><label for="fotoMedicamentoOriginal">Foto Medicamento Original:</label></td>
+                        <td>
+                            <img id="imgPreviewOriginal" src="{{ asset('storage/' . $medicamento->fotoMedicamentoOriginal) }}" alt="Foto do Medicamento Original" style="max-width: 150px; cursor: pointer;" onclick="document.getElementById('fotoOriginal').click();">
+                            <input type="file" id="fotoOriginalMedicamento" name="fotoOriginalMedicamento" style="display: none;" onchange="previewImage(event, 'imgPreviewOriginal')">
+                        </td>
+                    </tr>
 
-                    <div class="form-col">
-                        <label for="registroAnvisaMedicamento">Registro ANVISA</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroSim" value="Deferido" {{ $medicamento->registroAnvisaMedicamento == 'D' ||  $medicamento->registroAnvisaMedicamento == 'on' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="registroSim">Deferido</label>
-                        </div>
+                    <tr>
+                        <td><label for="fotoMedicamentoGenero">Foto Medicamento Genérico:</label></td>
+                        <td>
+                            <img id="imgPreviewGenero" src="{{ asset('storage/' . $medicamento->fotoMedicamentoGenero) }}" alt="Foto do Medicamento Genérico" style="max-width: 150px; cursor: pointer;" onclick="document.getElementById('fotoGenero').click();">
+                            <input type="file" id="fotoGenericoMedicamento" name="fotoGenericoMedicamento" style="display: none;" onchange="previewImage(event, 'imgPreviewGenero')">
+                        </td>
+                    </tr>
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="registroAnvisa" id="registroNao" value="Indeferido" {{ $medicamento->registroAnvisaMedicamento == 'I' ||  $medicamento->registroAnvisaMedicamento == 'off'? 'checked' : '' }}>
-                            <label class="form-check-label" for="registroNao">Indeferido</label>
-                        </div>
-                    </div>
-                </div>
+                    <tr>
+                        <td><label for="registroAnvisaMedicamento">Registro ANVISA:</label></td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="registroAnvisa" id="registroSim" value="Deferido" {{ $medicamento->registroAnvisaMedicamento == 'D' || $medicamento->registroAnvisaMedicamento == 'on' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="registroSim">Deferido</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="registroAnvisa" id="registroNao" value="Indeferido" {{ $medicamento->registroAnvisaMedicamento == 'I' || $medicamento->registroAnvisaMedicamento == 'off' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="registroNao">Indeferido</label>
+                            </div>
+                        </td>
+                    </tr>
 
-                <!-- Terceira linha de campos -->
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="idDetentor">Detentor</label>
-                        <select class="form-control" id="idDetentor" name="idDetentor" required>
-                            <option value="">Selecione o Detentor</option>
-                            @foreach($detentor as $d)
-                                <option value="{{ $d->idDetentor }}" {{ $medicamento->idDetentor == $d->idDetentor ? 'selected' : '' }}>
-                                    {{ $d->nomeDetentor }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <tr>
+                        <td><label for="idDetentor">Detentor:</label></td>
+                        <td>
+                            <select class="form-control" id="idDetentor" name="idDetentor" required>
+                                <option value="">Selecione o Detentor</option>
+                                @foreach($detentor as $d)
+                                    <option value="{{ $d->idDetentor }}" {{ $medicamento->idDetentor == $d->idDetentor ? 'selected' : '' }}>
+                                        {{ $d->nomeDetentor }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
 
-                    <div class="form-col">
-                        <label for="idTipoMedicamento">Tipo de Medicamento</label>
-                        <select class="form-control" id="idTipoMedicamento" name="idTipo" required>
-                            <option value="">Selecione o Tipo de Medicamento</option>
-                            @foreach($tiposMedicamento as $t)
-                                <option value="{{ $t->idTipoMedicamento }}" {{ $medicamento->idTipoMedicamento == $t->idTipoMedicamento ? 'selected' : '' }}>
-                                    {{ $t->tipoMedicamento }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <tr>
+                        <td><label for="idTipoMedicamento">Tipo de Medicamento:</label></td>
+                        <td>
+                            <select class="form-control" id="idTipoMedicamento" name="idTipo" required>
+                                <option value="">Selecione o Tipo de Medicamento</option>
+                                @foreach($tiposMedicamento as $t)
+                                    <option value="{{ $t->idTipoMedicamento }}" {{ $medicamento->idTipoMedicamento == $t->idTipoMedicamento ? 'selected' : '' }}>
+                                        {{ $t->tipoMedicamento }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
 
-                    <div class="form-col">
-                        <label for="formaFarmaceuticaMedicamento">Forma Farmacêutica</label>
-                        <select class="form-control" id="formaFarmaceuticaMedicamento" name="formaFarmaceutica" required>
-                            <option value="">Selecione a Forma Farmacêutica</option>
-                            <option value="Comprimido" {{ $medicamento->formaFarmaceuticaMedicamento == 'Comprimido' ? 'selected' : '' }}>Comprimido</option>
-                            <option value="Cápsula" {{ $medicamento->formaFarmaceuticaMedicamento == 'Cápsula' ? 'selected' : '' }}>Cápsula</option>
-                            <option value="Pomada" {{ $medicamento->formaFarmaceuticaMedicamento == 'Pomada' ? 'selected' : '' }}>Pomada</option>
-                            <option value="Solução" {{ $medicamento->formaFarmaceuticaMedicamento == 'Solução' ? 'selected' : '' }}>Solução</option>
-                            <option value="Suspensão" {{ $medicamento->formaFarmaceuticaMedicamento == 'Suspensão' ? 'selected' : '' }}>Suspensão</option>
-                            <option value="Creme" {{ $medicamento->formaFarmaceuticaMedicamento == 'Creme' ? 'selected' : '' }}>Creme</option>
-                            <option value="Gel" {{ $medicamento->formaFarmaceuticaMedicamento == 'Gel' ? 'selected' : '' }}>Gel</option>
-                            <option value="Injeção" {{ $medicamento->formaFarmaceuticaMedicamento == 'Injeção' ? 'selected' : '' }}>Injeção</option>
-                        </select>
-                    </div>
-                </div>
+                    <tr>
+                        <td><label for="formaFarmaceuticaMedicamento">Forma Farmacêutica:</label></td>
+                        <td>
+                            <select class="form-control" id="formaFarmaceuticaMedicamento" name="formaFarmaceutica" required>
+                                <option value="">Selecione a Forma Farmacêutica</option>
+                                <option value="Comprimido" {{ $medicamento->formaFarmaceuticaMedicamento == 'Comprimido' ? 'selected' : '' }}>Comprimido</option>
+                                <option value="Cápsula" {{ $medicamento->formaFarmaceuticaMedicamento == 'Cápsula' ? 'selected' : '' }}>Cápsula</option>
+                                <option value="Pomada" {{ $medicamento->formaFarmaceuticaMedicamento == 'Pomada' ? 'selected' : '' }}>Pomada</option>
+                                <option value="Solução" {{ $medicamento->formaFarmaceuticaMedicamento == 'Solução' ? 'selected' : '' }}>Solução</option>
+                                <option value="Suspensão" {{ $medicamento->formaFarmaceuticaMedicamento == 'Suspensão' ? 'selected' : '' }}>Suspensão</option>
+                                <option value="Creme" {{ $medicamento->formaFarmaceuticaMedicamento == 'Creme' ? 'selected' : '' }}>Creme</option>
+                                <option value="Gel" {{ $medicamento->formaFarmaceuticaMedicamento == 'Gel' ? 'selected' : '' }}>Gel</option>
+                                <option value="Injeção" {{ $medicamento->formaFarmaceuticaMedicamento == 'Injeção' ? 'selected' : '' }}>Injeção</option>
+                            </select>
+                        </td>
+                    </tr>
 
-                <!-- Quarta linha de campos -->
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="concentracaoMedicamento">Concentração</label>
-                        <input type="text" class="form-control" id="concentracaoMedicamento" name="concentracao" value="{{ $medicamento->concentracaoMedicamento }}" required>
-                    </div>
+                    <tr>
+                        <td><label for="concentracaoMedicamento">Concentração:</label></td>
+                        <td><input type="text" class="form-control" id="concentracaoMedicamento" name="concentracao" value="{{ $medicamento->concentracaoMedicamento }}" required></td>
+                    </tr>
 
-                    <div class="form-col">
-                        <label for="composicaoMedicamento">Composição</label>
-                        <textarea class="form-control" id="composicaoMedicamento" name="composicao" required>{{ $medicamento->composicaoMedicamento }}</textarea>
-                    </div>
+                    <tr>
+                        <td><label for="composicaoMedicamento">Composição:</label></td>
+                        <td><textarea class="form-control" id="composicaoMedicamento" name="composicao" required>{{ $medicamento->composicaoMedicamento }}</textarea></td>
+                    </tr>
 
-                    <div class="form-col">
-                        <label for="situacaoMedicamento">Situação</label>
-                        <select class="form-control" id="situacaoMedicamento" name="situacaoMedicamento">
-                            <option value="A" {{ $medicamento->situacaoMedicamento == 'Ativo' ? 'selected' : '' }}>Ativado</option>
-                            <option value="D" {{ $medicamento->situacaoMedicamento == 'Inativo' ? 'selected' : '' }}>Desativar</option>
-                        </select>
-                    </div>
-                </div>
+                    <tr>
+                        <td><label for="situacaoMedicamento">Situação:</label></td>
+                        <td>
+                            <select class="form-control" id="situacaoMedicamento" name="situacaoMedicamento">
+                                <option value="A" {{ $medicamento->situacaoMedicamento == 'A' ? 'selected' : '' }}>Ativo</option>
+                                <option value="D" {{ $medicamento->situacaoMedicamento == 'D' ? 'selected' : '' }}>Inativo</option>
+                            </select>
+                        </td>
+                    </tr>
 
-                <button type="submit" class="salvar">Salvar Alterações</button>
-            </form>
-        </div>
+                </tbody>
+            </table>
+
+            <button type="submit" class="submit-btn">Salvar Alterações</button>
+        </form>
     </div>
 </main>
-
+<br>
 <!-- JavaScript para pré-visualizar a imagem selecionada -->
 <script>
     function previewImage(event, previewId) {
@@ -159,4 +163,4 @@
     }
 </script>
 
-@include('includes.footer') <!-- include do footer -->
+@include('includes.footer')

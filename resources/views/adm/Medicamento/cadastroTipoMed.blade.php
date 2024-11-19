@@ -1,22 +1,19 @@
 <!--CSS OK por aqui (ASS:Duda)-->
 
 @include('includes.header')
-<link rel="stylesheet" href="{{('css/Formularios.css')}}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/Formularios.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Cadastro Tipo Medicamento</h1>
-        <p>cadastre um novo tipo de medicamento.</p>
+        <h1 style="font-weight: bold;"> Cadastrar Tipo Medicamento </h1>
     </div>
 </div>
 
@@ -29,9 +26,9 @@
                     value="{{ old('tipo') }}" required>
             </div>
             <div class="input-container">
-                <label for="formaMedicamento">Forma Farmacêutica</label>
+                <label for="formaMedicamento">Forma Farmacêutica:</label>
                 <select class="form-control" id="formaMedicamento" name="forma" required>
-                    <option value="">Selecione a Forma Farmacêutica</option>
+                    <option value="">=</option>
                     <option value="Comprimido" {{ old('forma') == 'Comprimido' ? 'selected' : '' }}>Comprimido</option>
                     <option value="Cápsula" {{ old('forma') == 'Cápsula' ? 'selected' : '' }}>Cápsula</option>
                     <option value="Pomada" {{ old('forma') == 'Pomada' ? 'selected' : '' }}>Pomada</option>

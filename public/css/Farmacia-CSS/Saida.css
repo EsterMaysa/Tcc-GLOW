@@ -1,109 +1,120 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-/*NAVBAR*/
+body{
+    background-color: beige;
+}
+
 .navbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: space-between; /* Alinha logo e pesquisa em extremos opostos */
-    background-color: #265c4b; 
-    padding: 10px 20px;
-    height: 90px; 
+    position: fixed; 
+    top: 0; 
+    margin-left: 15%; 
+    background-color: #3d7e66;
+    width: 90%; 
+    padding: 10px 5%; 
+    z-index: 800; 
     color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
-.navbar-brand {
-    margin-left: 20px; /* Margem à esquerda da logo */
-}
-.logo {
-    margin-left: 20%;
-    width: 33%; 
-    height: 20%; 
-    margin-bottom: 40%;
-}
-/*BARRA DE PESQUISA*/
+
 .search-container {
     display: flex;
     align-items: center;
-    margin-right: 20px; 
-    margin-bottom: 14%;
+    border-radius: 30px; 
+    overflow: hidden;
+    width: 400px;
+    height: 40px;
+    margin-left: 4%;
+    background-color: #4aaa87;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); 
+    transition: transform 0.3s ease;
+}
+.search-container:hover {
+    transform: scale(1.02); 
 }
 .search-input {
-    height: 40px;
-    width: 280px; 
-    padding: 8px;
+    width: 150%;
+    padding: 10px 20px;
     border: none;
-    border-radius: 20px; 
+    border-radius: 30px;
+    font-size: 14px;
+    color: #333;
     outline: none;
-    margin-right: 10px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+.search-input:focus {
+    background-color: #e0e0e0; 
 }
 .search-button {
-    padding: 8px 12px;
-    background-color: #072e22;
-    border: none;
-    border-radius: 20px;
+    background-color: transparent;
     color: white;
+    border: none;
+    width: 70%;
+    border-radius: 50%;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
-.search-button:hover {
-    background-color: #8fc1b5; 
+.search-button i {
+    font-size: 18px;
 }
-/*TERMINA BARRA DE PESQUISA*/
-/*TERMINA A NAVBAR*/
+
+/* CONTAINER UM COMEÇA AQUI */
 .container-um {
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
+    margin-top: 6%;
+    margin-left: 20%;
 }
 .jumbotron-um {
-    width: 40%;
-    background-color: #f8f9fa; 
+    width: 60%;
+    height: 60%;
+    background-color: #f8f9fa;
     border-radius: 8px;
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-left: 10%; /* Espaçamento à direita do jumbotron */
+    margin-left: 15%;
 }
+
 .jumbotron-um h1 {
-    margin-bottom: 10px; 
-}
-.image-container {
-    flex: 0 0 50%; 
-    text-align: center;
+    margin-bottom: 10px;
 }
 .image-container img {
-    max-width: 40%; 
-    height: auto; 
+    max-width: 45%;
+    height: auto;
+    margin-left: 14%;
     border-radius: 8px;
-}
-/*COMEÇA O CADASTRO*/
-/*COMEÇA O CADASTRO*/
+}  
+/* CONTAINER UM TERMINA AQUI */
 .cadastros-container {
     background-color: #f6f7f6;
     padding: 1rem;
     border-radius: 6px;
-    margin-left: 10%;
-    width: 85%;
+    width: 74%;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin: 20px auto;
+    margin-left: 23%; 
 }
 .cadastros-container h3 {
-    display: flex;
-    align-items: center;
     font-size: 1.2rem;
     color: #333;
     font-weight: 600;
     margin-bottom: 0.8rem;
 }
-/* Lista de Cadastros */
 .cadastros-list {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 }
-/* Item de Cadastro */
 .cadastro-item {
     background-color: #ffffff;
     display: flex;
@@ -118,13 +129,6 @@
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
-.cadastro-item p {
-    font-size: 1rem;
-    color: #333;
-    font-weight: 500;
-    margin: 0;
-}
-/* Link de Cadastrar */
 .cadastrar-link {
     display: flex;
     align-items: center;
@@ -132,10 +136,11 @@
     font-weight: 600;
     text-decoration: none;
     font-size: 0.9rem;
-    transition: color 0.2s ease;
 }
 .cadastrar-link:hover {
     color: #8fc1b5;
+    list-style: none;
+    text-decoration: none;
 }
 .cadastrar-link i {
     font-size: 2rem;
@@ -145,186 +150,162 @@
     font-size: 1rem;
 }
 
-
-.filter-container {
-    display: flex;
-    align-items: center;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 1150px; 
-    margin: 20px auto;
-    margin-left: 10%;
-}
-
-/* Estilo para o título do filtro (lado a lado com o formulário) */
-.filter-container h2 {
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
-    margin-right: 20px; 
-    margin-bottom: 0; 
-}
-
-/* Formulário de filtro */
-.filter-form {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 100%; 
-    margin-left: 33%;
-}
-
-/* Cada item de filtro */
-.filter-item {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    min-width: 200px; /* Largura mínima para os itens */
-}
-
-/* Estilo dos campos de input */
-.filter-item input {
- 
-    width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    outline: none;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Efeito de foco nos inputs */
-.filter-item input:focus {
-    border-color: #265c4b;
-    box-shadow: 0 0 8px #8fc1b5;
-}
-
-/* Estilo do botão de pesquisa */
-.search-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 40px;
-    font-size: 14px;
-    background-color: #265c4b;
-    color: white;
+#funcionarioTable {
+    width: 74%;
+    margin-top: 20px;
+    margin-left: 23%;
     border: none;
-    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#funcionarioTable th, #funcionarioTable td {
+    padding: 12.5px;
+    text-align: left;
+    border: 1px solid #ddd;
+    border: none;
+   font-size: 15px;
+}
+
+#funcionarioTable th {
+    background-color: #3d7e66;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+}
+
+#funcionarioTable td {
+    background-color: #fff;
+    border: none;
+}
+
+thead {
+    background-color: #3d7e66;
+    color: white;
+}
+
+.filter-search-container {
+    display: flex;
+    justify-content: flex-start; /* Deixa os itens alinhados à esquerda */
+    align-items: center;
+    margin-bottom: 15px; 
+    gap: 20px; 
+}
+
+/* Botões de Filtro */
+.filter-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: 35%;
+    gap: 10px; 
+}
+
+.p {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+    margin-right: auto; 
+}
+
+/* Estilo para os botões de filtro */
+.filter-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color:#265c4b; /* Verde para ativos */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    margin-left: 20%;
     transition: background-color 0.3s ease;
 }
 
-.search-btn i {
-    margin-right: 8px;
+.filter-btn:hover {
+    background-color: #8fc1b5; /* Verde mais escuro no hover */
 }
 
-/* Efeito de hover no botão */
-.search-btn:hover {
+.filter-btn:nth-child(2) {
+    background-color: #265c4b; /* Vermelho para inativos */
+}
+
+.filter-btn:nth-child(2):hover {
+    background-color: #8fc1b5; /* Vermelho mais escuro no hover */
+}
+
+.filter-btn:nth-child(3) {
+    background-color: #265c4b; /* Azul para todos */
+}
+
+.filter-btn:nth-child(3):hover {
+    background-color: #8fc1b5; /* Azul mais escuro no hover */
+}
+
+/* Barra de Pesquisa */
+.search-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+.search-bar input {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 2%;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    width: 250px;
+    transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: #265c4b; 
+    outline: none;
+}
+
+.text-center {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    gap: 8px; 
+}
+
+.btn-acao {
+    padding: 5px 10px; 
+    font-size: 0.875rem; 
+    width: auto; 
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+.btn-acao i {
+    margin-right: 5px;
+}
+
+/* Botão de Editar - Azul */
+.btn-primary {
+    background-color: #ffc508;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover {
     background-color: #8fc1b5;
 }
 
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-    .filter-container {
-        flex-direction: column; /* Coloca o título e o formulário em coluna */
-        text-align: center; /* Centraliza o título */
-    }
-
-    .filter-container h2 {
-        margin-right: 0; /* Remove o espaçamento em telas menores */
-        margin-bottom: 10px; /* Ajusta o espaçamento inferior */
-    }
-
-    .filter-form {
-        flex-direction: column; /* Coloca os campos de filtro em coluna */
-        gap: 20px; /* Aumenta o espaço entre os campos */
-    }
-
-    .filter-item {
-        min-width: 100%; /* Cada item ocupa toda a largura disponível */
-    }
+/* Botão de Excluir - Vermelho */
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
 }
 
-/* Estilo geral da tabela */
-table {
-    width: 85%; /* Reduz a largura da tabela para 80% da tela */
-    margin: 20px auto; /* Centraliza a tabela */
-    border-collapse: collapse;
-    margin-left: 10%;
+.btn-danger:hover {
+    background-color: #8fc1b5;
 }
 
-/* Cabeçalho da tabela */
-thead {
-    background-color: #265c4b;
-    color: white;
-}
-
-th {
-    padding: 12px 15px;
-    text-align: left;
-    font-weight: bold;
-}
-
-/* Estilo para as células da tabela */
-td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
-
-/* Cor de fundo para linhas alternadas */
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* Estilo de ícones de ação (editar, excluir) */
-.action-icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.action-icons i {
-    font-size: 18px;
-    color: #265c4b;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.action-icons i:hover {
-    color: #265c4b;
-}
-
-.action-icons i[title="Desativar"] {
-    color: #f44336;
-}
-
-.action-icons i[title="Desativar"]:hover {
-    color: #d32f2f;
-}
-
-/* Ajuste da largura para os campos */
-th, td {
-    width: 12.5%;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    table {
-        font-size: 14px;
-    }
-
-    th, td {
-        padding: 8px 10px;
-    }
-
-    .action-icons i {
-        font-size: 16px;
-    }
+/* Adicionando estilos gerais de hover */
+.btn-acao:hover {
+    opacity: 0.8;
 }

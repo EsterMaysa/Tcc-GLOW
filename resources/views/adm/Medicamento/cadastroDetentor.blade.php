@@ -1,108 +1,87 @@
 <!--CSS OK(ASS: Duda-->
-
 @include('includes.header')
-<link rel="stylesheet" href="{{ url('css/CadastroDetentor.css')}}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/CadastroDetentor.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Cadastrar Detentores</h1>
-        <p>Crie novos detentores.</p>
+        <h1 style="font-weight: bold;"> Cadastrar Detentores </h1>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/AdmAlterandoSemFundo.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/AdmAlterandoSemFundo.png') }}" alt="Medicamentos" class="img-fluid">
     </div>
 </div>
 
 <main>
-    <div class="container">
-        <div class="form-container">
+    <div class="form-wrapper">
             <form action="/cadastroDetentor" method="POST" onsubmit="return checkForm()">
                 @csrf
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="nomeDetentor">
-                            <i class="fas fa-user"></i> Nome do Detentor
-                        </label>
-                        <input type="text" class="form-control" id="nomeDetentor" name="nome" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="emailDetentor">
-                            <i class="fas fa-envelope"></i> Email
-                        </label>
-                        <input type="email" class="form-control" id="emailDetentor" name="email" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="cnpjDetentor">
-                            <i class="fas fa-id-card"></i> CNPJ
-                        </label>
-                        <input type="text" class="form-control" id="cnpjDetentor" name="cnpj" required>
-                        <span id="cnpjError" class="text-danger" style="display: none;">CNPJ inválido.</span>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="cepDetentor">
-                            <i class="fas fa-map-marked-alt"></i> CEP
-                        </label>
-                        <input type="text" class="form-control" id="cepDetentor" name="cep" required>
-                        <span id="cepError" class="text-danger" style="display: none;">CEP inválido.</span>
-                    </div>
-                    <div class="form-col">
-                        <label for="logradouroDetentor">
-                            <i class="fas fa-road"></i> Logradouro
-                        </label>
-                        <input type="text" class="form-control" id="logradouroDetentor" name="logradouro" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="bairroDetentor">
-                            <i class="fas fa-home"></i> Bairro
-                        </label>
-                        <input type="text" class="form-control" id="bairroDetentor" name="bairro" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="cidadeDetentor">
-                            <i class="fas fa-city"></i> Cidade
-                        </label>
-                        <input type="text" class="form-control" id="cidadeDetentor" name="cidade" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="estadoDetentor">
-                            <i class="fas fa-globe-americas"></i> Estado
-                        </label>
-                        <input type="text" class="form-control" id="estadoDetentor" name="estado" required>
-                    </div>
-                    <div class="form-col">
-                        <label for="numeroDetentor">
-                            <i class="fas fa-sort-numeric-up"></i> Número
-                        </label>
-                        <input type="text" class="form-control" id="numeroDetentor" name="numero" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-col">
-                        <label for="complementoDetentor">
-                            <i class="fas fa-plus"></i> Complemento
-                        </label>
-                        <input type="text" class="form-control" id="complementoDetentor" name="complemento" required>
-                    </div>
-                </div>
-                <button type="submit" class="button">Cadastrar</button>
+                <table class="dashboard-table">
+                <thead>
+                        <tr>
+                            <th colspan="2">Cadastro de Detentores</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td><label for="nomeDetentor">Nome do Detentor</label></td>
+                        <td><input type="text" class="form-control" id="nomeDetentor" name="nome" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="emailDetentor">Email</label></td>
+                        <td><input type="email" class="form-control" id="emailDetentor" name="email" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="cnpjDetentor">CNPJ</label></td>
+                        <td>
+                            <input type="text" class="form-control" id="cnpjDetentor" name="cnpj" required>
+                            <span id="cnpjError" class="text-danger" style="display: none;">CNPJ inválido.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="cepDetentor">CEP</label></td>
+                        <td>
+                            <input type="text" class="form-control" id="cepDetentor" name="cep" required>
+                            <span id="cepError" class="text-danger" style="display: none;">CEP inválido.</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="logradouroDetentor">Logradouro</label></td>
+                        <td><input type="text" class="form-control" id="logradouroDetentor" name="logradouro" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="bairroDetentor">Bairro</label></td>
+                        <td><input type="text" class="form-control" id="bairroDetentor" name="bairro" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="cidadeDetentor">Cidade</label></td>
+                        <td><input type="text" class="form-control" id="cidadeDetentor" name="cidade" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="estadoDetentor">Estado</label></td>
+                        <td><input type="text" class="form-control" id="estadoDetentor" name="estado" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="numeroDetentor">Número</label></td>
+                        <td><input type="text" class="form-control" id="numeroDetentor" name="numero" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="complementoDetentor">Complemento</label></td>
+                        <td><input type="text" class="form-control" id="complementoDetentor" name="complemento" required></td>
+                    </tr>
+                </table>
+                <button type="submit" class="submit-btn">Cadastrar</button>
             </form>
         </div>
     </div>
 </main>
+<br>
     <script>
         // Função de validação do CNPJ
         function validaCNPJ(cnpj) {
