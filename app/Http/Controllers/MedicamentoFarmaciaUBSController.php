@@ -7,6 +7,7 @@ use App\Models\MedicamentoModel;
 use App\Models\UBSModel;
 use Illuminate\Support\Facades\DB;
 use App\Models\ModelUbsMed;
+use App\Models\ModelMotivoDesativadoMedFarma;
 
 use Illuminate\Http\Request;
 
@@ -15,9 +16,10 @@ class MedicamentoFarmaciaUBSController extends Controller
     public function index()
     {
         $medicamentos = ModelMedicamentoFarmaciaUBS::orderBy('dataCadastroMedicamento', 'desc')->get();
+        $desativados = ModelMotivoDesativadoMedFarma::with('medicamento')->orderBy('dataDesativamento', 'desc')->take(10)->get();
 
 
-        return view('farmacia.Medicamento.medicamentoFarmacia', compact('medicamentos'));
+        return view('farmacia.Medicamento.medicamentoFarmacia', compact('medicamentos','desativados'));
     }
 
     // public function store(Request $request)
@@ -104,15 +106,29 @@ class MedicamentoFarmaciaUBSController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $medicamento = ModelMedicamentoFarmaciaUBS::findOrFail($id);
-        $medicamento->situacaoMedicamento = 'D'; 
-        $medicamento->save();
-    
-        return redirect('/MedicamentoHome')->with('success', 'Medicamento Desativado com sucesso!');
-    
+          // Valida se o motivo foi enviado
+    $request->validate([
+        'motivo' => 'required|string|max:200',
+    ]);
+
+    // Encontra o medicamento pelo ID
+    $medicamento = ModelMedicamentoFarmaciaUBS::findOrFail($id);
+    $medicamento->situacaoMedicamento = 'D'; 
+    $medicamento->save();
+
+    // Cria o motivo de desativação
+    $desativados = new ModelMotivoDesativadoMedFarma();
+    $desativados->idMedicamento = $id;
+    $desativados->Motivo = $request->motivo;
+    $desativados->dataDesativamento = now();
+    $desativados->save();
+
+    // Redireciona com mensagem de sucesso
+    return redirect('/MedicamentoHome')->with('success', 'Medicamento desativado com sucesso!');
     }
+
     public function ativar($id)
     {
         $medicamento = ModelMedicamentoFarmaciaUBS::findOrFail($id);

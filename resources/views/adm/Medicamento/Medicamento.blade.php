@@ -298,10 +298,6 @@
                 <td>Desativado</td>
                 <td>12/08/2023</td>
                 <td class="actions">
-                    <!-- Botão de Editar -->
-                    <a href="#" class="icon-action" title="Editar">
-                        <i class="fas fa-edit"></i>
-                    </a>
 
                     <!-- Botão para Ativar o Medicamento -->
                     <form action="#" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja ativar este medicamento?');">

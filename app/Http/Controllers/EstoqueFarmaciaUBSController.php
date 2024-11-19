@@ -15,52 +15,54 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class EstoqueFarmaciaUBSController extends Controller
-{public function index()
+
+{
+    
+    public function index()
     {
         // Últimas 3 entradas
         $ultimasEntradas = DB::connection('mysql2')->table('tbEntradaMedicamento')
             ->join('tbMedicamentoFarmaciaUBS', 'tbEntradaMedicamento.idMedicamento', '=', 'tbMedicamentoFarmaciaUBS.idMedicamento')
             ->select('tbMedicamentoFarmaciaUBS.nomeMedicamento', 'tbEntradaMedicamento.quantidade', 'tbEntradaMedicamento.dataEntrada')
-            ->orderBy('tbEntradaMedicamento.dataEntrada', 'desc')  // Ordena por data de entrada (descendente)
-            ->take(3)  // Pega as últimas 3 entradas
+            ->orderBy('tbEntradaMedicamento.dataEntrada', 'desc') // Ordena por data de entrada (descendente)
+            ->take(3)
             ->get();
     
         // Adicionando a propriedade 'tipo' nas entradas
         foreach ($ultimasEntradas as $entrada) {
-            $entrada->tipo = 'entrada';  // Adiciona o tipo para as entradas
+            $entrada->tipo = 'entrada'; // Adiciona o tipo para as entradas
+            $entrada->dataMovimentacao = $entrada->dataEntrada; // Define um campo comum para facilitar a ordenação
         }
     
         // Últimas 3 saídas
         $ultimasSaidas = DB::connection('mysql2')->table('tbSaidaMedicamento')
             ->join('tbMedicamentoFarmaciaUBS', 'tbSaidaMedicamento.idMedicamento', '=', 'tbMedicamentoFarmaciaUBS.idMedicamento')
             ->select('tbMedicamentoFarmaciaUBS.nomeMedicamento', 'tbSaidaMedicamento.quantidade', 'tbSaidaMedicamento.dataSaida')
-            ->orderBy('tbSaidaMedicamento.dataSaida', 'desc')  // Ordena por data de saída (descendente)
-            ->take(3)  // Pega as últimas 3 saídas
+            ->orderBy('tbSaidaMedicamento.dataSaida', 'desc') // Ordena por data de saída (descendente)
+            ->take(3)
             ->get();
     
         // Adicionando a propriedade 'tipo' nas saídas
         foreach ($ultimasSaidas as $saida) {
-            $saida->tipo = 'saida';  // Adiciona o tipo para as saídas
+            $saida->tipo = 'saida'; // Adiciona o tipo para as saídas
+            $saida->dataMovimentacao = $saida->dataSaida; // Define um campo comum para facilitar a ordenação
         }
     
         // Unir entradas e saídas em uma lista única
         $movimentacoes = $ultimasEntradas->merge($ultimasSaidas);
     
-        // Ordenar todas as movimentações pela data (descendente)
-        $movimentacoes = $movimentacoes->sortByDesc(function ($movimentacao) {
-            return $movimentacao->tipo == 'entrada' ? $movimentacao->dataEntrada : $movimentacao->dataSaida;
-        });
-
+        // Ordenar todas as movimentações pela dataMovimentacao (descendente)
+        $movimentacoes = $movimentacoes->sortByDesc('dataMovimentacao');
     
         // Outros dados da tela de estoque
         $medicamento = ModelMedicamentoFarmaciaUBS::orderBy('dataCadastroMedicamento', 'desc')->take(5)->get();
-
         $funcionario = ModelFuncionario::all();
         $tipoMovimentacao = ModelTipoMovimentacao::all();
-        $estoque = ModelEstoqueFarmaciaUBS::all();
-    
+        $estoque = ModelEstoqueFarmaciaUBS::with(['medicamento', 'funcionario', 'tipoMovimentacao'])->get();
+        
         return view('farmacia.Estoque.estoque', compact('movimentacoes', 'medicamento', 'funcionario', 'tipoMovimentacao', 'estoque'));
     }
+    
 
 
     public function store(Request $estoqueRequest)

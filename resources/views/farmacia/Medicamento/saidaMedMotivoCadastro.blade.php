@@ -1,5 +1,3 @@
-<!--CSS OK(ASS:Duda)-->
-
 @include('includes.headerFarmacia')
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/CadastrarSaida.css')}}">
@@ -30,102 +28,112 @@
             {{ session('success') }}
         </div>
     @endif
-
     <div class="form-wrapper">
     <form action="{{ route('saidaMedMotivo.store') }}" method="POST" class="styled-form">
         @csrf
-        <!-- Tabela de Formulário -->
-        <table class="form-table">
-            <thead>
-                <tr>
-                    <th colspan="2">Cadastro de Saída e Motivo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><label for="codigo">Código De Barras:</label></td>
-                    <td><input type="text" id="codigo" name="codigoDeBarras" required></td>
-                </tr>
 
-                <tr>
-                    <td><label for="idMedicamento">Medicamento:</label></td>
-                    <td>
-                        <select id="idMedicamento" name="idMedicamento" required>
-                            <option value="">Selecione o Medicamento</option>
-                            @foreach($medicamentos as $medicamento)
-                            <option value="{{ $medicamento->idMedicamento }}">
-                                {{ $medicamento->nomeMedicamento }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </td>
-                </tr>
+        <input type="hidden" name="idMedicamento" id="idMedicamento">
 
-                <tr>
-                    <td><label for="dataSaida">Data de Saída:</label></td>
-                    <td><input type="date" id="dataSaida" name="dataSaida" required></td>
-                </tr>
-
-                <tr>
-                    <td><label for="quantidade">Quantidade:</label></td>
-                    <td><input type="number" id="quantidade" name="quantidade" min="1" required></td>
-                </tr>
-
-                <tr>
-                    <td><label for="motivoSaida">Motivo de Saída:</label></td>
-                    <td><input type="text" id="motivoSaida" name="motivoSaida" placeholder="Descreva o motivo" required></td>
-                </tr>
-
-                <tr>
-                    <td><label for="lote">Lote:</label></td>
-                    <td><input type="text" id="lote" name="lote" maxlength="90" required></td>
-                </tr>
-
-                <tr>
-                    <td><label for="validade">Data de Validade:</label></td>
-                    <td><input type="date" id="validade" name="validade" required></td>
-                </tr>
-
-                <tr>
-                    <td><label for="idFuncionario">Funcionário:</label></td>
-                    <td>
-                        <select id="idFuncionario" name="idFuncionario" required>
-                            <option value="">Selecione o Funcionário</option>
-                            @foreach($funcionarios as $funcionario)
-                            <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <button type="submit" class="submit-btn">Cadastrar Saída e Motivo</button>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="codigoBarras">
+                    <i class="fas fa-barcode"></i> Código de Barras:
+                </label>
+                <input type="text" name="codigoBarras" id="codigoBarras" required>
+                <small id="codigoBarrasError" style="color: red; display: none;">Medicamento não encontrado.</small>
+            </div>
+            <div class="form-group">
+                <label for="nomeMedicamento">
+                    <i class="fas fa-pills"></i> Medicamento:
+                </label>
+                <input type="text" id="nomeMedicamento" readonly>
+            </div>
+            <div class="form-group">
+                <label for="dataSaida">
+                    <i class="fas fa-calendar-alt"></i> Data de Saída:
+                </label>
+                <input type="date" name="dataSaida" value="{{ date('Y-m-d') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="quantidade">
+                    <i class="fas fa-sort-numeric-up"></i> Quantidade:
+                </label>
+                <input type="number" name="quantidade" id="quantidade" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="lote">
+                    <i class="fas fa-box"></i> Lote:
+                </label>
+                <input type="text" name="lote" id="lote" readonly>
+            </div>
+            <div class="form-group">
+                <label for="validade">
+                    <i class="fas fa-calendar-check"></i> Validade:
+                </label>
+                <input type="date" name="validade" id="validade" readonly>
+            </div>
+            <div class="form-group">
+                <label for="motivoSaida">
+                    <i class="fas fa-file-alt"></i> Motivo da Saída:
+                </label>
+                <input type="text" name="motivoSaida" id="motivoSaida" required placeholder="Digite o motivo da saída">
+            </div>
+            <div class="form-group">
+                <label for="funcionario">
+                    <i class="fas fa-user"></i> Funcionário Responsável:
+                </label>
+                <select name="idFuncionario" id="funcionario" required>
+                    <option value="">Selecione um funcionário</option>
+                    @foreach($funcionarios as $funcionario)
+                    <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-save"></i> Registrar Saída
+        </button>
     </form>
 </div>
-<br>
+
 </main>
 @include('includes.footer')
-    <script>
-        // Quando o medicamento for alterado, faz uma requisição AJAX para obter lote e validade
-        $('#idMedicamento').on('change', function() {
-            var medicamentoId = $(this).val();
 
-            if (medicamentoId) {
-                $.ajax({
-                    url: '/getMedicamentoDetails/' + medicamentoId,  // Rota que vai retornar os dados do medicamento
-                    type: 'GET',
-                    success: function(response) {
-                        if (response) {
-                            $('#lote').val(response.lote);  // Preenche o campo de Lote
-                            $('#validade').val(response.validade);  // Preenche o campo de Validade
-                        }
-                    }
-                });
-            } else {
-                $('#lote').val('');  // Limpa o campo de Lote
-                $('#validade').val('');  // Limpa o campo de Validade
+<script>
+    // Alteração para buscar medicamento ao pressionar Enter no campo "Código de Barras"
+    document.getElementById('codigoBarras').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {  // Verifica se a tecla pressionada foi Enter
+            event.preventDefault(); // Impede o comportamento padrão (não envia o formulário)
+
+            const codigoBarras = this.value.trim();
+
+            if (!codigoBarras) {
+                alert('Por favor, insira o código de barras.');
+                return;
             }
-        });
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+            fetch(`/buscarPorCodigoBarras?codigoBarras=${codigoBarras}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Medicamento não encontrado');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('codigoBarrasError').style.display = 'none';
+                    document.getElementById('nomeMedicamento').value = data.nomeMedicamento;
+                    document.getElementById('lote').value = data.lote;
+                    document.getElementById('validade').value = data.validade;
+                    document.getElementById('idMedicamento').value = data.idMedicamento;
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar medicamento:', error);
+                    document.getElementById('codigoBarrasError').style.display = 'block';
+                });
+        }
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -52,10 +52,10 @@
                             $formasFarmaceuticas = ['Comprimido', 'Cápsula', 'Pomada', 'Solução', 'Suspensão', 'Creme', 'Gel', 'Injeção'];
                             @endphp
                             @foreach ($formasFarmaceuticas as $forma)
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="formaFarmaceutica[]" value="{{ $forma }}" id="forma{{ $forma }}">
-                                    <label class="form-check-label" for="forma{{ $forma }}">{{ $forma }}</label>
-                                </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="formaFarmaceutica[]" value="{{ $forma }}" id="forma{{ $forma }}">
+                                <label class="form-check-label" for="forma{{ $forma }}">{{ $forma }}</label>
+                            </div>
                             @endforeach
                         </div>
 
@@ -98,7 +98,7 @@
 
         <div class="table-container">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped mt-3">
+                <table id="medicamentoTable" class="table table-bordered table-striped mt-3">
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -116,6 +116,8 @@
                     </thead>
                     <tbody>
                         @foreach ($medicamentos as $med)
+                        @if ($med->situacaoMedicamento == 'A')
+
                         <tr>
                             <td>{{ $med->nomeMedicamento }}</td>
                             <td>{{ $med->nomeGenericoMedicamento }}</td>
@@ -128,25 +130,18 @@
                             <td>{{ $med->situacaoMedicamento == 'A' ? 'Ativo' : 'Inativo' }}</td>
                             <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
                             <td class="actions">
-                                @if ($med->situacaoMedicamento == 'A')
                                 <a href="{{ route('medicamentosFarma.edit', $med->idMedicamento) }}" class="icon-action" title="Editar" style="color: #f7d516;">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('medicamentosFarma.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
+                                <form id="formDesativar" action="{{ route('medicamentosFarma.desativar', $med->idMedicamento) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" class="icon-action-2" title="Desativar" style="color: red;">
+                                    <input type="hidden" id="motivo" name="motivo">
+                                    <button type="button" class="icon-action-2" title="Desativar" style="color: red;" onclick="confirmarDesativacao()">
                                         <i class="fas fa-ban"></i>
                                     </button>
                                 </form>
-                                @else
-                                <form action="{{ route('medicamentosFarma.ativar', $med->idMedicamento) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="icon-action-2" title="Ativar">
-                                        <i class="fas fa-check"></i>
-                                    </button>
-                                </form>
+
                                 @endif
                             </td>
                         </tr>
@@ -156,14 +151,65 @@
             </div>
         </div>
     </div>
+
+    <div class="custom-table">
+        <div class="card-header-1 d-flex justify-content-between align-items-center">
+            <h5>Medicamentos Desativados</h5>
+
+            <div class="search-bar">
+                <input type="text" id="searchInputDesativado" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" class="form-control">
+            </div>
+
+        </div>
+
+        <div class="table-container">
+            <div class="table-responsive">
+                <table id="medicamentoDesativadoTable" class="table table-bordered table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Nome Genérico</th>
+                            <th>Código de Barras</th>
+                            <th>Dosagem</th>
+                            <th>Forma Farmacêutica</th>
+                            <th>Lote</th>
+                            <th>Composição</th>
+                            <th>Motivo</th>
+                            <th>Validade</th>
+                            <th>Data do Desativamento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            @foreach ($desativados as $d)
+                            <td>{{ $d->medicamento->nomeMedicamento ?? 'N/A' }}</td>
+                            <td>{{ $d->medicamento->nomeGenericoMedicamento ?? 'N/A' }}</td>
+                            <td>{{ $d->medicamento->codigoDeBarrasMedicamento ?? 'N/A' }}</td>
+                            <td>{{ $d->medicamento->dosagemMedicamento ?? 'N/A' }}</td>
+                            <td>{{ $d->medicamento-> formaFarmaceuticaMedicamento  ?? 'N/A'}}</td>
+                            <td>{{ $d->medicamento->loteMedicamento ?? 'N/A' }}</td>
+                            <td>{{ $d->medicamento->composicaoMedicamento  ?? 'N/A'}}</td>
+                            <td>{{ \Carbon\Carbon::parse($d->medicamento->validadeMedicamento)->format('d/m/Y') ?? 'N/A' }}</td>
+                            <td>{{ $d->Motivo }}</td>
+                            <td>{{ \Carbon\Carbon::parse($d->dataDesativamento)->format('d/m/Y') }}</td>
+
+
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 
 <script>
-    // Função para filtrar a tabela de medicamentos
+    // Pesquisa na tabela de medicamentos ativos
     document.getElementById('searchInput').addEventListener('keyup', function() {
         const filter = this.value.toLowerCase();
-        const rows = document.querySelectorAll('#medicamentoTable tbody tr');
+        const rows = document.querySelectorAll('#medicamentoTable tbody tr'); // Tabela de medicamentos
 
         rows.forEach(row => {
             const columns = row.getElementsByTagName('td');
@@ -179,6 +225,37 @@
             row.style.display = match ? '' : 'none'; // Exibir ou ocultar a linha
         });
     });
+
+    // Pesquisa na tabela de medicamentos desativados
+    document.getElementById('searchInputDesativado').addEventListener('keyup', function() {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#medicamentoDesativadoTable tbody tr'); // Tabela de medicamentos desativados
+
+        rows.forEach(row => {
+            const columns = row.getElementsByTagName('td');
+            let match = false;
+
+            for (let i = 0; i < columns.length; i++) {
+                if (columns[i].textContent.toLowerCase().includes(filter)) {
+                    match = true;
+                    break;
+                }
+            }
+
+            row.style.display = match ? '' : 'none'; // Exibir ou ocultar a linha
+        });
+    });
+
+
+    function confirmarDesativacao() {
+        const motivo = prompt("Digite o motivo para desativar o medicamento:");
+        if (motivo) {
+            document.getElementById('motivo').value = motivo;
+            document.getElementById('formDesativar').submit();
+        } else {
+            alert("Motivo é obrigatório!");
+        }
+    }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
