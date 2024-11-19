@@ -1,29 +1,25 @@
 <!--CSS completo (ASS: Duda) Cuidado pois estão estou usando um para duas páginas-->
 
 @include('includes.header')
-<link rel="stylesheet" href="{{ url('css/InserirPaciente.css')}}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/EditarUBS.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
-    </div>
-</nav>
-
-<div class="container-um">
-    <div class="jumbotron-um">
-        <h1>Editar Cliente</h1>
-        <p>Edite os clientes já existentes.</p>
-    </div>
-    <div class="image-container">
-        <img src="{{ asset('Image/AdmCriando.png') }}" alt="Edição de Clientes" class="img-fluid" />
     </div>
 </div>
 
-<!-- MAIN -->
+<div class="container-um">
+    <div class="jumbotron-um">
+        <h1 style="font-weight: bold;"> Editar Pacientes </h1>
+    </div>
+    <div class="image-container">
+        <img src="{{ asset('Image/AdmCriando.png') }}" alt="paciente" class="img-fluid">
+    </div>
+</div>
+
 <main>
     <!-- Exibir mensagens de sucesso ou erro -->
     @if(session('success'))
@@ -36,96 +32,115 @@
         </div>
     @endif
 
-    <div class="form-wrapper">
-        <form action="{{ route('cliente.update', $cliente->idCliente) }}" method="POST" class="styled-form">
-            @csrf
-            @method('PUT') <!-- Método PUT para atualização -->
+    <div class="form-wrapper" style="height: 1000px;">
+    <form action="{{ route('cliente.update', $cliente->idCliente) }}" method="POST" class="styled-form">
+        @csrf
+        @method('PUT') <!-- Método PUT para atualização -->
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="nomeCliente"><i class="fas fa-user"></i> Nome do Cliente:</label>
-                    <input type="text" id="nomeCliente" name="nomeCliente" value="{{ $cliente->nomeCliente }}" required>
-                </div>
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Atualizar Informações do Paciente</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                <div class="form-group">
-                    <label for="cpfCliente"><i class="fas fa-id-card"></i> CPF do Cliente:</label>
-                    <input type="text" id="cpfCliente" name="cpfCliente" maxlength="11" value="{{ $cliente->cpfCliente }}" required>
-                </div>
+                <!-- Nome do Cliente -->
+                <tr>
+                    <td><label for="nomeCliente">Nome do Cliente:</label></td>
+                    <td><input type="text" id="nomeCliente" name="nomeCliente" value="{{ $cliente->nomeCliente }}" required></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="cnsCliente"><i class="fas fa-hospital-user"></i> CNS do Cliente:</label>
-                    <input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" value="{{ $cliente->cnsCliente }}" required>
-                </div>
-            </div>
+                <!-- CPF do Cliente -->
+                <tr>
+                    <td><label for="cpfCliente">CPF do Cliente:</label></td>
+                    <td><input type="text" id="cpfCliente" name="cpfCliente" maxlength="11" value="{{ $cliente->cpfCliente }}" required></td>
+                </tr>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="dataNascCliente"><i class="fas fa-calendar-alt"></i> Data de Nascimento:</label>
-                    <input type="date" id="dataNascCliente" name="dataNascCliente" value="{{ $cliente->dataNascCliente }}" required>
-                </div>
+                <!-- CNS do Cliente -->
+                <tr>
+                    <td><label for="cnsCliente">CNS do Cliente:</label></td>
+                    <td><input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" value="{{ $cliente->cnsCliente }}" required></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="userCliente"><i class="fas fa-user-circle"></i> Usuário:</label>
-                    <input type="text" id="userCliente" name="userCliente" value="{{ $cliente->userCliente }}" required>
-                </div>
+                <!-- Data de Nascimento -->
+                <tr>
+                    <td><label for="dataNascCliente">Data de Nascimento:</label></td>
+                    <td><input type="date" id="dataNascCliente" name="dataNascCliente" value="{{ $cliente->dataNascCliente }}" required></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="numeroTelefoneCliente"><i class="fas fa-phone"></i> Novo Telefone do Cliente:</label>
-                    <input type="text" id="numeroTelefoneCliente" name="numeroTelefoneCliente" maxlength="15" oninput="mascaraTelefone(this)" value="{{ $telefone->numeroTelefoneCliente }}" required>
-                </div>
-            </div>
+                <!-- Usuário -->
+                <tr>
+                    <td><label for="userCliente">Usuário:</label></td>
+                    <td><input type="text" id="userCliente" name="userCliente" value="{{ $cliente->userCliente }}" required></td>
+                </tr>
 
-            <div class="form-row">
-                <div class="form-group cep-field">
-                    <label for="cepCliente"><i class="fas fa-map-marker-alt"></i> CEP do Cliente:</label>
-                    <input type="text" id="cepCliente" name="cepCliente" maxlength="8" value="{{ $cliente->cepCliente }}" required>
-                </div>
+                <!-- Telefone do Cliente -->
+                <tr>
+                    <td><label for="numeroTelefoneCliente">Novo Telefone do Cliente:</label></td>
+                    <td><input type="text" id="numeroTelefoneCliente" name="numeroTelefoneCliente" maxlength="15" oninput="mascaraTelefone(this)" value="{{ $telefone->numeroTelefoneCliente }}" required></td>
+                </tr>
 
-                <div class="form-group complemento-field">
-                    <label for="complementoCliente"><i class="fas fa-info-circle"></i> Complemento:</label>
-                    <input type="text" id="complementoCliente" name="complementoCliente" value="{{ $cliente->complementoCliente }}">
-                </div>
+                <!-- CEP do Cliente -->
+                <tr>
+                    <td><label for="cepCliente">CEP do Cliente:</label></td>
+                    <td><input type="text" id="cepCliente" name="cepCliente" maxlength="8" value="{{ $cliente->cepCliente }}" required></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="logradouroCliente"><i class="fas fa-road"></i> Logradouro:</label>
-                    <input type="text" id="logradouroCliente" name="logradouroCliente" value="{{ $cliente->logradouroCliente }}" required readonly>
-                </div>
+                <!-- Complemento -->
+                <tr>
+                    <td><label for="complementoCliente">Complemento:</label></td>
+                    <td><input type="text" id="complementoCliente" name="complementoCliente" value="{{ $cliente->complementoCliente }}"></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="bairroCliente"><i class="fas fa-home"></i> Bairro:</label>
-                    <input type="text" id="bairroCliente" name="bairroCliente" value="{{ $cliente->bairroCliente }}" required readonly>
-                </div>
-            </div>
+                <!-- Logradouro -->
+                <tr>
+                    <td><label for="logradouroCliente">Logradouro:</label></td>
+                    <td><input type="text" id="logradouroCliente" name="logradouroCliente" value="{{ $cliente->logradouroCliente }}" required readonly></td>
+                </tr>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="cidadeCliente"><i class="fas fa-city"></i> Cidade:</label>
-                    <input type="text" id="cidadeCliente" name="cidadeCliente" value="{{ $cliente->cidadeCliente }}" required readonly>
-                </div>
+                <!-- Bairro -->
+                <tr>
+                    <td><label for="bairroCliente">Bairro:</label></td>
+                    <td><input type="text" id="bairroCliente" name="bairroCliente" value="{{ $cliente->bairroCliente }}" required readonly></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="ufCliente"><i class="fas fa-globe"></i> UF:</label>
-                    <input type="text" id="ufCliente" name="ufCliente" value="{{ $cliente->ufCliente }}" required readonly>
-                </div>
+                <!-- Cidade -->
+                <tr>
+                    <td><label for="cidadeCliente">Cidade:</label></td>
+                    <td><input type="text" id="cidadeCliente" name="cidadeCliente" value="{{ $cliente->cidadeCliente }}" required readonly></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="estadoCliente"><i class="fas fa-map"></i> Estado:</label>
-                    <input type="text" id="estadoCliente" name="estadoCliente" value="{{ $cliente->estadoCliente }}" required>
-                </div>
+                <!-- UF -->
+                <tr>
+                    <td><label for="ufCliente">UF:</label></td>
+                    <td><input type="text" id="ufCliente" name="ufCliente" value="{{ $cliente->ufCliente }}" required readonly></td>
+                </tr>
 
-                <div class="form-group">
-                    <label for="numeroCliente"><i class="fas fa-sort-numeric-up-alt"></i> Número:</label>
-                    <input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" value="{{ $cliente->numeroCliente }}" required>
-                </div>
-            </div>
+                <!-- Estado -->
+                <tr>
+                    <td><label for="estadoCliente">Estado:</label></td>
+                    <td><input type="text" id="estadoCliente" name="estadoCliente" value="{{ $cliente->estadoCliente }}" required></td>
+                </tr>
 
-            <div class="form-group button-wrapper">
-                <button type="submit" class="submit-btn">Atualizar Cliente</button>
-            </div>
-        </form>
-    </div>
+                <!-- Número -->
+                <tr>
+                    <td><label for="numeroCliente">Número:</label></td>
+                    <td><input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" value="{{ $cliente->numeroCliente }}" required></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="form-group button-wrapper" style="margin-bottom: 90%;">
+            <button type="submit" class="submit-btn">Atualizar Cliente</button>
+        </div>
+
+    </form>
+</div>
+
 </main>
-
+<br>
 @include('includes.footer')
 
 <!-- Script para buscar endereço usando a API do ViaCEP -->
