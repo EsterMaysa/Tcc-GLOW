@@ -372,9 +372,17 @@ Route::put('/entradaMedicamento/{id}', [EntradaMedicamentoController::class, 'up
 
 Route::delete('/entradaMedicamento/{id}', [EntradaMedicamentoController::class, 'destroy'])->name('entradaMedDelete');
 
+// Rota para buscar medicamento pelo código de barras
+//Route::get('/medicamento/buscar', [EntradaMedicamentoController::class, 'buscarPorCodigoBarras'])->name('medicamento.buscarPorCodigoBarras');
 
+Route::get('/entradaMedicamento', [EntradaMedicamentoController::class, 'showForm'])->name('entradaMedForm');
+Route::get('/buscarPorCodigoBarras', [EntradaMedicamentoController::class, 'buscarPorCodigoBarras']);
+Route::post('/entradaMedicamento/store', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
+
+
+//Route::get('/buscarMedicamentoPorCodigo', [EntradaMedicamentoController::class, 'buscarMedicamentoPorCodigo']);
 // Rota para armazenar a nova entrada de medicamento
-Route::post('/entrada-medicamento', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
+//Route::post('/entrada-medicamento', [EntradaMedicamentoController::class, 'store'])->name('entradaMedStore');
 //busca o funcionario pelo nome
 Route::get('/funcionario/buscar', [EntradaMedicamentoController::class, 'buscarFuncionario'])->name('buscarFuncionario');
 //cria o motivo automatico

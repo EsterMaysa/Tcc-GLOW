@@ -1,27 +1,23 @@
-<!--CSS finalizado OK (ASS:Duda-->
+<!--CSS finalizado OK (ASS:Duda)-->
 
-@include('includes.header') 
-<link rel="stylesheet" href="{{ url('css/UBS.css')}}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+@include('includes.header')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+<link rel="stylesheet" href="{{ asset('css/Adm-CSS/UBS.css')}}">
 
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1 style="font-weight: bold;">UBS</h1>
-        <p>Você pode gerenciar UBS por aqui.</p>
+        <h1 style="font-weight: bold;"> UBS </h1>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/AdmTrabalhandoSemFundo.png')}}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/AdmTrabalhandoSemFundo.png') }}" alt="Saída De Medicamentos" class="img-fluid">
     </div>
 </div>
 
@@ -52,12 +48,12 @@
             <div class="head">
                 <h3>Unidades Básicas de Saúde (UBS)</h3>
                 <div class="icon-container">
-                    <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
+                <i class="fas fa-filter" data-bs-toggle="modal" data-bs-target="#filterModal"></i>
                 </div>
             </div>
             <!-- Campo de pesquisa -->
             <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Pesquisar por nome ou CNPJ da UBS...">
+                <input type="text" id="searchInput2" placeholder="Pesquisar por nome ou CNPJ da UBS...">
             </div>
 
             <table class="ubs-table">
@@ -105,7 +101,7 @@
 
                     </tr>
                     <!-- Modal do ver mais -->
-                    <div class="modal fade" id="modalDetalhes{{ $unidade->idUBS }}" tabindex="-1" aria-labelledby="modalUBSLabel" aria-hidden="true">
+                    <div class="modal fade" id="modalDetalhes{{ $unidade->idUBS }}" tabindex="-1" aria-labelledby="modalUBSLabel" aria-hidden="true" style=" margin-left: 10%; margin-top: 10%;">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -142,8 +138,8 @@
     </div>
 
     <!-- Modal filtro -->
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true" style="height: 200px; margin-left: 10%; margin-top: 10%;">
+        <div class="modal-dialog" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="filterModalLabel">Filtros</h5>
@@ -164,7 +160,7 @@
                         <label class="form-check-label" for="filterExcluded">Mostrar Excluídos</label>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" style="margin-bottom: 230px;">
                     <button type="button" id="applyFilters" class="btn btn-primary">Adicionar Filtros</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>

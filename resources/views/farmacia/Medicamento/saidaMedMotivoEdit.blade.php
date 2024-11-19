@@ -98,7 +98,7 @@
                 </tbody>
             </table>
 
-            <button type="submit" class="submit-btn">Atualizar Saída</button>
+            <button type="submit" class="submit-btn" style="margin-bottom: 40%;">Atualizar Saída</button>
         </form>
     </div>
 <br>

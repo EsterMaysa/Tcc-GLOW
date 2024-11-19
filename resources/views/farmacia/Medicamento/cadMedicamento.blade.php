@@ -21,76 +21,75 @@
 
 
 <main>
-<div class="form-wrapper">
-    <form action="/CadMedFarma" method="POST">
-        @csrf
-        <input type="hidden" name="idUBS" value="{{ $idUBS }}">
+    <div class="form-wrapper">
+        <form action="/CadMedFarma" method="POST">
+            @csrf
+            <input type="hidden" name="idUBS" value="{{ $idUBS }}">
 
-        <table class="dashboard-table">
-            <thead>
-                <tr>
-                    <th colspan="2">Cadastro de Medicamento</th>
-                </tr>
-            </thead>
-            <tbody>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Cadastro de Medicamento</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                <tr>
-                    <td><label for="codigoDeBarrasMedicamento">Código de Barras:</label></td>
-                    <td><input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarrasMedicamento" value="{{ old('codigoDeBarrasMedicamento') }}" required onblur="buscarMedicamento()"></td>
-                </tr>
+                    <tr>
+                        <td><label for="codigoDeBarrasMedicamento">Código de Barras:</label></td>
+                        <td><input type="text" class="form-control" id="codigoDeBarrasMedicamento" name="codigoDeBarrasMedicamento" value="{{ old('codigoDeBarrasMedicamento') }}" required onblur="buscarMedicamento()"></td>
+                    </tr>
 
-                <tr>
-                    <td><label for="nomeMedicamento">Nome do Medicamento:</label></td>
-                    <td><input type="text" class="form-control" id="nomeMedicamento" name="nomeMedicamento" value="{{ old('nomeMedicamento') }}" required></td>
-                </tr>
+                    <tr>
+                        <td><label for="nomeMedicamento">Nome do Medicamento:</label></td>
+                        <td><input type="text" class="form-control" id="nomeMedicamento" name="nomeMedicamento" value="{{ old('nomeMedicamento') }}" required></td>
+                    </tr>
 
-                <tr>
-                    <td><label for="nomeGenericoMedicamento">Nome Genérico do Medicamento:</label></td>
-                    <td><input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenericoMedicamento" value="{{ old('nomeGenericoMedicamento') }}" required></td>
-                </tr>
+                    <tr>
+                        <td><label for="nomeGenericoMedicamento">Nome Genérico do Medicamento:</label></td>
+                        <td><input type="text" class="form-control" id="nomeGenericoMedicamento" name="nomeGenericoMedicamento" value="{{ old('nomeGenericoMedicamento') }}" required></td>
+                    </tr>
 
-                <tr>
-                    <td><label for="validadeMedicamento">Data de Validade:</label></td>
-                    <td><input type="date" class="form-control" id="validadeMedicamento" name="validadeMedicamento" required></td>
-                </tr>
+                    <tr>
+                        <td><label for="validadeMedicamento">Data de Validade:</label></td>
+                        <td><input type="date" class="form-control" id="validadeMedicamento" name="validadeMedicamento" required></td>
+                    </tr>
 
-                <tr>
-                    <td><label for="loteMedicamento">Lote:</label></td>
-                    <td><input type="text" class="form-control" id="loteMedicamento" name="loteMedicamento" required></td>
-                </tr>
+                    <tr>
+                        <td><label for="loteMedicamento">Lote:</label></td>
+                        <td><input type="text" class="form-control" id="loteMedicamento" name="loteMedicamento" required></td>
+                    </tr>
 
-                <tr>
-                    <td><label for="formaMedicamento">Forma Farmacêutica:</label></td>
-                    <td>
-                        <select class="form-control" id="formaMedicamento" name="forma" required>
-                            <option value="">Selecione a Forma Farmacêutica</option>
-                            <option value="Comprimido">Comprimido</option>
-                            <option value="Cápsula">Cápsula</option>
-                            <option value="Pomada">Pomada</option>
-                            <option value="Solução">Solução</option>
-                            <option value="Suspensão">Suspensão</option>
-                            <option value="Creme">Creme</option>
-                            <option value="Gel">Gel</option>
-                            <option value="Injeção">Injeção</option>
-                        </select>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><label for="formaMedicamento">Forma Farmacêutica:</label></td>
+                        <td>
+                            <select class="form-control" id="formaMedicamento" name="forma" required>
+                                <option value="">Selecione a Forma Farmacêutica</option>
+                                <option value="Comprimido">Comprimido</option>
+                                <option value="Cápsula">Cápsula</option>
+                                <option value="Pomada">Pomada</option>
+                                <option value="Solução">Solução</option>
+                                <option value="Suspensão">Suspensão</option>
+                                <option value="Creme">Creme</option>
+                                <option value="Gel">Gel</option>
+                                <option value="Injeção">Injeção</option>
+                            </select>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td><label for="dosagemMedicamento">Dosagem:</label></td>
-                    <td><input type="text" class="form-control" id="dosagemMedicamento" name="dosagemMedicamento" required></td>
-                </tr>
+                    <tr>
+                        <td><label for="dosagemMedicamento">Dosagem:</label></td>
+                        <td><input type="text" class="form-control" id="dosagemMedicamento" name="dosagemMedicamento" required></td>
+                    </tr>
 
-                <tr>
-                    <td><label for="composicaoMedicamento">Composição:</label></td>
-                    <td><textarea class="form-control" id="composicaoMedicamento" name="composicaoMedicamento" required></textarea></td>
-                </tr>
-            </tbody>
-        </table>
-        <button type="submit" class="submit-btn"> Salvar Medicamento</button>
-    </form>
-</div>
-
+                    <tr>
+                        <td><label for="composicaoMedicamento">Composição:</label></td>
+                        <td><textarea class="form-control" id="composicaoMedicamento" name="composicaoMedicamento" required></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="submit-btn"> Salvar Medicamento</button>
+        </form>
+    </div>
 </main>
 <br>
 <script>

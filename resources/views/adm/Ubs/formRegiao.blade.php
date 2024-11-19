@@ -1,22 +1,18 @@
 <!--CSS incluido aqui (ASS:Duda)-->
+@include('includes.header')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+<link rel="stylesheet" href="{{ url('css/Adm-CSS/Formularios.css')}}">
 
-@include('includes.header') 
-<link rel="stylesheet" href="{{ url('css/Formularios.css')}}">
-
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png')}}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Cadastrar Região</h1>
-        <p>Cadastre uma Região nova.</p>
+        <h1 style="font-weight: bold;"> Cadastrar Região </h1>
     </div>
 </div>
 

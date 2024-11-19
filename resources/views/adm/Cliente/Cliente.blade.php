@@ -2,25 +2,22 @@
 Arrumei o botão de cadastrar Paciente, se não for paciente me fala, que ai trco para cliente :) (ASS: Duda)-->
 
 @include('includes.header')
-<link rel="stylesheet" href="{{ url('css/Paciente.css') }}"> <!-- CSS PARA ESSA PÁGINA, SOMENTE AQUI -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+<link rel="stylesheet" href="{{ url('css/Adm-CSS/Paciente.css') }}"> <!-- CSS PARA ESSA PÁGINA, SOMENTE AQUI -->
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/2a.png') }}" alt="Logo" class="logo"> 
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1>Pacientes</h1>
-        <p>Você pode gerenciar pacientes, e consultar a tabela de pacientes.</p>
+        <h1 style="font-weight: bold;"> Pacientes </h1>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/pacientes.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/pacientes.png') }}" alt="Saída De Medicamentos" class="img-fluid">
     </div>
 </div>
 

@@ -1,25 +1,21 @@
 <!--CSS OK (ASS:Duda)-->
-
 @include('includes.headerFarmacia')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/Prescricao.css')}}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/Prescrição.css')}}">
 
-<nav class="navbar">
-    <div class="navbar-brand">
-        <img src="{{ asset('Image/3a.png') }}" alt="Logo" class="logo">
-    </div>
+<div class="navbar">
     <div class="search-container">
-        <input type="text" placeholder="Buscar..." class="search-input" style="border-radius: 30px;">
+        <input type="text" class="search-input" placeholder="Pesquisar...">
         <button class="search-button"><i class="fas fa-search"></i></button>
     </div>
-</nav>
+</div>
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1 style="font-weight: bold;"> Cadastro de Prescrição </h1>
+        <h1 style="font-weight: bold;"> Prescrições </h1>
     </div>
     <div class="image-container">
-        <img src="{{ asset('Image/lista.png') }}" alt="Cadastro de Medicamentos" class="img-fluid" />
+        <img src="{{ asset('Image/lista.png') }}" alt="Saída De Medicamentos" class="img-fluid">
     </div>
 </div>
 
@@ -37,67 +33,57 @@
     @endif
 
     <div class="form-wrapper">
-        <form id="prescricaoForm" action="/Cadprescricao" method="POST" class="styled-form">
+        <form action="/Cadprescricao" method="POST" class="styled-form">
             @csrf
             <input type="hidden" id="prescricaoId" name="prescricaoId">
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="dataPrescricao">Data da Prescrição</label>
-                    <div class="input-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                        <input type="date" class="form-control" id="dataPrescricao" name="dataPrescricao" required>
-                    </div>
-                </div>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Cadastro de Prescrição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="date" class="form-control" id="dataPrescricao" name="dataPrescricao" required></td>
+                        <td><label for="dataPrescricao">Data da Prescrição:</label></td>
+                    </tr>
 
-                <div class="form-group">
-                    <label for="quantPrescricao">Quantidade</label>
-                    <div class="input-icon">
-                        <i class="fas fa-sort-numeric-up"></i>
-                        <input type="number" class="form-control" id="quantPrescricao" name="quantPrescricao" required>
-                    </div>
-                </div>
+                    <tr>
+                        <td><input type="number" class="form-control" id="quantPrescricao" name="quantPrescricao" required></td>
+                        <td><label for="quantPrescricao">Quantidade:</label></td>
+                    </tr>
 
-                <div class="form-group">
-                    <label for="dosagemPrescricao">Dosagem</label>
-                    <div class="input-icon">
-                        <i class="fas fa-prescription-bottle-alt"></i>
-                        <input type="text" class="form-control" id="dosagemPrescricao" name="dosagemPrescricao" required>
-                    </div>
-                </div>
-            </div>
+                    <tr>
+                        <td><input type="text" class="form-control" id="dosagemPrescricao" name="dosagemPrescricao" required></td>
+                        <td><label for="dosagemPrescricao">Dosagem:</label></td>
+                    </tr>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="duracaoRemedio">Duração (em dias)</label>
-                    <div class="input-icon">
-                        <i class="fas fa-clock"></i>
-                        <input type="number" class="form-control" id="duracaoRemedio" name="duracaoRemedio" required>
-                    </div>
-                </div>
+                    <tr>
+                        <td><input type="number" class="form-control" id="duracaoRemedio" name="duracaoRemedio" required></td>
+                        <td><label for="duracaoRemedio">Duração (em dias):</label></td>
+                    </tr>
 
-                <div class="form-group">
-                    <label for="idMedicamento">Medicamento</label>
-                    <div class="input-icon">
-                        <select class="form-control" id="idMedicamento" name="idMedicamento" required>
-                            <option value="">Selecione um medicamento</option>
-                            @foreach ($medicamento as $med)
-                            <option value="{{ $med->idMedicamento }}">{{ $med->nomeMedicamento }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Botões de Ação com Ícones -->
-            <button type="submit" class="submit-btn" id="submitBtn" style="margin-left: 25%;">
-                <i class="fas fa-save"></i> Cadastrar Prescrição
-            </button>
-            <button type="button" class="submit" id="saveChangesBtn" style="display: none;">
-                <i class="fas fa-edit"></i> Salvar Alterações
+                    <tr>
+                        <td>
+                            <select class="form-control" id="idMedicamento" name="idMedicamento" required>
+                                <option value="">Selecione um medicamento</option>
+                                @foreach ($medicamento as $med)
+                                    <option value="{{ $med->idMedicamento }}">{{ $med->nomeMedicamento }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td><label for="idMedicamento">Medicamento:</label></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="submit" class="submit-btn" id="submitBtn" style="margin-left: 18%;">
+                Salvar Prescrição
             </button>
         </form>
     </div>
+
 
     <div class="col-md-8">
             <div class="head-title">
