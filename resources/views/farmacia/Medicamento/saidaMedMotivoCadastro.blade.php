@@ -28,76 +28,94 @@
             {{ session('success') }}
         </div>
     @endif
+   
     <div class="form-wrapper">
-    <form action="{{ route('saidaMedMotivo.store') }}" method="POST" class="styled-form">
+    <form action="/saidaMedicamento/store" method="POST" class="styled-form">
         @csrf
 
-        <input type="hidden" name="idMedicamento" id="idMedicamento">
+        <table class="form-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Registrar Saída de Medicamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Código de Barras -->
+                <tr>
+                    <td><label for="codigoBarras">Código de Barras:</label></td>
+                    <td>
+                        <input type="text" name="codigoBarras" id="codigoBarras" required>
+                        <small id="codigoBarrasError" style="color: red; display: none;">Medicamento não encontrado.</small>
+                    </td>
+                </tr>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="codigoBarras">
-                    <i class="fas fa-barcode"></i> Código de Barras:
-                </label>
-                <input type="text" name="codigoBarras" id="codigoBarras" required>
-                <small id="codigoBarrasError" style="color: red; display: none;">Medicamento não encontrado.</small>
-            </div>
-            <div class="form-group">
-                <label for="nomeMedicamento">
-                    <i class="fas fa-pills"></i> Medicamento:
-                </label>
-                <input type="text" id="nomeMedicamento" readonly>
-            </div>
-            <div class="form-group">
-                <label for="dataSaida">
-                    <i class="fas fa-calendar-alt"></i> Data de Saída:
-                </label>
-                <input type="date" name="dataSaida" value="{{ date('Y-m-d') }}" required>
-            </div>
-            <div class="form-group">
-                <label for="quantidade">
-                    <i class="fas fa-sort-numeric-up"></i> Quantidade:
-                </label>
-                <input type="number" name="quantidade" id="quantidade" required>
-            </div>
+                <!-- Medicamento -->
+                <tr>
+                    <td><label for="nomeMedicamento">Medicamento:</label></td>
+                    <td><input type="text" id="nomeMedicamento" readonly></td>
+                </tr>
+
+                <!-- Data de Saída -->
+                <tr>
+                    <td><label for="dataSaida">Data de Saída:</label></td>
+                    <td>
+                        <input type="date" name="dataSaida" value="{{ date('Y-m-d') }}" required>
+                    </td>
+                </tr>
+
+                <!-- Quantidade -->
+                <tr>
+                    <td><label for="quantidade">Quantidade:</label></td>
+                    <td>
+                        <input type="number" name="quantidade" id="quantidade" required>
+                    </td>
+                </tr>
+
+                <!-- Lote -->
+                <tr>
+                    <td><label for="lote">Lote:</label></td>
+                    <td>
+                        <input type="text" name="lote" id="lote" readonly>
+                    </td>
+                </tr>
+
+                <!-- Validade -->
+                <tr>
+                    <td><label for="validade">Validade:</label></td>
+                    <td>
+                        <input type="date" name="validade" id="validade" readonly>
+                    </td>
+                </tr>
+
+                <!-- Motivo da Saída -->
+                <tr>
+                    <td><label for="motivoSaida">Motivo da Saída:</label></td>
+                    <td>
+                        <input type="text" name="motivoSaida" id="motivoSaida" required placeholder="Digite o motivo da saída">
+                    </td>
+                </tr>
+
+                <!-- Funcionário Responsável -->
+                <tr>
+                    <td><label for="funcionario">Funcionário Responsável:</label></td>
+                    <td>
+                        <select name="idFuncionario" id="funcionario" required>
+                            <option value="">Selecione um funcionário</option>
+                            @foreach($funcionarios as $funcionario)
+                                <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Botão de Registrar -->
+        <div class="form-actions">
+            <button type="submit" class="submit-btn">Registrar Saída</button>
         </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="lote">
-                    <i class="fas fa-box"></i> Lote:
-                </label>
-                <input type="text" name="lote" id="lote" readonly>
-            </div>
-            <div class="form-group">
-                <label for="validade">
-                    <i class="fas fa-calendar-check"></i> Validade:
-                </label>
-                <input type="date" name="validade" id="validade" readonly>
-            </div>
-            <div class="form-group">
-                <label for="motivoSaida">
-                    <i class="fas fa-file-alt"></i> Motivo da Saída:
-                </label>
-                <input type="text" name="motivoSaida" id="motivoSaida" required placeholder="Digite o motivo da saída">
-            </div>
-            <div class="form-group">
-                <label for="funcionario">
-                    <i class="fas fa-user"></i> Funcionário Responsável:
-                </label>
-                <select name="idFuncionario" id="funcionario" required>
-                    <option value="">Selecione um funcionário</option>
-                    @foreach($funcionarios as $funcionario)
-                    <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <button type="submit" class="submit-btn">
-            <i class="fas fa-save"></i> Registrar Saída
-        </button>
     </form>
 </div>
-
 </main>
 @include('includes.footer')
 

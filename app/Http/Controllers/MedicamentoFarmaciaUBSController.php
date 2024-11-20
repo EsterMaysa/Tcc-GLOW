@@ -16,7 +16,7 @@ class MedicamentoFarmaciaUBSController extends Controller
     public function index()
     {
         $medicamentos = ModelMedicamentoFarmaciaUBS::orderBy('dataCadastroMedicamento', 'desc')->get();
-        $desativados = ModelMotivoDesativadoMedFarma::with('medicamento')->orderBy('dataDesativamento', 'desc')->take(10)->get();
+        $desativados = ModelMotivoDesativadoMed::with('medicamento')->orderBy('dataDesativamento', 'desc')->take(10)->get();
 
 
         return view('farmacia.Medicamento.medicamentoFarmacia', compact('medicamentos','desativados'));

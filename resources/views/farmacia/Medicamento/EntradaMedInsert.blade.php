@@ -12,7 +12,7 @@
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1 style="font-weight: bold;">Cadastrar Entrada De Medicamentos</h1>
+        <h1 style="font-weight: bold;"> Cadastro da entrada de medicamentos </h1>
     </div>
     <div class="image-container">
         <img src="{{ asset('Image/saidaMed.png') }}" alt="Entrada De Medicamentos" class="img-fluid">
@@ -20,74 +20,92 @@
 </div>
 
 <main>
-<form action="/entradaMedicamento/store" method="POST" class="styled-form">
-    @csrf
-    
-    <input type="hidden" name="idMedicamento" id="idMedicamento">
+<div class="form-wrapper">
+    <form action="/entradaMedicamento/store" method="POST" class="styled-form">
+        @csrf
 
-    <div class="form-row">
-        <div class="form-group">
-            <label for="codigoBarras">
-                <i class="fas fa-barcode"></i> Código de Barras:
-            </label>
-            <input type="text" name="codigoBarras" id="codigoBarras" required>
-            <small id="codigoBarrasError" style="color: red; display: none;">Medicamento não encontrado.</small>
-        </div>
-        <div class="form-group">
-            <label for="nomeMedicamento">
-                <i class="fas fa-pills"></i> Medicamento:
-            </label>
-            <input type="text" id="nomeMedicamento" readonly>
-        </div>
-        <div class="form-group">
-            <label for="dataEntrada">
-                <i class="fas fa-calendar-alt"></i> Data de Entrada:
-            </label>
-            <input type="date" name="dataEntrada" value="{{ date('Y-m-d') }}" required>
-        </div>
-        <div class="form-group">
-            <label for="quantidade">
-                <i class="fas fa-sort-numeric-up"></i> Quantidade:
-            </label>
-            <input type="number" name="quantidade" required>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group">
-            <label for="lote">
-                <i class="fas fa-box"></i> Lote:
-            </label>
-            <input type="text" name="lote" id="lote" readonly>
-        </div>
-        <div class="form-group">
-            <label for="validade">
-                <i class="fas fa-calendar-check"></i> Validade:
-            </label>
-            <input type="date" name="validade" id="validade" readonly>
-        </div>
-        <div class="form-group">
-            <label for="motivoEntrada">
-                <i class="fas fa-file-alt"></i> Motivo da Entrada:
-            </label>
-            <input type="text" name="motivoEntrada" id="motivoEntrada" required placeholder="Digite o motivo da entrada">
-            <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada">
-        </div>
-        <div class="form-group">
-            <label for="funcionario">
-                <i class="fas fa-user"></i> Funcionário Responsável:
-            </label>
-            <select name="idFuncionario" id="funcionario" required>
-                <option value="">Selecione um funcionário</option>
-                @foreach($funcionarios as $funcionario)
-                <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-    <button type="submit" class="submit-btn">
-        <i class="fas fa-save"></i> Cadastrar
-    </button>
-</form>
+        <table class="form-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Cadastrar Entrada de Medicamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Código de Barras -->
+                <tr>
+                    <td><label for="codigoBarras">Código de Barras:</label></td>
+                    <td>
+                        <input type="text" name="codigoBarras" id="codigoBarras" required>
+                        <small id="codigoBarrasError" style="color: red; display: none;">Medicamento não encontrado.</small>
+                    </td>
+                </tr>
+
+                <!-- Medicamento -->
+                <tr>
+                    <td><label for="nomeMedicamento">Medicamento:</label></td>
+                    <td><input type="text" id="nomeMedicamento"></td>
+                </tr>
+
+                <!-- Data de Entrada -->
+                <tr>
+                    <td><label for="dataEntrada">Data de Entrada:</label></td>
+                    <td>
+                        <input type="date" name="dataEntrada" value="{{ date('Y-m-d') }}" required>
+                    </td>
+                </tr>
+
+                <!-- Quantidade -->
+                <tr>
+                    <td><label for="quantidade">Quantidade:</label></td>
+                    <td>
+                        <input type="number" name="quantidade" required>
+                    </td>
+                </tr>
+
+                <!-- Lote -->
+                <tr>
+                    <td><label for="lote">Lote:</label></td>
+                    <td>
+                        <input type="text" name="lote" id="lote">
+                    </td>
+                </tr>
+
+                <!-- Validade -->
+                <tr>
+                    <td><label for="validade">Validade:</label></td>
+                    <td>
+                        <input type="date" name="validade" id="validade" >
+                    </td>
+                </tr>
+
+                <!-- Motivo da Entrada -->
+                <tr>
+                    <td><label for="motivoEntrada">Motivo da Entrada:</label></td>
+                    <td>
+                        <input type="text" name="motivoEntrada" id="motivoEntrada" required placeholder="Digite o motivo da entrada">
+                        <input type="hidden" name="idMotivoEntrada" id="idMotivoEntrada">
+                    </td>
+                </tr>
+
+                <!-- Funcionário Responsável -->
+                <tr>
+                    <td><label for="funcionario">Funcionário Responsável:</label></td>
+                    <td>
+                        <select name="idFuncionario" id="funcionario" required>
+                            <option value="">Selecione um funcionário</option>
+                            @foreach($funcionarios as $funcionario)
+                                <option value="{{ $funcionario->idFuncionario }}">{{ $funcionario->nomeFuncionario }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Botão de Cadastrar -->
+        <button type="submit" class="submit-btn">Cadastrar</button>
+    </form>
+</div>
 
 </main>
 <br>

@@ -10,7 +10,6 @@
 </head>
 <body>
     <div class="login-container">
-        <!-- Lado da imagem -->
         <div class="login-image">
             <img src="{{ asset('Image/loginFarmacia.jpg')}}" alt="Ilustração de login">
         </div>
