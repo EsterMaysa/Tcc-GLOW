@@ -66,6 +66,8 @@
             </thead>
             <tbody>
                 @foreach($medicamento as $med)
+                @if ($med->situacaoMedicamento == 'A')
+
                 <tr>
                     <td>{{ $med->codigoDeBarrasMedicamento }}</td>
                     <td>{{ $med->nomeMedicamento }}</td>
@@ -82,11 +84,10 @@
                     <td>{{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</td>
 
                     <td class="actions">
-                        @if ($med->situacaoMedicamento == 'A')
                         <a href="{{ route('medicamento.edit', $med->idMedicamento) }}" class="icon-action" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja desativar este medicamento?');">
+                        <form action="{{ route('medicamento.desativar', $med->idMedicamento) }}" method="POST" style="display:inline;" onsubmit="return confirmDesativacao(this);">
                             @csrf
                             @method('PUT') <!-- Usar PUT para desativar -->
                             <button type="submit" class="icon-action-2" title="Desativar">
@@ -281,37 +282,31 @@
     <table class="custom-table">
         <thead>
             <tr>
-                <th> Código de Barras </th>
                 <th> Medicamento </th>
                 <th> Nome Genérico </th>
-                <th> Situação </th>
-                <th> Data de Cadastro </th>
-                <th> Ações </th>
+                <th> Código de Barras </th>
+                <th> Composção </th>
+                <th> Motivo </th>
+                <th> Data do Desativamento </th>
             </tr>
         </thead>
         <tbody>
             <!-- Medicamento Desativado -->
+            @foreach ($desativados as $d)
+
             <tr>
-                <td>1234567890123</td>
-                <td>Paracetamol</td>
-                <td>Paracetamol</td>
-                <td>Desativado</td>
-                <td>12/08/2023</td>
-                <td class="actions">
+                <td>{{ $d->medicamento->nomeMedicamento ?? 'N/A' }}</td>
+                <td>{{ $d->medicamento->nomeGenericoMedicamento ?? 'N/A' }}</td>
+                <td>{{ $d->medicamento->codigoDeBarrasMedicamento ?? 'N/A' }}</td>
+                <td>{{ $d->medicamento->composicaoMedicamento ?? 'N/A' }}</td>
 
-                    <!-- Botão para Ativar o Medicamento -->
-                    <form action="#" method="POST" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja ativar este medicamento?');">
-                        <button type="submit" class="icon-action-2" title="Ativar">
-                            <i class="fas fa-check-circle"></i>
-                        </button>
-                    </form>
+                <td>{{ $d->Motivo }}</td>
+                <td>{{ \Carbon\Carbon::parse($d->dataDesativamento)->format('d/m/Y') }}</td>
 
-                    <!-- Botão para ver mais detalhes -->
-                    <button type="button" class="botao" data-bs-toggle="modal" data-bs-target="#modalDetalhes">
-                        <i class="fas fa-eye"></i> <!-- Ícone de olho para Ver Mais -->
-                    </button>
-                </td>
+
             </tr>
+            @endforeach
+
         </tbody>
     </table>
 </div>
@@ -346,5 +341,30 @@
  
 </main>
 <br>
+<script>
+    function confirmDesativacao(form) {
+        // Mensagem de confirmação
+        const confirmacao = confirm('Tem certeza que deseja desativar este medicamento?');
+        if (!confirmacao) {
+            return false; // Cancela o envio do formulário
+        }
+
+        // Solicita o motivo ao usuário
+        const motivo = prompt('Por favor, insira o motivo da desativação:');
+        if (!motivo || motivo.trim() === '') {
+            alert('O motivo da desativação é obrigatório.');
+            return false; // Cancela o envio do formulário
+        }
+
+        // Cria um campo oculto no formulário para enviar o motivo
+        const inputMotivo = document.createElement('input');
+        inputMotivo.type = 'hidden';
+        inputMotivo.name = 'motivo';
+        inputMotivo.value = motivo;
+        form.appendChild(inputMotivo);
+
+        return true; // Prossegue com o envio do formulário
+    }
+</script>
 @include('includes.footer')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

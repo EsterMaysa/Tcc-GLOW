@@ -8,6 +8,8 @@ use App\Models\DetentorModel; //model detentor
 use Illuminate\Support\Facades\DB;
 use App\Models\TipoMedicamentoModel; //model tipo medicamento
 use App\Models\ModelUbsMed;
+use App\Models\ModelMotivoDesativamentoMed;
+
 // use Illuminate\Support\Facades\DB;  // Importando a facade DB
 
 class MedicamentoController extends Controller
@@ -16,7 +18,8 @@ class MedicamentoController extends Controller
     {
         $detentores = DetentorModel::all();
         $tiposMedicamento = TipoMedicamentoModel::all();
-        
+
+
         // Verifica se há dados na sessão para preencher o formulário
         $formData = session()->get('formData', []);
 
@@ -27,12 +30,13 @@ class MedicamentoController extends Controller
     {
         $detentores = DetentorModel::all();
         $tiposMedicamento = TipoMedicamentoModel::all();
+        $desativados = ModelMotivoDesativamentoMed::all();
 
         $medicamento = MedicamentoModel::with(['detentor', 'tipoMedicamento'])
             ->orderBy('dataCadastroMedicamento', 'desc')
             ->get();
 
-        return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento'));
+        return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento','desativados'));
     }
    
     public function search(Request $request)
@@ -193,8 +197,12 @@ class MedicamentoController extends Controller
         return response()->json(['message' => 'Sucesso', 'code' => 200]);
     }
 
-    public function desativar($id)
+    public function desativar(Request $request, $id)
     {
+        $request->validate([
+            'motivo' => 'required|string|max:200',
+        ]);
+    
         // Encontrar o medicamento pelo ID
         $medicamento = MedicamentoModel::find($id);
 
@@ -203,6 +211,12 @@ class MedicamentoController extends Controller
             $medicamento->situacaoMedicamento = 'D'; // ou outro valor que indica "inativo"
             $medicamento->save();
         }
+
+        $desativados = new ModelMotivoDesativamentoMed();
+        $desativados->idMedicamento = $id;
+        $desativados->Motivo = $request->motivo;
+        $desativados->dataDesativamento = now();
+        $desativados->save();
 
         return redirect('/medicamento')->with('success', 'Medicamento desativado com sucesso.');
     }
