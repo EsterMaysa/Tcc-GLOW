@@ -39,14 +39,12 @@
             </ul>
 
 			<!-- Logout -->
+           
             <ul class="saida">
                 <li class="li-saida">
-                    <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-sign-out-alt"></i><p>Sair</p></a>
+                    <a href="/verificacao" ></i><p>Sair</p></a>
                 </li>
-            </ul>
+            </ul>
 		</div>
 	</div>
 </header>
