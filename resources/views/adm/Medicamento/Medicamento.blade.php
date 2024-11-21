@@ -124,14 +124,20 @@
                                 <p><strong>Data de Cadastro:</strong> {{ \Carbon\Carbon::parse($med->dataCadastroMedicamento)->format('d/m/Y') }}</p>
 
                                 <!-- Foto -->
-                                <div id="fotoMedicamento{{ $med->idMedicamento }}">
+                                <!-- <div id="fotoMedicamento{{ $med->idMedicamento }}">
                                     @if($med->fotoMedicamentoOriginal)
                                     <p><strong>Foto Original:</strong></p>
-                                    <img src="{{ asset('storage/' . $med->fotoMedicamentoOriginal) }}" alt="Foto Original" style="max-width: 100%;" id="imagemExibida{{ $med->idMedicamento }}">
+                                    <img src="{{ asset('storage/fotos_medicamentos/' . $med->fotoMedicamentoOriginal) }}" alt="Foto Original" style="max-width: 100%;" id="imagemExibida{{ $med->idMedicamento }}">
                                     @else
                                     <p>Sem foto original.</p>
                                     @endif
-                                </div>
+                                </div> -->
+                                <!-- <div id="fotoMedicamento">
+                                        <p><strong>Foto Original:</strong></p>
+                                        <img src="https://1cf2-2804-7f0-b900-986f-3522-7a-7a17-3c7d.ngrok-free.app/storage/fotos_medicamentos/sDqNRalTU21zm1ILa0mGPLKqRAFi4paTYBWsBt2d.jpg" alt="Foto Original" style="max-width: 100%;" id="imagemExibida">
+                                        <p>Sem foto original.</p>
+                                </div> -->
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -156,7 +162,7 @@
                     <!-- Filtros -->
                     <form action="/medicamentosfilter" method="GET">
 
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <label class="form-label">Situação</label>
                             <div class="row">
                                 <div class="col-4 form-check">
@@ -168,7 +174,7 @@
                                     <label class="form-check-label" for="situacaoInativo">Inativo</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="mb-3">
                             <label class="form-label">Forma Farmacêutica</label>

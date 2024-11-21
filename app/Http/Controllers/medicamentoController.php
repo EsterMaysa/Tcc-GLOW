@@ -44,6 +44,7 @@ class MedicamentoController extends Controller
 
         $detentores = DetentorModel::all();
         $tiposMedicamento = TipoMedicamentoModel::all();
+        $desativados = ModelMotivoDesativamentoMed::all();
 
         $query = $request->input('query');
     
@@ -59,7 +60,7 @@ class MedicamentoController extends Controller
             ->get();
     
         // Retornar a view com os medicamentos filtrados
-        return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento'));
+        return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento','desativados'));
     }
     
     
@@ -237,6 +238,7 @@ public function applyFilters(Request $request)
 {
     $detentores = DetentorModel::all();
     $tiposMedicamento = TipoMedicamentoModel::all();
+    $desativados = ModelMotivoDesativamentoMed::all();
 
     $query = MedicamentoModel::query();
 
@@ -263,7 +265,7 @@ public function applyFilters(Request $request)
     // Obter os resultados filtrados
     $medicamento = $query->get();
 
-    return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento'));
+    return view('adm.Medicamento.Medicamento', compact('medicamento','detentores', 'tiposMedicamento','desativados'));
 }
 
 

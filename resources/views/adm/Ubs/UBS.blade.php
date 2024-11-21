@@ -69,6 +69,7 @@
                         <th>Ver Mais</th>
                     </tr>
                 </thead>
+                
                 <tbody id="ubsTableBody">
                     @foreach ($ubs as $unidade)
                     <tr class="ubs-row" data-situacao="{{ $unidade->situacaoUBS }}" style="{{ $unidade->situacaoUBS == 0 ? 'display:none;' : '' }}">
@@ -110,7 +111,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <img src="{{ asset('storage/' . $unidade->fotoUBS) }}" alt="Foto Original" style="max-width: 100%;" id="imagemExibida{{ $unidade->idUBS }}">
+                                    <!-- <img src="{{ asset('storage/' . $unidade->fotoUBS) }}" alt="Foto Original" style="max-width: 100%;" id="imagemExibida{{ $unidade->idUBS }}"> -->
                                     <p><strong>Situação UBS:</strong> {{ $unidade->situacaoUBS }}</p>
                                     <p><strong>Nome UBS:</strong> {{ $unidade->nomeUBS }}</p>
                                     <p><strong>E-mail:</strong> {{ $unidade->emailUBS }}</p>
