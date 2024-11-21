@@ -1,100 +1,45 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/Adm-CSS/Verificacao.css')}}">
 
-	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{asset('fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/animate/animate.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/css-hamburgers/hamburgers.min.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/select2.min.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/util.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css')}}">
-
-	<title>Login | BuscaSUS </title>
-	<link rel="shortcut icon" href="{{ asset('Image/favicon (1).ico')}}" type="image/x-icon">
-
+    <title>Login Administrador | FarmaSUS</title>
+	<link rel="shortcut icon" href="{{ asset('Image/favicon.ico')}}" type="image/x-icon">
 </head>
-
 <body>
+    <div class="login-container">
+        <!-- Imagem do lado esquerdo -->
+        <div class="login-image">
+            <img src="{{ asset('Image/loginAdm2.gif') }}" alt="Ilustração de login">
+        </div>
 
-@if (session('message'))
-    <script>
-        alert("{{ session('message') }}");
-    </script>
-@endif
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100" style="width: 45%;">
+        <!-- Lado do formulário -->
+        <div class="login-form">
+            <h1>Login Administrador</h1>
+            <form id="formLogin" action="/admLogin" method="POST">
+                @csrf
+                <label for="email"></label>
+                <input type="email" name="email" id="email" placeholder="Digite seu email" required>
 
-				<form class="login100-form validate-form" style="font-size: 20px; margin-top: -16% ;margin-left: 18%" action="/admLogin" method="post">
-					@csrf
-					<span class="login100-form-title">Administrador | Login </span>
+                <label for="senha"></label>
+                <input type="password" name="senha" id="senha" class="form-control" placeholder="Digite sua senha" required>
 
-					<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" value="" name="email" placeholder="Email">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
-					</div>
+                <!-- Mensagem de erro -->
+                @if (session('error'))
+                    <p class="error-message">{{ session('error') }}</p>
+                @endif
 
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="senha" value="" placeholder="Password">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-					</div>
-					@if (session('error'))
-						<p class="alert alert-danger" style="color: red; margin-top: 10px;">
-							{{ session('error') }}
-						</p>
-					@endif
-
-
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit">
-							Login
-						</button>
-					</div>
-
-					<div class="text-center p-t-24">
-						<a class="txt2" href="/formsAdm">
-							Não possui cadastro?
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>
-
-					<div class="text-center p-t-24">
-						<a class="txt2" href="/verificacao">
-							Não é Administrador?
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>
-				</form>
-
-			</div>
-		</div>
-	</div>
-
-
-
-
-	<script src="{{ asset('vendor/jquery/jquery-3.2.1.min.js')}}"></script>
-	<script src="{{ asset('vendor/bootstrap/js/popper.js')}}"></script>
-	<script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
-	<script src="{{ asset('vendor/select2/select2.min.js')}}"></script>
-	<script src="{{ asset('vendor/tilt/tilt.jquery.min.js')}}"></script>
-	<script>
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-	<script src="{{ asset('js/main.js')}}"></script>
-
+                <button type="submit" class="btn-login">LOGIN</button>
+                <p class="signup-link">
+                    Não é Administrador? <a href="/verificacao">Clique aqui</a>
+                </p>
+				<p class="signup-link">
+                    Não possui cadastro? <a href="/formsAdm">Clique aqui</a>
+                </p>
+            </form>
+        </div>
+    </div>
 </body>
-
 </html>

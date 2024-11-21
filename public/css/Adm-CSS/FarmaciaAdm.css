@@ -202,7 +202,6 @@ body{
     width: 75%;
     height: 85%;
     border-collapse: collapse;
-    margin-bottom: 30%;
     margin-left: 23%;
 }
 
@@ -218,13 +217,11 @@ body{
     background-color: #f9f9f9;
 }
 
-.table tbody tr:hover {
-    background-color: #e0e0e0;
-}
 
 .table td {
     padding: 12px;
     border-bottom: 1px solid #dddddd;
+    background-color: #f9f9f9;
     color: #272727;
 }
 
@@ -272,17 +269,17 @@ body{
 
 /* Estilo para a mensagem de sucesso */
 #successMessage {
-    background-color: #28a745; /* Cor de fundo verde */
-    color: white; /* Cor do texto */
-    padding: 15px; /* Espaçamento interno */
+    background-color: #28a745; 
+    color: white; 
+    padding: 15px;
     border-radius: 5px; /* Bordas arredondadas */
     margin-top: 20px; /* Espaçamento superior */
     font-size: 16px; /* Tamanho da fonte */
     text-align: center; /* Alinha o texto ao centro */
     width: 60%; /* Ajusta a largura do alerta */
     max-width: 400px; /* Limita a largura máxima */
-    margin-left: auto; /* Centraliza horizontalmente */
-    margin-right: auto; /* Centraliza horizontalmente */
+    margin-left: 40%; 
+    margin-right: auto; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
     opacity: 1;
     transition: opacity 0.5s ease-in-out; /* Animação de transição */

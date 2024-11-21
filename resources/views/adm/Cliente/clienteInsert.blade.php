@@ -34,158 +34,138 @@
     @endif
 
     <div class="form-wrapper">
-    <form action="/criarCliente" method="POST" class="styled-form">
-        @csrf <!-- Token de segurança do Laravel -->
+        <form action="/criarCliente" method="POST" class="styled-form">
+            @csrf 
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="nomeCliente">
-                    <i class="fas fa-user"></i> Nome do Cliente:
-                </label>
-                <input type="text" id="nomeCliente" name="nomeCliente" required>
-            </div>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th colspan="2"> Cadastrar Paciente </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><label for="nomeCliente">Nome do Cliente:</label></td>
+                        <td><input type="text"id=" nomeCliente" name="nomeCliente" required ></td>
+                    </tr>
 
-            <div class="form-group">
-                <label for="cpfCliente">
-                    <i class="fas fa-id-card"></i> CPF do Cliente:
-                </label>
-                <input type="text" id="cpfCliente" name="cpfCliente" maxlength="14" required>
-                @error('cpfCliente')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
+                    <tr>
+                        <td><label for="cpfCliente">CPF do Cliente:</label></td>
+                        <td>
+                            <input type="text" id="cpfCliente" name="cpfCliente" maxlength="14" required>
+                            @error('cpfCliente')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </td>
+                    </tr>
 
-            <div class="form-group">
-                <label for="cnsCliente">
-                    <i class="fas fa-heartbeat"></i> CNS do Cliente:
-                </label>
-                <input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" required>
-                @error('cnsCliente')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
-        </div>
+                    <tr>
+                        <td> <label for="cnsCliente">CNS do Cliente:</td>
+                        <td>
+                            <input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" required>
+                            @error('cnsCliente')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </td>
+                    </tr>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="dataNascCliente">
-                    <i class="fas fa-calendar-alt"></i> Data de Nascimento:
-                </label>
-                <input type="date" id="dataNascCliente" name="dataNascCliente" required>
-            </div>
+                    <tr>
+                        <td><label for="dataNascCliente">Data de Nascimento:</td>
+                        <td><input type="date" id="dataNascCliente" name="dataNascCliente" required></td>
+                    </tr>
 
-            <div class="form-group">
-                <label for="telefoneCliente">
-                    <i class="fas fa-phone"></i> Telefone do Cliente:
-                </label>
-                <input type="text" id="telefoneCliente" name="telefoneCliente" maxlength="11" required>
-                @error('telefoneCliente')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-            </div>
+                    <tr>
+                        <td><label for="telefoneCliente">Telefone do Cliente:</label></td>
+                        <td>
+                            <input type="text" id="telefoneCliente" name="telefoneCliente" maxlength="11" required>
+                            @error('telefoneCliente')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </td>
+                    </tr>
 
-            <div class="form-group cep-field">
-                <label for="cepCliente">
-                    <i class="fas fa-map-marker-alt"></i> CEP do Cliente:
-                </label>
-                <input type="text" id="cepCliente" name="cepCliente" maxlength="9" required>
-            </div>
-        </div>
+                    <tr>
+                        <td><label for="cepCliente">CEP do Cliente:</label></td>
+                        <td><input type="text" id="cepCliente" name="cepCliente" maxlength="9" required></td>
+                    </tr>
 
-        <div class="form-row">
-            <div class="form-group complemento-field">
-                <label for="complementoCliente">
-                    <i class="fas fa-info-circle"></i> Complemento:
-                </label>
-                <input type="text" id="complementoCliente" name="complementoCliente">
-            </div>
+                    <tr>
+                        <td><label for="complementoCliente">Complemento:</label></td>
+                        <td><input type="text" id="complementoCliente" name="complementoCliente"></td>
+                    </tr>
 
-            <div class="form-group">
-                <label for="logradouroCliente">
-                    <i class="fas fa-road"></i> Logradouro:
-                </label>
-                <input type="text" id="logradouroCliente" name="logradouroCliente" required readonly>
-            </div>
+                    <tr>
+                        <td><label for="logradouroCliente">Logradouro:</label></td>
+                        <td><input type="text" id="logradouroCliente" name="logradouroCliente" required></td>
+                    </tr>
 
-            <div class="form-group">
-                <label for="bairroCliente">
-                    <i class="fas fa-building"></i> Bairro:
-                </label>
-                <input type="text" id="bairroCliente" name="bairroCliente" required readonly>
-            </div>
-        </div>
+                    <tr>
+                        <td><label for="bairroCliente">Bairro:</label></td>
+                        <td><input type="text" id="bairroCliente" name="bairroCliente" required></td>
+                    </tr>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="cidadeCliente">
-                    <i class="fas fa-city"></i> Cidade:
-                </label>
-                <input type="text" id="cidadeCliente" name="cidadeCliente" required readonly>
-            </div>
+                    <tr>
+                        <td><label for="cidadeCliente">Cidade:</label></td>
+                        <td><input type="text" id="cidadeCliente" name="cidadeCliente" required></td>
+                    </tr>
 
-            <div class="form-group">
-                <label for="ufCliente">
-                    <i class="fas fa-map"></i> UF:
-                </label>
-                <select id="ufCliente" name="ufCliente" required onchange="updateEstado()">
-                    <option value="">Selecione um estado</option>
-                    <option value="AC">AC</option>
-                    <option value="AL">AL</option>
-                    <option value="AP">AP</option>
-                    <option value="AM">AM</option>
-                    <option value="BA">BA</option>
-                    <option value="CE">CE</option>
-                    <option value="DF">DF</option>
-                    <option value="ES">ES</option>
-                    <option value="GO">GO</option>
-                    <option value="MA">MA</option>
-                    <option value="MT">MT</option>
-                    <option value="MS">MS</option>
-                    <option value="MG">MG</option>
-                    <option value="PA">PA</option>
-                    <option value="PB">PB</option>
-                    <option value="PR">PR</option>
-                    <option value="PE">PE</option>
-                    <option value="PI">PI</option>
-                    <option value="RJ">RJ</option>
-                    <option value="RN">RN</option>
-                    <option value="RS">RS</option>
-                    <option value="RO">RO</option>
-                    <option value="RR">RR</option>
-                    <option value="SC">SC</option>
-                    <option value="SP">SP</option>
-                    <option value="SE">SE</option>
-                    <option value="TO">TO</option>
-                </select>
-            </div>
+                    <tr>
+                        <td><label for="ufCliente">UF:</label></td>
+                        <td>
+                            <select id="ufCliente" name="ufCliente" required onchange="updateEstado()">
+                                <option value="">Selecione um estado</option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </td>
+                    </tr>
 
-            <div class="form-group">
-                <label for="estadoCliente">
-                    <i class="fas fa-flag"></i> Estado:
-                </label>
-                <input type="text" id="estadoCliente" name="estadoCliente" required readonly>
-            </div>
+                    <tr>
+                        <td><label for="estadoCliente">Estado:</label></td>
+                        <td><input type="text" id="estadoCliente" name="estadoCliente" required></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="numeroCliente">Número:</label></td>
+                        <td><input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" required></td>
+                    </tr>
+
+                </tbody>
+            </table>
 
             <div class="form-group">
-                <label for="numeroCliente">
-                    <i class="fas fa-sort-numeric-up"></i> Número:
-                </label>
-                <input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" required>
+                <button type="submit" class="submit-btn">Cadastrar Cliente</button>
             </div>
-        </div>
 
-        <div class="button-wrapper">
-            <button type="submit" class="submit-btn">
-                <i class="fas fa-user-plus"></i> Cadastrar Cliente
-            </button>
-        </div>
-    </form>
-</div>
-
-<br><br>
-
+        </form>
+    </div>
 </main>
-
+<br>
 @include('includes.footer')
 
 

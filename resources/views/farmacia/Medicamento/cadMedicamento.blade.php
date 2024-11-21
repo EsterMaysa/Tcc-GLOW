@@ -12,7 +12,7 @@
 
 <div class="container-um">
     <div class="jumbotron-um">
-        <h1 style="font-weight: bold;"> Cadastrar Medicamentos </h1>
+        <h1 style="font-weight: bold;"> Cadastrar novos medicamentos </h1>
     </div>
     <div class="image-container">
         <img src="{{ asset('Image/medi.png') }}" alt="Saída De Medicamentos" class="img-fluid">

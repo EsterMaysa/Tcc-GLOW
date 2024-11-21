@@ -17,7 +17,7 @@
 
     <!-- Título e favicon da página -->
     <title>Dashboard Farmácia | FarmaSUS</title>
-    <link rel="shortcut icon" href="{{ asset('Image/favicon.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('Image/favicon-farmacia.ico')}}" type="image/x-icon">
 </head>
 <header>
     <div class="header">

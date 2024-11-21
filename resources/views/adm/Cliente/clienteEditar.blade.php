@@ -33,111 +33,142 @@
     @endif
 
     <div class="form-wrapper" style="height: 1000px;">
-    <form action="{{ route('cliente.update', $cliente->idCliente) }}" method="POST" class="styled-form">
-        @csrf
-        @method('PUT') <!-- Método PUT para atualização -->
+        <form action="{{ route('cliente.update', $cliente->idCliente) }}" method="POST" class="styled-form">
+            @csrf
+            @method('PUT') <!-- Método PUT para atualização -->
 
-        <table class="dashboard-table">
-            <thead>
-                <tr>
-                    <th colspan="2">Atualizar Informações do Paciente</th>
-                </tr>
-            </thead>
-            <tbody>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Atualizar Informações do Paciente</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                <!-- Nome do Cliente -->
-                <tr>
-                    <td><label for="nomeCliente">Nome do Cliente:</label></td>
-                    <td><input type="text" id="nomeCliente" name="nomeCliente" value="{{ $cliente->nomeCliente }}" required></td>
-                </tr>
+                    <!-- Nome do Cliente -->
+                    <tr>
+                        <td><label for="nomeCliente">Nome do Cliente:</label></td>
+                        <td><input type="text" id="nomeCliente" name="nomeCliente" value="{{ $cliente->nomeCliente }}" required></td>
+                    </tr>
 
-                <!-- CPF do Cliente -->
-                <tr>
-                    <td><label for="cpfCliente">CPF do Cliente:</label></td>
-                    <td><input type="text" id="cpfCliente" name="cpfCliente" maxlength="11" value="{{ $cliente->cpfCliente }}" required></td>
-                </tr>
+                    <!-- CPF do Cliente -->
+                    <tr>
+                        <td><label for="cpfCliente">CPF do Cliente:</label></td>
+                        <td><input type="text" id="cpfCliente" name="cpfCliente" maxlength="11" value="{{ $cliente->cpfCliente }}" required></td>
+                    </tr>
 
-                <!-- CNS do Cliente -->
-                <tr>
-                    <td><label for="cnsCliente">CNS do Cliente:</label></td>
-                    <td><input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" value="{{ $cliente->cnsCliente }}" required></td>
-                </tr>
+                    <!-- CNS do Cliente -->
+                    <tr>
+                        <td><label for="cnsCliente">CNS do Cliente:</label></td>
+                        <td><input type="text" id="cnsCliente" name="cnsCliente" maxlength="15" value="{{ $cliente->cnsCliente }}" required></td>
+                    </tr>
 
-                <!-- Data de Nascimento -->
-                <tr>
-                    <td><label for="dataNascCliente">Data de Nascimento:</label></td>
-                    <td><input type="date" id="dataNascCliente" name="dataNascCliente" value="{{ $cliente->dataNascCliente }}" required></td>
-                </tr>
+                    <!-- Data de Nascimento -->
+                    <tr>
+                        <td><label for="dataNascCliente">Data de Nascimento:</label></td>
+                        <td><input type="date" id="dataNascCliente" name="dataNascCliente" value="{{ $cliente->dataNascCliente }}" required></td>
+                    </tr>
 
-                <!-- Usuário -->
-                <tr>
-                    <td><label for="userCliente">Usuário:</label></td>
-                    <td><input type="text" id="userCliente" name="userCliente" value="{{ $cliente->userCliente }}" required></td>
-                </tr>
+                    <!-- Usuário -->
+                    <tr>
+                        <td><label for="userCliente">Usuário:</label></td>
+                        <td><input type="text" id="userCliente" name="userCliente" value="{{ $cliente->userCliente }}" required></td>
+                    </tr>
 
-                <!-- Telefone do Cliente -->
-                <tr>
-                    <td><label for="numeroTelefoneCliente">Novo Telefone do Cliente:</label></td>
-                    <td><input type="text" id="numeroTelefoneCliente" name="numeroTelefoneCliente" maxlength="15" oninput="mascaraTelefone(this)" value="{{ $telefone->numeroTelefoneCliente }}" required></td>
-                </tr>
+                    <!-- Telefone do Cliente -->
+                    <tr>
+                        <td><label for="numeroTelefoneCliente">Novo Telefone do Cliente:</label></td>
+                        <td><input type="text" id="numeroTelefoneCliente" name="numeroTelefoneCliente" maxlength="15" oninput="mascaraTelefone(this)" value="{{ $telefone->numeroTelefoneCliente }}" required></td>
+                    </tr>
 
-                <!-- CEP do Cliente -->
-                <tr>
-                    <td><label for="cepCliente">CEP do Cliente:</label></td>
-                    <td><input type="text" id="cepCliente" name="cepCliente" maxlength="8" value="{{ $cliente->cepCliente }}" required></td>
-                </tr>
+                    <!-- CEP do Cliente -->
+                    <tr>
+                        <td><label for="cepCliente">CEP do Cliente:</label></td>
+                        <td><input type="text" id="cepCliente" name="cepCliente" maxlength="8" value="{{ $cliente->cepCliente }}" required></td>
+                    </tr>
 
-                <!-- Complemento -->
-                <tr>
-                    <td><label for="complementoCliente">Complemento:</label></td>
-                    <td><input type="text" id="complementoCliente" name="complementoCliente" value="{{ $cliente->complementoCliente }}"></td>
-                </tr>
+                    <!-- Complemento -->
+                    <tr>
+                        <td><label for="complementoCliente">Complemento:</label></td>
+                        <td><input type="text" id="complementoCliente" name="complementoCliente" value="{{ $cliente->complementoCliente }}"></td>
+                    </tr>
 
-                <!-- Logradouro -->
-                <tr>
-                    <td><label for="logradouroCliente">Logradouro:</label></td>
-                    <td><input type="text" id="logradouroCliente" name="logradouroCliente" value="{{ $cliente->logradouroCliente }}" required readonly></td>
-                </tr>
+                    <!-- Logradouro -->
+                    <tr>
+                        <td><label for="logradouroCliente">Logradouro:</label></td>
+                        <td><input type="text" id="logradouroCliente" name="logradouroCliente" value="{{ $cliente->logradouroCliente }}" required readonly></td>
+                    </tr>
 
-                <!-- Bairro -->
-                <tr>
-                    <td><label for="bairroCliente">Bairro:</label></td>
-                    <td><input type="text" id="bairroCliente" name="bairroCliente" value="{{ $cliente->bairroCliente }}" required readonly></td>
-                </tr>
+                    <!-- Bairro -->
+                    <tr>
+                        <td><label for="bairroCliente">Bairro:</label></td>
+                        <td><input type="text" id="bairroCliente" name="bairroCliente" value="{{ $cliente->bairroCliente }}" required readonly></td>
+                    </tr>
 
-                <!-- Cidade -->
-                <tr>
-                    <td><label for="cidadeCliente">Cidade:</label></td>
-                    <td><input type="text" id="cidadeCliente" name="cidadeCliente" value="{{ $cliente->cidadeCliente }}" required readonly></td>
-                </tr>
+                    <!-- Cidade -->
+                    <tr>
+                        <td><label for="cidadeCliente">Cidade:</label></td>
+                        <td><input type="text" id="cidadeCliente" name="cidadeCliente" value="{{ $cliente->cidadeCliente }}" required readonly></td>
+                    </tr>
 
-                <!-- UF -->
-                <tr>
-                    <td><label for="ufCliente">UF:</label></td>
-                    <td><input type="text" id="ufCliente" name="ufCliente" value="{{ $cliente->ufCliente }}" required readonly></td>
-                </tr>
+                    <!-- UF -->
+                    <tr>
+                        <td><label for="ufCliente">UF:</label></td>
+                        <td>
+                            <select id="ufCliente" name="ufCliente" required onchange="updateEstado()">
+                                <option value="">Selecione um estado</option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </td>
+                    </tr>
 
-                <!-- Estado -->
-                <tr>
-                    <td><label for="estadoCliente">Estado:</label></td>
-                    <td><input type="text" id="estadoCliente" name="estadoCliente" value="{{ $cliente->estadoCliente }}" required></td>
-                </tr>
+                    <!-- Estado -->
+                    <tr>
+                        <td><label for="estadoCliente">Estado:</label></td>
+                        <td><input type="text" id="estadoCliente" name="estadoCliente" value="{{ $cliente->estadoCliente }}" required></td>
+                    </tr>
 
-                <!-- Número -->
-                <tr>
-                    <td><label for="numeroCliente">Número:</label></td>
-                    <td><input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" value="{{ $cliente->numeroCliente }}" required></td>
-                </tr>
+                    <!-- Número -->
+                    <tr>
+                        <td><label for="numeroCliente">Número:</label></td>
+                        <td><input type="text" id="numeroCliente" name="numeroCliente" maxlength="11" value="{{ $cliente->numeroCliente }}" required></td>
+                    </tr>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
-        <div class="form-group button-wrapper" style="margin-bottom: 90%;">
-            <button type="submit" class="submit-btn">Atualizar Cliente</button>
-        </div>
+            <div class="form-group button-wrapper" style="margin-bottom: 90%;">
+                <button type="submit" class="submit-btn">Atualizar Cliente</button>
+            </div>
 
-    </form>
-</div>
+        </form>
+    </div>
 
 </main>
 <br>

@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" href="{{ asset('css/Farmacia-CSS/Verificacao.css')}}">
+
     <title>Login Farmácia | FarmaSUS</title>
+    <link rel="shortcut icon" href="{{ asset('Image/favicon-farmacia.ico')}}" type="image/x-icon">
 </head>
 <body>
     <div class="login-container">
         <div class="login-image">
-            <img src="{{ asset('Image/loginFarmacia.jpg')}}" alt="Ilustração de login">
+            <img src="{{ asset('Image/loginFarmacia3.gif')}}" alt="Ilustração de login">
         </div>
         
         <!-- Lado do formulário -->

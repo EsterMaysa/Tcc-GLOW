@@ -1,5 +1,6 @@
 <!--CSS OK (ASS:Duda)-->
 @include('includes.header')
+<link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ asset('css/Adm-CSS/Medicamento.css') }}">
 
@@ -46,8 +47,8 @@
                 <h5 style="font-size: 30px; font-weight: bold;">Medicamentos</h5>
                 <form action="{{ route('medicamentos.search') }}" method="GET">
                     <input type="text" name="query" id="searchInput" placeholder="Pesquisar por nome, nome genérico, código de barras e nome do Detentor..." class="search-input" style="width: 700px;" onkeyup="if(event.key === 'Enter') this.form.submit();">
+                    <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal" style="color: white;"></i>    
                 </form>
-                <i class='bx bx-filter' data-bs-toggle="modal" data-bs-target="#filterModal"></i>
             </div>
         </div>
     </div>
@@ -156,84 +157,87 @@
 
                         <div class="mb-3">
                             <label class="form-label">Situação</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="A" id="situacaoAtivo" name="situacao[]">
-                                <label class="form-check-label" for="situacaoAtivo">Ativo</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="D" id="situacaoInativo" name="situacao[]">
-                                <label class="form-check-label" for="situacaoInativo">Inativo</label>
+                            <div class="row">
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="A" id="situacaoAtivo" name="situacao[]">
+                                    <label class="form-check-label" for="situacaoAtivo">Ativo</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="D" id="situacaoInativo" name="situacao[]">
+                                    <label class="form-check-label" for="situacaoInativo">Inativo</label>
+                                </div>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Forma Farmacêutica</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Comprimido" id="formaComprimido" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaComprimido">Comprimido</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Cápsula" id="formaCapsula" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaCapsula">Cápsula</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Xarope" id="formaXarope" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaXarope">Xarope</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Suspensão" id="formaSuspensao" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaSuspensao">Suspensão</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Pomada" id="formaPomada" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaPomada">Pomada</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Creme" id="formaCreme" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaCreme">Creme</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Gel" id="formaGel" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaGel">Gel</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Loção" id="formaLocao" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaLocao">Loção</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Solução" id="formaSolucao" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaSolucao">Solução</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Supositório" id="formaSupositorio" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaSupositorio">Supositório</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Pó" id="formaPo" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaPo">Pó</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Adesivo Transdérmico" id="formaAdesivoTransdermico" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaAdesivoTransdermico">Adesivo Transdérmico</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Injeção" id="formaInjecao" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaInjecao">Injeção</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Inalante" id="formaInalante" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaInalante">Inalante</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Emulsão" id="formaEmulsao" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaEmulsao">Emulsão</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="Spray" id="formaSpray" name="formaFarmaceutica[]">
-                                <label class="form-check-label" for="formaSpray">Spray</label>
+                            <div class="row">
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Comprimido" id="formaComprimido" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaComprimido">Comprimido</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Cápsula" id="formaCapsula" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaCapsula">Cápsula</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Xarope" id="formaXarope" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaXarope">Xarope</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Suspensão" id="formaSuspensao" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaSuspensao">Suspensão</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Pomada" id="formaPomada" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaPomada">Pomada</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Creme" id="formaCreme" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaCreme">Creme</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Gel" id="formaGel" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaGel">Gel</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Loção" id="formaLocao" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaLocao">Loção</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Solução" id="formaSolucao" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaSolucao">Solução</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Supositório" id="formaSupositorio" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaSupositorio">Supositório</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Pó" id="formaPo" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaPo">Pó</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Adesivo Transdérmico" id="formaAdesivoTransdermico" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaAdesivoTransdermico">Adesivo Transdérmico</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Injeção" id="formaInjecao" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaInjecao">Injeção</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Inalante" id="formaInalante" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaInalante">Inalante</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Emulsão" id="formaEmulsao" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaEmulsao">Emulsão</label>
+                                </div>
+                                <div class="col-4 form-check">
+                                    <input class="form-check-input" type="checkbox" value="Spray" id="formaSpray" name="formaFarmaceutica[]">
+                                    <label class="form-check-label" for="formaSpray">Spray</label>
+                                </div>
                             </div>
                         </div>
-
 
                         <div class="mb-3">
                             <label for="filtroTipoMedicamento" class="form-label">Tipo de Medicamento</label>
@@ -255,7 +259,7 @@
                             <button type="submit" class="btn btn-primary" id="applyFilters">Aplicar Filtros</button>
 
                             <form action="/medicamento" method="GET">
-                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+                                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             </form>
 
                         </div>
@@ -265,10 +269,13 @@
             </div>
         </div>
     </div>
+
+
+
     <div class="table-data">
     <div class="order">
         <div class="head">
-            <h5 style="font-size: 30px; font-weight: bold;">Medicamento Desativado</h5>
+            <h5 style="font-size: 30px; font-weight: bold;">Medicamentos Desativados</h5>
             <form action="#" method="GET">
                 <input type="text" name="query" id="searchInput" placeholder="Pesquisar por nome, nome genérico, código de barras..." class="search-input" style="width: 700px;" onkeyup="if(event.key === 'Enter') this.form.submit();">
             </form>

@@ -46,7 +46,7 @@
     <div class="table-data">
         <div class="order">
             <div class="head">
-                <h5 style="font-size: 30px;">Pesquisar Farmácia</h5>
+                <h5 style="font-size: 30px; font-weight: bold;">Pesquisar Farmácia</h5>
                 
                 <form action="{{ url('/farmacia') }}" method="GET">
                     <div class="search-container2">
