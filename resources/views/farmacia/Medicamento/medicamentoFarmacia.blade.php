@@ -84,21 +84,20 @@
     </div>
 
     <div class="custom-table">
-        <div class="card-header-1 d-flex justify-content-between align-items-center">
-            <h5>Medicamentos</h5>
-
+        <div class="card-header-1">
             <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" class="form-control">
+                <h5>Medicamentos</h5>
+                <input type="text" id="searchInput" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" class="form-control" style="margin-left: 35%;">
+                <!-- Botão de Filtro -->
+                <button class="botãoInfo" data-toggle="modal" data-target="#filterModal">
+                    <i class="fas fa-filter"></i> Filtros
+                </button>
             </div>
-            <!-- Botão de Filtro -->
-            <button class="botãoInfo" data-toggle="modal" data-target="#filterModal">
-                <i class="fas fa-filter"></i> Filtros
-            </button>
         </div>
 
         <div class="table-container">
             <div class="table-responsive">
-                <table id="medicamentoTable" class="table table-bordered table-striped mt-3">
+                <table id="medicamentoTable" class="table">
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -153,10 +152,9 @@
     </div>
 
     <div class="custom-table">
-        <div class="card-header-1 d-flex justify-content-between align-items-center">
-            <h5>Medicamentos Desativados</h5>
-
+        <div class="card-header-1">
             <div class="search-bar">
+                <h5>Medicamentos Desativados</h5>
                 <input type="text" id="searchInputDesativado" placeholder="Pesquisar por Nome, Genérico, Código ou Lote" class="form-control">
             </div>
 
@@ -164,7 +162,7 @@
 
         <div class="table-container">
             <div class="table-responsive">
-                <table id="medicamentoDesativadoTable" class="table table-bordered table-striped mt-3">
+                <table id="medicamentoDesativadoTable" class="table">
                     <thead>
                         <tr>
                             <th>Nome</th>
